@@ -5,3 +5,5 @@ Ce projet se devait d'être créé avec les méthodes de Devops ainsi qu'en util
 tout en respectant aussi un des besoins de nôtre société actuelle resprésenté par les Objectifs de Développement Durable mis en avant par l'UN.
 
 ### Pot'App qu'est-ce que c'est?
+
+Ceci est un test de pipeline
