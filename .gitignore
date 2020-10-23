@@ -1,6 +1,7 @@
 
-Pot_App/env
-Pot_App/Pot_App/.env
 Frontend/Pot-App/angular.json
 Frontend/Pot-App/package-lock.json
 Frontend/Pot-App/package.json
+Backend/env
+Backend/Pot_App/.env
+Img/
