@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Pot-App"
+    }
+  },
+  "defaultProject": "Pot-App",
+  "cli": {
+    "analytics": "694dc220-2f30-4878-8c2a-0601c41c6761"
+  }
 }
