@@ -14,10 +14,10 @@ import os
 import environ
 
 env = environ.Env(
-    NAME=(str, "boulangerie"),
-    USER=(str, "root"),
-    PASSWORD=(str, "password"),
-    HOST=(str, "localhost"),
+    NAME=(str, "DB_NAME"),
+    USER=(str, "DB_USER"),
+    PASSWORD=(str, "DB_PASSWORD"),
+    HOST=(str, "DB_HOST"),
 )
 
 environ.Env.read_env()
