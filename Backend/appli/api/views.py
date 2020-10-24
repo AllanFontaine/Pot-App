@@ -26,6 +26,12 @@ class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailvi
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
 
@@ -34,7 +40,7 @@ class PlantesRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
 
-    # permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         return Plantes.objects.all()
@@ -67,6 +73,12 @@ class UtilisateursAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # det
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
 
@@ -75,7 +87,7 @@ class UtilisateursRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UtilisateursSerializer
 
-    # permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         return Utilisateurs.objects.all()
@@ -108,6 +120,12 @@ class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailv
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
 
@@ -116,7 +134,7 @@ class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
 
-    # permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
         return Parcelle.objects.all()
