@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 
 @Component({
@@ -7,34 +7,34 @@ import {AuthService} from "../../services/auth.service";
   templateUrl: './login-view.component.html',
   styleUrls: ['./login-view.component.css']
 })
-
 export class LoginViewComponent implements OnInit {
+
   formGroup: FormGroup;
 
-  constructor(private authService: AuthService) {
-  }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
   }
 
-  initForm() {
-    this.formGroup = new FormGroup({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    });
+  initForm(){
+    this.formGroup = new FormGroup(
+      {
+        username: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
+      }
+    )
   }
 
-  LoginProcess() {
-    if (this.formGroup.valid) {
-      this.authService.login(this.formGroup.value).subscribe(result => {
-        if (result.succes) {
-          console.log(result);
-          alert(result.message);
-        } else {
-          alert(result.message);
+  LoginProcess(form: NgForm){
+      this.authService.login(form.value).subscribe(
+        (result) => {
+          console.log("SUCCED: " + result);
+        },
+        (error) => {
+          console.log("WARNING: " + error);
         }
-      })
-    }
+      )
   }
+
 }

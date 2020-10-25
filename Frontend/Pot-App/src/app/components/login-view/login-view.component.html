@@ -1,40 +1,28 @@
-<!----<div class="row">
-    <div style="align-items: center;">
-        <h3>Connexion</h3>
-        <form>
-            <div class="form-group">
-              <label for="loginUsername">Username</label>
-              <input type="email"
-              class="form-control"
-              id="loginUsername"
-                placeholder="Enter username">
-            </div>
-            <div class="form-group">
-              <label for="loginPassword">Password</label>
-              <input type="password"
-              class="form-control"
-              id="loginPassword"
-              placeholder="Password">
-            </div>
-            <div class="form-group form-check">
-                <a routerLink="/resetPassword">Mot de passe oublié</a>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
-    </div>
-</div>---->
-
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
-  <mat-card fxFlex="25">
-    <form fxLayoutAlign=stretch" fxLayout="column" class="login-form" [formGroup]="formGroup" (ngSubmit)="LoginProcess()">
+  <form (ngSubmit)="LoginProcess(f)" #f="ngForm">
+    <div class="form-group" >
       <mat-form-field>
-        <input matInput placeholder="Username" formControlName="email">
+        <mat-label for="loginUsername">Username</mat-label>
+        <input matInput type="text"
+               class="form-control"
+               id="loginUsername"
+               name="username"
+               placeholder="Enter username" ngModel>
       </mat-form-field>
-
+    </div>
+    <div class="form-group">
       <mat-form-field>
-        <input matInput type="password" placeholder="password" formControlName="password">
+        <mat-label for="loginPassword">Password</mat-label>
+        <input matInput type="password"
+               class="form-control"
+               id="loginPassword"
+               name="password"
+               placeholder="Password" ngModel>
       </mat-form-field>
-      <button mat-raised-button type=submit" class="mt-5" color="primary">Login</button>
-    </form>
-  </mat-card>
+    </div>
+    <div class="form-group form-check">
+      <a routerLink="/resetPassword">Mot de passe oublié</a>
+    </div>
+    <button mat-raised-button type="submit" color="primary" class="mt-5">Login</button>
+  </form>
 </div>

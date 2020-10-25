@@ -1,8 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {baseUrl} from "../../environments/environment";
-import {$} from "protractor";
 
 @Injectable()
 export class AuthService {

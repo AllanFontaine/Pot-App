@@ -7,7 +7,6 @@ import { WikiService } from './services/wiki.service';
 import { AppComponent } from './app.component';
 import { HomeViewComponent } from './components/home-view/home-view.component';
 import { WikiViewComponent } from './components/wiki-view/wiki-view.component';
-import { LoginViewComponent } from './components/login-view/login-view.component';
 import { NavViewComponent } from './components/nav-view/nav-view.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './components/register/register.component';
@@ -19,6 +18,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from '@angular/material/card';
+import { LoginViewComponent } from './components/login-view/login-view.component';
 
 const appRoutes : Routes = [
   {path : "home", component: HomeViewComponent},
@@ -33,8 +33,8 @@ const appRoutes : Routes = [
   declarations: [
     AppComponent,
     HomeViewComponent,
-    WikiViewComponent,
     LoginViewComponent,
+    WikiViewComponent,
     NavViewComponent,
     RegisterComponent,
     ResetPasswordComponent,
