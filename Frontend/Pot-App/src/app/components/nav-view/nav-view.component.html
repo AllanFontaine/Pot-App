@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-primary">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -24,3 +24,22 @@
   </div>
 
 </nav>
+
+
+<a mat-button>Home</a>
+  <a mat-button>Wiki</a>
+  <a mat-button>Profil</a>
+  <a mat-button>About us</a>
+  <a mat-raised-button color="accent">Sign Up</a>
+  -->
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span><mat-icon>eco</mat-icon>Pot'App</span>
+    <a mat-button class="nav-link" routerLink="home">Home</a>
+    <a mat-button class="nav-link" routerLink="wiki">Wiki</a>
+    <a mat-button class="nav-link" routerLink="profile">Profile</a>
+  <div class="spacer"></div>
+  <div>
+    <a mat-raised-button color="accent" class="nav-link" routerLink="login">Login</a>
+  </div>
+
+</mat-toolbar>

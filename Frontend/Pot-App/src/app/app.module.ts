@@ -17,8 +17,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import { LoginViewComponent } from './components/login-view/login-view.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 const appRoutes : Routes = [
   {path : "home", component: HomeViewComponent},
@@ -51,6 +53,8 @@ const appRoutes : Routes = [
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
   ],
   providers: [
     AuthService,
