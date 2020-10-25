@@ -1,19 +1,19 @@
-<div class="row">
+<!----<div class="row">
     <div style="align-items: center;">
         <h3>Connexion</h3>
         <form>
             <div class="form-group">
               <label for="loginUsername">Username</label>
-              <input type="email" 
-              class="form-control" 
-              id="loginUsername" 
+              <input type="email"
+              class="form-control"
+              id="loginUsername"
                 placeholder="Enter username">
             </div>
             <div class="form-group">
               <label for="loginPassword">Password</label>
-              <input type="password" 
-              class="form-control" 
-              id="loginPassword" 
+              <input type="password"
+              class="form-control"
+              id="loginPassword"
               placeholder="Password">
             </div>
             <div class="form-group form-check">
@@ -22,4 +22,19 @@
             <button type="submit" class="btn btn-primary">Login</button>
           </form>
     </div>
+</div>---->
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+  <mat-card fxFlex="25">
+    <form fxLayoutAlign=stretch" fxLayout="column" class="login-form" [formGroup]="formGroup" (ngSubmit)="LoginProcess()">
+      <mat-form-field>
+        <input matInput placeholder="Username" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="password" placeholder="password" formControlName="password">
+      </mat-form-field>
+      <button mat-raised-button type=submit" class="mt-5" color="primary">Login</button>
+    </form>
+  </mat-card>
 </div>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
+from django.contrib.auth.models import User
 from rest_framework.reverse import reverse as api_reverse
 
 
@@ -16,7 +17,7 @@ class Plantes(models.Model):
         return api_reverse("api-appli:post-rud-plant", kwargs={'pk': self.pk}, request=request)
 
 
-class Utilisateurs(models.Model):
+"""class Utilisateurs(models.Model):
     nom = models.CharField(max_length=20)
     mot_de_passe = models.CharField(max_length=50)
     mail = models.EmailField(max_length=254)
@@ -25,12 +26,12 @@ class Utilisateurs(models.Model):
         return self.nom
 
     def get_api_url(self, request=None):
-        return api_reverse("api-appli:post-rud-util", kwargs={'pk': self.pk}, request=request)
+        return api_reverse("api-appli:post-rud-util", kwargs={'pk': self.pk}, request=request)"""
 
 
 class Parcelle(models.Model):
     numero_parcelle = models.IntegerField()
-    user = models.ForeignKey(Utilisateurs, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=CASCADE)
     plante = models.ForeignKey(Plantes, on_delete=CASCADE)
     taille = models.FloatField()
 
