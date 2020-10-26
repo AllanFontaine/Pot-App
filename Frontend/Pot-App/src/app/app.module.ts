@@ -9,7 +9,6 @@ import { HomeViewComponent } from './components/home-view/home-view.component';
 import { WikiViewComponent } from './components/wiki-view/wiki-view.component';
 import { NavViewComponent } from './components/nav-view/nav-view.component';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import {HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,17 +18,12 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
-import { LoginViewComponent } from './components/login-view/login-view.component';
+import { LoginViewComponent } from './components/user/login-view/login-view.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
-const appRoutes : Routes = [
-  {path : "home", component: HomeViewComponent},
-  {path : '', component: HomeViewComponent},
-  {path : 'login', component: LoginViewComponent},
-  {path : 'wiki', component: WikiViewComponent},
-  {path : 'resetPassword', component: ResetPasswordComponent},
-  {path : 'register', component: RegisterComponent}
-]
+import { SignUpComponent } from './components/user/sign-up/sign-up.component';
+import { PersoGardenComponent } from './components/perso-garden/perso-garden.component';
+import { UserComponent } from './components/user/user.component';
+import {appRoutes} from "./routes";
 
 @NgModule({
   declarations: [
@@ -38,8 +32,10 @@ const appRoutes : Routes = [
     LoginViewComponent,
     WikiViewComponent,
     NavViewComponent,
-    RegisterComponent,
     ResetPasswordComponent,
+    SignUpComponent,
+    PersoGardenComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
