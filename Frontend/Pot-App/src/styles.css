@@ -37,3 +37,7 @@ div.error-message i{
 .tabs .tab a.active{
   background-color: #fff !important;
 }
+
+.nav-view:hover{
+  color: white;
+}

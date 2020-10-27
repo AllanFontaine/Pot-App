@@ -25,7 +25,6 @@ import { PersoGardenComponent } from './components/perso-garden/perso-garden.com
 import {appRoutes} from "./routes";
 import { AuthGuard} from "./services/auth-guard.service";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
-import { NavAccountComponent } from './nav-account/nav-account.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +36,6 @@ import { NavAccountComponent } from './nav-account/nav-account.component';
     ResetPasswordComponent,
     SignUpComponent,
     PersoGardenComponent,
-    NavAccountComponent,
   ],
   imports: [
     BrowserModule,

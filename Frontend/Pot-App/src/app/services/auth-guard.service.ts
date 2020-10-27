@@ -13,7 +13,8 @@ export class AuthGuard implements CanActivate {
     if (this.authService.LoggedIn()) {
       return true;
     } else {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/login'])
+      alert("Veuillez vous connecter pour avoir accèes à cet onglet")
       return false;
     }
 

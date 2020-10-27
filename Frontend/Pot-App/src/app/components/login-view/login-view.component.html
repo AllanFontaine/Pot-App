@@ -1,7 +1,7 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <form (ngSubmit)="LoginProcess(f)" #f="ngForm">
+    <i class="material-icons prefix">account_circle</i>
     <div class="form-group" >
-      <i class="material-icons prefix">account_circle</i>
       <mat-form-field>
         <mat-label for="loginUsername">Username</mat-label>
         <input matInput type="text"
@@ -11,8 +11,8 @@
                placeholder="Enter username" ngModel>
       </mat-form-field>
     </div>
+    <i class="material-icons prefix">vpn_key</i>
     <div class="form-group">
-      <i class="material-icons prefix">vpn_key</i>
       <mat-form-field>
         <mat-label for="loginPassword">Password</mat-label>
         <input matInput type="password"
