@@ -1,41 +1,66 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { AuthService } from './services/auth.service';
+import { WikiService } from './services/wiki.service';
 
 import { AppComponent } from './app.component';
 import { HomeViewComponent } from './components/home-view/home-view.component';
 import { WikiViewComponent } from './components/wiki-view/wiki-view.component';
-import { LoginViewComponent } from './components/login-view/login-view.component';
 import { NavViewComponent } from './components/nav-view/nav-view.component';
-import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './components/register/register.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component'
-
-const appRoutes : Routes = [
-  {path : "home", component: HomeViewComponent},
-  {path : '', component: HomeViewComponent},
-  {path : 'login', component: LoginViewComponent},
-  {path : 'wiki', component: WikiViewComponent},
-  {path : 'resetPassword', component: ResetPasswordComponent},
-  {path : 'register', component: RegisterComponent}
-]
+import { RouterModule } from '@angular/router';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import { LoginViewComponent } from './components/login-view/login-view.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { PersoGardenComponent } from './components/perso-garden/perso-garden.component';
+import {appRoutes} from "./routes";
+import { AuthGuard} from "./services/auth-guard.service";
+import {TokenInterceptorService} from "./services/token-interceptor.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeViewComponent,
-    WikiViewComponent,
     LoginViewComponent,
+    WikiViewComponent,
     NavViewComponent,
-    RegisterComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    SignUpComponent,
+    PersoGardenComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthService,
+    WikiService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,16 +11,17 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import environ
+import datetime
+"""import environ
 
 env = environ.Env(
-    NAME=(str, "boulangerie"),
-    USER=(str, "root"),
-    PASSWORD=(str, "password"),
-    HOST=(str, "localhost"),
+    NAME=(str, "DB_NAME"),
+    USER=(str, "DB_USER"),
+    PASSWORD=(str, "DB_PASSWORD"),
+    HOST=(str, "DB_HOST"),
 )
 
-environ.Env.read_env()
+environ.Env.read_env()"""
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appli',
     'rest_framework',
-    
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +61,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'Pot_App.urls'
 
@@ -89,11 +94,11 @@ WSGI_APPLICATION = 'Pot_App.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DB_NAME'),
-        'HOST': env('DB_HOST'),
+        'NAME': 'potappdb',
+        'HOST': 'localhost',
         'PORT': '',
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
+        'USER': 'potapp',
+        'PASSWORD': 'password',
     }
 }
 
@@ -115,6 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -134,3 +142,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
