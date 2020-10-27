@@ -28,6 +28,7 @@ class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
     # converts to JSON and validations for data passed
 
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -84,3 +85,18 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
             credentials['username'] = user_obj.username
 
         return super().validate(credentials)
+
+
+class RegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ( 'username', 'email', 'password', 'first_name', 'last_name')
+        extra_kwargs = {'password': {'write_only': True}}
+
+
+    def create(self,validated_data):
+        user = User(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user

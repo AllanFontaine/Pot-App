@@ -18,11 +18,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
-import { LoginViewComponent } from './components/user/login-view/login-view.component';
+import { LoginViewComponent } from './components/login-view/login-view.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { SignUpComponent } from './components/user/sign-up/sign-up.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { PersoGardenComponent } from './components/perso-garden/perso-garden.component';
-import { UserComponent } from './components/user/user.component';
 import {appRoutes} from "./routes";
 
 @NgModule({
@@ -35,7 +34,6 @@ import {appRoutes} from "./routes";
     ResetPasswordComponent,
     SignUpComponent,
     PersoGardenComponent,
-    UserComponent,
   ],
   imports: [
     BrowserModule,

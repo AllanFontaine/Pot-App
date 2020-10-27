@@ -3,7 +3,7 @@ from rest_framework import generics, mixins, permissions
 from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer
+from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer
 
 
 class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
@@ -71,9 +71,6 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
     def perform_create(self, serializer):
         serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
 
@@ -94,6 +91,14 @@ class UserRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
 
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
+
+
+
+class UserRegisterView(generics.ListCreateAPIView):
+    model = User
+    serializer_class = RegisterSerializer
+    queryset = User.objects.all()
+    permission_classes = []
 
 
 class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
@@ -141,3 +146,4 @@ class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     # def get_object(self):
     #   pk = self.kwargs.get("pk")
     #  return News.objects.get(pk=pk)
+
