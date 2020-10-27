@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
 import { HomeViewComponent } from './components/home-view/home-view.component';
 import { WikiViewComponent } from './components/wiki-view/wiki-view.component';
 import { NavViewComponent } from './components/nav-view/nav-view.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -23,6 +23,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { PersoGardenComponent } from './components/perso-garden/perso-garden.component';
 import {appRoutes} from "./routes";
+import { AuthGuard} from "./services/auth-guard.service";
+import {TokenInterceptorService} from "./services/token-interceptor.service";
+import { NavAccountComponent } from './nav-account/nav-account.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import {appRoutes} from "./routes";
     ResetPasswordComponent,
     SignUpComponent,
     PersoGardenComponent,
+    NavAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,8 +55,13 @@ import {appRoutes} from "./routes";
     MatIconModule,
   ],
   providers: [
+    AuthGuard,
     AuthService,
-    WikiService
+    WikiService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

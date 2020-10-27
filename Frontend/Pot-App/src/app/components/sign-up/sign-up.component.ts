@@ -16,9 +16,12 @@ export class SignUpComponent implements OnInit {
   }
 
   registerUser(){
-    this.authService.registerUser(this.registerUserData)
+    this.authService.registerUserSession(this.registerUserData)
       .subscribe(
-        res => console.log(res),
+        res => {
+          console.log(res)
+          localStorage.setItem('token', res.token)
+        },
         err => console.log(err),
       );
   }

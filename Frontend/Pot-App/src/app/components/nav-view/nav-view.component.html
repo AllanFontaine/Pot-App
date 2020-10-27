@@ -36,11 +36,12 @@
   <span><mat-icon>eco</mat-icon>Pot'App</span>
     <a mat-button class="nav-link" routerLink="home">Home</a>
     <a mat-button class="nav-link" routerLink="wiki">Wiki</a>
-    <a mat-button class="nav-link" routerLink="profile">Profile</a>
+    <a mat-button class="nav-link" routerLink="garden">Mon Potager</a>
   <div class="spacer"></div>
   <div>
-    <a mat-raised-button color="warn" class="nav-link" routerLink="register">Register</a>
-    <a mat-raised-button color="accent" class="nav-link" routerLink="login">Login</a>
+    <a mat-raised-button *ngIf="authService.LoggedIn()" color="warn" style="cursor:pointer" class="nav-link" (click)="authService.logoutUser()">Logout</a>
+    <a mat-raised-button *ngIf="!authService.LoggedIn()" color="warn" class="nav-link" routerLink="register">Register</a>
+    <a mat-raised-button *ngIf="!authService.LoggedIn()" color="accent" class="nav-link" routerLink="login">Login</a>
   </div>
 
 </mat-toolbar>

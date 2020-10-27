@@ -101,6 +101,7 @@ class UserRegisterView(generics.ListCreateAPIView):
     permission_classes = []
 
 
+
 class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer

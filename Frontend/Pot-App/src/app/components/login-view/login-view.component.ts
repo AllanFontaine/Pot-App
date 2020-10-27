@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 
@@ -11,7 +12,7 @@ export class LoginViewComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -29,7 +30,9 @@ export class LoginViewComponent implements OnInit {
   LoginProcess(form: NgForm){
       this.authService.login(form.value).subscribe(
         (result) => {
-          console.log("SUCCED: " + result);
+          localStorage.setItem('token', result.access)
+          console.log(form.value);
+          this.router.navigate(['/garden'])
         },
         (error) => {
           console.log("WARNING: " + error);
