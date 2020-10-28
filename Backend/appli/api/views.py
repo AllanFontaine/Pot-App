@@ -2,6 +2,8 @@ from django.db.models import Q
 from rest_framework import generics, mixins, permissions
 from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle
+from django.contrib.auth import get_user_model
+from rest_framework.generics import CreateAPIView
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer
 
@@ -9,7 +11,7 @@ from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, 
 class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
         qss = Plantes.objects.all()
@@ -40,7 +42,7 @@ class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailvi
 class PlantesRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
         return Plantes.objects.all()
@@ -94,11 +96,11 @@ class UserRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
 
 
 
-class UserRegisterView(generics.ListCreateAPIView):
-    model = User
-    serializer_class = RegisterSerializer
-    queryset = User.objects.all()
+class UserRegisterView(CreateAPIView):
+
+    model = get_user_model()
     permission_classes = []
+    serializer_class = RegisterSerializer
 
 
 

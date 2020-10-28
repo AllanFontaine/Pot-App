@@ -10,10 +10,12 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(data):Observable<any>{
+    console.log(data);
     return this.http.post('http://127.0.0.1:8000/api/token', data)
   }
 
   registerUserSession(user):Observable<any>{
+    console.log(user);
     return this.http.post('http://127.0.0.1:8000/api/register', user)
   }
 
