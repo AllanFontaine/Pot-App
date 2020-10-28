@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
+import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-sign-up',
@@ -8,22 +10,41 @@ import {AuthService} from "../../services/auth.service";
 })
 export class SignUpComponent implements OnInit {
 
-  registerUserData = {email: '', username: '', first_name: '', last_name: '', password:''}
+  formGroup: FormGroup;
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
-  registerUser(){
-    this.authService.registerUserSession(this.registerUserData)
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.formGroup = new FormGroup(
+      {
+        username: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required]),
+      }
+    )
+  }
+
+  registerUser(form: NgForm) {
+    this.authService.registerUserSession(form.value)
       .subscribe(
         res => {
           console.log(res)
           localStorage.setItem('token', res.token)
+          this.router.navigate(['/garden'])
         },
-        err => console.log(err),
+        err => {
+          console.log(err)
+          if (!!err.error.username){
+            alert(err.error.username)
+          } else if (!!err.error.password){
+            alert(err.error.password)
+          }
+        },
       );
   }
-
 }

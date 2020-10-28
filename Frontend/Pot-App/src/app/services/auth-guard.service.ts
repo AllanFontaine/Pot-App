@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       this.router.navigate(['/login'])
-      alert("Veuillez vous connecter pour avoir accèes à cet onglet")
+      alert("Veuillez vous connecter pour avoir accès à cet onglet")
       return false;
     }
 

@@ -25,6 +25,7 @@ import { PersoGardenComponent } from './components/perso-garden/perso-garden.com
 import {appRoutes} from "./routes";
 import { AuthGuard} from "./services/auth-guard.service";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
+import {PersonalGardenService} from "./services/personal-garden.service";
 
 @NgModule({
   declarations: [
@@ -55,11 +56,12 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
   providers: [
     AuthGuard,
     AuthService,
-    WikiService, {
+    PersonalGardenService,
+    WikiService, /*{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    }*/
   ],
   bootstrap: [AppComponent]
 })
