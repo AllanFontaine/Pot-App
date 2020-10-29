@@ -1,0 +1,34 @@
+En tant qu'utilisateur, je veux avoir les mêmes droits que les visiteurs. => Pas une US, plus une explication de ce qu'est un utilisateur par rapport à un visiteur.
+
+0. En tant que visiteur, je veux pouvoir avoir des renseignements sur les plantes que je veux planter. 
+
+1. En tant qu’utilisateur, je veux être capable d'arroser une parcelle.
+
+2. En tant qu'utilisateur, je veux être capable de gérer la hauteur d'arrosage.
+
+3. En tant qu'utilisateur, je veux que l'arrosage se fasse de manière automatique.  
+
+4. En tant qu'utilisateur, je veux que l'arrosage se fasse en fonction des caractéristiques de chaque plante.
+
+	4bis. création du site?
+
+5. En tant qu'utilisateur, je veux avoir accès à un espace personnel pour la gestion de mon potager.
+
+6. En tant qu'utilisateur, je veux être conseillé sur ce que je dois planté
+
+7. En tant qu'utilisateur, je veux pouvoir assigner une plante à une parcelle. 
+
+8. En tant qu'utilisateur, je veux pouvoir modifier le contenu d'une parcelle. // regrouper la 7,8,9?
+
+9. En tant qu'utilisateur, je veux pouvoir supprimer le contenu d'une parcelle. 
+
+10. En tant qu'utilisateur, je veux savoir où les plantes sont placées dans le potager.
+
+11. En tant qu'utilisateur, je veux connaitre les besoins des plantes que j'ai plantées.
+
+12. En tant qu'utilisateur, je veux connaitre les caractéristiques des plantes que j'ai plantées.
+
+13. En tant qu'utilisateur, je veux avoir un historique de mes anciennes plantations. 
+
+14. En tant qu'utilisateur, je veux avoir accès à la quantité d'eau déjà déversée.
+
