@@ -1,0 +1,109 @@
+En tant qu'utilisateur, je veux avoir les mêmes droits que les visiteurs.
+
+0. En tant que visiteur, je veux pouvoir avoir des renseignements sur les plantes que je veux planter. Le site Web possédera une page spécialisée dans la collecte d'informations des plantes. Cette page possédera un moteur de recherche, un historique des recherches effectuées sous forme de liste cliquable et sur le milieu de la page se trouvera le résultat de la recherche. Chaque page descriptive d'une plante possédera toutes les informations nécessaires à l'entretien de celle-ci et d'autres informations complémentaires.
+
+1. En tant qu’utilisateur, je veux être capable d'arroser une parcelle.
+
+2. En tant qu'utilisateur, je veux être capable de gérer la hauteur d'arrosage.
+
+3. En tant qu'utilisateur, je veux que l'arrosage se fasse de manière automatique.  
+
+4. En tant qu'utilisateur, je veux que l'arrosage se fasse en fonction des caractéristiques de chaque plante.
+
+	4bis. création du site?
+
+5. En tant qu'utilisateur, je veux avoir accès à un espace personnel pour la gestion de mon potager.
+	- En tant qu'utilisateur, lorsque j'arrive sur mon espace personnel de gestion je vois : 
+	1) Si je ne suis pas encore identifié sur le site : 
+		- La barre de navigation du haut reprenant un lien vers : "Accueil", "Votre potager", "Wiki", "About Us"
+		- Un bouton login en haut à droite pour s'identifier
+		- Un bouton Sign Up en haut à droite pour créer un compte utilisateur
+		- Un message au milieu de la page qui dit : "Pour avoir accès à votre potager, merci de vous connecter"
+		- Un gros bouton Login au milieu de la page
+		- Un gros bouton Sign Up au milieu de la page
+	2) Si je suis identifié sur le site mais que je ne possède pas encore de parcelles : 
+		- La barre de navigation du haut reprenant un lien vers : "Accueil", "Votre potager", "Wiki", "About Us"
+		- Du texte en haut à droite (remplaçant les boutons login et sign up) qui dit : "Vous êtes connecté(e) en tant que (nom_utilisateur)"
+		- Un bouton au milieu de la page qui me permet d'ajouter une parcelle à mon compte
+	3) Si je suis identifié sur le site et que je possède au moins une parcelle : 
+		- La barre de navigation du haut reprenant un lien vers : "Accueil", "Votre potager", "Wiki", "About Us"
+		- Du texte en haut à droite (remplaçant les boutons login et sign up) qui dit : "Vous êtes connecté(e) en tant que (nom_utilisateur)"
+		- Un tableau qui reprend le détail de ma/mes parcelle(s) comme suit : 
+			1) Numéro de la parcelle
+			2) Légume ou plante présent dans cette parcelle
+			3) Un bouton AFFICHER qui renvoie vers une page de monitoring de la parcelle
+			4) Un bouton ASSIGNER qui renvoie vers une page d'assignation de parcelles
+		- Un bouton en dessous du tableau qui me permet d'ajouter une parcelle à mon compte
+
+6. En tant qu'utilisateur, je veux être conseillé sur ce que je dois planté
+
+	- En tant qu'utilisateur, lorsque je commence le processus d'assignement d'une plante à une parcelle, je peux appuyer sur le bouton "conseillez-moi".
+
+	- En tant qu'utilisateur, je peux appuyer sur le bouton "conseillez-moi" sur la page d'accueil du site.
+
+		* un pop-up demande alors la parcelle sur laquelle je désire avoir un conseil.
+	
+
+	- J'ai alors une page qui présente, sous la forme d'un formulaire, les critères. Ceux qui manquent auront un input vide et ceux pour lesquels on a déjà l'information seront remplis au préalable.
+		
+		* saison: char(20)
+
+		* plante précédentes: char(50)
+
+		* emplacement jardin: char(10) //sud-nord-est-ouest
+
+	
+
+	- J'appuie alors sur le bouton confirmer.
+		
+		* Si des critères restent vide, un pop-up va me prévenir que le plus de détails possible assurent un conseil plus adapté.
+
+			+ La question "Etes-vous sur de laisser certains critères vident?" sera alors posée.
+			
+			+ Si j'en suis certain de ce choix, j'appuie sur le bouton "oui".
+
+			+ Si je ne suis pas certain de ce choix, j'appuie sur le bouton "non" et je retourne alors sur le formulaire pour remplir les critères manquants.
+
+
+	- Un calcul est effectué en croisant plusieurs données de la base de données et mes critères pour proposer les meilleures et pires plantes.
+
+	- Une liste des 3 meilleures plantes et des 3 pires plantes à planter sont alors proposées. 
+
+		* Un petit message rappelle tout de même que le choix final nous revient et que ces propositions ne sont que des pistes.
+
+
+	- à tout moment, je peux appuyer sur le bouton "annuler" si je ne veux plus être conseillé. Je retourne alors sur la page d'accueil.
+
+
+
+7. En tant qu'utilisateur, je veux pouvoir assigner une plante à une parcelle. 
+
+- Sur la page du gestionnaire de mon potager, à coter de la parcelle souhaité, je pourrai cliquer sur un bouton "assigner"
+- Le bouton me redirige vers une page dédiée à l'assignement d'un plant à cette parcelle
+- Sur cette page se trouvera un champ me demandant quel légume je souhaite assigner à cette parcelle
+- A coté du champ se trouve un menu déroulant reprennant tous les légumes cultivable en Belgique
+
+- A la fin de la page se trouve un bouton me permettant de valider mon assignation.
+
+8. En tant qu'utilisateur, je veux pouvoir modifier le contenu d'une parcelle. // regrouper la 7,8,9?
+
+9. En tant qu'utilisateur, je veux pouvoir supprimer le contenu d'une parcelle. 
+
+10. En tant qu'utilisateur, je veux savoir où les plantes sont placées dans le potager.
+
+11. En tant qu'utilisateur, je veux connaitre les besoins des plantes que j'ai plantées.
+
+12. En tant qu'utilisateur, je veux connaitre les caractéristiques des plantes que j'ai plantées.
+
+13. En tant qu'utilisateur, je veux avoir un historique de mes anciennes plantations. 
+
+14. En tant qu'utilisateur, je veux avoir accès à la quantité d'eau déjà déversée.
+
+## Attribution des User Stories : 
+
+0. Emmanuel Foureau
+3. Allan Fontaine
+5. Kevin Vandenede
+6. Celia Hassaine
+7. Florent Theys
+10. Glenn Crompton 
