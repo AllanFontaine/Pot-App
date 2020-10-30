@@ -57,11 +57,11 @@ import {PersonalGardenService} from "./services/personal-garden.service";
     AuthGuard,
     AuthService,
     PersonalGardenService,
-    WikiService, /*{
+    WikiService, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }*/
+    }
   ],
   bootstrap: [AppComponent]
 })

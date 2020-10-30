@@ -8,7 +8,7 @@ class Plantes(models.Model):
     nom = models.CharField(max_length=100)
     taux_ideal_eau = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
-    image = models.ImageField('plantes', upload_to='../Img', blank=True)
+    image = models.ImageField('plantes', upload_to='./Img', blank=True)
 
     def __str__(self):
         return self.nom
