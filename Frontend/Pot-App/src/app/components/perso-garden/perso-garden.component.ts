@@ -15,7 +15,7 @@ export class PersoGardenComponent implements OnInit {
 
   ngOnInit(): void {
     this.garden.get_my_garden().subscribe(
-      res => {this.my_garden = res; console.log(res)},
+      res => {"GG   "+console.log(res)},
       err => console.log(err)
     )
   }
