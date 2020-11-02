@@ -30,21 +30,27 @@ export class SignUpComponent implements OnInit {
   }
 
   registerUser(form: NgForm) {
-    this.authService.registerUserSession(form.value)
-      .subscribe(
-        res => {
-          console.log(res)
-          localStorage.setItem('token', res.token)
-          this.router.navigate(['/garden'])
-        },
-        err => {
-          console.log(err)
-          if (!!err.error.username){
-            alert(err.error.username)
-          } else if (!!err.error.password){
-            alert(err.error.password)
-          }
-        },
-      );
+    const val = form.value;
+    if(val.email && val.password && val.username) {
+      this.authService.registerUser(form.value)
+        .subscribe(
+          res => {
+            console.log(res)
+            this.router.navigate(['/login'])
+            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!")
+          },
+          err => {
+            console.log(val)
+            if (!!err.error.username) {
+              alert(err.error.username)
+            } else if (!!err.error.password) {
+              alert(err.error.password)
+            }
+          },
+        );
+    } else{
+      console.log("la valeur de val n'est pas conforme.");
+      console.log(val);
+    }
   }
 }

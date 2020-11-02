@@ -26,6 +26,8 @@ import {appRoutes} from "./routes";
 import { AuthGuard} from "./services/auth-guard.service";
 import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {PersonalGardenService} from "./services/personal-garden.service";
+import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import {PersonalGardenService} from "./services/personal-garden.service";
     ResetPasswordComponent,
     SignUpComponent,
     PersoGardenComponent,
+    AddParcelComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import {PersonalGardenService} from "./services/personal-garden.service";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

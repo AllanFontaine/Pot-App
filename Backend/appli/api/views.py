@@ -58,10 +58,10 @@ class PlantesRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
 class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
-        qss = Plantes.objects.all()
+        qss = User.objects.all()
         query = self.request.GET.get("q")
         if query is not None:
             qss = qss.filter(
@@ -72,6 +72,10 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
 
     def perform_create(self, serializer):
         serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
+
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
@@ -86,10 +90,10 @@ class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
 class UserRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
-        return Plantes.objects.all()
+        return User.objects.all()
 
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
@@ -107,7 +111,7 @@ class UserRegisterView(CreateAPIView):
 class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
         qss = Parcelle.objects.all()
@@ -138,7 +142,7 @@ class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailv
 class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
     def get_queryset(self):
         return Parcelle.objects.all()
@@ -149,4 +153,5 @@ class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     # def get_object(self):
     #   pk = self.kwargs.get("pk")
     #  return News.objects.get(pk=pk)
+    # permissions.IsAuthenticated
 

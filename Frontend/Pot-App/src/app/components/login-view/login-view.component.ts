@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-login-view',
@@ -10,6 +11,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class LoginViewComponent implements OnInit {
 
+  helper = new JwtHelperService();
   formGroup: FormGroup;
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -31,7 +33,9 @@ export class LoginViewComponent implements OnInit {
       this.authService.login(form.value).subscribe(
         (result) => {
           localStorage.setItem('token', result.access)
-          console.log(form.value);
+          const decodedToken = this.helper.decodeToken(result.access);
+          console.log(decodedToken);
+          localStorage.setItem('user_id', decodedToken.user_id)
           this.router.navigate(['/garden'])
         },
         (error) => {

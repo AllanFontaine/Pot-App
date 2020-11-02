@@ -19,26 +19,23 @@ class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
         fields = [
             'url',
             'id',
+            'nom',
             'taux_ideal_eau',
             'description',
             'image',
         ]
-        read_only_fields = ['id']  # bon par exemple pour les données d utilisateur  (voir views pour traiter erreur
-        # lors d un post sans utilisateur
+        read_only_fields = ['id']
 
     def get_url(self, obj):
         request = self.context.get("request")
         return obj.get_api_url(request=request)
-
-    # Serializer does 2 things:
-    # converts to JSON and validations for data passed
 
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = [ 'id', 'email', 'last_name', 'first_name', 'password', 'is_staff', 'username' ]
+        fields = [ 'id', 'email', 'last_name', 'first_name', 'password', 'username' ]
 
     def validate_password (self, password) :
         return make_password(password)
@@ -71,9 +68,7 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         token["email"] = user.email
-        token["first_name"] = user.first_name
-        token["last_name"] = user.last_name
-        token["is_staff"] = user.is_staff
+        token["username"] = user.username
         token["id"] = user.id
 
         return token
