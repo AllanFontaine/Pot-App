@@ -7,7 +7,6 @@ from rest_framework.generics import CreateAPIView
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer
 
-
 class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
