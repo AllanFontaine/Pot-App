@@ -15,7 +15,7 @@ export class AuthService {
 
   registerUser(user):Observable<any>{
     console.log(user);
-    return this.http.post('http://127.0.0.1:8000/api/users', user)
+    return this.http.post('http://127.0.0.1:8000/api/register', user)
   }
 
   LoggedIn(){

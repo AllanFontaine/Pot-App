@@ -62,6 +62,28 @@ class ParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
         return obj.get_api_url(request=request)
 
 
+class ParcellePlanteSerializer(serializers.ModelSerializer):  # forms.ModelForm
+    url = serializers.SerializerMethodField(read_only=True)
+    plante = PlantesSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Parcelle
+        fields = [
+            'url',
+            'id',
+            'user',
+            'numero_parcelle',
+            'taille',
+            'plante',
+        ]
+        read_only_fields = [
+            'id']
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
+
+
 
 class CustomJWTSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -89,16 +111,7 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-    token = serializers.SerializerMethodField()
-
-    def get_token(self, obj):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-
-        payload = jwt_payload_handler(obj)
-        token = jwt_encode_handler(payload)
-        return token
+    token = CustomJWTSerializer(user)
 
     def validate(self, data):
         password = data.get('password')
@@ -129,4 +142,13 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ('username', 'email', 'password', 'token')
-        extra_kwargs = {'password': {'write_only': True}}
+
+    def validate_password (self, password) :
+        return make_password(password)
+
+
+class UserParcelleSerializer(serializers.ModelSerializer):
+    parcelle = ParcellePlanteSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'parcelle']

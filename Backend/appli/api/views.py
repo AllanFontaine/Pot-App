@@ -5,7 +5,7 @@ from appli.models import Plantes, Parcelle
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer
+from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, UserParcelleSerializer, ParcellePlanteSerializer
 
 
 class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
@@ -101,7 +101,6 @@ class UserRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
 
 
 class UserRegisterView(CreateAPIView):
-
     model = get_user_model()
     permission_classes = []
     serializer_class = RegisterSerializer
@@ -141,7 +140,7 @@ class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailv
 
 class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
-    serializer_class = ParcelleSerializer
+    serializer_class = ParcellePlanteSerializer
     permission_classes = []
 
     def get_queryset(self):
@@ -154,4 +153,11 @@ class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
     #   pk = self.kwargs.get("pk")
     #  return News.objects.get(pk=pk)
     # permissions.IsAuthenticated
+
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = []
+    lookup_field = 'pk'
+    serializer_class = UserParcelleSerializer
+    queryset = User.objects.all()
 

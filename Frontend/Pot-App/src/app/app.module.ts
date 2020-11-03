@@ -28,6 +28,7 @@ import {TokenInterceptorService} from "./services/token-interceptor.service";
 import {PersonalGardenService} from "./services/personal-garden.service";
 import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { SingleParcelComponent } from './components/single-parcel/single-parcel.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {MatRadioModule} from '@angular/material/radio';
     SignUpComponent,
     PersoGardenComponent,
     AddParcelComponent,
+    SingleParcelComponent,
   ],
   imports: [
     BrowserModule,

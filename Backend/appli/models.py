@@ -19,8 +19,8 @@ class Plantes(models.Model):
 
 class Parcelle(models.Model):
     numero_parcelle = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=CASCADE)
-    plante = models.ForeignKey(Plantes, on_delete=CASCADE)
+    user = models.ForeignKey(User, related_name='parcelle', on_delete=CASCADE)
+    plante = models.ForeignKey(Plantes, related_name='parcelle', on_delete=CASCADE)
     taille = models.FloatField()
 
     def __str__(self):

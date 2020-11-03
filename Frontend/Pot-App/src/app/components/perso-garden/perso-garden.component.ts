@@ -10,45 +10,23 @@ import {Router} from "@angular/router";
 
 export class PersoGardenComponent implements OnInit {
 
-  plants = [];
-  parcels = [];
-  my_parcel=[];
+  my_parcel = [];
 
-  constructor(private garden: PersonalGardenService, private router: Router) { }
+  constructor(private garden: PersonalGardenService, public router: Router) {
+  }
 
   ngOnInit(): void {
-    this.garden.get_plants().subscribe(
+    this.garden.get_my_parcels(localStorage.getItem('user_id')).subscribe(
       res => {
-        this.plants = res
-      },
-      err => console.log(err)
-    )
+        this.my_parcel = res.parcelle
 
-    this.garden.get_parcel().subscribe(
-      res => {
-        this.parcels = res
-
-        console.log(this.parcels[0].user === parseInt(localStorage.getItem('user_id')))
-        // Suppression des parcels qui n'appartiennent pas à l'utilisateur
-        for(let i=0; i < this.parcels.length;i++){
-          if(this.parcels[i].user === parseInt(localStorage.getItem('user_id'))){
-            this.my_parcel[i] = this.parcels[i]
-          }
-        }
-
-        // Suppression des parcels qui n'appartiennent pas à l'utilisateur
-        for(let i=0; i < this.my_parcel.length;i++){
-          for(let j=0; j < this.plants.length;j++) {
-            if (this.my_parcel[i].plante === this.plants[j].id) {
-              this.my_parcel[i].image_plante = this.plants[j].image;
-              this.my_parcel[i].nom_plante = this.plants[j].nom;
-              this.my_parcel[i].description_plante = this.plants[j].description;
-            }
-          }
-        }
+        console.log(this.my_parcel)
       },
       err => console.log(err)
     )
   }
 
+  navigToAdd():void{
+    this.router.navigate(['/add-parcel'])
+  }
 }

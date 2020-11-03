@@ -11,11 +11,15 @@ export class PersonalGardenService{
   constructor(private http: HttpClient){}
 
   get_plants():Observable<any>{
-    return this.http.get("http://127.0.0.1:8000/api/")
+    return this.http.get("http://127.0.0.1:8000/api/plante/")
   }
 
-  get_parcel():Observable<any>{
-    return this.http.get("http://127.0.0.1:8000/api/parcelle/")
+  get_my_parcels(user_id):Observable<any>{
+    return this.http.get("http://127.0.0.1:8000/api/parcelle-user/"+ user_id +"/")
+  }
+
+  get_one_parcel(id):Observable<any>{
+    return this.http.get("http://127.0.0.1:8000/api/parcelle/"+id+"/")
   }
 
   get_user_id(){
