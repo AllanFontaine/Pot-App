@@ -17,6 +17,6 @@ export const appRoutes : Routes = [
   {path : 'register', component: SignUpComponent,},
   {path : 'garden', component: PersoGardenComponent, canActivate: [AuthGuard]},
   {path : 'add-parcel', component: AddParcelComponent, canActivate: [AuthGuard]},
-  {path : 'single-parcel/:id', component: SingleParcelComponent, canActivate: [AuthGuard]},
+  {path : 'garden/:id', component: SingleParcelComponent, canActivate: [AuthGuard]},
   {path : '', redirectTo: '/home', pathMatch: 'full'},
 ]

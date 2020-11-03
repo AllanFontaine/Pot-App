@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PersonalGardenService} from "../../services/personal-garden.service";
 import {Router} from "@angular/router";
 

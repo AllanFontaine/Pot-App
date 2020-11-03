@@ -111,7 +111,6 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    token = CustomJWTSerializer(user)
 
     def validate(self, data):
         password = data.get('password')
@@ -135,6 +134,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email']
         )
         user.set_password(validated_data['password'])
+        token = CustomJWTSerializer(user['username'], user['password'])
+        user['token']
         user.save()
 
         return user

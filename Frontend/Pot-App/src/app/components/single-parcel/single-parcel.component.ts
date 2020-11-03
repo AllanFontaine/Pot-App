@@ -10,21 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 export class SingleParcelComponent implements OnInit {
 
   id_parcel: string;
-  parcel: {
-    url: string,
-    id: number,
-    user: number,
-    numero_parcelle:number,
-    taille: number,
-    plante: {
-      url: string,
-      id: number,
-      nom: string,
-      taux_ideal_eau: string,
-      description: string,
-      image: string,
-    },
-  };
+  parcel: [];
 
   constructor(private garden: PersonalGardenService, private route: ActivatedRoute) { }
 
@@ -37,7 +23,7 @@ export class SingleParcelComponent implements OnInit {
     this.garden.get_one_parcel(this.id_parcel).subscribe(
       result => {
         this.parcel = result;
-        console.log(this.parcel);
+        console.log(typeof this.parcel);
       },
       error => console.log(error),
     )
