@@ -31,7 +31,7 @@ class Parcelle(models.Model):
     
 
     def __str__(self):
-        return "Parcelle numéro " + self.numero + "appartenant à " + self.user + " contenant " + self.plante
+        return "Parcelle numéro "+ str(self.numero_parcelle)
 
     def get_api_url(self, request=None):
         return api_reverse("api-appli:post-rud-parce", kwargs={'pk': self.pk}, request=request)
@@ -43,6 +43,9 @@ class DonneesParcelle(models.Model):
     humidite_sol = models.IntegerField()
     quantite_eau_litre = models.DecimalField(max_digits = 10, decimal_places = 2)
 
+    def __str__(self):
+        return "parcelle numéro " + self.parcelleId.id
+
     def get_api_url(self, request=None):
         return api_reverse("api-appli:post-rud-dParce", kwargs={'pk': self.pk}, request=request)
 
@@ -51,6 +54,10 @@ class DonneesUser(models.Model):
     date_reception_donnee = models.DateTimeField(default = timezone.now)
     temperature_exterieur = models.DecimalField(max_digits = 10, decimal_places = 2)
     humidite_exterieur = models.DecimalField(max_digits = 10, decimal_places = 2)
+
+    def __str__(self):
+        return "données du user nommé "+ self.userId.username
+
 
     def get_api_url(self, request=None):
         return api_reverse("api-appli:post-rud-dUser", kwargs={'pk': self.pk}, request=request)

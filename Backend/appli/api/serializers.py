@@ -158,20 +158,23 @@ class UserParcelleSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'parcelle']
 
+
+
 class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    url = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = DonneesParcelle
-        fields = ['id', 'url','parcelleId','date_reception_donnee','humidite_sol','quantite_eau_litre']
+        fields = ['id','parcelleId','date_reception_donnee','humidite_sol','quantite_eau_litre']
         read_only_fields = ['id']
 
     def get_url(self, obj):
         request = self.context.get("request")
         return obj.get_api_url(request=request)
 
+
+
 class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    
+    userId = UserSerializer(many=False, read_only=True)
 
     class Meta:
         model = DonneesUser
