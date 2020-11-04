@@ -26,6 +26,7 @@ class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
             'date_semis_fin',
             'recolte_en_jours',
             'description',
+            'url_wiki',
             'image',
         ]
         read_only_fields = ['id']

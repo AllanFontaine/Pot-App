@@ -12,6 +12,7 @@ class Plantes(models.Model):
     date_semis_fin = models.DateField(blank =False,  default = timezone.now)
     recolte_en_jours = models.IntegerField(default = 0)
     description = models.TextField(blank=True)
+    url_wiki = models.TextField(blank = False, default = '')
     image = models.ImageField('plantes', upload_to='./Img', blank=True)
 
     def __str__(self):
