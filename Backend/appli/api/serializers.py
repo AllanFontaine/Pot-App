@@ -11,13 +11,11 @@ from rest_framework_jwt.settings import api_settings
 UserModel = get_user_model()
 
 
-class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    url = serializers.SerializerMethodField(read_only=True)
+class PlantesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plantes
         fields = [
-            'url',
             'id',
             'nom',
             'nom_scientifique',
@@ -31,10 +29,6 @@ class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
         ]
         read_only_fields = ['id']
 
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
-
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,39 +36,32 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = [ 'id', 'email', 'last_name', 'first_name', 'password', 'username' ]
 
-    def validate_password (self, password) :
+    def validate_password (self, password):
         return make_password(password)
 
 
-class ParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    url = serializers.SerializerMethodField(read_only=True)
+class ParcelleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Parcelle
         fields = [
-            'url',
             'id',
             'userId',
             'numero_parcelle',
             'taille_metre_carre',
+            'estUtilise',
             'planteId',
         ]
         read_only_fields = [
             'id']
 
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
 
-
-class ParcellePlanteSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    url = serializers.SerializerMethodField(read_only=True)
+class ParcellePlanteSerializer(serializers.ModelSerializer):
     plante = PlantesSerializer(many=False, read_only=True)
 
     class Meta:
         model = Parcelle
         fields = [
-            'url',
             'id',
             'userId',
             'numero_parcelle',
@@ -83,10 +70,6 @@ class ParcellePlanteSerializer(serializers.ModelSerializer):  # forms.ModelForm
         ]
         read_only_fields = [
             'id']
-
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
 
 
 
@@ -168,9 +151,7 @@ class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
         fields = ['id','parcelleId','date_reception_donnee','humidite_sol','quantite_eau_litre']
         read_only_fields = ['id']
 
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
+
 
 
 
@@ -181,7 +162,3 @@ class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
         model = DonneesUser
         fields = ['id', 'userId','date_reception_donnee','temperature_exterieur','humidite_exterieur']
         read_only_fields = ['id']
-
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
