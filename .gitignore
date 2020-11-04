@@ -5,3 +5,9 @@ Frontend/Pot-App/package.json
 Backend/env
 Backend/Pot_App/.env
 Img/
+
+Backend/appli/migrations/__pycache__/
+
+Backend/appli/api/__pycache__/
+
+Backend/appli/__pycache__/

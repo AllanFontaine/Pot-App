@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from appli.models import Plantes, Parcelle
+from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
 from django.contrib.auth.hashers import make_password
 from django.core import exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -20,7 +20,11 @@ class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
             'url',
             'id',
             'nom',
-            'taux_ideal_eau',
+            'nom_scientifique',
+            'besoin_hydrolique',
+            'date_semis_debut',
+            'date_semis_fin',
+            'recolte_en_jours',
             'description',
             'image',
         ]
@@ -49,10 +53,10 @@ class ParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
         fields = [
             'url',
             'id',
-            'user',
+            'userId',
             'numero_parcelle',
-            'taille',
-            'plante',
+            'taille_metre_carre',
+            'planteId',
         ]
         read_only_fields = [
             'id']
@@ -71,9 +75,9 @@ class ParcellePlanteSerializer(serializers.ModelSerializer):  # forms.ModelForm
         fields = [
             'url',
             'id',
-            'user',
+            'userId',
             'numero_parcelle',
-            'taille',
+            'taille_metre_carre',
             'plante',
         ]
         read_only_fields = [
@@ -153,3 +157,27 @@ class UserParcelleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'parcelle']
+
+class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
+    url = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = DonneesParcelle
+        fields = ['id', 'url','parcelleId','date_reception_donnee','humidite_sol','quantite_eau_litre']
+        read_only_fields = ['id']
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)
+
+class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
+    
+
+    class Meta:
+        model = DonneesUser
+        fields = ['id', 'userId','date_reception_donnee','temperature_exterieur','humidite_exterieur']
+        read_only_fields = ['id']
+
+    def get_url(self, obj):
+        request = self.context.get("request")
+        return obj.get_api_url(request=request)

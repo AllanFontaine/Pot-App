@@ -2,11 +2,15 @@ from django.db import models
 from django.db.models.deletion import CASCADE, PROTECT
 from django.contrib.auth.models import User
 from rest_framework.reverse import reverse as api_reverse
-
+from django.utils import timezone
 
 class Plantes(models.Model):
     nom = models.CharField(max_length=100)
-    taux_ideal_eau = models.DecimalField(max_digits=10, decimal_places=2)
+    nom_scientifique = models.CharField(max_length=100, default = "Pas de nom scientifique encodé")
+    besoin_hydrolique = models.DecimalField(max_digits=10, decimal_places=2)
+    date_semis_debut = models.DateField(blank = False,  default = timezone.now)
+    date_semis_fin = models.DateField(blank =False,  default = timezone.now)
+    recolte_en_jours = models.IntegerField(default = 0)
     description = models.TextField(blank=True)
     image = models.ImageField('plantes', upload_to='./Img', blank=True)
 
@@ -19,9 +23,12 @@ class Plantes(models.Model):
 
 class Parcelle(models.Model):
     numero_parcelle = models.IntegerField()
-    user = models.ForeignKey(User, related_name='parcelle', on_delete=CASCADE)
-    plante = models.ForeignKey(Plantes, related_name='parcelle', on_delete=CASCADE)
-    taille = models.FloatField()
+    userId = models.ForeignKey(User, related_name='parcelle', on_delete=CASCADE)
+    planteId = models.ForeignKey(Plantes, related_name='parcelle', on_delete=CASCADE)
+    date_plantation = models.DateField(blank = False, default = timezone.now)
+    taille_metre_carre = models.FloatField()
+    estUtilise = models.BooleanField(default = True);
+    
 
     def __str__(self):
         return "Parcelle numéro " + self.numero + "appartenant à " + self.user + " contenant " + self.plante
@@ -30,77 +37,23 @@ class Parcelle(models.Model):
         return api_reverse("api-appli:post-rud-parce", kwargs={'pk': self.pk}, request=request)
 
 
-"""class User(AbstractBaseUser, PermissionsMixin):
-    \"""
-    Defines our custom user class.
-    Username, email and password are required.
-    \"""
+class DonneesParcelle(models.Model):
+    parcelleId = models.ForeignKey(Parcelle, related_name='donnes', on_delete=CASCADE)
+    date_reception_donnee = models.DateTimeField(default = timezone.now)
+    humidite_sol = models.IntegerField()
+    quantite_eau_litre = models.DecimalField(max_digits = 10, decimal_places = 2)
 
-    username = models.CharField(db_index=True, max_length=255, unique=True)
+    def get_api_url(self, request=None):
+        return api_reverse("api-appli:post-rud-dParce", kwargs={'pk': self.pk}, request=request)
 
-    email = models.EmailField(
-        validators=[validators.validate_email],
-        unique=True,
-        blank=False
-        )
+class DonneesUser(models.Model):
+    userId = models.ForeignKey(User, related_name='donneesUser', on_delete = CASCADE)
+    date_reception_donnee = models.DateTimeField(default = timezone.now)
+    temperature_exterieur = models.DecimalField(max_digits = 10, decimal_places = 2)
+    humidite_exterieur = models.DecimalField(max_digits = 10, decimal_places = 2)
 
-    is_staff = models.BooleanField(default=False)
+    def get_api_url(self, request=None):
+        return api_reverse("api-appli:post-rud-dUser", kwargs={'pk': self.pk}, request=request)
 
-    is_active = models.BooleanField(default=True)
 
-    # The `USERNAME_FIELD` property tells us which field we will use to log in.
-    USERNAME_FIELD = 'email'
-
-    REQUIRED_FIELDS = ('username',)
-
-    # Tells Django that the UserManager class defined above should manage
-    # objects of this type.
-    objects = UserManager()
-
-    def __str__(self):
-        \"""
-        Returns a string representation of this `User`.
-        This string is used when a `User` is printed in the console.
-        \"""
-        return self.username
-
-    @property
-    def token(self):
-        \"""
-        Allows us to get a user's token by calling `user.token` instead of
-        `user.generate_jwt_token().
-
-        The `@property` decorator above makes this possible. `token` is called
-        a "dynamic property".
-        \"""
-        return self._generate_jwt_token()
-
-    def get_full_name(self):
-        \"""
-        This method is required by Django for things like handling emails.
-        Typically this would be the user's first and last name. Since we do
-        not store the user's real name, we return their username instead.
-        \"""
-        return self.username
-
-    def get_short_name(self):
-        \"""
-        This method is required by Django for things like handling emails.
-        Typically, this would be the user's first name. Since we do not store
-        the user's real name, we return their username instead.
-        \"""
-        return self.username
-
-    def _generate_jwt_token(self):
-        \"""
-        Generates a JSON Web Token that stores this user's ID and has an expiry
-        date set to 60 days into the future.
-        \"""
-        dt = datetime.now() + timedelta(days=60)
-
-        token = jwt.encode({
-            'id': self.pk,
-            'exp': int(dt.strftime('%s'))
-        }, settings.SECRET_KEY, algorithm='HS256')
-
-        return token.decode('utf-8')"""
+    
