@@ -6,6 +6,8 @@ import {ResetPasswordComponent} from "./components/reset-password/reset-password
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {PersoGardenComponent} from "./components/perso-garden/perso-garden.component";
 import {AuthGuard} from "./services/auth-guard.service";
+import {AddParcelComponent} from "./components/add-parcel/add-parcel.component";
+import {SingleParcelComponent} from "./components/single-parcel/single-parcel.component";
 
 export const appRoutes : Routes = [
   {path : 'home', component: HomeViewComponent},
@@ -14,5 +16,7 @@ export const appRoutes : Routes = [
   {path : 'login', component: LoginViewComponent,},
   {path : 'register', component: SignUpComponent,},
   {path : 'garden', component: PersoGardenComponent, canActivate: [AuthGuard]},
+  {path : 'add-parcel', component: AddParcelComponent, canActivate: [AuthGuard]},
+  {path : 'garden/:id', component: SingleParcelComponent, canActivate: [AuthGuard]},
   {path : '', redirectTo: '/home', pathMatch: 'full'},
 ]

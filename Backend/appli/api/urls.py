@@ -1,16 +1,25 @@
 from django.conf.urls import url
 from django.urls import path
-
-from .views import PlantesAPIView, PlantesRudView, ParcelleRudView, ParcelleAPIView, UserAPIView, UserRudView, UserRegisterView
-
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework import routers
+from .serializers import CustomJWTSerializer
+from appli.api import views
+from .views import PlantesAPIView, ParcelleAPIView, UserAPIView, UserRegisterView, UserDetail, DonneesParcelleAPIView, DonneesUserAPIView
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
+router = routers.DefaultRouter()
+router.register(r'plante', views.PlantesAPIView, basename="plantes")
+router.register(r'users', views.UserAPIView, basename="users")
+router.register(r'parcelle', views.ParcelleAPIView, basename="parcelles")
+router.register(r'parcelle-user', views.UserDetail, basename="parcellesUsers")
+router.register(r'donnees-parcelle', views.DonneesParcelleAPIView, basename="dParcelles")
+router.register(r'donnees-user', views.DonneesUserAPIView, basename="dUsers")
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -38,7 +47,8 @@ urlpatterns = [
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('register', UserRegisterView.as_view()),
+    path('', include(router.urls)),
+]
     
-    ]
 
 app_name = 'plantes'

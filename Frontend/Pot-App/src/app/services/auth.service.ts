@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthService {
-  data: {};
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -14,14 +13,9 @@ export class AuthService {
     return this.http.post('http://127.0.0.1:8000/api/token', data)
   }
 
-  registerUserSession(user):Observable<any>{
+  registerUser(user):Observable<any>{
     console.log(user);
     return this.http.post('http://127.0.0.1:8000/api/register', user)
-  }
-
-  registerUser( user ):Observable<any>{
-    this.registerUserSession(user);
-    return this.login(user);
   }
 
   LoggedIn(){

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from appli.models import Plantes, Parcelle
+from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
 from django.contrib.auth.hashers import make_password
 from django.core import exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -11,58 +11,65 @@ from rest_framework_jwt.settings import api_settings
 UserModel = get_user_model()
 
 
-class PlantesSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    url = serializers.SerializerMethodField(read_only=True)
+class PlantesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plantes
         fields = [
-            'url',
             'id',
-            'taux_ideal_eau',
+            'nom',
+            'nom_scientifique',
+            'besoin_hydrolique',
+            'date_semis_debut',
+            'date_semis_fin',
+            'recolte_en_jours',
             'description',
+            'url_wiki',
             'image',
         ]
-        read_only_fields = ['id']  # bon par exemple pour les données d utilisateur  (voir views pour traiter erreur
-        # lors d un post sans utilisateur
-
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
-
-    # Serializer does 2 things:
-    # converts to JSON and validations for data passed
+        read_only_fields = ['id']
 
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = [ 'id', 'email', 'last_name', 'first_name', 'password', 'is_staff', 'username' ]
+        fields = [ 'id', 'email', 'last_name', 'first_name', 'password', 'username' ]
 
-    def validate_password (self, password) :
+    def validate_password (self, password):
         return make_password(password)
 
 
-class ParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
-    url = serializers.SerializerMethodField(read_only=True)
+class ParcelleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Parcelle
         fields = [
-            'url',
             'id',
-            'user',
+            'userId',
             'numero_parcelle',
-            'taille',
-            'plante',
+            'taille_metre_carre',
+            'estUtilise',
+            'planteId',
         ]
         read_only_fields = [
             'id']
 
-    def get_url(self, obj):
-        request = self.context.get("request")
-        return obj.get_api_url(request=request)
+
+class ParcellePlanteSerializer(serializers.ModelSerializer):
+    plante = PlantesSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Parcelle
+        fields = [
+            'id',
+            'userId',
+            'numero_parcelle',
+            'taille_metre_carre',
+            'plante',
+        ]
+        read_only_fields = [
+            'id']
 
 
 
@@ -71,9 +78,7 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         token["email"] = user.email
-        token["first_name"] = user.first_name
-        token["last_name"] = user.last_name
-        token["is_staff"] = user.is_staff
+        token["username"] = user.username
         token["id"] = user.id
 
         return token
@@ -94,16 +99,6 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-    token = serializers.SerializerMethodField()
-
-    def get_token(self, obj):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-
-        payload = jwt_payload_handler(obj)
-        token = jwt_encode_handler(payload)
-        return token
 
     def validate(self, data):
         password = data.get('password')
@@ -127,6 +122,8 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email']
         )
         user.set_password(validated_data['password'])
+        token = CustomJWTSerializer(user['username'], user['password'])
+        user['token']
         user.save()
 
         return user
@@ -134,4 +131,34 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ('username', 'email', 'password', 'token')
-        extra_kwargs = {'password': {'write_only': True}}
+
+    def validate_password (self, password) :
+        return make_password(password)
+
+
+class UserParcelleSerializer(serializers.ModelSerializer):
+    parcelle = ParcellePlanteSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'parcelle']
+
+
+
+class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
+
+    class Meta:
+        model = DonneesParcelle
+        fields = ['id','parcelleId','date_reception_donnee','humidite_sol','quantite_eau_litre']
+        read_only_fields = ['id']
+
+
+
+
+
+class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
+    userId = UserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = DonneesUser
+        fields = ['id', 'userId','date_reception_donnee','temperature_exterieur','humidite_exterieur']
+        read_only_fields = ['id']

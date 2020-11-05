@@ -1,151 +1,93 @@
 from django.db.models import Q
-from rest_framework import generics, mixins, permissions
+from rest_framework import generics, mixins, permissions, viewsets
 from django.contrib.auth.models import User
-from appli.models import Plantes, Parcelle
+from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
 from django.contrib.auth import get_user_model
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer
+from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, UserParcelleSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer
 
-class PlantesAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
+def is_valid_queryparam(param):
+    return param != '' and param is not None
+
+class PlantesAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
     permission_classes = []
-
-    def get_queryset(self):
-        qss = Plantes.objects.all()
-        query = self.request.GET.get("q")
-        if query is not None:
-            qss = qss.filter(
-                Q(titre__icontains=query) |
-                Q(contenu__icontains=query)
-            ).distinct()
-        return qss
-
-    def perform_create(self, serializer):
-        serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def get_serializer_context(self, *args, **kwargs):
-        return {"request": self.request}
+    queryset = Plantes.objects.all()
 
 
-class PlantesRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
+class UserAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
-    serializer_class = PlantesSerializer
+    serializer_class = UserSerializer
     permission_classes = []
-
-    def get_queryset(self):
-        return Plantes.objects.all()
-
-    def get_serializer_context(self, *args, **kwargs):
-        return {"request": self.request}
-
-    # def get_object(self):
-    #   pk = self.kwargs.get("pk")
-    #  return News.objects.get(pk=pk)
-
-
-class UserAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
-    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        qss = Plantes.objects.all()
-        query = self.request.GET.get("q")
-        if query is not None:
-            qss = qss.filter(
-                Q(titre__icontains=query) |
-                Q(contenu__icontains=query)
-            ).distinct()
-        return qss
-
-    def perform_create(self, serializer):
-        serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def get_serializer_context(self, *args, **kwargs):
-        return {"request": self.request}
-
-
-class UserRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
-    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        return Plantes.objects.all()
-
-    def get_serializer_context(self, *args, **kwargs):
-        return {"request": self.request}
+    queryset = User.objects.all()
 
 
 
 class UserRegisterView(CreateAPIView):
-
     model = get_user_model()
     permission_classes = []
     serializer_class = RegisterSerializer
 
 
+class UserDetail(viewsets.ModelViewSet):
+    permission_classes = []
+    lookup_field = 'pk'
+    serializer_class = UserParcelleSerializer
+    queryset = User.objects.all()
 
-class ParcelleAPIView(mixins.CreateModelMixin, generics.ListAPIView):  # detailview
+
+#### Données du model parcelle ##########################################################################################
+
+
+class ParcelleAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = []
 
-    def get_queryset(self):
-        qss = Parcelle.objects.all()
-        query = self.request.GET.get("q")
-        if query is not None:
-            qss = qss.filter(
-                Q(titre__icontains=query) |
-                Q(contenu__icontains=query)
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = Parcelle.objects.all()
+        query_status = self.request.GET.get("stat")
+        if is_valid_queryparam(query_status):
+            queryset_list = queryset_list.filter(
+                Q(estUtilise=query_status)
             ).distinct()
-        return qss
-
-    def perform_create(self, serializer):
-        serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def get_serializer_context(self, *args, **kwargs):
-        return {"request": self.request}
+        return queryset_list
 
 
-class ParcelleRudView(generics.RetrieveUpdateDestroyAPIView):  # detailview
+######## Données reprises de la sonde et attribuées par parcelle ####################################################
+
+
+class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
-    serializer_class = ParcelleSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = DonneesParcelleSerializer
+    permission_classes = []
 
-    def get_queryset(self):
-        return Parcelle.objects.all()
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = DonneesUser.objects.all()
+        query_date = self.request.GET.get("date")
+        if is_valid_queryparam(query_date):
+            queryset_list = queryset_list.filter(
+                Q(date_reception_donnee__gte=query_date)
+            ).distinct().order_by('-date_reception_donnee')
+        return queryset_list
 
-    def get_serializer_context(self, *args, **kwargs):
-        return {"request": self.request}
 
-    # def get_object(self):
-    #   pk = self.kwargs.get("pk")
-    #  return News.objects.get(pk=pk)
 
+
+### Données reprises de la sonde et attribuées par user ###########################################################
+
+class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
+    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
+    serializer_class = DonneesUserSerializer
+    permission_classes = []
+
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = DonneesUser.objects.all()
+        query_date = self.request.GET.get("date")
+        if is_valid_queryparam(query_date):
+            queryset_list = queryset_list.filter(
+                Q(date_reception_donnee__gte=query_date)
+            ).distinct().order_by('-date_reception_donnee')
+        return queryset_list

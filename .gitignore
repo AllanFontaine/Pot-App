@@ -6,6 +6,7 @@ Backend/env
 Backend/Pot_App/.env
 Img/
 
+
 Backend/Pot_App/__pycache__/
 
 Backend/appli/migrations/__pycache__/
@@ -13,3 +14,4 @@ Backend/appli/migrations/__pycache__/
 Backend/appli/__pycache__/
 
 Backend/appli/api/__pycache__/
+
