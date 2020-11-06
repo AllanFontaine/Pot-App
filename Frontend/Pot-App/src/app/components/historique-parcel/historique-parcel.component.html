@@ -1,1 +1,33 @@
-<p>historique-parcel works!</p>
+<div class="text-center pt-5">
+  <h3>This is your historic</h3>
+</div>
+
+<!-- Ajoutez la class "stretched-link" au card pour les rendre cliquable, s'informer -->
+<!-- Ajoutez l'asynchrone pour que tout s'affiche du premier coup -->
+<div class="row mt-5" *ngIf="my_parcel.length != 0">
+  <div class="card mb-3" style="max-width: 540px;" *ngFor="let parcel of my_parcel">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src={{parcel.planteId.image}} class="card-img" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Parcelle numéro {{parcel.numero_parcelle}}: statut {{parcel.estUtilise}}</h5>
+          <p class="card-text">{{parcel.planteId.nom}}</p>
+          <p class="card-text"><small class="text-muted">{{parcel.date_plantation}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<!-- liste de parcelle vide -->
+
+<div class="text-center" *ngIf="my_parcel.length === 0">
+  <div class="mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      Votre jardin est vide, pour l'instant! N'hésitez pas à le remplir.
+    </div>
+  </div>
+</div>

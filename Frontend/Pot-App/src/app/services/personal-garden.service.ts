@@ -18,6 +18,10 @@ export class PersonalGardenService{
     return this.http.get("http://127.0.0.1:8000/api/parcelle-plantes/?userid="+user_id+"&stat=True")
   }
 
+  get_my_parcels(user_id):Observable<any>{
+    return this.http.get("http://127.0.0.1:8000/api/parcelle-plantes/?userid="+user_id)
+  }
+
   get_one_parcel(id):Observable<any>{
     return this.http.get("http://127.0.0.1:8000/api/parcelle-plantes/"+id+"/")
   }
