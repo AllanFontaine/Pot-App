@@ -8,7 +8,6 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, UserParcelleSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer
 
-
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
