@@ -8,6 +8,7 @@ import {PersoGardenComponent} from "./components/perso-garden/perso-garden.compo
 import {AuthGuard} from "./services/auth-guard.service";
 import {AddParcelComponent} from "./components/add-parcel/add-parcel.component";
 import {SingleParcelComponent} from "./components/single-parcel/single-parcel.component";
+import { HistoriqueParcelComponent } from './components/historique-parcel/historique-parcel.component';
 
 export const appRoutes : Routes = [
   {path : 'home', component: HomeViewComponent},
@@ -16,6 +17,7 @@ export const appRoutes : Routes = [
   {path : 'login', component: LoginViewComponent,},
   {path : 'register', component: SignUpComponent,},
   {path : 'garden', component: PersoGardenComponent, canActivate: [AuthGuard]},
+  {path : 'historique', component: HistoriqueParcelComponent, canActivate: [AuthGuard]},
   {path : 'add-parcel', component: AddParcelComponent, canActivate: [AuthGuard]},
   {path : 'garden/:id', component: SingleParcelComponent, canActivate: [AuthGuard]},
   {path : '', redirectTo: '/home', pathMatch: 'full'},

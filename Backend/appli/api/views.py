@@ -6,7 +6,7 @@ from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, UserParcelleSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer
+from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
@@ -62,30 +62,39 @@ class UserRegisterView(CreateAPIView):
     serializer_class = RegisterSerializer
 
 
-class UserDetail(viewsets.ModelViewSet):
-    permission_classes = []
-    lookup_field = 'pk'
-    serializer_class = UserParcelleSerializer
-    queryset = User.objects.all()
 
 
 #### Données du model parcelle ##########################################################################################
 
+# Moins de détails dans les parcelles pour faciliter un post: POST
 
-class ParcelleAPIView(viewsets.ModelViewSet):  # detailview
+class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
+    permission_classes = []
+    queryset = Parcelle.objects.all()
+
+#Obtenir un detail des parcelle et des plantes : GET
+
+
+class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
+    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
+    serializer_class = ParcellePlanteSerializer
     permission_classes = []
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Parcelle.objects.all()
         query_status = self.request.GET.get("stat")
+        query_user = self.request.GET.get("userid")
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
             ).distinct()
+        if is_valid_queryparam(query_user):
+            queryset_list = queryset_list.filter(
+                Q(userId=query_user)
+            ).distinct()
         return queryset_list
-
 
 ######## Données reprises de la sonde et attribuées par parcelle ####################################################
 

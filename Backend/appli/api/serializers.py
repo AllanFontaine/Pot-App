@@ -87,7 +87,7 @@ class ParcelleSerializer(serializers.ModelSerializer):
 
 
 class ParcellePlanteSerializer(serializers.ModelSerializer):
-    plante = PlantesSerializer(many=False, read_only=True)
+    planteId = PlantesSerializer(many=False, read_only=True)
 
     class Meta:
         model = Parcelle
@@ -96,7 +96,8 @@ class ParcellePlanteSerializer(serializers.ModelSerializer):
             'userId',
             'numero_parcelle',
             'taille_metre_carre',
-            'plante',
+            'estUtilise',
+            'planteId',
         ]
         read_only_fields = [
             'id']
@@ -165,12 +166,6 @@ class RegisterSerializer(serializers.ModelSerializer):
     def validate_password (self, password) :
         return make_password(password)
 
-
-class UserParcelleSerializer(serializers.ModelSerializer):
-    parcelle = ParcellePlanteSerializer(many=True, read_only=True)
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'parcelle']
 
 
 

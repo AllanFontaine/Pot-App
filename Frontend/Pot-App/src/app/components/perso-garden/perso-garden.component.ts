@@ -16,11 +16,9 @@ export class PersoGardenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.garden.get_my_parcels(localStorage.getItem('user_id')).subscribe(
+    this.garden.get_my_active_parcels(localStorage.getItem('user_id')).subscribe(
       res => {
-        this.my_parcel = res.parcelle
-
-        console.log(this.my_parcel)
+        this.my_parcel = res
       },
       err => console.log(err)
     )

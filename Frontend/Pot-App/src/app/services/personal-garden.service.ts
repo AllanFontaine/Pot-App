@@ -14,12 +14,16 @@ export class PersonalGardenService{
     return this.http.get("http://127.0.0.1:8000/api/plante/")
   }
 
-  get_my_parcels(user_id):Observable<any>{
-    return this.http.get("http://127.0.0.1:8000/api/parcelle-user/"+ user_id +"/")
+  get_my_active_parcels(user_id):Observable<any>{
+    return this.http.get("http://127.0.0.1:8000/api/parcelle-plantes/?userid="+user_id+"&stat=True")
   }
 
   get_one_parcel(id):Observable<any>{
-    return this.http.get("http://127.0.0.1:8000/api/parcelle/"+id+"/")
+    return this.http.get("http://127.0.0.1:8000/api/parcelle-plantes/"+id+"/")
+  }
+
+  delete_parcel(user_id, data):Observable<any>{
+    return this.http.put("http://127.0.0.1:8000/api/parcelle/"+user_id+"/", data)
   }
 
   get_user_id(){

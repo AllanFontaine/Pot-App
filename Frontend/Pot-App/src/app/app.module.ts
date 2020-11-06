@@ -29,6 +29,7 @@ import {PersonalGardenService} from "./services/personal-garden.service";
 import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { SingleParcelComponent } from './components/single-parcel/single-parcel.component';
+import { HistoriqueParcelComponent } from './components/historique-parcel/historique-parcel.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SingleParcelComponent } from './components/single-parcel/single-parcel.
     PersoGardenComponent,
     AddParcelComponent,
     SingleParcelComponent,
+    HistoriqueParcelComponent,
   ],
   imports: [
     BrowserModule,
