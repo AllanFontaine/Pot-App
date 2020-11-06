@@ -22,6 +22,7 @@ class Plantes(models.Model):
         return api_reverse("api-appli:post-rud-plant", kwargs={'pk': self.pk}, request=request)
 
 
+
 class Parcelle(models.Model):
     numero_parcelle = models.IntegerField()
     userId = models.ForeignKey(User, related_name='parcelle', on_delete=CASCADE)

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
 from django.contrib.auth.hashers import make_password
 from django.core import exceptions
+from django.db.models.functions import ExtractMonth
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 import django.contrib.auth.password_validation as validators
 from rest_framework_jwt.settings import api_settings
@@ -12,6 +13,33 @@ UserModel = get_user_model()
 
 
 class PlantesSerializer(serializers.ModelSerializer):
+    saison_debut = serializers.SerializerMethodField()
+    saison_fin = serializers.SerializerMethodField()
+
+    def get_saison_debut(self, obj):
+        month = obj.date_semis_fin.month
+        if (month > 11 or month <= 3):
+           return "WINTER"
+        elif (month == 4 or month == 5):
+           return "SPRING"
+        elif (month >=6 and month <= 9):
+           return "SUMMER"
+        else:
+            return "FALL"
+
+
+    def get_saison_fin(self, obj):
+        month = obj.date_semis_fin.month
+        if (month > 11 or month <= 3):
+           return "WINTER"
+        elif (month == 4 or month == 5):
+           return "SPRING"
+        elif (month >=6 and month <= 9):
+           return "SUMMER"
+        else:
+            return "FALL"
+
+
 
     class Meta:
         model = Plantes
@@ -22,6 +50,8 @@ class PlantesSerializer(serializers.ModelSerializer):
             'besoin_hydrolique',
             'date_semis_debut',
             'date_semis_fin',
+            'saison_debut',
+            'saison_fin',
             'recolte_en_jours',
             'description',
             'url_wiki',
