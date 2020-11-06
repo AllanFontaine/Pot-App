@@ -39,7 +39,7 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
         query_name = self.request.GET.get("name")
         if is_valid_queryparam(query_name):
             queryset_list = queryset_list.filter(
-                Q(nom=query_status)
+                Q(nom__icontains=query_name)
             ).distinct()
         if is_valid_queryparam(query_saison):
             queryset_list = queryset_list.filter(
