@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {PersonalGardenService} from "../../services/personal-garden.service";
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import { PersonalGardenService } from 'app/service/personal-garden.service';
 
 @Component({
   selector: 'app-historique-parcel',
@@ -23,7 +23,7 @@ export class HistoriqueParcelComponent implements OnInit {
     )
   }
 
-  navigToAdd():void{
+  navigToAdd(): void {
     this.router.navigate(['/add-parcel'])
   }
 

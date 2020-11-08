@@ -79,6 +79,7 @@ class ParcelleSerializer(serializers.ModelSerializer):
             'userId',
             'numero_parcelle',
             'taille_metre_carre',
+            'date_plantation',
             'estUtilise',
             'planteId',
         ]
@@ -96,6 +97,7 @@ class ParcellePlanteSerializer(serializers.ModelSerializer):
             'userId',
             'numero_parcelle',
             'taille_metre_carre',
+            'date_plantation',
             'estUtilise',
             'planteId',
         ]

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
-import {FormControl, FormGroup, Validators, NgForm} from "@angular/forms";
+import {AuthService} from '../../service/auth.service';
+import {Router} from '@angular/router';
+import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up',
@@ -33,13 +33,13 @@ export class SignUpComponent implements OnInit {
 
   registerUser(form: NgForm) {
     const val = form.value;
-    if(val.email && val.password && val.username) {
+    if (val.email && val.password && val.username) {
       this.authService.registerUser(form.value)
         .subscribe(
           res => {
             console.log(res)
             this.router.navigate(['/login'])
-            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!")
+            alert('Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!')
           },
           err => {
             console.log(val)
@@ -50,8 +50,8 @@ export class SignUpComponent implements OnInit {
             }
           },
         );
-    } else{
-      console.log("la valeur de val n'est pas conforme.");
+    } else {
+      console.log('la valeur de val n\'est pas conforme.');
       console.log(val);
     }
   }

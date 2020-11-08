@@ -29,7 +29,7 @@ class Parcelle(models.Model):
     planteId = models.ForeignKey(Plantes, related_name='parcelle', on_delete=CASCADE)
     date_plantation = models.DateField(blank = False, default = timezone.now)
     taille_metre_carre = models.FloatField()
-    estUtilise = models.BooleanField(default = True);
+    estUtilise = models.BooleanField(default = True)
     
 
     def __str__(self):

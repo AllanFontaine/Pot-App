@@ -72,7 +72,7 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
     permission_classes = []
-    queryset = Parcelle.objects.all()
+    queryset = Parcelle.objects.all().order_by('-date_plantation')
 
 #Obtenir un detail des parcelle et des plantes : GET
 
@@ -94,7 +94,7 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
             queryset_list = queryset_list.filter(
                 Q(userId=query_user)
             ).distinct()
-        return queryset_list
+        return queryset_list.order_by('-date_plantation')
 
 ######## Données reprises de la sonde et attribuées par parcelle ####################################################
 

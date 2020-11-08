@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import { Router } from '@angular/router';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-login-view',
@@ -20,7 +20,7 @@ export class LoginViewComponent implements OnInit {
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.formGroup = new FormGroup(
       {
         username: new FormControl('', [Validators.required]),
@@ -29,17 +29,17 @@ export class LoginViewComponent implements OnInit {
     )
   }
 
-  LoginProcess(form: NgForm){
+  LoginProcess(form: NgForm) {
       this.authService.login(form.value).subscribe(
         (result) => {
           localStorage.setItem('token', result.access)
           const decodedToken = this.helper.decodeToken(result.access);
           console.log(decodedToken);
           localStorage.setItem('user_id', decodedToken.user_id)
-          this.router.navigate(['/garden'])
+          this.router.navigate(['/dashboard'])
         },
         (error) => {
-          console.log("WARNING: " + error);
+          console.log('WARNING: ' + error);
         }
       )
   }

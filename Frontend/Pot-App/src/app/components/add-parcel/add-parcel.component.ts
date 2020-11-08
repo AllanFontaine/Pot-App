@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {PersonalGardenService} from "../../services/personal-garden.service";
-import {FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {PersonalGardenService} from '../../service/personal-garden.service';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-parcel',
@@ -26,7 +26,7 @@ export class AddParcelComponent implements OnInit {
     this.initForm()
   }
 
-  initForm(){
+  initForm() {
     this.formGroup = new FormGroup(
       {
         numero_parcelle: new FormControl(null, [Validators.required]),
@@ -36,8 +36,8 @@ export class AddParcelComponent implements OnInit {
     )
   }
 
-  addParcelUser(form: NgForm){
-    form.value["user"]=parseInt(localStorage.getItem('user_id'));
+  addParcelUser(form: NgForm) {
+    form.value['user'] = parseInt(localStorage.getItem('user_id'));
     console.log(form.value);
     this.garden.add_parcel(form.value).subscribe(
       res => {
