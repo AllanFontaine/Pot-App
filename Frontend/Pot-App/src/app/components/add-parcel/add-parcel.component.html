@@ -11,7 +11,7 @@
             <mat-radio-group
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
-              name="plante"
+              name="planteId"
               type="number"
               ngModel>
               <mat-radio-button class="example-radio-button" *ngFor="let plante of listPlant" [value]="plante.id">
@@ -24,8 +24,17 @@
             <input name="numero_parcelle" type="number" id="numero_parcelle" class="form-control rounded-0" ngModel required>
           </div>
           <div class="form-group">
-            <label for="taille">Taille de la parcelle ajoutée</label>
-            <input name="taille" id="taille" type="number" class="form-control rounded-0" ngModel required>
+            <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
+            <input name="taille_metre_carre" id="taille_metre_carre" type="number" class="form-control rounded-0" ngModel required>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label for = "date_plantation">Date de plantaison</mat-label>
+              <input name = "date_plantation" id ="date_plantation" matInput [matDatepicker]="picker" ngModel >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+            </mat-form-field>
           </div>
           <button type="submit" class="btn btn-primary float-right">Ajoutez une parcelle</button>
         </form>

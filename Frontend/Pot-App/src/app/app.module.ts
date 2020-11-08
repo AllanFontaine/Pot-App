@@ -29,7 +29,6 @@ import {WikiService} from './service/wiki.service';
 import {TokenInterceptorService} from './service/token-interceptor.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
-import {MatRadioModule} from '@angular/material/radio';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -50,7 +49,6 @@ import {MatCardModule} from '@angular/material/card';
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
-    MatRadioModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,

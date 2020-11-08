@@ -3,6 +3,12 @@ from django.db.models.deletion import CASCADE, PROTECT
 from django.contrib.auth.models import User
 from rest_framework.reverse import reverse as api_reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nombre_parcelle = models.IntegerField(default = 0)
+    localisation = models.CharField(max_length = 100, default = '')
 
 class Plantes(models.Model):
     nom = models.CharField(max_length=100)

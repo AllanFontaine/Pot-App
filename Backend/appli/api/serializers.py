@@ -62,12 +62,15 @@ class PlantesSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    
+
     class Meta:
         model = User
         fields = [ 'id', 'email', 'last_name', 'first_name', 'password', 'username' ]
 
     def validate_password (self, password):
         return make_password(password)
+
 
 
 class ParcelleSerializer(serializers.ModelSerializer):
@@ -78,8 +81,8 @@ class ParcelleSerializer(serializers.ModelSerializer):
             'id',
             'userId',
             'numero_parcelle',
-            'taille_metre_carre',
             'date_plantation',
+            'taille_metre_carre',
             'estUtilise',
             'planteId',
         ]
@@ -97,7 +100,6 @@ class ParcellePlanteSerializer(serializers.ModelSerializer):
             'userId',
             'numero_parcelle',
             'taille_metre_carre',
-            'date_plantation',
             'estUtilise',
             'planteId',
         ]

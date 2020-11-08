@@ -33,6 +33,10 @@ import {SignUpComponent} from '../../components/sign-up/sign-up.component';
 import {ResetPasswordComponent} from '../../components/reset-password/reset-password.component';
 import {WikiViewComponent} from '../../components/wiki-view/wiki-view.component';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {DatePipe} from '@angular/common';
+
 
 @NgModule({
   imports: [
@@ -47,6 +51,9 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
     MatSelectModule,
     MatTooltipModule,
     MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  
   ],
   declarations: [
     DashboardComponent,
@@ -74,7 +81,9 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    DatePipe,
+    
   ]
 })
 
