@@ -23,8 +23,6 @@ import {WikiService} from '../../service/wiki.service';
 import {PersonalGardenService} from '../../service/personal-garden.service';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptorService} from '../../service/token-interceptor.service';
-import {LoginViewComponent} from '../../components/login-view/login-view.component';
-import {HomeViewComponent} from '../../components/home-view/home-view.component';
 import {HistoriqueParcelComponent} from '../../components/historique-parcel/historique-parcel.component';
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
@@ -36,7 +34,6 @@ import {NavbarComponent} from '../../components/navbar/navbar.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {DatePipe} from '@angular/common';
-
 
 @NgModule({
   imports: [
@@ -53,7 +50,7 @@ import {DatePipe} from '@angular/common';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  
+
   ],
   declarations: [
     DashboardComponent,
@@ -67,8 +64,6 @@ import {DatePipe} from '@angular/common';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    LoginViewComponent,
-    HomeViewComponent,
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
@@ -83,7 +78,7 @@ import {DatePipe} from '@angular/common';
       multi: true
     },
     DatePipe,
-    
+
   ]
 })
 

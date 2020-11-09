@@ -34,6 +34,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
+import {LoginViewComponent} from "./components/login-view/login-view.component";
+import {HomeViewComponent} from "./components/home-view/home-view.component";
 
 
 @NgModule({
@@ -54,11 +56,14 @@ import {MatCardModule} from '@angular/material/card';
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
+    MatMenuModule,
     MatIconModule,
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    LoginViewComponent,
+    HomeViewComponent,
   ],
   providers: [
     AuthGuard,

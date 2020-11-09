@@ -1,6 +1,11 @@
+html {
+  scroll-behavior: smooth;
+}
+
 nav {
     display: block;
     font-weight: bolder;
+    scroll-behavior: smooth;
 }
 
 .nav {
