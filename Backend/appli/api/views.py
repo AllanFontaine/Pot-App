@@ -2,11 +2,11 @@ from django.db.models import Q
 from appli.models import Plantes
 from rest_framework import generics, mixins, permissions, viewsets
 from django.contrib.auth.models import User
-from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
+from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer
+from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
@@ -53,6 +53,11 @@ class UserAPIView(viewsets.ModelViewSet):  # detailview
     permission_classes = []
     queryset = User.objects.all()
 
+class ProfileAPIView(viewsets.ModelViewSet):  # detailview
+    lookup_field = 'user'  # (?P<pk>\d+) pk = id
+    serializer_class = ProfileSerializer
+    permission_classes = []
+    queryset = Profile.objects.all()
 
 
 

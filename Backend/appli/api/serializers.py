@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
-from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
+from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth.hashers import make_password
 from django.core import exceptions
 from django.db.models.functions import ExtractMonth
@@ -71,6 +71,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate_password (self, password):
         return make_password(password)
+
+class ProfileSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = Profile
+        fields = ['id', 'user','nombre_parcelle','localisation']
+
 
 
 

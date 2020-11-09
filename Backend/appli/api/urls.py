@@ -7,7 +7,7 @@ from drf_yasg import openapi
 from rest_framework import routers
 from .serializers import CustomJWTSerializer
 from appli.api import views
-from .views import PlantesAPIView, ParcelleAPIView, UserAPIView, UserRegisterView, DonneesParcelleAPIView, DonneesUserAPIView, ParcellePlantesAPIView
+from .views import PlantesAPIView, ParcelleAPIView, UserAPIView, UserRegisterView, DonneesParcelleAPIView, DonneesUserAPIView, ParcellePlantesAPIView, ProfileAPIView
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -34,6 +34,7 @@ router.register(r'parcelle', views.ParcelleAPIView, basename="parcelles")
 router.register(r'parcelle-plantes', views.ParcellePlantesAPIView, basename="parcellePlantes")
 router.register(r'donnees-parcelle', views.DonneesParcelleAPIView, basename="dParcelles")
 router.register(r'donnees-user', views.DonneesUserAPIView, basename="dUsers")
+router.register(r'profile', views.ProfileAPIView, basename= "dProfile")
 
 
 urlpatterns = [
