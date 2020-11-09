@@ -1,0 +1,33 @@
+[
+  {
+    "model": "appli.plantes", 
+    "pk": 1,
+    "fields": {
+        "nom": "Carotte", 
+        "nom_scientifique": "Daucus carota",
+        "besoin_hydrolique": "0", 
+        "date_semis_debut": "2020-03-01", 
+        "date_semis_fin": "2020-09-30", 
+        "densite_semi": "",
+        "recolte_en_jours": 120, 
+        "description": "Famille des Apiaceae légume racine", 
+        "url_wiki": "Carotte", 
+        "image": "Img/carrotetest.jpg"
+        }
+     },
+  { 
+    "model": "appli.plantes", 
+    "pk": 2,
+    "fields": {
+        "nom": "Tomate", 
+        "nom_scientifique": "Tomatetomate",
+        "besoin_hydrolique": "10.00", 
+        "date_semis_debut": "2020-11-05", 
+        "date_semis_fin": "2020-11-20", 
+        "recolte_en_jours": 265, 
+        "description": "Petite tomate", 
+        "url_wiki": "wikipedia.com", 
+        "image": "Img/javaPR1.jpg"
+        }
+     }
+]

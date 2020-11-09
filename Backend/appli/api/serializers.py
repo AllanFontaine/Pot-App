@@ -50,6 +50,7 @@ class PlantesSerializer(serializers.ModelSerializer):
             'besoin_hydrolique',
             'date_semis_debut',
             'date_semis_fin',
+            'densite_semi',
             'saison_debut',
             'saison_fin',
             'recolte_en_jours',

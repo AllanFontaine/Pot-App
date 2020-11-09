@@ -16,6 +16,7 @@ class Plantes(models.Model):
     besoin_hydrolique = models.DecimalField(max_digits=10, decimal_places=2)
     date_semis_debut = models.DateField(blank = False,  default = timezone.now)
     date_semis_fin = models.DateField(blank =False,  default = timezone.now)
+    densite_semi = models.IntegerField(default = 0)
     recolte_en_jours = models.IntegerField(default = 0)
     description = models.TextField(blank=True)
     url_wiki = models.TextField(blank = False, default = '')
