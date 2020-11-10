@@ -11,29 +11,30 @@ import { IconsComponent } from '../../components/icons/icons.component';
 import { MapsComponent } from '../../components/maps/maps.component';
 import { NotificationsComponent } from '../../components/notifications/notifications.component';
 import { UpgradeComponent } from '../../components/upgrade/upgrade.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatRippleModule} from '@angular/material/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSelectModule} from '@angular/material/select';
-import {AuthGuard} from '../../service/auth-guard.service';
-import {AuthService} from '../../service/auth.service';
-import {WikiService} from '../../service/wiki.service';
-import {PersonalGardenService} from '../../service/personal-garden.service';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {TokenInterceptorService} from '../../service/token-interceptor.service';
-import {HistoriqueParcelComponent} from '../../components/historique-parcel/historique-parcel.component';
-import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
-import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
-import {MatRadioModule} from '@angular/material/radio';
-import {SignUpComponent} from '../../components/sign-up/sign-up.component';
-import {ResetPasswordComponent} from '../../components/reset-password/reset-password.component';
-import {WikiViewComponent} from '../../components/wiki-view/wiki-view.component';
-import {NavbarComponent} from '../../components/navbar/navbar.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {DatePipe} from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatRippleModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { AuthGuard } from '../../service/auth-guard.service';
+import { AuthService } from '../../service/auth.service';
+import { WikiService } from '../../service/wiki.service';
+import { PersonalGardenService } from '../../service/personal-garden.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from '../../service/token-interceptor.service';
+import { HistoriqueParcelComponent } from '../../components/historique-parcel/historique-parcel.component';
+import { SingleParcelComponent } from '../../components/single-parcel/single-parcel.component';
+import { AddParcelComponent } from '../../components/add-parcel/add-parcel.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { SignUpComponent } from '../../components/sign-up/sign-up.component';
+import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
+import { WikiViewComponent } from '../../components/wiki-view/wiki-view.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -50,7 +51,7 @@ import {DatePipe} from '@angular/common';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
+    MatGridListModule,
   ],
   declarations: [
     DashboardComponent,
@@ -72,14 +73,13 @@ import {DatePipe} from '@angular/common';
     AuthGuard,
     AuthService,
     PersonalGardenService,
-    WikiService, {
+    WikiService,
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
+      multi: true,
     },
     DatePipe,
-
-  ]
+  ],
 })
-
 export class AdminLayoutModule {}
