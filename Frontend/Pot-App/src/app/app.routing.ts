@@ -21,6 +21,7 @@ const routes: Routes = [ {
     RouterModule.forRoot(routes, { anchorScrolling: 'enabled'})
   ],
   exports: [
+    RouterModule
   ],
 })
 export class AppRoutingModule { }

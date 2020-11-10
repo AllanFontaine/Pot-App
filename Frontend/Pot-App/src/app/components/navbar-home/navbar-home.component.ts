@@ -19,11 +19,16 @@ export class NavbarHomeComponent implements OnInit {
   }
 
   public onClick(elementId: string): void {
-    this.viewportScroller.scrollToAnchor(elementId);
-  }
-
-  scrollToElement($element): void {
-    console.log($element);
-    document.getElementById($element).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    /*console.log($(this));
+    var target = document.getElementById(elementId);
+    $("html, body").animate(
+      {
+        scrollTop: target.top - 70,
+      },
+      1000000,
+      "easeInOutExpo"
+    );
+    $(".navbar-collapse").collapse("hide");*/
+    document.getElementById(elementId).scrollIntoView({behavior: "smooth"})
   }
 }

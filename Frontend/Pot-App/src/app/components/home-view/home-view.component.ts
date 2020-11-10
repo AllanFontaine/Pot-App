@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-home-view',
@@ -12,6 +13,7 @@ export class HomeViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    AOS.init()
   }
 
   public onClick(elementId: string): void {

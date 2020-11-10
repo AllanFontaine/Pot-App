@@ -33,6 +33,7 @@
     "@auth0/angular-jwt": "^5.0.1",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "ajv": "6.12.5",
+    "aos": "^2.3.4",
     "arrive": "2.4.1",
     "bootstrap": "4.5.2",
     "bootstrap-material-design": "4.1.3",

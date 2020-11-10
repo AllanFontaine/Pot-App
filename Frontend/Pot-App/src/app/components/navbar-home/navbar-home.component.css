@@ -43,10 +43,6 @@ nav {
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
     border-color: #e9ecef #e9ecef #dee2e6;
 }
-.nav-link:hover{
-    background: #c6f3c5;
-    color: #0c5460;
-}
 
 .bg-dark {
     background:transparent !important;
