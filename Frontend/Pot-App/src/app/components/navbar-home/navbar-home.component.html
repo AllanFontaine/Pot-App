@@ -1,23 +1,63 @@
 
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-transparent fixed-top">
-    <div class="container">
-        <div class="logo-img">
-            <img src="/assets/img/favicon.ico"/>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-transparent fixed-top">
+        <div class="container">
+            <div class="logo-img">
+                <img src="/assets/img/favicon.ico"/>
+            </div>
+            <a class="navbar-brand js-scroll-trigger" routerLink="#page-top">Pot'App</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse show" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink (click)="onClick('about')">About</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink (click)="onClick('projects')">Projects</a></li>
+                    <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink (click)="onClick('signup')">Contact</a></li>
+                    <li><a mat-raised-button color="accent" class="nav-link" routerLink (click)="show()">Login</a></li>
+                </ul>
+            </div>
         </div>
-        <a class="navbar-brand js-scroll-trigger" routerLink="#page-top">Pot'App</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item" routerLinkActive="active"><a class="nav-link js-scroll-trigger" routerLink (click)="onClick('about')">About</a></li>
-                <li class="nav-item" routerLinkActive="active"><a class="nav-link js-scroll-trigger" routerLink (click)="onClick('projects')">Projects</a></li>
-                <li class="nav-item" routerLinkActive="active"><a class="nav-link js-scroll-trigger" routerLink (click)="onClick('signup')">Contact</a></li>
-                <li><a mat-raised-button color="accent" class="nav-link" routerLink="login">Login</a></li>
-            </ul>
+    </nav>
+    <!-- Login Button -->
+    <div [style.display]="showModal ? 'block' : 'none'" class="modal" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Login</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" formControlName="Username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Username.errors }" />
+                        <div *ngIf="submitted && f.Username.errors" class="invalid-feedback">
+                            <div *ngIf="f.Username.errors.required">Username is required</div>
+                            <div *ngIf="f.Username.errors.Username">Username must be a valid Username address</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal" (click) = "hide()">Close</button>
+            
+            </div>
         </div>
-    </div>
-</nav>
+        </div>
+        </div>

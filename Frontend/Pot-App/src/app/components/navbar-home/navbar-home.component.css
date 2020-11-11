@@ -22,7 +22,10 @@ nav {
 }
 .nav-link:hover, .nav-link:focus {
     text-decoration: none;
+    font-size:larger;
+    font-size: 150%;
 }
+
 .nav-link.disabled {
     color: #6c757d;
     pointer-events: none;
@@ -56,4 +59,7 @@ nav {
     color: #0c5460;
     font-weight: 500;
     font-family: Georgia, Serif;
+}
+.modal-backdrop {
+    height: 100%;
 }
