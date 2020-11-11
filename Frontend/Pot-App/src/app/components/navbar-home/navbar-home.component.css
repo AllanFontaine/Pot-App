@@ -57,3 +57,6 @@ nav {
     font-weight: 500;
     font-family: Georgia, Serif;
 }
+.modal-backdrop {
+    height: 100%;
+}
