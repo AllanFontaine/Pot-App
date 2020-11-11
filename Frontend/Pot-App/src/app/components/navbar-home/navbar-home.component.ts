@@ -5,17 +5,16 @@ import { Router } from '@angular/router';
 import {AuthService} from '../../service/auth.service';
 import { ViewportScroller } from '@angular/common';
 
+
 @Component({
   selector: 'app-navbar-home',
   templateUrl: './navbar-home.component.html',
   styleUrls: ['./navbar-home.component.css']
 })
-export class NavbarHomeComponent implements OnInit {
+export class NavbarHomeComponent{
+  public isCollapsed = true;
 
   constructor(private viewportScroller: ViewportScroller) {
-  }
-
-  ngOnInit() {
   }
 
   public onClick(elementId: string): void {
@@ -31,4 +30,5 @@ export class NavbarHomeComponent implements OnInit {
     $(".navbar-collapse").collapse("hide");*/
     document.getElementById(elementId).scrollIntoView({behavior: "smooth"})
   }
+
 }

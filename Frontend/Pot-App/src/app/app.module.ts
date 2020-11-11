@@ -36,6 +36,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCardModule} from '@angular/material/card';
 import {LoginViewComponent} from "./components/login-view/login-view.component";
 import {HomeViewComponent} from "./components/home-view/home-view.component";
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {HomeViewComponent} from "./components/home-view/home-view.component";
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
+    NgbCollapseModule,
   ],
   declarations: [
     AppComponent,

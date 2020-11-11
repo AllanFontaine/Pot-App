@@ -7,11 +7,11 @@
             <img src="/assets/img/favicon.ico"/>
         </div>
         <a class="navbar-brand js-scroll-trigger" routerLink="#page-top">Pot'App</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
             Menu
             <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse show" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" routerLinkActive="active"><a class="nav-link js-scroll-trigger" routerLink (click)="onClick('about')">About</a></li>
                 <li class="nav-item" routerLinkActive="active"><a class="nav-link js-scroll-trigger" routerLink (click)="onClick('projects')">Projects</a></li>
