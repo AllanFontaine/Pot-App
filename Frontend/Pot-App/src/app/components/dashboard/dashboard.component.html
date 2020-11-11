@@ -2,13 +2,21 @@
   <div class="container-fluid">
     <div>
       <mat-grid-list cols="4">
-        <div *ngFor="let parcel of this.my_parcels">
+        <div *ngFor="let parcel of this.my_parcels; let i = index">
           <div *ngIf="parcel.estUtilise == true; else addParcel">
-            <mat-grid-tile>{{ parcel.planteId.nom }}</mat-grid-tile>
+            <mat-grid-tile
+              ><a routerLink="./{{ parcel['id'] }}" class="stretched-link"
+                ><img
+                  class="card-img-top"
+                  src="{{ parcel.planteId.image }}"
+                  alt="image fruit ou légume" /></a
+            ></mat-grid-tile>
           </div>
 
           <ng-template #addParcel>
-            <mat-grid-tile>Ajoutez une parcelle</mat-grid-tile>
+            <mat-grid-tile>
+              <button (click)="openDialogForm(i)">Add Parcel</button>
+            </mat-grid-tile>
           </ng-template>
         </div>
       </mat-grid-list>

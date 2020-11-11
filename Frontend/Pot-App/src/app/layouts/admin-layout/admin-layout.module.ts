@@ -35,6 +35,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -52,6 +54,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatGridListModule,
+    SweetAlert2Module,
+    SweetAlert2Module.forRoot(),
+    MatDialogModule,
   ],
   declarations: [
     DashboardComponent,
@@ -69,6 +74,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     SingleParcelComponent,
     AddParcelComponent,
   ],
+  entryComponents: [AddParcelComponent],
   providers: [
     AuthGuard,
     AuthService,
@@ -80,6 +86,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
       multi: true,
     },
     DatePipe,
+    AddParcelComponent,
   ],
 })
 export class AdminLayoutModule {}
