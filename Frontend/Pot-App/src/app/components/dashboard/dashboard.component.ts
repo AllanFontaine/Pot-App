@@ -5,6 +5,7 @@ import { AddParcelComponent } from '../add-parcel/add-parcel.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
   parcel_db = [];
   amountParcels;
   my_parcels = [];
+  breakpoint: number;
 
   constructor(
     private garden: PersonalGardenService,
@@ -35,6 +37,11 @@ export class DashboardComponent implements OnInit {
         },
         (err) => console.log(err)
       );
+    if (window.innerWidth <= 750 && window.innerWidth >= 450) {
+      this.breakpoint = 2
+    } else {
+      this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
+    }
 
     this.garden.get_profile().subscribe(
       (res) => {
@@ -44,6 +51,13 @@ export class DashboardComponent implements OnInit {
       },
       (err) => console.log(err)
     );
+  }
+  onResize(event) {
+    if (window.innerWidth <= 750 && window.innerWidth >= 450) {
+      this.breakpoint = 2
+    } else {
+      this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
+    }
   }
 
   orderParcels() {

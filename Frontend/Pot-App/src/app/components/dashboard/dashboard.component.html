@@ -1,18 +1,21 @@
-<div class="main-content">
+<div class="main-content " [ngStyle]="{backgroundImage:'url(../../../assets/img/soil.jpg)'}">
   <div class="container-fluid">
     <div *ngIf="this.my_parcels.length === 0; else showParcels">
-      <p>Vous n'azer pas de parcelles</p>
+
     </div>
+
     <ng-template #showParcels>
-      <mat-grid-list cols="4">
+      <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
         <div *ngFor="let parcel of this.my_parcels; let i = index">
           <div *ngIf="parcel.estUtilise == true; else addParcel">
             <mat-grid-tile><a routerLink="./{{ parcel['id'] }}" class="stretched-link"><img class="card-img-top"
-                  src="{{ parcel.planteId.image }}" alt="image fruit ou légume" /></a></mat-grid-tile>
+                  src="{{ parcel.planteId.image }}" alt="image plante" /></a></mat-grid-tile>
           </div>
           <ng-template #addParcel>
             <mat-grid-tile>
-              <button (click)="openDialogForm(i)">Add Parcel</button>
+              <button mat-fab color="warning" (click)="openDialogForm(i)">
+                +
+              </button>
             </mat-grid-tile>
           </ng-template>
         </div>
@@ -101,7 +104,7 @@
               </div>-->
 
     <!-- FIN première ligne de card sur 4 -->
-
+    <!--
     <div class="row">
       <div class="col-md-4">
         <div class="card card-chart">
@@ -157,7 +160,6 @@
       </div>
     </div>
 
-    <!-- FIN deuxième ligne de card -->
 
     <div class="row">
       <div class="col-lg-6 col-md-12">
@@ -496,3 +498,4 @@
     </div>
   </div>
 </div>
+-->

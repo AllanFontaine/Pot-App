@@ -60,7 +60,8 @@ import { LoginViewComponent } from './components/login-view/login-view.component
     MatMenuModule,
     MatIconModule,
     NgbCollapseModule,
-    MatDialogModule
+    MatDialogModule,
+
   ],
   declarations: [
     AppComponent,
