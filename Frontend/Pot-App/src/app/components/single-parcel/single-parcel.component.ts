@@ -17,7 +17,7 @@ export class SingleParcelComponent implements OnInit {
     private garden: PersonalGardenService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id_parcel = this.route.snapshot.params['user_id'];
@@ -38,22 +38,49 @@ export class SingleParcelComponent implements OnInit {
   }
 
   delete_parcel() {
-    this.id_parcel = this.parcel['id'];
-    this.parcel['planteId'] = this.plante['id'];
-    this.parcel['estUtilise'] = false;
-    delete this.parcel['id'];
-    console.log('PARCELLE APRES');
-    console.log(this.parcel);
-    this.garden.delete_parcel(this.id_parcel, this.parcel).subscribe(
-      (result) => {
-        console.log(result);
-        this.router.navigate(['/dashboard']);
+    Swal.fire({
+      title: 'Etes vous sur?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: `Supprimer de mes parcelles`,
+      denyButtonText: `Supprimer et supprimer de mon historique`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.id_parcel = this.parcel['id'];
+        this.parcel['planteId'] = this.plante['id'];
+        this.parcel['estUtilise'] = false;
+        delete this.parcel['id'];
+        console.log('PARCELLE APRES');
+        console.log(this.parcel);
+        this.garden.delete_parcel(this.id_parcel, this.parcel).subscribe(
+          (result) => {
+            console.log(result);
+            this.router.navigate(['/dashboard']);
+            Swal.fire({
+              icon: 'success',
+              title: 'Parcelle supprimée',
+            });
+          },
+          (err) => console.log(err)
+        );
+      } else if (result.isDenied) {
         Swal.fire({
-          icon: 'success',
-          title: 'Parcelle supprimée',
-        });
-      },
-      (err) => console.log(err)
-    );
+          title: 'Toutes suppression ne sera pas réversible',
+          showDenyButton: true,
+          showCancelButton: true,
+          showConfirmButton: false,
+          denyButtonText: `Supprimer`,
+        }).then((result) => {
+          if (result.isDenied) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Parcelle supprimée et supprimée de l\'historique (A IMPLEMENTER QUE CA SUPPRIME VRAIMENT)',
+            });
+          }
+        })
+      }
+    })
+
   }
 }

@@ -26,6 +26,7 @@ import { TokenInterceptorService } from '../../service/token-interceptor.service
 import { HistoriqueParcelComponent } from '../../components/historique-parcel/historique-parcel.component';
 import { SingleParcelComponent } from '../../components/single-parcel/single-parcel.component';
 import { AddParcelComponent } from '../../components/add-parcel/add-parcel.component';
+import { LoginViewComponent } from '../../components/login-view/login-view.component'
 import { MatRadioModule } from '@angular/material/radio';
 import { SignUpComponent } from '../../components/sign-up/sign-up.component';
 import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
@@ -73,6 +74,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
+
   ],
   entryComponents: [AddParcelComponent],
   providers: [
@@ -80,13 +82,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     AuthService,
     PersonalGardenService,
     WikiService,
+    MatDialogModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
     },
     DatePipe,
-    AddParcelComponent,
+
   ],
 })
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }

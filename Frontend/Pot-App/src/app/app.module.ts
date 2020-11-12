@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -22,22 +22,22 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import {AuthGuard} from './service/auth-guard.service';
-import {AuthService} from './service/auth.service';
-import {PersonalGardenService} from './service/personal-garden.service';
-import {WikiService} from './service/wiki.service';
-import {TokenInterceptorService} from './service/token-interceptor.service';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatInputModule} from '@angular/material/input';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCardModule} from '@angular/material/card';
-import {LoginViewComponent} from "./components/login-view/login-view.component";
-import {HomeViewComponent} from "./components/home-view/home-view.component";
+import { AuthGuard } from './service/auth-guard.service';
+import { AuthService } from './service/auth.service';
+import { PersonalGardenService } from './service/personal-garden.service';
+import { WikiService } from './service/wiki.service';
+import { TokenInterceptorService } from './service/token-interceptor.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatCardModule } from '@angular/material/card';
+import { HomeViewComponent } from "./components/home-view/home-view.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { LoginViewComponent } from './components/login-view/login-view.component';
 
 @NgModule({
   imports: [
@@ -60,12 +60,13 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     MatMenuModule,
     MatIconModule,
     NgbCollapseModule,
+    MatDialogModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    LoginViewComponent,
     HomeViewComponent,
+    LoginViewComponent
   ],
   providers: [
     AuthGuard,
@@ -75,7 +76,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    MatDialogModule
   ],
   bootstrap: [AppComponent]
 })

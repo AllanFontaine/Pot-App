@@ -14,13 +14,12 @@ export class DashboardComponent implements OnInit {
   parcel_db = [];
   amountParcels;
   my_parcels = [];
-  plants = [{ nom: 'test' }, { nom: 'mila' }];
 
   constructor(
     private garden: PersonalGardenService,
     public router: Router,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.garden
