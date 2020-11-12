@@ -7,7 +7,7 @@ from drf_yasg import openapi
 from rest_framework import routers
 from .serializers import CustomJWTSerializer
 from appli.api import views
-from .views import PlantesAPIView, ParcelleAPIView, UserAPIView, UserRegisterView, DonneesParcelleAPIView, DonneesUserAPIView, ParcellePlantesAPIView, ProfileAPIView
+from .views import PlantesAPIView, ParcelleAPIView, UserRegisterView, UserAPIView, DonneesParcelleAPIView, DonneesUserAPIView, ParcellePlantesAPIView, ProfileAPIView
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -41,10 +41,10 @@ urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    
+
     path('token', jwt_views.TokenObtainPairView.as_view(serializer_class=CustomJWTSerializer), name='token_obtain_pair'),
     path('token/refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    ##path('register', UserRegisterView.as_view()),
+    path('register', UserRegisterView.as_view()),
     path('', include(router.urls)),
 ]
     

@@ -69,6 +69,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     TypographyComponent,
     IconsComponent,
     MapsComponent,
+    SignUpComponent,
     NotificationsComponent,
     UpgradeComponent,
     HistoriqueParcelComponent,
