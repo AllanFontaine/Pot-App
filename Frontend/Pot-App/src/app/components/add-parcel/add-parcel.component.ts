@@ -13,7 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddParcelComponent implements OnInit {
 
-  chosenPlant = 0;
+  chosenPlant = -1;
   numparcel = 0;
   formGroup: FormGroup;
   listPlant = [];
@@ -66,7 +66,16 @@ export class AddParcelComponent implements OnInit {
 
   placeParcel(num) {
     this.numparcel = num;
-    console.log(this.numparcel);
+  }
+  onSelectionChange(event) {
+    for (let i = 0; i < this.listPlant.length; i++) {
+      if (this.listPlant[i].nom === event.option.value) {
+        this.chosenPlant = this.listPlant[i].id;
+        console.log(this.chosenPlant);
+        break;
+      }
+    }
+
   }
   addParcelUser(form: NgForm) {
     form.value['planteId'] = this.chosenPlant;
@@ -79,20 +88,15 @@ export class AddParcelComponent implements OnInit {
     this.garden.add_parcel(form.value).subscribe(
       (res) => {
         console.log(res);
+        this.dialogRef.close('SUCCESS');
       },
-      (err) => console.log(err)
-    );
-    this.dialogRef.close('SUCCESS');
-  }
-  onSelectionChange(event) {
-    for (let i = 0; i < this.listPlant.length; i++) {
-      if (this.listPlant[i].nom === event.option.value) {
-        this.chosenPlant = this.listPlant[i].id;
-        console.log(this.chosenPlant);
-      }
-    }
+      (err) => {
+        console.log(err)
+        this.dialogRef.close('ERROR');
+      });
 
   }
+
   cancelClose() {
     this.dialogRef.close('CANCEL');
   }

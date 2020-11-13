@@ -8,8 +8,15 @@
       <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
         <div *ngFor="let parcel of this.my_parcels; let i = index">
           <div *ngIf="parcel.estUtilise == true; else addParcel">
-            <mat-grid-tile><a routerLink="./{{ parcel['id'] }}" class="stretched-link"><img class="card-img-top"
-                  src="{{ parcel.planteId.image }}" alt="image plante" /></a></mat-grid-tile>
+            <div class="plantes-hover">
+              <mat-grid-tile class="tile-plantes" (click)="navigToParcel(parcel['id'])">
+                <img src="{{ parcel.planteId.image }}" alt="image plante" />
+                <div class="con-text">
+                  <h2>Parcelle numéro {{i + 1}}</h2>
+                  <p class="clickForInfo"> Cliquez pour plus d'infos</p>
+                </div>
+              </mat-grid-tile>
+            </div>
           </div>
           <ng-template #addParcel>
             <mat-grid-tile>

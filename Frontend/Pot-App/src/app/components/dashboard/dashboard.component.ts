@@ -84,11 +84,22 @@ export class DashboardComponent implements OnInit {
             window.location.reload();
           }
         });
+      } else if (result === 'ERROR') {
+        Swal.fire({
+          icon: 'error',
+          title: 'ERREUR: Vérifiez les données entrées et réessayez',
+        })
       }
     });
   }
 
   navigToAdd(): void {
     this.router.navigate(['/add-parcel']);
+  }
+
+  navigToParcel(id): void {
+    this.router.navigate(['/dashboard/' + id]);
+
+    console.log("I am here")
   }
 }
