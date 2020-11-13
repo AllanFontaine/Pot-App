@@ -1,20 +1,50 @@
 from django.db.models import Q
+from appli.models import Plantes
 from rest_framework import generics, mixins, permissions, viewsets
 from django.contrib.auth.models import User
-from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser
+from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
-from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, UserParcelleSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer
+from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
-class PlantesAPIView(viewsets.ModelViewSet):  # detailview
+"""def get_saison(query_saison, date_debut, date_fin):
+    if (query_saison == "WINTER"):
+        date_debut="12-21"
+        date_fin="03-20"
+    elif (query_saison == "SPRING"):
+        date_debut="03-20"
+        date_fin="06-20"
+    elif (query_saison == "AUTUMN"):
+        date_debut = "09-22"
+        date_fin = "12-21"
+    elif (query_saison == "SUMMER"):
+        date_debut="06-20"
+        date_fin="09-22"""
+
+
+class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
     permission_classes = []
-    queryset = Plantes.objects.all()
+    model = Plantes
+
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = Plantes.objects.all()
+        query_saison = self.request.GET.get("saison")
+        query_name = self.request.GET.get("name")
+        if is_valid_queryparam(query_name):
+            queryset_list = queryset_list.filter(
+                Q(nom__icontains=query_name)
+            ).distinct()
+        if is_valid_queryparam(query_saison):
+            queryset_list = queryset_list.filter(
+                Q(date_semis_debut=query_saison)
+            ).distinct()
+        return queryset_list
 
 
 class UserAPIView(viewsets.ModelViewSet):  # detailview
@@ -22,6 +52,12 @@ class UserAPIView(viewsets.ModelViewSet):  # detailview
     serializer_class = UserSerializer
     permission_classes = []
     queryset = User.objects.all()
+
+class ProfileAPIView(viewsets.ModelViewSet):  # detailview
+    lookup_field = 'user'  # (?P<pk>\d+) pk = id
+    serializer_class = ProfileSerializer
+    permission_classes = []
+    queryset = Profile.objects.all()
 
 
 
@@ -31,30 +67,39 @@ class UserRegisterView(CreateAPIView):
     serializer_class = RegisterSerializer
 
 
-class UserDetail(viewsets.ModelViewSet):
-    permission_classes = []
-    lookup_field = 'pk'
-    serializer_class = UserParcelleSerializer
-    queryset = User.objects.all()
 
 
 #### Données du model parcelle ##########################################################################################
 
+# Moins de détails dans les parcelles pour faciliter un post: POST
 
-class ParcelleAPIView(viewsets.ModelViewSet):  # detailview
+class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
+    permission_classes = []
+    queryset = Parcelle.objects.all().order_by('-date_plantation')
+
+#Obtenir un detail des parcelle et des plantes : GET
+
+
+class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
+    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
+    serializer_class = ParcellePlanteSerializer
     permission_classes = []
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Parcelle.objects.all()
         query_status = self.request.GET.get("stat")
+        query_user = self.request.GET.get("userid")
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
             ).distinct()
-        return queryset_list
-
+        if is_valid_queryparam(query_user):
+            queryset_list = queryset_list.filter(
+                Q(userId=query_user)
+            ).distinct()
+        return queryset_list.order_by('-date_plantation')
 
 ######## Données reprises de la sonde et attribuées par parcelle ####################################################
 

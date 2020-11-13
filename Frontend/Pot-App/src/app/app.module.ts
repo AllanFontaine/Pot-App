@@ -1,63 +1,73 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import { AuthService } from './services/auth.service';
-import { WikiService } from './services/wiki.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
-import { HomeViewComponent } from './components/home-view/home-view.component';
-import { WikiViewComponent } from './components/wiki-view/wiki-view.component';
-import { NavViewComponent } from './components/nav-view/nav-view.component';
-import { RouterModule } from '@angular/router';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
+
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { TableListComponent } from './components/table-list/table-list.component';
+import { TypographyComponent } from './components/typography/typography.component';
+import { IconsComponent } from './components/icons/icons.component';
+import { MapsComponent } from './components/maps/maps.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { UpgradeComponent } from './components/upgrade/upgrade.component';
+import {
+  AgmCoreModule
+} from '@agm/core';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { AuthGuard } from './service/auth-guard.service';
+import { AuthService } from './service/auth.service';
+import { PersonalGardenService } from './service/personal-garden.service';
+import { WikiService } from './service/wiki.service';
+import { TokenInterceptorService } from './service/token-interceptor.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatCardModule } from '@angular/material/card';
+import { HomeViewComponent } from "./components/home-view/home-view.component";
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { PersoGardenComponent } from './components/perso-garden/perso-garden.component';
-import {appRoutes} from "./routes";
-import { AuthGuard} from "./services/auth-guard.service";
-import {TokenInterceptorService} from "./services/token-interceptor.service";
-import {PersonalGardenService} from "./services/personal-garden.service";
-import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
-import {MatRadioModule} from '@angular/material/radio';
-import { SingleParcelComponent } from './components/single-parcel/single-parcel.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeViewComponent,
-    LoginViewComponent,
-    WikiViewComponent,
-    NavViewComponent,
-    ResetPasswordComponent,
-    SignUpComponent,
-    PersoGardenComponent,
-    AddParcelComponent,
-    SingleParcelComponent,
-  ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule,
+    MatMenuModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    MatRadioModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+    }),
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
+    MatMenuModule,
     MatIconModule,
+    NgbCollapseModule,
+    MatDialogModule,
+
+  ],
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent,
+    HomeViewComponent,
+    LoginViewComponent
   ],
   providers: [
     AuthGuard,
@@ -67,7 +77,8 @@ import { SingleParcelComponent } from './components/single-parcel/single-parcel.
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    MatDialogModule
   ],
   bootstrap: [AppComponent]
 })

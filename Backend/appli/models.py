@@ -3,6 +3,12 @@ from django.db.models.deletion import CASCADE, PROTECT
 from django.contrib.auth.models import User
 from rest_framework.reverse import reverse as api_reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nombre_parcelle = models.IntegerField(default = 0)
+    localisation = models.CharField(max_length = 100, default = '')
 
 class Plantes(models.Model):
     nom = models.CharField(max_length=100)
@@ -10,6 +16,7 @@ class Plantes(models.Model):
     besoin_hydrolique = models.DecimalField(max_digits=10, decimal_places=2)
     date_semis_debut = models.DateField(blank = False,  default = timezone.now)
     date_semis_fin = models.DateField(blank =False,  default = timezone.now)
+    densite_semi = models.IntegerField(default = 0)
     recolte_en_jours = models.IntegerField(default = 0)
     description = models.TextField(blank=True)
     url_wiki = models.TextField(blank = False, default = '')
@@ -22,13 +29,14 @@ class Plantes(models.Model):
         return api_reverse("api-appli:post-rud-plant", kwargs={'pk': self.pk}, request=request)
 
 
+
 class Parcelle(models.Model):
     numero_parcelle = models.IntegerField()
     userId = models.ForeignKey(User, related_name='parcelle', on_delete=CASCADE)
     planteId = models.ForeignKey(Plantes, related_name='parcelle', on_delete=CASCADE)
     date_plantation = models.DateField(blank = False, default = timezone.now)
     taille_metre_carre = models.FloatField()
-    estUtilise = models.BooleanField(default = True);
+    estUtilise = models.BooleanField(default = True)
     
 
     def __str__(self):

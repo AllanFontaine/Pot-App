@@ -1,0 +1,74 @@
+<div class="text-center pt-5">
+  <h3>This is your historic</h3>
+</div>
+
+<!-- Ajoutez la class "stretched-link" au card pour les rendre cliquable, s'informer -->
+<!-- Ajoutez l'asynchrone pour que tout s'affiche du premier coup -->
+
+<div class="main-content" *ngIf="my_parcel.length != 0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-success">
+            <h4 class="card-title ">Historique de vos plantations</h4>
+            <p class="card-category">y ajouter des options de filtre</p>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover table-striped">
+                <thead class="text-primary">
+                <th>
+                  ID Parcelle
+                </th>
+                <th>
+                  Numéro parcelle
+                </th>
+                <th>
+                  Plante
+                </th>
+                <th>
+                  Date de plantation
+                </th>
+                <th>
+                  Est utilisé
+                </th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let parcel of my_parcel">
+                  <td>
+                    {{parcel.id}}
+                  </td>
+                  <td>
+                    {{parcel.numero_parcelle}}
+                  </td>
+                  <td>
+                    {{parcel.planteId.nom}}
+                  </td>
+                  <td>
+                    {{parcel.date_plantation | date}}
+                  </td>
+                  <td class="text-primary">
+                    {{parcel.estUtilise}}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- liste de parcelle vide -->
+
+  <div class="text-center" *ngIf="my_parcel.length === 0">
+    <div class="mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        Votre jardin est vide, pour l'instant! N'hésitez pas à le remplir.
+      </div>
+    </div>
+  </div>
+</div>

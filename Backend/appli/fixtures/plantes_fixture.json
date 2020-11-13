@@ -1,0 +1,195 @@
+[
+  {
+    "model": "appli.plantes", 
+    "pk": 1,
+    "fields": {
+        "nom": "Carotte", 
+        "nom_scientifique": "Daucus carota",
+        "besoin_hydrolique": "0", 
+        "date_semis_debut": "2020-03-01", 
+        "date_semis_fin": "2020-09-30", 
+        "densite_semi": 150,
+        "recolte_en_jours": 120, 
+        "description": "Famille des Apiaceae légume racine", 
+        "url_wiki": "Carotte", 
+        "image": "Img/carrote.png"
+        }
+     },
+  { 
+    "model": "appli.plantes", 
+    "pk": 2,
+    "fields": {
+        "nom": "Radis", 
+        "nom_scientifique": "Raphanus sativus",
+        "besoin_hydrolique": "0", 
+        "date_semis_debut": "2020-01-01", 
+        "date_semis_fin": "2020-12-31", 
+        "densite_semi": 350,
+        "recolte_en_jours": 60, 
+        "description": "Famille des Brassicaceae", 
+        "url_wiki": "Radis", 
+        "image": "Img/radis.png"
+        }
+     },
+  { 
+    "model": "appli.plantes", 
+    "pk": 3,
+    "fields": {
+        "nom": "Tomate", 
+        "nom_scientifique": "Lycopersicon esculentum",
+        "besoin_hydrolique": "0", 
+        "date_semis_debut": "2020-03-01", 
+        "date_semis_fin": "2020-04-30", 
+        "densite_semi": 3,
+        "recolte_en_jours": 70, 
+        "description": "Solanaceae", 
+        "url_wiki": "Tomate", 
+        "image": "Img/tomate.png"
+        }
+     },
+  { 
+    "model": "appli.plantes", 
+    "pk": 4,
+    "fields": {
+        "nom": "Poivron", 
+        "nom_scientifique": "Capsicum anuum",
+        "besoin_hydrolique": "0", 
+        "date_semis_debut": "2020-05-01", 
+        "date_semis_fin": "2020-05-31", 
+        "densite_semi": 2,
+        "recolte_en_jours": 65, 
+        "description": "Solanaceae", 
+        "url_wiki": "Poivron", 
+        "image": "Img/poivron.png"
+        }
+     },
+     { 
+       "model": "appli.plantes", 
+       "pk": 5,
+       "fields": {
+           "nom": "Pomme de terre", 
+           "nom_scientifique": "Solanum tuberosum",
+           "besoin_hydrolique": "0", 
+           "date_semis_debut": "2020-04-01", 
+           "date_semis_fin": "2020-04-30", 
+           "densite_semi": 6,
+           "recolte_en_jours": 210, 
+           "description": "Solanaceae", 
+           "url_wiki": "Pomme_de_terre", 
+           "image": "Img/pomme_de_terre.png"
+           }
+        },
+        { 
+          "model": "appli.plantes", 
+          "pk": 6,
+          "fields": {
+              "nom": "Poireau", 
+              "nom_scientifique": "Allium porrum",
+              "besoin_hydrolique": "0", 
+              "date_semis_debut": "2020-02-01", 
+              "date_semis_fin": "2020-07-31", 
+              "densite_semi": 20,
+              "recolte_en_jours": 98, 
+              "description": "Alliaceae", 
+              "url_wiki": "Poireau", 
+              "image": "Img/poireau.png"
+              }
+           },
+           { 
+             "model": "appli.plantes", 
+             "pk": 7,
+             "fields": {
+                 "nom": "Laitue cultivée", 
+                 "nom_scientifique": "Lactuca sativa",
+                 "besoin_hydrolique": "0", 
+                 "date_semis_debut": "2020-01-01", 
+                 "date_semis_fin": "2020-12-31", 
+                 "densite_semi": 15,
+                 "recolte_en_jours": 80, 
+                 "description": "Asteraceae", 
+                 "url_wiki": "Laitue_cultivée", 
+                 "image": "Img/laitue.png"
+                 }
+              },
+           { 
+             "model": "appli.plantes", 
+             "pk": 8,
+             "fields": {
+                 "nom": "Mache", 
+                 "nom_scientifique": "Valerianella locusta",
+                 "besoin_hydrolique": "0", 
+                 "date_semis_debut": "2020-01-01", 
+                 "date_semis_fin": "2020-12-31", 
+                 "densite_semi": 500,
+                 "recolte_en_jours": 80, 
+                 "description": "Valerianaceae", 
+                 "url_wiki": "Valerianella_locusta", 
+                 "image": ""
+                 }
+              },
+           { 
+             "model": "appli.plantes", 
+             "pk": 8,
+             "fields": {
+                 "nom": "Chou-fleur", 
+                 "nom_scientifique": "Brassica oleracea",
+                 "besoin_hydrolique": "0", 
+                 "date_semis_debut": "2020-03-01", 
+                 "date_semis_fin": "2020-06-30", 
+                 "densite_semi": 1,
+                 "recolte_en_jours": 100, 
+                 "description": "Brassicaceae", 
+                 "url_wiki": "Chou-fleur", 
+                 "image": "Img/chou-fleur.png"
+                 }
+              },
+           { 
+             "model": "appli.plantes", 
+             "pk": 9,
+             "fields": {
+                 "nom": "Courgette", 
+                 "nom_scientifique": "Cucurbita pepo",
+                 "besoin_hydrolique": "0", 
+                 "date_semis_debut": "2020-04-01", 
+                 "date_semis_fin": "2020-04-30", 
+                 "densite_semi": 1,
+                 "recolte_en_jours": 120, 
+                 "description": "Cucurbitaceae", 
+                 "url_wiki": "Courgette#Culture", 
+                 "image": ""
+                 }
+              },
+              { 
+                "model": "appli.plantes", 
+                "pk": 10,
+                "fields": {
+                    "nom": "Cornichon", 
+                    "nom_scientifique": "Cucumis sativus",
+                    "besoin_hydrolique": "0", 
+                    "date_semis_debut": "2020-05-15", 
+                    "date_semis_fin": "2020-08-31", 
+                    "densite_semi": 2,
+                    "recolte_en_jours": 100, 
+                    "description": "Cucurbitaceae", 
+                    "url_wiki": "Cornichon", 
+                    "image": ""
+                    }
+                 },
+                 { 
+                   "model": "appli.plantes", 
+                   "pk": 11,
+                   "fields": {
+                       "nom": "Onion", 
+                       "nom_scientifique": "Allium cepa",
+                       "besoin_hydrolique": "0", 
+                       "date_semis_debut": "2020-09-01", 
+                       "date_semis_fin": "2020-12-31", 
+                       "densite_semi": 36,
+                       "recolte_en_jours": 210, 
+                       "description": "Amaryllidaceae", 
+                       "url_wiki": "Onion", 
+                       "image": "Img/onion.png"
+                       }
+                    }
+                 
+]
