@@ -5,18 +5,19 @@ import { data } from 'jquery';
 
 @Injectable()
 export class PersonalGardenService {
-  private url_plant: 'http://127.0.0.1:8000/api/';
+  private url_plant = 'http://127.0.0.1:8000/api';
   private url_parcel: 'http://127.0.0.1:8000/api/parcelle';
 
   constructor(private http: HttpClient) { }
 
+
   get_plants(): Observable<any> {
-    return this.http.get('http://127.0.0.1:8000/api/plante/');
+    return this.http.get(this.url_plant + '/plante/');
   }
 
   get_my_active_parcels(user_id): Observable<any> {
     return this.http.get(
-      'http://127.0.0.1:8000/api/parcelle-plantes/?userid=' +
+      this.url_plant + '/parcelle-plantes/?userid=' +
       user_id +
       '&stat=True'
     );
@@ -24,19 +25,19 @@ export class PersonalGardenService {
 
   get_my_parcels(user_id): Observable<any> {
     return this.http.get(
-      'http://127.0.0.1:8000/api/parcelle-plantes/?userid=' + user_id
+      this.url_plant + '/parcelle-plantes/?userid=' + user_id
     );
   }
 
   get_one_parcel(id): Observable<any> {
     return this.http.get(
-      'http://127.0.0.1:8000/api/parcelle-plantes/' + id + '/'
+      this.url_plant + '/parcelle-plantes/' + id + '/'
     );
   }
 
   delete_parcel(user_id, data): Observable<any> {
     return this.http.put(
-      'http://127.0.0.1:8000/api/parcelle/' + user_id + '/',
+      this.url_plant + '/parcelle/' + user_id + '/',
       data
     );
   }
@@ -46,16 +47,22 @@ export class PersonalGardenService {
   }
   get_profile() {
     return this.http.get(
-      'http://127.0.0.1:8000/api/profile/' + this.get_user_id() + '/'
+      this.url_plant + '/profile/' + this.get_user_id() + '/'
     );
   }
 
   modify_profile(data): Observable<any> {
     return this.http.put(
-      'http://127.0.0.1:8000/api/profile/' + this.get_user_id() + '/', data
+      this.url_plant + '/profile/' + this.get_user_id() + '/', data
     )
   }
   add_parcel(parcel): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/api/parcelle/', parcel);
+    return this.http.post(this.url_plant + '/parcelle/', parcel);
+  }
+
+  get_parcel_data(parcel, date): Observable<any> {
+    return this.http.get(this.url_plant + '/donnees-parcelle/?idParcelle=' + parcel + '&date=' + date);
   }
 }
+
+

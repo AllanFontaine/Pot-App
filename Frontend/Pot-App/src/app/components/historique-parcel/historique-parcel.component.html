@@ -18,40 +18,40 @@
             <div class="table-responsive">
               <table class="table table-hover table-striped">
                 <thead class="text-primary">
-                <th>
-                  ID Parcelle
-                </th>
-                <th>
-                  Numéro parcelle
-                </th>
-                <th>
-                  Plante
-                </th>
-                <th>
-                  Date de plantation
-                </th>
-                <th>
-                  Est utilisé
-                </th>
+                  <th>
+                    ID Parcelle
+                  </th>
+                  <th>
+                    Numéro parcelle
+                  </th>
+                  <th>
+                    Plante
+                  </th>
+                  <th>
+                    Date de plantation
+                  </th>
+                  <th>
+                    Est utilisé
+                  </th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let parcel of my_parcel">
-                  <td>
-                    {{parcel.id}}
-                  </td>
-                  <td>
-                    {{parcel.numero_parcelle}}
-                  </td>
-                  <td>
-                    {{parcel.planteId.nom}}
-                  </td>
-                  <td>
-                    {{parcel.date_plantation | date}}
-                  </td>
-                  <td class="text-primary">
-                    {{parcel.estUtilise}}
-                  </td>
-                </tr>
+                  <tr *ngFor="let parcel of my_parcel">
+                    <td>
+                      {{parcel.id}}
+                    </td>
+                    <td>
+                      {{parcel.numero_parcelle}}
+                    </td>
+                    <td>
+                      {{parcel.planteId.nom}}
+                    </td>
+                    <td>
+                      {{parcel.date_plantation | date}}
+                    </td>
+                    <td class="text-primary">
+                      {{parcel.estUtilise}}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -62,7 +62,7 @@
   </div>
 
 
-<!-- liste de parcelle vide -->
+  <!-- liste de parcelle vide -->
 
   <div class="text-center" *ngIf="my_parcel.length === 0">
     <div class="mb-3" style="max-width: 540px;">

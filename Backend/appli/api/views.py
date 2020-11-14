@@ -110,12 +110,18 @@ class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
     permission_classes = []
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = DonneesUser.objects.all()
+        queryset_list = DonneesParcelle.objects.all()
         query_date = self.request.GET.get("date")
         if is_valid_queryparam(query_date):
-            queryset_list = queryset_list.filter(
+             queryset_list = queryset_list.filter(
                 Q(date_reception_donnee__gte=query_date)
-            ).distinct().order_by('-date_reception_donnee')
+            ).distinct().order_by('date_reception_donnee')
+
+        query_idParcelle = self.request.GET.get("idParcelle")
+        if is_valid_queryparam(query_idParcelle):
+             queryset_list = queryset_list.filter(
+                Q(parcelleId = query_idParcelle)
+            ).distinct()
         return queryset_list
 
 

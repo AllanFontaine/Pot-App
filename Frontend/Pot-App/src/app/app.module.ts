@@ -67,7 +67,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
     AppComponent,
     AdminLayoutComponent,
     HomeViewComponent,
-    LoginViewComponent
+    LoginViewComponent,
   ],
   providers: [
     AuthGuard,
