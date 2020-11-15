@@ -144,7 +144,7 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    """password = serializers.CharField(write_only=True)
     token = serializers.SerializerMethodField()
 
     def get_token(self, obj):
@@ -153,38 +153,20 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         payload = jwt_payload_handler(obj)
         token = jwt_encode_handler(payload)
-        return token
+        return token"""
 
-    def validate(self, data):
-        password = data.get('password')
-        errors = dict()
-        try:
-            validators.validate_password(password=password)
+    class Meta:
+        model = User
+        fields = ( 'username', 'email', 'password', 'first_name', 'last_name')
+        extra_kwargs = {'password': {'write_only': True}}
 
-        # the exception raised here is different than serializers.ValidationError
-        except exceptions.ValidationError as e:
-            errors['password'] = list(e.messages)
 
-        if errors:
-            raise serializers.ValidationError(errors)
-
-        return super(RegisterSerializer, self).validate(data)
-
-    def create(self, validated_data):
-
-        user = UserModel.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email']
-        )
+    def create(self,validated_data):
+        user = User(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
 
         return user
-
-    class Meta:
-        model = UserModel
-        fields = ('username', 'email', 'password', 'token')
-        extra_kwargs = {'password': {'write_only': True}}
 
 
 

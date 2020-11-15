@@ -55,11 +55,11 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     queryset = Profile.objects.all()
 
 
-class UserRegisterView(CreateAPIView):
-
-    model = get_user_model()
-    permission_classes = []
+class UserRegisterView(generics.ListCreateAPIView):
+    model = User
     serializer_class = RegisterSerializer
+    queryset = User.objects.all()
+    permission_classes = []
 
 
 #### Données du model parcelle ##########################################################################################

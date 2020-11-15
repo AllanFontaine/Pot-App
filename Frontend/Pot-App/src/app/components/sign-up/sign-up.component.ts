@@ -10,51 +10,20 @@ import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
-  formGroup: FormGroup;
+  registerUserData = {email: '', username: '', first_name: '', last_name: '', password:''}
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.initForm();
   }
 
-  initForm() {
-    this.formGroup = new FormGroup(
-      {
-        username: new FormControl('', [Validators.required]),
-        //first_name: new FormControl('', [Validators.required]),
-        //last_name: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
-      }
-    )
-  }
-
-  registerUser(form: NgForm) {
-    const val = form.value;
-    if (val.email && val.password && val.username) {
-      console.log(val)
-      this.authService.registerUser(val)
-        .subscribe(
-          res => {
-            console.log(res)
-            this.router.navigate(['/login'])
-            alert('Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!')
-          },
-          err => {
-            console.log("dans l'erreur")
-            console.log(err)
-            if (!!err.error.username) {
-              alert(err.error.username)
-            } else if (!!err.error.password) {
-              alert(err.error.password)
-            }
-          },
-        );
-    } else {
-      console.log('la valeur de val n\'est pas conforme.');
-      console.log(val);
-    }
+  registerUser(){
+    this.authService.registerUser(this.registerUserData)
+      .subscribe(
+        res => {
+          console.log(res)
+        },
+        err => console.log(err),
+      );
   }
 }

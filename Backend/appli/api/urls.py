@@ -44,7 +44,7 @@ urlpatterns = [
 
     path('token', jwt_views.TokenObtainPairView.as_view(serializer_class=CustomJWTSerializer), name='token_obtain_pair'),
     path('token/refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-    path('register', UserRegisterView.as_view()),
+    path('register', UserRegisterView.as_view(), name='register'),
     path('', include(router.urls)),
 ]
     

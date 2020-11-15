@@ -38,6 +38,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeViewComponent } from "./components/home-view/home-view.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
+import {SignUpComponent} from "./components/sign-up/sign-up.component";
 
 @NgModule({
   imports: [
@@ -66,17 +67,18 @@ import { LoginViewComponent } from './components/login-view/login-view.component
     AppComponent,
     AdminLayoutComponent,
     HomeViewComponent,
-    LoginViewComponent
+    LoginViewComponent,
+    SignUpComponent,
   ],
   providers: [
     AuthGuard,
     AuthService,
     PersonalGardenService,
-    WikiService, {
+    WikiService, /*{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    },
+    },*/
     MatDialogModule
   ],
   bootstrap: [AppComponent]
