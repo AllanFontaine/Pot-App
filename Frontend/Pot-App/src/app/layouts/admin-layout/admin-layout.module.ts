@@ -67,7 +67,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     UserProfileComponent,
     TableListComponent,
     WikiViewComponent,
-    SignUpComponent,
     ResetPasswordComponent,
     TypographyComponent,
     IconsComponent,
@@ -86,11 +85,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     PersonalGardenService,
     WikiService,
     MatDialogModule,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true,
-    },
     DatePipe,
 
   ],

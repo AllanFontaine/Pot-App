@@ -14,6 +14,7 @@ import {AuthGuard} from '../../service/auth-guard.service';
 import {HistoriqueParcelComponent} from '../../components/historique-parcel/historique-parcel.component';
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
+import {SignUpComponent} from "../../components/sign-up/sign-up.component";
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -70,6 +71,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-parcel',     component: AddParcelComponent, canActivate: [AuthGuard] },
     { path: 'login',          component: LoginViewComponent },
+    { path: 'register',          component: SignUpComponent },
     { path: 'home',           component: HomeViewComponent },
     { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
 ];
