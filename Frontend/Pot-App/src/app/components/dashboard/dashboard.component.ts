@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵqueryRefresh } from '@angular/core';
 import { PersonalGardenService } from '../../service/personal-garden.service';
 import { Router } from '@angular/router';
+import { AddParcelComponent } from '../add-parcel/add-parcel.component';
+import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -11,8 +15,13 @@ export class DashboardComponent implements OnInit {
   parcel_db = [];
   amountParcels;
   my_parcels = [];
+  breakpoint: number;
 
-  constructor(private garden: PersonalGardenService, public router: Router) {}
+  constructor(
+    private garden: PersonalGardenService,
+    public router: Router,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.garden
@@ -28,6 +37,11 @@ export class DashboardComponent implements OnInit {
         },
         (err) => console.log(err)
       );
+    if (window.innerWidth <= 750 && window.innerWidth >= 450) {
+      this.breakpoint = 2
+    } else {
+      this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
+    }
 
     this.garden.get_profile().subscribe(
       (res) => {
@@ -38,26 +52,54 @@ export class DashboardComponent implements OnInit {
       (err) => console.log(err)
     );
   }
+  onResize(event) {
+    if (window.innerWidth <= 750 && window.innerWidth >= 450) {
+      this.breakpoint = 2
+    } else {
+      this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
+    }
+  }
 
   orderParcels() {
     for (let i = 0; i < this.parcel_db.length; i++) {
       this.my_parcels[this.parcel_db[i].numero_parcelle - 1] = this.parcel_db[
         i
       ];
-      console.log(this.my_parcels);
     }
   }
-  parcelToArrayNumber(parcel_num) {
-    for (let i = 0; i < this.parcel_db.length; i++) {
-      if (this.parcel_db[i].numero_parcelle === parcel_num) {
-        console.log(this.parcel_db[i]);
-        return i;
+  openDialogForm(numparcel): void {
+    let dialogRef = this.dialog.open(AddParcelComponent, {
+      data: {
+        num: numparcel + 1,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'SUCCESS') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Parcelle bien ajoutée',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      } else if (result === 'ERROR') {
+        Swal.fire({
+          icon: 'error',
+          title: 'ERREUR: Vérifiez les données entrées et réessayez',
+        })
       }
-    }
-    return -1;
+    });
   }
 
   navigToAdd(): void {
     this.router.navigate(['/add-parcel']);
+  }
+
+  navigToParcel(id): void {
+    this.router.navigate(['/dashboard/' + id]);
+
+    console.log("I am here")
   }
 }

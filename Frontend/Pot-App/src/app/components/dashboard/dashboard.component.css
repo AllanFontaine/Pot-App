@@ -1,8 +1,41 @@
-.card-img-top {
+
+.tile-plantes::before{
+	content: "";
+	position: absolute;
   width: 100%;
-  height: 10vw;
-  object-fit: cover;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: .4rem;
+  opacity: 0;
+	transition: opacity 0.5s ease-out;
 }
-mat-grid-tile {
-  background-color: lightblue;
+img{
+	width: 50%;
+	height: 50%;
+	transition: all 1s ease;
+}
+img:hover{
+	width: 100%;
+	height: 100%;
+}
+.tile-plantes:hover::before,
+.tile-plantes:hover{
+	opacity: 1;
+}
+.con-text{
+	cursor: pointer;
+	position: absolute;
+	color: white;
+	bottom: 0;
+	width: 270px;
+	height: 250px;
+	padding: 75px 25px;
+	display: none;
+  text-align: center;
+  text-shadow: rgb(26, 100, 3) 0px 0px 10px;
+}
+.tile-plantes:hover .con-text{
+	display: block;
 }

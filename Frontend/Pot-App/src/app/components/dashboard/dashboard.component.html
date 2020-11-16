@@ -1,18 +1,33 @@
-<div class="main-content">
+<div class="main-content " [ngStyle]="{backgroundImage:'url(../../../assets/img/soil.jpg)'}">
   <div class="container-fluid">
-    <div>
-      <mat-grid-list cols="4">
-        <div *ngFor="let parcel of this.my_parcels">
-          <div *ngIf="parcel.estUtilise == true; else addParcel">
-            <mat-grid-tile>{{ parcel.planteId.nom }}</mat-grid-tile>
-          </div>
+    <div *ngIf="this.my_parcels.length === 0; else showParcels">
 
+    </div>
+
+    <ng-template #showParcels>
+      <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)">
+        <div *ngFor="let parcel of this.my_parcels; let i = index">
+          <div *ngIf="parcel.estUtilise == true; else addParcel">
+            <div class="plantes-hover">
+              <mat-grid-tile class="tile-plantes" (click)="navigToParcel(parcel['id'])">
+                <img src="{{ parcel.planteId.image }}" alt="image plante" class="img-all" />
+                <div class="con-text">
+                  <h2>Parcelle numéro {{i + 1}}</h2>
+                  <p class="clickForInfo"> Cliquez pour plus d'infos</p>
+                </div>>
+              </mat-grid-tile>
+            </div>
+          </div>
           <ng-template #addParcel>
-            <mat-grid-tile>Ajoutez une parcelle</mat-grid-tile>
+            <mat-grid-tile>
+              <button mat-fab color="warning" (click)="openDialogForm(i)">
+                +
+              </button>
+            </mat-grid-tile>
           </ng-template>
         </div>
       </mat-grid-list>
-    </div>
+    </ng-template>
 
     <!--<div *ngIf="my_parcel.length != 0">
       <div class="row justify-content-center">
@@ -96,7 +111,7 @@
               </div>-->
 
     <!-- FIN première ligne de card sur 4 -->
-
+    <!--
     <div class="row">
       <div class="col-md-4">
         <div class="card card-chart">
@@ -106,8 +121,7 @@
           <div class="card-body">
             <h4 class="card-title">Daily Sales</h4>
             <p class="card-category">
-              <span class="text-success"
-                ><i class="fa fa-long-arrow-up"></i> 55%
+              <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55%
               </span>
               increase in today sales.
             </p>
@@ -153,7 +167,6 @@
       </div>
     </div>
 
-    <!-- FIN deuxième ligne de card -->
 
     <div class="row">
       <div class="col-lg-6 col-md-12">
@@ -164,34 +177,19 @@
                 <span class="nav-tabs-title">Tasks:</span>
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="nav-item">
-                    <a
-                      mat-button
-                      class="nav-link active"
-                      href="#profile"
-                      data-toggle="tab"
-                    >
+                    <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
                       <i class="material-icons">bug_report</i> Bugs
                       <div class="ripple-container"></div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a
-                      mat-button
-                      class="nav-link"
-                      href="#messages"
-                      data-toggle="tab"
-                    >
+                    <a mat-button class="nav-link" href="#messages" data-toggle="tab">
                       <i class="material-icons">code</i> Website
                       <div class="ripple-container"></div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a
-                      mat-button
-                      class="nav-link"
-                      href="#settings"
-                      data-toggle="tab"
-                    >
+                    <a mat-button class="nav-link" href="#settings" data-toggle="tab">
                       <i class="material-icons">cloud</i> Server
                       <div class="ripple-container"></div>
                     </a>
@@ -209,12 +207,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              checked
-                            />
+                            <input class="form-check-input" type="checkbox" value="" checked />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -226,22 +219,12 @@
                         of?"
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -250,11 +233,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                            />
+                            <input class="form-check-input" type="checkbox" value="" />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -266,22 +245,12 @@
                         Boss?
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -290,11 +259,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                            />
+                            <input class="form-check-input" type="checkbox" value="" />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -307,22 +272,12 @@
                         Detroit
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -331,12 +286,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              checked
-                            />
+                            <input class="form-check-input" type="checkbox" value="" checked />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -347,22 +297,12 @@
                         Create 4 Invisible User Experiences you Never Knew About
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -377,12 +317,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              checked
-                            />
+                            <input class="form-check-input" type="checkbox" value="" checked />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -395,22 +330,12 @@
                         Detroit
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -419,11 +344,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                            />
+                            <input class="form-check-input" type="checkbox" value="" />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -435,22 +356,12 @@
                         of?"
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -465,11 +376,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                            />
+                            <input class="form-check-input" type="checkbox" value="" />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -481,22 +388,12 @@
                         Boss?
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -505,12 +402,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              checked
-                            />
+                            <input class="form-check-input" type="checkbox" value="" checked />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -523,22 +415,12 @@
                         Detroit
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -547,12 +429,7 @@
                       <td>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input
-                              class="form-check-input"
-                              type="checkbox"
-                              value=""
-                              checked
-                            />
+                            <input class="form-check-input" type="checkbox" value="" checked />
                             <span class="form-check-sign">
                               <span class="check"></span>
                             </span>
@@ -564,22 +441,12 @@
                         of?"
                       </td>
                       <td class="td-actions text-right">
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Edit Task"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-primary btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'"
+                          class="btn btn-primary btn-link btn-sm btn-just-icon">
                           <i class="material-icons">edit</i>
                         </button>
-                        <button
-                          mat-raised-button
-                          type="button"
-                          matTooltip="Remove"
-                          [matTooltipPosition]="'above'"
-                          class="btn btn-danger btn-link btn-sm btn-just-icon"
-                        >
+                        <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'"
+                          class="btn btn-danger btn-link btn-sm btn-just-icon">
                           <i class="material-icons">close</i>
                         </button>
                       </td>
@@ -638,3 +505,4 @@
     </div>
   </div>
 </div>
+-->

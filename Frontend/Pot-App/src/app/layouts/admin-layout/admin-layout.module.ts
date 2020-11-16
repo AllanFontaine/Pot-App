@@ -26,6 +26,7 @@ import { TokenInterceptorService } from '../../service/token-interceptor.service
 import { HistoriqueParcelComponent } from '../../components/historique-parcel/historique-parcel.component';
 import { SingleParcelComponent } from '../../components/single-parcel/single-parcel.component';
 import { AddParcelComponent } from '../../components/add-parcel/add-parcel.component';
+import { LoginViewComponent } from '../../components/login-view/login-view.component'
 import { MatRadioModule } from '@angular/material/radio';
 import { SignUpComponent } from '../../components/sign-up/sign-up.component';
 import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
@@ -34,7 +35,10 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-import { MatGridListModule, MatGridTile } from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 
 @NgModule({
@@ -53,7 +57,11 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     MatDatepickerModule,
     MatNativeDateModule,
     MatGridListModule,
-  
+    SweetAlert2Module,
+    SweetAlert2Module.forRoot(),
+    MatDialogModule,
+    MatAutocompleteModule
+
   ],
   declarations: [
     DashboardComponent,
@@ -72,17 +80,20 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     AddParcelComponent,
     WikiSinglePlantComponent,
   ],
+  entryComponents: [AddParcelComponent],
   providers: [
     AuthGuard,
     AuthService,
     PersonalGardenService,
     WikiService,
+    MatDialogModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
     },
     DatePipe,
+
   ],
 })
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }
