@@ -16,29 +16,24 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-hover table-striped">
+              <table matSort (matSortChange)="getParcels($event)" class="table table-hover table-striped">
                 <thead class="text-primary">
-                  <th>
-                    ID Parcelle
-                  </th>
-                  <th>
+                  <th mat-sort-header="numparcel">
                     Numéro parcelle
                   </th>
-                  <th>
+                  <th mat-sort-header="nameplant">
                     Plante
                   </th>
-                  <th>
+                  <th mat-sort-header="scientname">Nom Scientifique</th>
+                  <th mat-sort-header="date">
                     Date de plantation
                   </th>
-                  <th>
+                  <th mat-sort-header="orderstat">
                     Est utilisé
                   </th>
                 </thead>
                 <tbody>
                   <tr *ngFor="let parcel of my_parcel">
-                    <td>
-                      {{parcel.id}}
-                    </td>
                     <td>
                       {{parcel.numero_parcelle}}
                     </td>
@@ -46,10 +41,16 @@
                       {{parcel.planteId.nom}}
                     </td>
                     <td>
-                      {{parcel.date_plantation | date}}
+                      {{parcel.planteId.nom_scientifique}}
+                    </td>
+                    <td>
+                      {{parcel.date_plantation | date:'d/M/yy'}}
                     </td>
                     <td class="text-primary">
-                      {{parcel.estUtilise}}
+                      {{parcel.estUtilise? 'En cours de plantation' : 'Récoltée'}}
+                    </td>
+                    <td>
+                      <button (click) = "deleteParcel(parcel.id)" mat-stroked-button color="warn">Supprimer de l'historique</button>
                     </td>
                   </tr>
                 </tbody>

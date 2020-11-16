@@ -39,6 +39,7 @@ import { HomeViewComponent } from "./components/home-view/home-view.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 
+
 @NgModule({
   imports: [
     MatMenuModule,
@@ -61,6 +62,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
     MatIconModule,
     NgbCollapseModule,
     MatDialogModule,
+    
 
   ],
   declarations: [

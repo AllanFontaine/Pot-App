@@ -40,6 +40,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
+import { BarWaterGraphComponent } from '../../components/bar-water-graph/bar-water-graph.component';
+import {MatSortModule} from '@angular/material/sort';
+
 
 @NgModule({
   imports: [
@@ -60,7 +63,8 @@ import { LineGraphComponent } from '../../components/line-graph/line-graph.compo
     SweetAlert2Module,
     SweetAlert2Module.forRoot(),
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSortModule
 
   ],
   declarations: [
@@ -78,7 +82,8 @@ import { LineGraphComponent } from '../../components/line-graph/line-graph.compo
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
-    LineGraphComponent
+    LineGraphComponent,
+    BarWaterGraphComponent
   ],
   entryComponents: [AddParcelComponent],
   providers: [

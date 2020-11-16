@@ -61,11 +61,13 @@ export class LineGraphComponent implements OnInit {
           borderWidth: 1
         }]
       },
+
       options: {
         title: {
           text: "Humdité de la parcelle en fonction du temps en %",
           display: true
         },
+        
         scales: {
           yAxes: [{
             ticks: {

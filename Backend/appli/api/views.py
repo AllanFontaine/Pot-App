@@ -89,17 +89,58 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Parcelle.objects.all()
+        print(queryset_list[1])
         query_status = self.request.GET.get("stat")
         query_user = self.request.GET.get("userid")
+        query_numParcel = self.request.GET.get("numparcel")
+        query_namePlant = self.request.GET.get("nameplant")
+        query_dateOrder = self.request.GET.get('date')
+        query_orderStatus = self.request.GET.get('orderstat')
+        query_scientificName = self.request.GET.get('scientname')
+
+
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
-            ).distinct()
+            ).distinct().order_by('-date_plantation')
         if is_valid_queryparam(query_user):
             queryset_list = queryset_list.filter(
                 Q(userId=query_user)
             ).distinct()
-        return queryset_list.order_by('-date_plantation')
+
+
+        if is_valid_queryparam(query_numParcel):
+            if (query_numParcel == 'ASC'):
+                queryset_list = queryset_list.order_by('numero_parcelle')
+            if (query_numParcel =='DSC'):
+                queryset_list = queryset_list.order_by('-numero_parcelle')
+
+        if is_valid_queryparam(query_namePlant):
+            if (query_namePlant == 'ASC'):
+                queryset_list = queryset_list.order_by('planteId__nom')
+            if (query_namePlant =='DSC'):
+                queryset_list = queryset_list.order_by('-planteId__nom')
+
+        if is_valid_queryparam(query_dateOrder):
+            if (query_dateOrder == 'ASC'):
+                queryset_list = queryset_list.order_by('date_plantation')
+            if (query_dateOrder =='DSC'):
+                queryset_list = queryset_list.order_by('-date_plantation')
+
+        if is_valid_queryparam(query_orderStatus):
+            if (query_orderStatus == 'ASC'):
+                queryset_list = queryset_list.order_by('estUtilise')
+            if (query_orderStatus =='DSC'):
+                queryset_list = queryset_list.order_by('-estUtilise')
+
+        if is_valid_queryparam(query_scientificName):
+            if (query_scientificName == 'ASC'):
+                queryset_list = queryset_list.order_by('planteId__nom_scientifique')
+            if (query_scientificName =='DSC'):
+                queryset_list = queryset_list.order_by('-planteId__nom_scientifique')
+        return queryset_list
+
+        
 
 ######## Données reprises de la sonde et attribuées par parcelle ####################################################
 

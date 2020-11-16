@@ -23,9 +23,14 @@ export class PersonalGardenService {
     );
   }
 
-  get_my_parcels(user_id): Observable<any> {
+  get_my_parcels(): Observable<any> {
     return this.http.get(
-      this.url_plant + '/parcelle-plantes/?userid=' + user_id
+      this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id()
+    );
+  }
+  get_my_parcels_ordered(orderBy , orderWay ): Observable<any> {
+    return this.http.get(
+      this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id() +"&"+orderBy +"=" +orderWay
     );
   }
 
@@ -41,7 +46,10 @@ export class PersonalGardenService {
       data
     );
   }
-
+  erase_parcel(parcel_id): Observable<any>{
+    console.log(this.url_plant + '/parcelle/' + parcel_id + '/')
+    return this.http.delete(this.url_plant + '/parcelle/' + parcel_id + '/');
+  }
   get_user_id() {
     return localStorage.getItem('user_id');
   }
