@@ -39,6 +39,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 
 @NgModule({
   imports: [
@@ -77,7 +78,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
-
+    WikiSinglePlantComponent,
   ],
   entryComponents: [AddParcelComponent],
   providers: [
