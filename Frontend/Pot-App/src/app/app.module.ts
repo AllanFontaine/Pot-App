@@ -25,7 +25,6 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import {AuthGuard} from './service/auth-guard.service';
 import {AuthService} from './service/auth.service';
 import {PersonalGardenService} from './service/personal-garden.service';
-import {WikiService} from './service/wiki.service';
 import {TokenInterceptorService} from './service/token-interceptor.service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
@@ -71,7 +70,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     AuthGuard,
     AuthService,
     PersonalGardenService,
-    WikiService, {
+   {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true

@@ -34,7 +34,8 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MatGridListModule, MatGridTile } from '@angular/material/grid-list';
+import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 
 @NgModule({
   imports: [
@@ -52,6 +53,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatGridListModule,
+  
   ],
   declarations: [
     DashboardComponent,
@@ -68,6 +70,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
+    WikiSinglePlantComponent,
   ],
   providers: [
     AuthGuard,

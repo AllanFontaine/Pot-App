@@ -1,1 +1,31 @@
-
+<div id="wiki_container" class="container">
+    <form class="navbar-form">
+        <span class="bmd-form-group">
+          <div class="input-group no-border">
+            <input type="text" value="" class="form-control rounded blank" placeholder="Chercher une plante">
+            <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
+              <i class="material-icons">search</i>
+              <div class="ripple-container"></div>
+            </button>
+          </div>
+        </span>
+      </form>
+      <div class="container">
+          <app-wiki-single-plant *ngFor="let plant of plants"
+          [nom]="plant.nom"
+          [nom_scientifique] = "plant.nom_scientifique"
+          [date_semis_debut] = "plant.date_semis_debut"
+          [date_semis_fin] = "plant.date_semis_fin"
+          [recolte_en_jours] = "plant.recolte_en_jours"
+          [densite_semi] = "plant.densite_semi"
+          [image] = "plant.image"
+          [url_wiki] = "plant.url_wiki"
+          [description] = "plant.description"
+          [saison_debut]="plant.saison_debut"
+          [saison_fin] = "plant.saison_fin"
+          [besoin_hydrolique] = "plant.besoin_hydrolique"
+          [id]="plant.id">
+      </app-wiki-single-plant>
+        
+      </div>
+</div>
