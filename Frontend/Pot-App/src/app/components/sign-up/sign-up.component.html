@@ -5,28 +5,28 @@
         <h3 class="mb-0">Register</h3>
       </div>
       <div class="card-body">
-        <form class="form">
+        <form class="form" (ngSubmit)="registerUser(f)" #f="ngForm">
           <div class="form-group">
             <label for="Username">Username</label>
-            <input [(ngModel)]="registerUserData.username" name="username" type="text" id="Username" class="form-control rounded-0" required>
+            <input name="username" type="text" id="Username" class="form-control rounded-0" ngModel required>
           </div>
           <div class="form-group">
             <label for="SignupEmail">Email</label>
-            <input [(ngModel)]="registerUserData.email" name="email" id="SignupEmail" type="text" class="form-control rounded-0" required>
+            <input name="email" id="SignupEmail" type="text" class="form-control rounded-0" ngModel required>
           </div>
           <div class="form-group">
             <label for="FName">First name</label>
-            <input [(ngModel)]="registerUserData.first_name" name="firstName" type="text" id="FName" class="form-control rounded-0" required>
+            <input name="first_name" type="text" id="FName" class="form-control rounded-0" ngModel>
           </div>
           <div class="form-group">
             <label for="LName">Last name</label>
-            <input [(ngModel)]="registerUserData.last_name" name="lastName" type="text" id="LName" class="form-control rounded-0" required>
+            <input name="last_name" type="text" id="LName" class="form-control rounded-0" ngModel>
           </div>
           <div class="form-group">
             <label for="SignupPassword">Password</label>
-            <input [(ngModel)]="registerUserData.password" name="password" type="password" id="SignupPassword" class="form-control rounded-0" required>
+            <input name="password" type="password" id="SignupPassword" class="form-control rounded-0" ngModel required>
           </div>
-          <button (click)="registerUser()" type="button" class="btn btn-primary float-right">Register</button>
+          <button type="submit" class="btn btn-primary float-right">Register</button>
         </form>
       </div>
     </div>

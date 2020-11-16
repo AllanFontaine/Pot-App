@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,20 +11,55 @@ import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
-  registerUserData = {email: '', username: '', first_name: '', last_name: '', password:''}
+  helper = new JwtHelperService();
+  formGroup: FormGroup;
 
-  constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
-  registerUser(){
-    this.authService.registerUser(this.registerUserData)
-      .subscribe(
-        res => {
-          console.log(res)
-        },
-        err => console.log(err),
-      );
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  initForm() {
+    this.formGroup = new FormGroup(
+      {
+        username: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required]),
+        first_name: new FormControl('', [Validators.required]),
+        last_name: new FormControl('', [Validators.required]),
+      }
+    )
+  }
+
+  registerUser(form: NgForm) {
+    const val = form.value;
+    if(val.email && val.password && val.username) {
+      this.authService.registerUser(form.value)
+        .subscribe(
+          res => {
+            console.log(res)
+            localStorage.setItem('token', res.token.access)
+            const decodedToken = this.helper.decodeToken(res.token.access);
+            console.log(decodedToken);
+            localStorage.setItem('user_id', decodedToken.user_id)
+            localStorage.setItem('exp', decodedToken.exp)
+            this.router.navigate(['/dashboard'])
+            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!")
+          },
+          err => {
+            console.log(val)
+            if (!!err.error.username) {
+              alert(err.error.username)
+            } else if (!!err.error.password) {
+              alert(err.error.password)
+            }
+          },
+        );
+    } else{
+      console.log("la valeur de val n'est pas conforme.");
+      console.log(val);
+    }
   }
 }

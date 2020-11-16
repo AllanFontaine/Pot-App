@@ -7,9 +7,18 @@ from django.core import exceptions
 from django.db.models.functions import ExtractMonth
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 import django.contrib.auth.password_validation as validators
-from rest_framework_jwt.settings import api_settings
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 UserModel = get_user_model()
+
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
 
 
 class PlantesSerializer(serializers.ModelSerializer):
@@ -122,9 +131,6 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        token["email"] = user.email
-        token["username"] = user.username
-        token["id"] = user.id
 
         return token
 
@@ -144,20 +150,20 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    """password = serializers.CharField(write_only=True)
     token = serializers.SerializerMethodField()
 
     def get_token(self, obj):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+        refresh = RefreshToken.for_user(obj)
 
-        payload = jwt_payload_handler(obj)
-        token = jwt_encode_handler(payload)
-        return token"""
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
+
 
     class Meta:
         model = User
-        fields = ( 'username', 'email', 'password', 'first_name', 'last_name')
+        fields = ( 'username', 'email', 'password', 'first_name', 'last_name', 'token')
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -165,6 +171,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User(**validated_data)
         user.set_password(validated_data['password'])
         user.save()
+
 
         return user
 

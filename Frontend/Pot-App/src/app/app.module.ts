@@ -74,11 +74,11 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
     AuthGuard,
     AuthService,
     PersonalGardenService,
-    WikiService, /*{
+    WikiService, {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    },*/
+    },
     MatDialogModule
   ],
   bootstrap: [AppComponent]
