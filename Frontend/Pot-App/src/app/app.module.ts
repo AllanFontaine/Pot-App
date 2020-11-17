@@ -42,6 +42,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 
 
+
 @NgModule({
   imports: [
     MatMenuModule,

@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
           title: 'Parcelle bien ajoutée',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.reload();
+            this.ngOnInit();
           }
         });
       } else if (result === 'ERROR') {

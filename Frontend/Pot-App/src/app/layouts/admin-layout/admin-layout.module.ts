@@ -43,8 +43,10 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
 import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
 import { BarWaterGraphComponent } from '../../components/bar-water-graph/bar-water-graph.component';
 import {MatSortModule} from '@angular/material/sort';
-
-
+import { ShopComponent } from '../../components/shop/shop.component';
+import { AboutUsComponent } from '../../components/about-us/about-us.component';
+import {MatCardModule} from '@angular/material/card';
+import {CartService } from '../../service/cart.service'
 @NgModule({
   imports: [
     CommonModule,
@@ -65,7 +67,9 @@ import {MatSortModule} from '@angular/material/sort';
     SweetAlert2Module.forRoot(),
     MatDialogModule,
     MatAutocompleteModule,
-    MatSortModule
+    MatSortModule,
+    MatCardModule,
+   
 
   ],
   declarations: [
@@ -84,7 +88,9 @@ import {MatSortModule} from '@angular/material/sort';
     AddParcelComponent,
     WikiSinglePlantComponent,
     LineGraphComponent,
-    BarWaterGraphComponent
+    BarWaterGraphComponent,
+    ShopComponent,
+    AboutUsComponent
   ],
   entryComponents: [AddParcelComponent],
   providers: [
@@ -94,6 +100,7 @@ import {MatSortModule} from '@angular/material/sort';
     WikiService,
     MatDialogModule,
     DatePipe,
+    CartService
 
   ],
 })
