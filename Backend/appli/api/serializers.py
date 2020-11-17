@@ -7,9 +7,18 @@ from django.core import exceptions
 from django.db.models.functions import ExtractMonth
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 import django.contrib.auth.password_validation as validators
-from rest_framework_jwt.settings import api_settings
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 UserModel = get_user_model()
+
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
 
 
 class PlantesSerializer(serializers.ModelSerializer):
@@ -62,8 +71,7 @@ class PlantesSerializer(serializers.ModelSerializer):
 
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
@@ -71,6 +79,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate_password (self, password):
         return make_password(password)
+
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     
@@ -122,9 +132,6 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        token["email"] = user.email
-        token["username"] = user.username
-        token["id"] = user.id
 
         return token
 
@@ -144,41 +151,30 @@ class CustomJWTSerializer(TokenObtainPairSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    token = serializers.SerializerMethodField()
 
-    def validate(self, data):
-        password = data.get('password')
-        errors = dict()
-        try:
-            validators.validate_password(password=password)
+    def get_token(self, obj):
+        refresh = RefreshToken.for_user(obj)
 
-        # the exception raised here is different than serializers.ValidationError
-        except exceptions.ValidationError as e:
-            errors['password'] = list(e.messages)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
 
-        if errors:
-            raise serializers.ValidationError(errors)
-
-        return super(RegisterSerializer, self).validate(data)
-
-    def create(self, validated_data):
-
-        user = UserModel.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email']
-        )
-        user.set_password(validated_data['password'])
-        token = CustomJWTSerializer(user['username'], user['password'])
-        user['token']
-        user.save()
-
-        return user
 
     class Meta:
-        model = UserModel
-        fields = ('username', 'email', 'password', 'token')
+        model = User
+        fields = ( 'username', 'email', 'password', 'first_name', 'last_name', 'token')
+        extra_kwargs = {'password': {'write_only': True}}
 
-    def validate_password (self, password) :
-        return make_password(password)
+
+    def create(self,validated_data):
+        user = User(**validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+
+
+        return user
 
 
 

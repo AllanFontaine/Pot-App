@@ -38,6 +38,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeViewComponent } from "./components/home-view/home-view.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
+import {SignUpComponent} from "./components/sign-up/sign-up.component";
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { LoginViewComponent } from './components/login-view/login-view.component
     AdminLayoutComponent,
     HomeViewComponent,
     LoginViewComponent,
+    SignUpComponent,
   ],
   providers: [
     AuthGuard,

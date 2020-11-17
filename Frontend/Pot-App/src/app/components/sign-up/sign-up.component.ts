@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,6 +11,7 @@ import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
+  helper = new JwtHelperService();
   formGroup: FormGroup;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -33,13 +35,18 @@ export class SignUpComponent implements OnInit {
 
   registerUser(form: NgForm) {
     const val = form.value;
-    if (val.email && val.password && val.username) {
+    if(val.email && val.password && val.username) {
       this.authService.registerUser(form.value)
         .subscribe(
           res => {
             console.log(res)
-            this.router.navigate(['/login'])
-            alert('Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!')
+            localStorage.setItem('token', res.token.access)
+            const decodedToken = this.helper.decodeToken(res.token.access);
+            console.log(decodedToken);
+            localStorage.setItem('user_id', decodedToken.user_id)
+            localStorage.setItem('exp', decodedToken.exp)
+            this.router.navigate(['/dashboard'])
+            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!")
           },
           err => {
             console.log(val)
@@ -50,8 +57,8 @@ export class SignUpComponent implements OnInit {
             }
           },
         );
-    } else {
-      console.log('la valeur de val n\'est pas conforme.');
+    } else{
+      console.log("la valeur de val n'est pas conforme.");
       console.log(val);
     }
   }

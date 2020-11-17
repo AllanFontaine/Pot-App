@@ -11,20 +11,6 @@ from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, 
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
-"""def get_saison(query_saison, date_debut, date_fin):
-    if (query_saison == "WINTER"):
-        date_debut="12-21"
-        date_fin="03-20"
-    elif (query_saison == "SPRING"):
-        date_debut="03-20"
-        date_fin="06-20"
-    elif (query_saison == "AUTUMN"):
-        date_debut = "09-22"
-        date_fin = "12-21"
-    elif (query_saison == "SUMMER"):
-        date_debut="06-20"
-        date_fin="09-22"""
-
 
 class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
@@ -47,11 +33,20 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
         return queryset_list
 
 
-class UserAPIView(viewsets.ModelViewSet):  # detailview
+class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
     permission_classes = []
     queryset = User.objects.all()
+
+    def perform_create(self, serializer):
+            serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def get_serializer_context(self, *args, **kwargs):
+        return {"request": self.request}
 
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'user'  # (?P<pk>\d+) pk = id
@@ -60,13 +55,11 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     queryset = Profile.objects.all()
 
 
-
-class UserRegisterView(CreateAPIView):
-    model = get_user_model()
-    permission_classes = []
+class UserRegisterView(generics.ListCreateAPIView):
+    model = User
     serializer_class = RegisterSerializer
-
-
+    queryset = User.objects.all()
+    permission_classes = []
 
 
 #### Données du model parcelle ##########################################################################################
@@ -183,3 +176,6 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
                 Q(date_reception_donnee__gte=query_date)
             ).distinct().order_by('-date_reception_donnee')
         return queryset_list
+
+
+

@@ -72,7 +72,6 @@ import {MatSortModule} from '@angular/material/sort';
     UserProfileComponent,
     TableListComponent,
     WikiViewComponent,
-    SignUpComponent,
     ResetPasswordComponent,
     TypographyComponent,
     IconsComponent,
@@ -92,11 +91,6 @@ import {MatSortModule} from '@angular/material/sort';
     PersonalGardenService,
     WikiService,
     MatDialogModule,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true,
-    },
     DatePipe,
 
   ],
