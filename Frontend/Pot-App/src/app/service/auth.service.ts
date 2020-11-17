@@ -31,4 +31,14 @@ export class AuthService {
     localStorage.removeItem('user_id')
     this.router.navigate(['/home'])
   }
+
+  get_User(user_id): Observable<any> {
+    console.log(user_id);
+    return this.http.get('http://127.0.0.1:8000/api/users/', user_id)
+  }
+
+  get_Profile(user_id): Observable<any> {
+    console.log(user_id);
+    return this.http.get('http://127.0.0.1:8000/api/profile/', user_id)
+  }
 }
