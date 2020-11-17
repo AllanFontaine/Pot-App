@@ -21,7 +21,8 @@ export class HistoriqueParcelComponent implements OnInit {
   }
   deleteParcel(id){
     Swal.fire({
-      title: 'Do you want to save the changes?',
+      icon : 'warning',
+      title: 'ATTENTION: Les données supprimées ne pourront pas être récupérées',
       showDenyButton: true,
       showCancelButton: true,
       showConfirmButton:false,
@@ -29,8 +30,14 @@ export class HistoriqueParcelComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
-        this.garden.erase_parcel(id);
+        
+        this.garden.erase_parcel(id).subscribe(res => {
+          console.log("deleted")
+        },
+        err => console.log(err)
+      );
+      Swal.fire('Données supprimées', '', 'success')
+      this.ngOnInit()
       }
     })
 

@@ -111,33 +111,33 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
         if is_valid_queryparam(query_numParcel):
             if (query_numParcel == 'ASC'):
-                queryset_list = queryset_list.order_by('numero_parcelle')
-            if (query_numParcel =='DSC'):
                 queryset_list = queryset_list.order_by('-numero_parcelle')
+            if (query_numParcel =='DSC'):
+                queryset_list = queryset_list.order_by('numero_parcelle')
 
         if is_valid_queryparam(query_namePlant):
             if (query_namePlant == 'ASC'):
-                queryset_list = queryset_list.order_by('planteId__nom')
-            if (query_namePlant =='DSC'):
                 queryset_list = queryset_list.order_by('-planteId__nom')
+            if (query_namePlant =='DSC'):
+                queryset_list = queryset_list.order_by('planteId__nom')
 
         if is_valid_queryparam(query_dateOrder):
             if (query_dateOrder == 'ASC'):
-                queryset_list = queryset_list.order_by('date_plantation')
-            if (query_dateOrder =='DSC'):
                 queryset_list = queryset_list.order_by('-date_plantation')
+            if (query_dateOrder =='DSC'):
+                queryset_list = queryset_list.order_by('date_plantation')
 
         if is_valid_queryparam(query_orderStatus):
             if (query_orderStatus == 'ASC'):
-                queryset_list = queryset_list.order_by('estUtilise')
-            if (query_orderStatus =='DSC'):
                 queryset_list = queryset_list.order_by('-estUtilise')
+            if (query_orderStatus =='DSC'):
+                queryset_list = queryset_list.order_by('estUtilise')
 
         if is_valid_queryparam(query_scientificName):
             if (query_scientificName == 'ASC'):
-                queryset_list = queryset_list.order_by('planteId__nom_scientifique')
-            if (query_scientificName =='DSC'):
                 queryset_list = queryset_list.order_by('-planteId__nom_scientifique')
+            if (query_scientificName =='DSC'):
+                queryset_list = queryset_list.order_by('planteId__nom_scientifique')
         return queryset_list
 
         
