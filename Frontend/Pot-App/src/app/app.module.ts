@@ -40,6 +40,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 
+
 @NgModule({
   imports: [
     MatMenuModule,
@@ -62,6 +63,7 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
     MatIconModule,
     NgbCollapseModule,
     MatDialogModule,
+    
 
   ],
   declarations: [

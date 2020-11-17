@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-parcel',
@@ -24,6 +25,7 @@ export class AddParcelComponent implements OnInit {
   constructor(
     private garden: PersonalGardenService,
     private router: Router,
+    private datePipe: DatePipe,
     public dialogRef: MatDialogRef<AddParcelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
@@ -45,8 +47,6 @@ export class AddParcelComponent implements OnInit {
       (err) => console.log(err)
     );
 
-
-    console.log(this.listPlantName);
     this.initForm();
 
   }
@@ -71,7 +71,6 @@ export class AddParcelComponent implements OnInit {
     for (let i = 0; i < this.listPlant.length; i++) {
       if (this.listPlant[i].nom === event.option.value) {
         this.chosenPlant = this.listPlant[i].id;
-        console.log(this.chosenPlant);
         break;
       }
     }
@@ -82,9 +81,9 @@ export class AddParcelComponent implements OnInit {
     form.value['numero_parcelle'] = this.numparcel;
     form.value['userId'] = parseInt(localStorage.getItem('user_id'));
     form.value['estUtilise'] = true;
+    form.value['date_plantation'].setDate(form.value['date_plantation'].getDate()  + 1 );
     form.value['date_plantation'] = form.value['date_plantation'].toISOString();
     form.value['date_plantation'] = form.value['date_plantation'].split('T')[0];
-    console.log(form.value);
     this.garden.add_parcel(form.value).subscribe(
       (res) => {
         console.log(res);

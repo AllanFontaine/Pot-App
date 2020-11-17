@@ -52,8 +52,6 @@ class DonneesParcelle(models.Model):
     humidite_sol = models.IntegerField()
     quantite_eau_litre = models.DecimalField(max_digits = 10, decimal_places = 2)
 
-    def __str__(self):
-        return "parcelle numéro " + self.parcelleId.id
 
     def get_api_url(self, request=None):
         return api_reverse("api-appli:post-rud-dParce", kwargs={'pk': self.pk}, request=request)
