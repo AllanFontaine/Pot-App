@@ -14,7 +14,9 @@ import {AuthGuard} from '../../service/auth-guard.service';
 import {HistoriqueParcelComponent} from '../../components/historique-parcel/historique-parcel.component';
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
+import { WikiViewComponent } from 'app/components/wiki-view/wiki-view.component';
 import {SignUpComponent} from "../../components/sign-up/sign-up.component";
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -74,4 +76,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'register',          component: SignUpComponent },
     { path: 'home',           component: HomeViewComponent },
     { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
+    { path: 'wiki',           component: WikiViewComponent},
 ];

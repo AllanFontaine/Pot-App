@@ -10,11 +10,11 @@
           <div *ngIf="parcel.estUtilise == true; else addParcel">
             <div class="plantes-hover">
               <mat-grid-tile class="tile-plantes" (click)="navigToParcel(parcel['id'])">
-                <img src="{{ parcel.planteId.image }}" alt="image plante" />
+                <img src="{{ parcel.planteId.image }}" alt="image plante" class="img-all" />
                 <div class="con-text">
                   <h2>Parcelle numéro {{i + 1}}</h2>
                   <p class="clickForInfo"> Cliquez pour plus d'infos</p>
-                </div>
+                </div>>
               </mat-grid-tile>
             </div>
           </div>
