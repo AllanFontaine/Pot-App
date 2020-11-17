@@ -1,7 +1,3 @@
-<div class="text-center pt-5">
-  <h3>This is your historic</h3>
-</div>
-
 <!-- Ajoutez la class "stretched-link" au card pour les rendre cliquable, s'informer -->
 <!-- Ajoutez l'asynchrone pour que tout s'affiche du premier coup -->
 
@@ -12,46 +8,46 @@
         <div class="card">
           <div class="card-header card-header-success">
             <h4 class="card-title ">Historique de vos plantations</h4>
-            <p class="card-category">y ajouter des options de filtre</p>
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-hover table-striped">
+              <table matSort (matSortChange)="getParcels($event)" class="table table-hover table-striped">
                 <thead class="text-primary">
-                <th>
-                  ID Parcelle
-                </th>
-                <th>
-                  Numéro parcelle
-                </th>
-                <th>
-                  Plante
-                </th>
-                <th>
-                  Date de plantation
-                </th>
-                <th>
-                  Est utilisé
-                </th>
+                  <th mat-sort-header="numparcel">
+                    Numéro parcelle
+                  </th>
+                  <th mat-sort-header="nameplant">
+                    Plante
+                  </th>
+                  <th mat-sort-header="scientname">Nom Scientifique</th>
+                  <th mat-sort-header="date">
+                    Date de plantation
+                  </th>
+                  <th mat-sort-header="orderstat">
+                    Est utilisé
+                  </th>
                 </thead>
                 <tbody>
-                <tr *ngFor="let parcel of my_parcel">
-                  <td>
-                    {{parcel.id}}
-                  </td>
-                  <td>
-                    {{parcel.numero_parcelle}}
-                  </td>
-                  <td>
-                    {{parcel.planteId.nom}}
-                  </td>
-                  <td>
-                    {{parcel.date_plantation | date}}
-                  </td>
-                  <td class="text-primary">
-                    {{parcel.estUtilise}}
-                  </td>
-                </tr>
+                  <tr *ngFor="let parcel of my_parcel">
+                    <td>
+                      {{parcel.numero_parcelle}}
+                    </td>
+                    <td>
+                      {{parcel.planteId.nom}}
+                    </td>
+                    <td>
+                      {{parcel.planteId.nom_scientifique}}
+                    </td>
+                    <td>
+                      {{parcel.date_plantation | date:'d/M/yy'}}
+                    </td>
+                    <td class="text-primary">
+                      {{parcel.estUtilise? 'En cours de plantation' : 'Récoltée'}}
+                    </td>
+                    <td>
+                      <button (click) = "deleteParcel(parcel.id)" mat-stroked-button color="warn">Supprimer de l'historique</button>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -62,7 +58,7 @@
   </div>
 
 
-<!-- liste de parcelle vide -->
+  <!-- liste de parcelle vide -->
 
   <div class="text-center" *ngIf="my_parcel.length === 0">
     <div class="mb-3" style="max-width: 540px;">

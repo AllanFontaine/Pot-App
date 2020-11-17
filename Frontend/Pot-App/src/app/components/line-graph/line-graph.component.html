@@ -1,0 +1,13 @@
+
+<div style="text-align:center">
+
+    <h1>
+        Graph compo
+    </h1>
+    <mat-radio-group aria-label="Select an option">
+        <mat-radio-button (click)="onClickUpdate(31)" value="3">Month </mat-radio-button>
+        <mat-radio-button (click)="onClickUpdate(7)" value="2">Week </mat-radio-button>
+        <mat-radio-button checked="true" (click)="onClickUpdate(1)" value="1">Day </mat-radio-button>
+    </mat-radio-group>
+    <canvas id="lineChart"></canvas>
+</div>

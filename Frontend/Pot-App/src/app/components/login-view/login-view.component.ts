@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, NgForm, Validators, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../../service/auth.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -19,7 +19,6 @@ export class LoginViewComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<LoginViewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -48,6 +47,7 @@ export class LoginViewComponent implements OnInit {
         const decodedToken = this.helper.decodeToken(result.access);
         console.log(decodedToken);
         localStorage.setItem('user_id', decodedToken.user_id)
+        localStorage.setItem('exp', decodedToken.exp)
         this.dialogRef.close('SUCCESS');
         this.router.navigate(['/dashboard'])
       },

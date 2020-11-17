@@ -11,20 +11,6 @@ from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, 
 def is_valid_queryparam(param):
     return param != '' and param is not None
 
-"""def get_saison(query_saison, date_debut, date_fin):
-    if (query_saison == "WINTER"):
-        date_debut="12-21"
-        date_fin="03-20"
-    elif (query_saison == "SPRING"):
-        date_debut="03-20"
-        date_fin="06-20"
-    elif (query_saison == "AUTUMN"):
-        date_debut = "09-22"
-        date_fin = "12-21"
-    elif (query_saison == "SUMMER"):
-        date_debut="06-20"
-        date_fin="09-22"""
-
 
 class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
@@ -47,11 +33,20 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
         return queryset_list
 
 
-class UserAPIView(viewsets.ModelViewSet):  # detailview
+class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
     permission_classes = []
     queryset = User.objects.all()
+
+    def perform_create(self, serializer):
+            serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    def get_serializer_context(self, *args, **kwargs):
+        return {"request": self.request}
 
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'user'  # (?P<pk>\d+) pk = id
@@ -60,13 +55,11 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     queryset = Profile.objects.all()
 
 
-
-class UserRegisterView(CreateAPIView):
-    model = get_user_model()
-    permission_classes = []
+class UserRegisterView(generics.ListCreateAPIView):
+    model = User
     serializer_class = RegisterSerializer
-
-
+    queryset = User.objects.all()
+    permission_classes = []
 
 
 #### Données du model parcelle ##########################################################################################
@@ -89,17 +82,58 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Parcelle.objects.all()
+        print(queryset_list[1])
         query_status = self.request.GET.get("stat")
         query_user = self.request.GET.get("userid")
+        query_numParcel = self.request.GET.get("numparcel")
+        query_namePlant = self.request.GET.get("nameplant")
+        query_dateOrder = self.request.GET.get('date')
+        query_orderStatus = self.request.GET.get('orderstat')
+        query_scientificName = self.request.GET.get('scientname')
+
+
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
-            ).distinct()
+            ).distinct().order_by('-date_plantation')
         if is_valid_queryparam(query_user):
             queryset_list = queryset_list.filter(
                 Q(userId=query_user)
             ).distinct()
-        return queryset_list.order_by('-date_plantation')
+
+
+        if is_valid_queryparam(query_numParcel):
+            if (query_numParcel == 'ASC'):
+                queryset_list = queryset_list.order_by('-numero_parcelle')
+            if (query_numParcel =='DSC'):
+                queryset_list = queryset_list.order_by('numero_parcelle')
+
+        if is_valid_queryparam(query_namePlant):
+            if (query_namePlant == 'ASC'):
+                queryset_list = queryset_list.order_by('-planteId__nom')
+            if (query_namePlant =='DSC'):
+                queryset_list = queryset_list.order_by('planteId__nom')
+
+        if is_valid_queryparam(query_dateOrder):
+            if (query_dateOrder == 'ASC'):
+                queryset_list = queryset_list.order_by('-date_plantation')
+            if (query_dateOrder =='DSC'):
+                queryset_list = queryset_list.order_by('date_plantation')
+
+        if is_valid_queryparam(query_orderStatus):
+            if (query_orderStatus == 'ASC'):
+                queryset_list = queryset_list.order_by('-estUtilise')
+            if (query_orderStatus =='DSC'):
+                queryset_list = queryset_list.order_by('estUtilise')
+
+        if is_valid_queryparam(query_scientificName):
+            if (query_scientificName == 'ASC'):
+                queryset_list = queryset_list.order_by('-planteId__nom_scientifique')
+            if (query_scientificName =='DSC'):
+                queryset_list = queryset_list.order_by('planteId__nom_scientifique')
+        return queryset_list
+
+        
 
 ######## Données reprises de la sonde et attribuées par parcelle ####################################################
 
@@ -110,12 +144,18 @@ class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
     permission_classes = []
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = DonneesUser.objects.all()
+        queryset_list = DonneesParcelle.objects.all()
         query_date = self.request.GET.get("date")
         if is_valid_queryparam(query_date):
-            queryset_list = queryset_list.filter(
+             queryset_list = queryset_list.filter(
                 Q(date_reception_donnee__gte=query_date)
-            ).distinct().order_by('-date_reception_donnee')
+            ).distinct().order_by('date_reception_donnee')
+
+        query_idParcelle = self.request.GET.get("idParcelle")
+        if is_valid_queryparam(query_idParcelle):
+             queryset_list = queryset_list.filter(
+                Q(parcelleId = query_idParcelle)
+            ).distinct()
         return queryset_list
 
 
@@ -136,3 +176,6 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
                 Q(date_reception_donnee__gte=query_date)
             ).distinct().order_by('-date_reception_donnee')
         return queryset_list
+
+
+

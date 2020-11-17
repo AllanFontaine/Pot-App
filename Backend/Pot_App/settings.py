@@ -148,7 +148,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'Img')
 MEDIA_URL = '/Img/'
 
 REST_FRAMEWORK = {
-   'DEFAULT_PERMISSION_CLASSES': (
+    'DEFAULT_PERMISSION_CLASSES': (
        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -167,4 +167,3 @@ SWAGGER_SETTINGS = {
         }
     }
 }
-CORS_ALLOW_CREDENTIALS = True

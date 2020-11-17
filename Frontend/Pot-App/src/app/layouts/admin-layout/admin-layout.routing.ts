@@ -15,6 +15,8 @@ import {HistoriqueParcelComponent} from '../../components/historique-parcel/hist
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
 import { WikiViewComponent } from 'app/components/wiki-view/wiki-view.component';
+import {SignUpComponent} from "../../components/sign-up/sign-up.component";
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -71,6 +73,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-parcel',     component: AddParcelComponent, canActivate: [AuthGuard] },
     { path: 'login',          component: LoginViewComponent },
+    { path: 'register',          component: SignUpComponent },
     { path: 'home',           component: HomeViewComponent },
     { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
     { path: 'wiki',           component: WikiViewComponent},

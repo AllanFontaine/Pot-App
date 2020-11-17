@@ -40,6 +40,10 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
+import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
+import { BarWaterGraphComponent } from '../../components/bar-water-graph/bar-water-graph.component';
+import {MatSortModule} from '@angular/material/sort';
+
 
 @NgModule({
   imports: [
@@ -60,7 +64,8 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     SweetAlert2Module,
     SweetAlert2Module.forRoot(),
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSortModule
 
   ],
   declarations: [
@@ -68,7 +73,6 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     UserProfileComponent,
     TableListComponent,
     WikiViewComponent,
-    SignUpComponent,
     ResetPasswordComponent,
     TypographyComponent,
     IconsComponent,
@@ -79,6 +83,8 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     SingleParcelComponent,
     AddParcelComponent,
     WikiSinglePlantComponent,
+    LineGraphComponent,
+    BarWaterGraphComponent
   ],
   entryComponents: [AddParcelComponent],
   providers: [
@@ -87,11 +93,6 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     PersonalGardenService,
     WikiService,
     MatDialogModule,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true,
-    },
     DatePipe,
 
   ],
