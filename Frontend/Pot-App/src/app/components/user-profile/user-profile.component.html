@@ -1,62 +1,114 @@
-<div class="main-content">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-md-8">
-              <div class="card">
-                  <div class="card-header card-header-danger">
-                      <h4 class="card-title">Votre Profil</h4>
-                      <p class="card-category"></p>
-                  </div>
-                  <div class="card-body">
-                      <form>
-                          <div class="row">
-                              <div class="col-md-3">
-                                <label>Nom d'utilisateur</label>
+    <div class="main-content">
+      <div class="container-fluid">
+          <div class="row">
+              <div class="col-md-8">
+                  <div class="card">
+                      <div class="card-header card-header-danger">
+                          <h4 class="card-title">Votre Profil</h4>
+                          <p class="card-category"></p>
+                      </div>
+                      <div class="card-body" *ngIf="this.modifyTrue;else modifyProfile2">
+                          <form>
+                              <div class="row">
+                                  <div class="col-md-3">
+                                    <label>Nom d'utilisateur</label>
+                                      <mat-form-field class="example-full-width">
+                                        <input matInput placeholder={{my_user[0].username}} disabled>
+                                      </mat-form-field>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>Adresse Mail</label>
+                                      <mat-form-field class="example-full-width">
+                                        <input matInput placeholder={{my_user[0].email}} type="email" disabled>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-3">
+                                    <label>Prénom</label>
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput placeholder={{my_user[0].first_name}} type="text" disabled>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label>Nom</label>
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput placeholder={{my_user[0].last_name}} type="text" disabled>
+                                    </mat-form-field>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-md-2">
+                                    <label>Mes Parcelles</label>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder={{getNombreParcelle()}} type="text" disabled>
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label>Localisation</label>
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder={{my_profile[0].localisation}} type="text" disabled>
+                                    </mat-form-field>
+                                  </div>
+                              </div>
+                              <button mat-raised-button (click)="modifyProfile()" class="btn btn-danger pull-right">Changer mes informations</button>
+                              <div class="clearfix"></div>
+                          </form>
+                      </div>
+
+
+                      <ng-template #modifyProfile2>
+                      <div class="card-body">
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                            <div class="row">
+                                <div class="col-md-3">
+                                  <label>Nom d'utilisateur</label>
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput value={{my_user[0].username}} type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <label>Adresse Mail</label>
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput value={{my_user[0].email}} type="email">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                  <label>Prénom</label>
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder={{my_user[0].username}} disabled>
+                                    <input matInput value={{my_user[0].first_name}} type="text">
                                   </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                <label>Adresse Mail</label>
+                                </div>
+                                <div class="col-md-4">
+                                  <label>Nom</label>
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder={{my_user[0].email}} type="email" disabled>
+                                    <input matInput value={{my_user[0].last_name}} type="text">
                                   </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-3">
-                                <label>Prénom</label>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder={{my_user[0].first_name}} type="text" disabled>
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-4">
-                                <label>Nom</label>
-                                <mat-form-field class="example-full-width">
-                                  <input matInput placeholder={{my_user[0].last_name}} type="text" disabled>
-                                </mat-form-field>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-2">
-                                <label>Mes Parcelles</label>
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder={{getNombreParcelle()}} type="text" disabled>
-                                 </mat-form-field>
-                              </div>
-                              <div class="col-md-3">
-                                <label>Localisation</label>
-                                <mat-form-field class="example-full-width">
-                                    <input matInput placeholder={{my_profile[0].localisation}} type="text" disabled>
-                                 </mat-form-field>
-                              </div>
-                          </div>
-                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Mettre à jour le profil</button>
-                          <div class="clearfix"></div>
-                      </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                  <label>Mes Parcelles</label>
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput placeholder={{getNombreParcelle()}} type="text" disabled>
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>Localisation</label>
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput placeholder={{my_profile[0].localisation}} type="text" disabled>
+                                  </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Mettre à jour le profil</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                  </ng-template>
                   </div>
               </div>
           </div>
       </div>
-  </div>
-</div>
+    </div>

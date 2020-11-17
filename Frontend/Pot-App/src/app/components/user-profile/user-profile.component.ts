@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { AuthService } from '../../service/auth.service'
 
 @Component({
@@ -9,6 +10,7 @@ import { AuthService } from '../../service/auth.service'
 export class UserProfileComponent implements OnInit {
   my_user = {};
   my_profile = {};
+  modifyTrue = true;
 
   constructor(private userService: AuthService) { }
 
@@ -32,5 +34,14 @@ export class UserProfileComponent implements OnInit {
     return this.my_profile[0].nombre_parcelle ? this.my_profile[0].nombre_parcelle : 'Zéro parcelle encodée';
   }
 
+  modifyProfile(){
+    this.modifyTrue = false;
+    console.log(this.modifyTrue);
+  }
+
+  onSubmit(form: NgForm){
+    this.modifyTrue = true;
+    this.ngOnInit();
+  }
   }
 
