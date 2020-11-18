@@ -13,7 +13,7 @@ import { NotificationsComponent } from '../../components/notifications/notificat
 import { UpgradeComponent } from '../../components/upgrade/upgrade.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
@@ -47,10 +47,11 @@ import {MatSortModule} from '@angular/material/sort';
 import { ShopComponent } from '../../components/shop/shop.component';
 import { AboutUsComponent } from '../../components/about-us/about-us.component';
 import {MatCardModule} from '@angular/material/card';
-import {CartService } from '../../service/cart.service'
+import {CartService } from '../../service/cart.service';
 import { MatIconModule } from '@angular/material/icon';
 import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
 import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   imports: [
@@ -75,7 +76,8 @@ import {MatListModule} from '@angular/material/list';
     MatSortModule,
     MatCardModule,
    MatIconModule,
-   MatListModule
+   MatListModule,
+   MatStepperModule
 
   ],
   declarations: [
@@ -93,7 +95,7 @@ import {MatListModule} from '@angular/material/list';
     SingleParcelComponent,
     AddParcelComponent,
     WikiSinglePlantComponent,
-   SinglePlantDetailComponent
+   SinglePlantDetailComponent,
     LineGraphComponent,
     BarWaterGraphComponent,
     ShopComponent,

@@ -14,3 +14,5 @@ Backend/appli/__pycache__/
 
 Backend/appli/api/__pycache__/
 
+
+*.pyc

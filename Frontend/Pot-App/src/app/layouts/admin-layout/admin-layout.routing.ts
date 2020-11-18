@@ -81,7 +81,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'home',           component: HomeViewComponent },
     { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
     { path: 'wiki',           component: WikiViewComponent},
-    { path: 'wiki/:plant_id', component: SinglePlantDetailComponent}
+    { path: 'wiki/:plant_id', component: SinglePlantDetailComponent},
     { path: 'about-us',           component: AboutUsComponent},
     { path: 'shop',           component: ShopComponent},
 ];
