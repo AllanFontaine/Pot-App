@@ -1,3 +1,6 @@
+<button (click) = "openCart()" mat-fab color= "primary" class = "shopping-cart-button">
+  <mat-icon>shopping_cart</mat-icon>
+</button>
 <div *ngFor= "let data of data" class="h-25 d-inline-block">
 
   <mat-card class="example-card">
@@ -12,7 +15,7 @@
          </p>
      </mat-card-content>
       <mat-card-actions class ="button-css">
-      <button (click) = "addArticle(data.produit)"class="btn btn-success btn-round" mat-button>Ajouter au panier</button>
+      <button (click) = "addArticle(data)"class="btn btn-success btn-round" mat-button>Ajouter au panier</button>
     </mat-card-actions>
     </div>
   </mat-card>

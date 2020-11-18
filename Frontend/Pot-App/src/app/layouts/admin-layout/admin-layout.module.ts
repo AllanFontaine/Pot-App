@@ -47,6 +47,10 @@ import { ShopComponent } from '../../components/shop/shop.component';
 import { AboutUsComponent } from '../../components/about-us/about-us.component';
 import {MatCardModule} from '@angular/material/card';
 import {CartService } from '../../service/cart.service'
+import { MatIconModule } from '@angular/material/icon';
+import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
+import {MatListModule} from '@angular/material/list';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -69,7 +73,8 @@ import {CartService } from '../../service/cart.service'
     MatAutocompleteModule,
     MatSortModule,
     MatCardModule,
-   
+   MatIconModule,
+   MatListModule
 
   ],
   declarations: [
@@ -90,7 +95,8 @@ import {CartService } from '../../service/cart.service'
     LineGraphComponent,
     BarWaterGraphComponent,
     ShopComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    ShoppingCartComponent
   ],
   entryComponents: [AddParcelComponent],
   providers: [
