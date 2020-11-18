@@ -37,6 +37,9 @@ export class SingleParcelComponent implements OnInit {
     return Object.keys(obj).length === 0;
   }
 
+
+  //SUPPRIMER LA PARCELLE
+
   delete_parcel() {
     Swal.fire({
       title: 'Etes vous sur?',
