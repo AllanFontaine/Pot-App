@@ -17,7 +17,7 @@ export class HistoriqueParcelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.startParcels("date", "DSC")
+   this.startParcels("date", "ASC")
   }
   deleteParcel(id){
     Swal.fire({

@@ -34,7 +34,9 @@ export class SignUpComponent implements OnInit {
   }
 
   registerUser(form: NgForm) {
+
     const val = form.value;
+    
     if(val.email && val.password && val.username) {
       this.authService.registerUser(form.value)
         .subscribe(
@@ -46,7 +48,7 @@ export class SignUpComponent implements OnInit {
             localStorage.setItem('user_id', decodedToken.user_id)
             localStorage.setItem('exp', decodedToken.exp)
             this.router.navigate(['/dashboard'])
-            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!")
+            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimisé et sain!")
           },
           err => {
             console.log(val)

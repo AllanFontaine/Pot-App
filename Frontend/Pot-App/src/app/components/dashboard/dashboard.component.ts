@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
   amountParcels;
   my_parcels = [];
   breakpoint: number;
+  filtersLoaded: Promise<boolean>;
 
   constructor(
     private garden: PersonalGardenService,
@@ -34,6 +36,14 @@ export class DashboardComponent implements OnInit {
               parseFloat(a.numero_parcelle) - parseFloat(b.numero_parcelle)
           );
           console.log(this.parcel_db);
+          this.garden.get_profile().subscribe(
+            (res) => {
+              this.amountParcels = res['nombre_parcelle'];
+              this.my_parcels = Array(this.amountParcels).fill({ estUtilise: false });
+              this.orderParcels();
+            },
+            (err) => console.log(err)
+          );
         },
         (err) => console.log(err)
       );
@@ -43,14 +53,7 @@ export class DashboardComponent implements OnInit {
       this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
     }
 
-    this.garden.get_profile().subscribe(
-      (res) => {
-        this.amountParcels = res['nombre_parcelle'];
-        this.my_parcels = Array(this.amountParcels).fill({ estUtilise: false });
-        this.orderParcels();
-      },
-      (err) => console.log(err)
-    );
+    
   }
   onResize(event) {
     if (window.innerWidth <= 750 && window.innerWidth >= 450) {
@@ -81,7 +84,7 @@ export class DashboardComponent implements OnInit {
           title: 'Parcelle bien ajoutée',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.reload();
+            this.ngOnInit();
           }
         });
       } else if (result === 'ERROR') {

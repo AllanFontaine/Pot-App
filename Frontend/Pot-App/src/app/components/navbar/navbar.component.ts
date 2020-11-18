@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   constructor(location: Location,
               private element: ElementRef,
               private router: Router,
-              private authService: AuthService,
+              public authService: AuthService,
   ) {
     this.location = location;
     this.sidebarVisible = false;
