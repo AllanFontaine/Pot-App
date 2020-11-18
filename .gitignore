@@ -1,4 +1,6 @@
 
+*.pyc
+
 Frontend/Pot-App/angular.json
 Frontend/Pot-App/package-lock.json
 Frontend/Pot-App/package.json
@@ -6,13 +8,8 @@ Backend/env
 Backend/Pot_App/.env
 
 
-Backend/Pot_App/__pycache__/
 
-Backend/appli/migrations/__pycache__/
 
-Backend/appli/__pycache__/
-
-Backend/appli/api/__pycache__/
 
 
 *.pyc
