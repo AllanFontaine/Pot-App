@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
@@ -10,14 +10,27 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-
+  
+  isLinear = true;
+  firstFormGroup : FormGroup;
+  secondFormGroup : FormGroup;
   helper = new JwtHelperService();
   formGroup: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private _formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+      surnameCtrl: ['', Validators.required],
+      nameCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      mailCtrl: ['', [Validators.required, Validators.email]],
+      userCtrl: ['', Validators.required],
+      passCtrl: ['', Validators.required],
+      confpassCtrl: ['', Validators.required]
+    });
     this.initForm();
   }
 
@@ -63,5 +76,12 @@ export class SignUpComponent implements OnInit {
       console.log("la valeur de val n'est pas conforme.");
       console.log(val);
     }
+  }
+  form1(){
+    console.log(this.firstFormGroup.value);
+  }
+
+  form2(){
+    console.log(this.secondFormGroup.value);
   }
 }
