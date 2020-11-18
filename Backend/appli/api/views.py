@@ -95,7 +95,7 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
-            ).distinct().order_by('-date_plantation')
+            ).distinct().order_by('date_plantation')
         if is_valid_queryparam(query_user):
             queryset_list = queryset_list.filter(
                 Q(userId=query_user)

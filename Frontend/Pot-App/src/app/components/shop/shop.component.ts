@@ -19,7 +19,7 @@ export class ShopComponent implements OnInit {
     title : "Arroseur automatique Pot'App",
     subTitle :  "Notre produit phare", 
     description : "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
-    price : 20,
+    price : 19.99,
     imgLink: "https://material.angular.io/assets/img/examples/shiba2.jpg"
   }, {
     id: 2,
@@ -27,15 +27,15 @@ export class ShopComponent implements OnInit {
     title : "Vanne de rechange",
     subTitle :  "Au cas ou ça casse", 
     description : "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
-    price : 15,
+    price : 14.99,
     imgLink: "https://material.angular.io/assets/img/examples/shiba2.jpg"
   }, {
     id :3,
-    product :"terreau  ",
-    title : "Vanne de rechange",
-    subTitle :  "Au cas ou ça casse", 
+    product :"terreau",
+    title : "Terreau haute qualité",
+    subTitle :  "Pour donner toutes les chances aux plantes", 
     description : "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
-    price : 15,
+    price : 9.49,
     imgLink: "https://material.angular.io/assets/img/examples/shiba2.jpg"
   }]
 
@@ -75,20 +75,22 @@ export class ShopComponent implements OnInit {
        if (number) {
           newPrice = prod.price + (number * 15);
           Swal.fire('Le produit a été ajouté au panier pour un total de ' + newPrice + '€' )
-
+          this.cartService.addToCart({prodId : prod.id, name : prod.title, amount : 1, numberParcels: number, product : prod.product, price : newPrice});
         }else{
           Swal.fire({
            title : 'Vous devez entrer un nombre de parcelles.', 
             icon : 'warning' })
         } 
-        this.cartService.addToCart({prodId : prod.id, numberParcels: number, product : prod.product, price : newPrice});
+       
       }else{
         Swal.fire({
           title : 'Vous avez déja un arroseur Pot\'App dans vote panier', 
            icon : 'warning' })
       }
     }else{
-      this.cartService.addToCart({prodId : prod.id, product : prod.product, price : prod.price});
+      if(!this.cartService.isExist(prod)){
+        this.cartService.addToCart({prodId : prod.id,name : prod.title, product : prod.product, price : prod.price, amount : 1});
+      }
     }
     console.log(this.cartService.getItems())
     }
