@@ -23,7 +23,7 @@ export class NavbarHomeComponent implements OnInit {
 
   show(): void {
     const dialogRef = this.dialog.open(LoginViewComponent, {
-      width: '500px'
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {

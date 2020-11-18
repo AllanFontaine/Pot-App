@@ -7,7 +7,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
 import {NavbarHomeComponent} from './navbar-home/navbar-home.component';
-import { WikiSinglePlantComponent } from './wiki-single-plant/wiki-single-plant.component';
 
 @NgModule({
     imports: [
@@ -20,6 +19,7 @@ import { WikiSinglePlantComponent } from './wiki-single-plant/wiki-single-plant.
     NavbarHomeComponent,
     SidebarComponent,
     NavbarComponent,
+  
   ],
     exports: [
         FooterComponent,
