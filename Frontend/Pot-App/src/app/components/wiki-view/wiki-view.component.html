@@ -11,21 +11,22 @@
         </span>
       </form>
       <div class="container">
-          <app-wiki-single-plant *ngFor="let plant of plants"
-          [nom]="plant.nom"
-          [nom_scientifique] = "plant.nom_scientifique"
-          [date_semis_debut] = "plant.date_semis_debut"
-          [date_semis_fin] = "plant.date_semis_fin"
-          [recolte_en_jours] = "plant.recolte_en_jours"
-          [densite_semi] = "plant.densite_semi"
-          [image] = "plant.image"
-          [url_wiki] = "plant.url_wiki"
-          [description] = "plant.description"
-          [saison_debut]="plant.saison_debut"
-          [saison_fin] = "plant.saison_fin"
-          [besoin_hydrolique] = "plant.besoin_hydrolique"
-          [id]="plant.id">
-      </app-wiki-single-plant>
-        
+        <ul class="list-group">
+            <app-wiki-single-plant *ngFor="let plant of plants"
+            [nom] = "plant.nom"
+            [nom_scientifique] = "plant.nom_scientifique"
+            [date_semis_debut] = "plant.date_semis_debut"
+            [date_semis_fin] = "plant.date_semis_fin"
+            [recolte_en_jours] = "plant.recolte_en_jours"
+            [densite_semi] = "plant.densite_semi"
+            [image] = "plant.image"
+            [url_wiki] = "plant.url_wiki"
+            [description] = "plant.description"
+            [saison_debut] = "plant.saison_debut"
+            [saison_fin] = "plant.saison_fin"
+            [besoin_hydrolique] = "plant.besoin_hydrolique"
+            [id]="plant.id">
+            </app-wiki-single-plant>
+        </ul>
       </div>
 </div>

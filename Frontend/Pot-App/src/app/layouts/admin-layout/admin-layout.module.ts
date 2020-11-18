@@ -33,13 +33,14 @@ import { ResetPasswordComponent } from '../../components/reset-password/reset-pa
 import { WikiViewComponent } from '../../components/wiki-view/wiki-view.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core'; 
 import { DatePipe } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
+import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-
     SingleParcelComponent,
     AddParcelComponent,
     WikiSinglePlantComponent,
+    SinglePlantDetailComponent
   ],
   entryComponents: [AddParcelComponent],
   providers: [
