@@ -1,3 +1,5 @@
-
+Backend/env
 Pot_App/env
 Pot_App/Pot_App/.env
+
+*.pyc
