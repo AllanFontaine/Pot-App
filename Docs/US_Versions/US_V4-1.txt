@@ -1,0 +1,67 @@
+Epic: (sorte de grosse US qu'il faut encore découpé, peut se voir comme des fonctionnalitées principales).
+
+
+1. Accès à un wiki reprennant les infos de pleins de plantes
+2. Processus d'inscritpion
+3. Processus d'authentification
+4. Espace personnel
+5. Gestion du potager
+6. Conseil sur quoi planter
+7. Automatisation de l'arrosage
+8. Graphiques reprennant diverses infos (consommation d'eau etc)
+9. Accès à un historique de plantaison
+
+US: (en tant que, je veux, afin de = qui, quoi, pourquoi)
+
+1.1 En tant que visiteur, je veux avoir accès à une page d'accueil afin d'avoir des infos sur ce que le produit proposé prend en charge.
+1.2 En tant que visiteur, je veux avoir accès à un wiki reprennant des infos sur les plantes afin de pouvoir me renseigner sur celles-ci.
+1.3 En tant qu'administrateur, je veux pouvoir facilement avoir accès aux infos dans le wiki afin d'en ajouter/enlever/modifier.
+
+2.1 En tant que visiteur, je veux pouvoir m'inscrire au site afin de pouvoir utiliser le produit.
+2.2 En tant que visiteur, je veux recevoir un mail de confirmation de mon inscription au site.
+2.3 En tant qu'utilisateur nouvellement inscrit, je veux arriver sur la page de mon espace personnel.
+
+3.1 En tant qu'utilisateur, je veux pouvoir m'identifier afin d'avoir accès à mon espace personnel.
+3.2 En tant qu'utilisateur, je veux pouvoir réinitialiser mon mot de passe afin d'en créer un nouveau et d'accéder à mon espace personnel.
+3.3 En tant qu'utilisateur, je veux être redirigé vers ma page d'espace personnel une fois connecté.
+3.4 En tant qu'administrateur, je veux pouvoir limité le nombre de tentatives de connexion autorisé afin d'éviter les attaques par force brute.
+
+4.1 En tant qu'utilisateur, je veux avoir accès à un espace personnel afin de gérer mes infos.
+4.2 En tant qu'utilisateur, je veux être capable de modifier mes informations personelles afin d'effectuer des changements si besoin.
+
+5.1 En tant qu'utilisateur, je veux avoir la possibilté d'accèder à mon potager virtuel afin d'ajouter/enlever une parcelle.
+5.2 En tant qu'utilisateur, je veux pouvoir assigner des plantes à ma/mes parcelle(s).
+5.3 En tant qu'utilisateur, je veux pouvoir modifier mon assignation des plantes afin de pouvoir changer les plantes.
+5.4 En tant qu'utilisateur, je veux pouvoir recevoir des informations sur les plantes que j'ai décidé de planter afin de savoir comment régler l'arrosage.
+
+6.1 En tant qu'utilisateur, je veux pouvoir demander des conseils sur ce que je dois planter afin d'optimiser mon rendement.
+6.2 En tant qu'utilisateur, je veux pouvoir annuler mon choix afin de pouvoir planter ce dont j'ai envie.
+
+7.1 En tant qu'utilisateur, je veux pouvoir gérer la hauteur de l'arrosage afin d'arroser la plante à bonne hauteur.
+7.2 En tant qu'utilisateur, je veux que mon arrosage prennent en compte les caractéristiques de la plante afin de l'arroser de manière optimale.
+7.3 En tant qu'utilisateur, je veux que mon arrosage prennent en compte les facteurs exterieurs afin d'utiliser la quantité d'eau adéquate.
+	7.3.1 Mise en place d'une sonde mesurant la teneur en eau du sol.
+		7.3.1.1 connecter la sonde à notre arduino
+		7.3.1.2 vérifier la connectivité
+		7.3.1.3 récupérer les données envoyées 
+		7.3.1.4 sauvegarder les données
+		7.3.1.5 traiter les données pour qu'elles influencent l'arrosage
+	7.3.2 Mise en place d'une sonde mesurant la température ambiante.
+		7.3.2.1 connecter la sonde à notre arduino
+		7.3.2.2 vérifier la connectivité
+		7.3.2.3 récupérer les données envoyées 
+		7.3.2.4 sauvegarder les données
+		7.3.2.5 traiter les données pour qu'elles influencent l'arrosage
+	7.3.3 Récupérer les précipitations pluviales.
+		7.3.3.1 récupérer les données d'un site météorologique
+		7.3.3.2 sauvegarder les données
+		7.3.3.3 traiter les données pour qu'elles influencent l'arrosage		
+
+8.1 En tant qu'utilisateur, je veux pouvoir avoir accès à des graphiques sur la consommation de ma parcelle afin d'en observer l'évolution.
+8.2 En tant qu'administrateur, je veux pouvoir récupérer les données de chaques utilisateur afin de calculer la quantité d'eau économisée.
+
+9.1 En tant qu'utilisateur, je veux pouvoir avoir accès à un historique de ce que j'ai planté.
+9.2 En tant qu'administrateur, je veux pouvoir avoir des statistiques sur ce qui a le plus été planté et à quel période.
+
+
+Manque plus qu'à rajouter les tasks (une us développer par personne) + d'en faire les critères d'acceptation : à développer avec les autres!
