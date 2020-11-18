@@ -1,0 +1,25 @@
+<!-- Partie application côté personnel-->
+
+<div *ngIf="authService.LoggedIn()">
+    <div class="sidebar" data-color="green" data-background-color="white">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(../../../assets/img/sidebar-4.jpg)"></div>
+    </div>
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+        <div *ngIf="isMaps('maps')">
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>
+
+<!-- Partie home page présentation de l'entrprise -->
+
+<div *ngIf="!authService.LoggedIn()">
+    <app-navbar-home></app-navbar-home>
+    <router-outlet></router-outlet>
+    <div *ngIf="isMaps('maps')">
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="card-header">
+  <h3 mat-dialog-title>Ajouter une plante à la parcelle {{ data.num }}</h3>
+</div>
+<div class="card-body">
+  <form class="form" (ngSubmit)="addParcelUser(f)" #f="ngForm">
+    <div class="form-group">
+      <mat-form-field appearance="standard">
+        <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
+        <input type="text" aria-label="Plante" matInput [formControl]="myControl" name="planteId"
+          [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
+          <div *ngFor="let option of filteredOptions| async; let i = index">
+            <mat-option [value]="option">
+              {{option}}
+            </mat-option>
+          </div>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="standard">
+        <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
+        <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="standard">
+        <mat-label for="date_plantation">Date de plantaison</mat-label>
+        <input name="date_plantation" id="date_plantation" matInput [matDatepicker]="picker" ngModel />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
+    <button (click)="placeParcel(data.num)" type="submit" class="btn btn-primary float-right">
+      Ajoutez une parcelle
+    </button>
+  </form>
+</div>

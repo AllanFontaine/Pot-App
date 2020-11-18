@@ -1,0 +1,22 @@
+import {HttpInterceptor} from "@angular/common/http";
+import {Injectable, Injector} from "@angular/core";
+import { AuthService } from "./auth.service";
+
+@Injectable()
+export class TokenInterceptorService implements HttpInterceptor {
+
+  constructor(private injector: Injector){}
+
+  intercept(req, next){
+    let tokenizedReq = req;
+    let authService = this.injector.get(AuthService)
+    if (authService.getToken() != null){
+      tokenizedReq = req.clone({
+        setHeaders:{
+          Authorization: `Bearer ${authService.getToken()}`
+        }
+      })
+    }
+    return next.handle(tokenizedReq)
+  }
+}

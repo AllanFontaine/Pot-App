@@ -1,0 +1,23 @@
+<button (click) = "openCart()" mat-fab color= "primary" class = "shopping-cart-button">
+  <mat-icon>shopping_cart</mat-icon>
+</button>
+<div *ngFor= "let data of data" class="h-25 d-inline-block">
+
+  <mat-card class="example-card">
+    <img mat-card-image class= "rounded" src={{data.imgLink}} alt="Photo of a Shiba Inu">
+    <mat-card-title class ="titles">{{data.title}}</mat-card-title>
+    <mat-card-subtitle class = "titles">{{data.subTitle}}</mat-card-subtitle>
+    <mat-card-content class = "price-content"> <h3><b>{{data.price + "€"}}</b></h3></mat-card-content>
+    <div class = "mycard_content">
+        <mat-card-content class ="card-description">
+        <p >
+         {{data.description}}
+         </p>
+     </mat-card-content>
+      <mat-card-actions class ="button-css">
+      <button (click) = "addArticle(data)"class="btn btn-success btn-round" mat-button>Ajouter au panier</button>
+    </mat-card-actions>
+    </div>
+  </mat-card>
+
+</div>

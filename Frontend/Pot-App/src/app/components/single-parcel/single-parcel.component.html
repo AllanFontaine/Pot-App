@@ -1,0 +1,7 @@
+<div class="text-center pt-5">
+    <app-line-graph [parcel]="id_parcel"></app-line-graph>
+    <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
+    <a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()">Supprimer la
+        parcelle</a><br>
+    <a routerLink="/dashboard">Retour</a>
+</div>

@@ -1,0 +1,70 @@
+<!-- Ajoutez la class "stretched-link" au card pour les rendre cliquable, s'informer -->
+<!-- Ajoutez l'asynchrone pour que tout s'affiche du premier coup -->
+
+<div class="main-content" *ngIf="my_parcel.length != 0">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-success">
+            <h4 class="card-title ">Historique de vos plantations</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table matSort (matSortChange)="getParcels($event)" class="table table-hover table-striped">
+                <thead class="text-primary">
+                  <th mat-sort-header="numparcel">
+                    Numéro parcelle
+                  </th>
+                  <th mat-sort-header="nameplant">
+                    Plante
+                  </th>
+                  <th mat-sort-header="scientname">Nom Scientifique</th>
+                  <th mat-sort-header="date">
+                    Date de plantation
+                  </th>
+                  <th mat-sort-header="orderstat">
+                    Est utilisé
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let parcel of my_parcel">
+                    <td>
+                      {{parcel.numero_parcelle}}
+                    </td>
+                    <td>
+                      {{parcel.planteId.nom}}
+                    </td>
+                    <td>
+                      {{parcel.planteId.nom_scientifique}}
+                    </td>
+                    <td>
+                      {{parcel.date_plantation | date:'d/M/yy'}}
+                    </td>
+                    <td class="text-primary">
+                      {{parcel.estUtilise? 'En cours de plantation' : 'Récoltée'}}
+                    </td>
+                    <td>
+                      <button (click) = "deleteParcel(parcel.id)" mat-stroked-button color="warn">Supprimer de l'historique</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- liste de parcelle vide -->
+
+  <div class="text-center" *ngIf="my_parcel.length === 0">
+    <div class="mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        Votre jardin est vide, pour l'instant! N'hésitez pas à le remplir.
+      </div>
+    </div>
+  </div>
+</div>
