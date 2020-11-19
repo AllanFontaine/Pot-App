@@ -1,6 +1,9 @@
-<div class="text-center pt-5">
-<h2>Cette parcelle contient: {{plante["nom"]}}</h2>
-<p>{{plante["description"]}}</p>
-<a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()">Supprimer la parcelle</a><br>
-<a routerLink="/dashboard">Retour</a>
+<div class="pt-5">
+  <img src={{plante.image}} alt="" class="float-md-right">
+  <div class="text-center">
+    <h2>Cette parcelle contient: {{plante["nom"]}}</h2>
+    <p>{{plante["description"]}}</p>
+  </div>
+  <a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()" class="float-left">Supprimer la parcelle</a><br>
+  <a routerLink="/dashboard">Retour</a>
 </div>
