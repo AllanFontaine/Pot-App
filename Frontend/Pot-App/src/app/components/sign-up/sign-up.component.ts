@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
 import {Router} from '@angular/router';
-import {FormControl, FormGroup, Validators, NgForm} from '@angular/forms';
+import {FormControl, FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
@@ -10,14 +10,27 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-
+  
+  isLinear = true;
+  firstFormGroup : FormGroup;
+  secondFormGroup : FormGroup;
   helper = new JwtHelperService();
   formGroup: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private _formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.firstFormGroup = this._formBuilder.group({
+      surnameCtrl: ['', Validators.required],
+      nameCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      mailCtrl: ['', [Validators.required, Validators.email]],
+      userCtrl: ['', Validators.required],
+      passCtrl: ['', Validators.required],
+      confpassCtrl: ['', Validators.required]
+    });
     this.initForm();
   }
 
@@ -34,7 +47,9 @@ export class SignUpComponent implements OnInit {
   }
 
   registerUser(form: NgForm) {
+
     const val = form.value;
+    
     if(val.email && val.password && val.username) {
       this.authService.registerUser(form.value)
         .subscribe(
@@ -46,7 +61,7 @@ export class SignUpComponent implements OnInit {
             localStorage.setItem('user_id', decodedToken.user_id)
             localStorage.setItem('exp', decodedToken.exp)
             this.router.navigate(['/dashboard'])
-            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimiser et sain!")
+            alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimisé et sain!")
           },
           err => {
             console.log(val)
@@ -61,5 +76,12 @@ export class SignUpComponent implements OnInit {
       console.log("la valeur de val n'est pas conforme.");
       console.log(val);
     }
+  }
+  form1(){
+    console.log(this.firstFormGroup.value);
+  }
+
+  form2(){
+    console.log(this.secondFormGroup.value);
   }
 }

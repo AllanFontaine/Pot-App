@@ -18,7 +18,8 @@ import {NavbarHomeComponent} from './navbar-home/navbar-home.component';
     FooterComponent,
     NavbarHomeComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+  
   ],
     exports: [
         FooterComponent,

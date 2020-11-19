@@ -36,9 +36,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatCardModule } from '@angular/material/card';
 import { HomeViewComponent } from "./components/home-view/home-view.component";
+
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
+import {MatStepperModule} from '@angular/material/stepper';
+
+
+
 
 @NgModule({
   imports: [
@@ -62,6 +67,7 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
     MatIconModule,
     NgbCollapseModule,
     MatDialogModule,
+    MatStepperModule,
 
   ],
   declarations: [
@@ -75,7 +81,7 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
     AuthGuard,
     AuthService,
     PersonalGardenService,
-    WikiService, {
+   {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true

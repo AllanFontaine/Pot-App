@@ -11,6 +11,7 @@ import {HistoriqueParcelComponent} from '../../components/historique-parcel/hist
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
 
+
 export const AdminLayoutRoutes: Routes = [
     { path: '',      component: DashboardComponent},
     { path: 'dashboard/:user_id',      component: SingleParcelComponent},

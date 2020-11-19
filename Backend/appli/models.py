@@ -13,12 +13,15 @@ class Profile(models.Model):
 class Plantes(models.Model):
     nom = models.CharField(max_length=100)
     nom_scientifique = models.CharField(max_length=100, default = "Pas de nom scientifique encodé")
-    besoin_hydrolique = models.DecimalField(max_digits=10, decimal_places=2)
+    azote_sol = models.IntegerField(default = 0)
+    phosphore_sol = models.IntegerField(default = 0)
+    potassium_sol = models.IntegerField(default = 0)
     date_semis_debut = models.DateField(blank = False,  default = timezone.now)
     date_semis_fin = models.DateField(blank =False,  default = timezone.now)
     densite_semi = models.IntegerField(default = 0)
     recolte_en_jours = models.IntegerField(default = 0)
     description = models.TextField(blank=True)
+    info_insolite = models.TextField(blank=True, default = "")
     url_wiki = models.TextField(blank = False, default = '')
     image = models.ImageField('plantes', upload_to='./Img', blank=True)
 
@@ -52,8 +55,6 @@ class DonneesParcelle(models.Model):
     humidite_sol = models.IntegerField()
     quantite_eau_litre = models.DecimalField(max_digits = 10, decimal_places = 2)
 
-    def __str__(self):
-        return "parcelle numéro " + self.parcelleId.id
 
     def get_api_url(self, request=None):
         return api_reverse("api-appli:post-rud-dParce", kwargs={'pk': self.pk}, request=request)

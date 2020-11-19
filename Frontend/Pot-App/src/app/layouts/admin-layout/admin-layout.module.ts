@@ -13,7 +13,7 @@ import { NotificationsComponent } from '../../components/notifications/notificat
 import { UpgradeComponent } from '../../components/upgrade/upgrade.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
@@ -33,12 +33,25 @@ import { ResetPasswordComponent } from '../../components/reset-password/reset-pa
 import { WikiViewComponent } from '../../components/wiki-view/wiki-view.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core'; 
 import { DatePipe } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
+import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
+import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
+import { BarWaterGraphComponent } from '../../components/bar-water-graph/bar-water-graph.component';
+import {MatSortModule} from '@angular/material/sort';
+import { ShopComponent } from '../../components/shop/shop.component';
+import { AboutUsComponent } from '../../components/about-us/about-us.component';
+import {MatCardModule} from '@angular/material/card';
+import {CartService } from '../../service/cart.service';
+import { MatIconModule } from '@angular/material/icon';
+import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
+import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   imports: [
@@ -59,7 +72,12 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     SweetAlert2Module,
     SweetAlert2Module.forRoot(),
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSortModule,
+    MatCardModule,
+   MatIconModule,
+   MatListModule,
+   MatStepperModule
 
   ],
   declarations: [
@@ -76,6 +94,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
+    WikiSinglePlantComponent,
+   SinglePlantDetailComponent,
+    LineGraphComponent,
+    BarWaterGraphComponent,
+    ShopComponent,
+    AboutUsComponent,
+    ShoppingCartComponent
 
   ],
   entryComponents: [AddParcelComponent],
@@ -86,6 +111,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     WikiService,
     MatDialogModule,
     DatePipe,
+    CartService
 
   ],
 })
