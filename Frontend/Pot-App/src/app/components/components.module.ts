@@ -7,6 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { NavbarComponent } from './navbar/navbar.component';
 import {NavbarHomeComponent} from './navbar-home/navbar-home.component';
+import { GetLoggedInComponent } from './get-logged-in/get-logged-in.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import {NavbarHomeComponent} from './navbar-home/navbar-home.component';
     NavbarHomeComponent,
     SidebarComponent,
     NavbarComponent,
+    GetLoggedInComponent,
   
   ],
     exports: [

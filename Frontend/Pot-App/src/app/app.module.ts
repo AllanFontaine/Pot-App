@@ -62,11 +62,11 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
     NgbCollapseModule,
-    MatDialogModule,
     MatStepperModule,
 
   ],
