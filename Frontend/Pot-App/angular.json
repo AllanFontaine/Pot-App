@@ -36,6 +36,7 @@
               "node_modules/chartist/dist/chartist.js",
               "src/assets/js/scripts.js",
               "node_modules/sweetalert2/dist/sweetalert2.js"
+
             ],
             "allowedCommonJsDependencies": [
               "rxjs/add/operator/filter",

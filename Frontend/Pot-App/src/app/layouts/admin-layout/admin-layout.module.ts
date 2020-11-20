@@ -42,6 +42,16 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
+import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
+import { BarWaterGraphComponent } from '../../components/bar-water-graph/bar-water-graph.component';
+import {MatSortModule} from '@angular/material/sort';
+import { ShopComponent } from '../../components/shop/shop.component';
+import { AboutUsComponent } from '../../components/about-us/about-us.component';
+import {MatCardModule} from '@angular/material/card';
+import {CartService } from '../../service/cart.service'
+import { MatIconModule } from '@angular/material/icon';
+import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -63,7 +73,11 @@ import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/s
     SweetAlert2Module,
     SweetAlert2Module.forRoot(),
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSortModule,
+    MatCardModule,
+   MatIconModule,
+   MatListModule
 
   ],
   declarations: [
@@ -71,7 +85,6 @@ import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/s
     UserProfileComponent,
     TableListComponent,
     WikiViewComponent,
-    SignUpComponent,
     ResetPasswordComponent,
     TypographyComponent,
     IconsComponent,
@@ -82,7 +95,13 @@ import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/s
     SingleParcelComponent,
     AddParcelComponent,
     WikiSinglePlantComponent,
-    SinglePlantDetailComponent
+   SinglePlantDetailComponent
+    LineGraphComponent,
+    BarWaterGraphComponent,
+    ShopComponent,
+    AboutUsComponent,
+    ShoppingCartComponent
+
   ],
   entryComponents: [AddParcelComponent],
   providers: [
@@ -91,12 +110,8 @@ import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/s
     PersonalGardenService,
     WikiService,
     MatDialogModule,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true,
-    },
     DatePipe,
+    CartService
 
   ],
 })

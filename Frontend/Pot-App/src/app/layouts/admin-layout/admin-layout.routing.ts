@@ -16,6 +16,11 @@ import {SingleParcelComponent} from '../../components/single-parcel/single-parce
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
 import { WikiViewComponent } from 'app/components/wiki-view/wiki-view.component';
 import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
+import {SignUpComponent} from "../../components/sign-up/sign-up.component";
+import { AboutUsComponent } from 'app/components/about-us/about-us.component';
+import { ShopComponent } from '../../components/shop/shop.component';
+
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -72,8 +77,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-parcel',     component: AddParcelComponent, canActivate: [AuthGuard] },
     { path: 'login',          component: LoginViewComponent },
+    { path: 'register',          component: SignUpComponent },
     { path: 'home',           component: HomeViewComponent },
     { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
     { path: 'wiki',           component: WikiViewComponent},
     { path: 'wiki/:plant_id/:nom_wiki', component: SinglePlantDetailComponent}
+    { path: 'about-us',           component: AboutUsComponent},
+    { path: 'shop',           component: ShopComponent},
 ];
