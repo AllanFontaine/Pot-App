@@ -34,10 +34,7 @@ export class WikiSinglePlantComponent implements OnInit {
   }
 
   show_plant() : void {
-    this.wikiService.get_plant(this.id).subscribe(
-      result => console.log(result), 
-      error => console.log(error),
-    );
-    this.router.navigate(['/wiki/' + this.id]);
+    
+    this.router.navigate(['/wiki/' + this.id + '/' + this.url_wiki]);
   }
 }

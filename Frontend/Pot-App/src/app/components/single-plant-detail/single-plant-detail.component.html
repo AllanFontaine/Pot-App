@@ -1,15 +1,19 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <img src ={{image}} alt={{nom}}>
-        </div>
-        <div class="col-md-4">
-            <p class="up">Nom : {{nom}}</p>
-            <p class="down">Nom scientifique : {{nom_scientifique}}</p>
-        </div>
-        <div class="col-md-3">
-            <p class="up">Saison : {{saison_debut}} - {{saison_fin}}</p>
-            <p class="down">Récolte en jours : {{recolte_en_jours}}</p>
+<mat-progress-spinner *ngIf="loading; else content"></mat-progress-spinner>
+<ng-template #content>
+    <div class="container">
+        <h2>{{plant.nom}}</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <img src ={{image}} alt={{nom}}>
+            </div>
+            <div class="col-md-4">
+                <p class="up">Nom : {{nom}}</p>
+                <p class="down">Nom scientifique : {{nom_scientifique}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="up">Saison : {{saison_debut}} - {{saison_fin}}</p>
+                <p class="down">Récolte en jours : {{recolte_en_jours}}</p>
+            </div>
         </div>
     </div>
-</div>
+</ng-template>

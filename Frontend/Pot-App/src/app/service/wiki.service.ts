@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 export class WikiService{
     plants: [];
     selectedPlant; 
+    selectedPlantWikipedia;
 
     constructor(private http : HttpClient) {
 
@@ -20,6 +21,6 @@ export class WikiService{
     }
 
     get_plant_wikipedia(nom: string):Observable<any> {
-        return this.http.get('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' + nom);
+        return this.http.get('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=' + nom);
     }
 }
