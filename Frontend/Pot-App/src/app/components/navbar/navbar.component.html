@@ -10,20 +10,5 @@
             </button>
             <a class="navbar-brand" href="/">{{getTitle()}}</a>
         </div>
-            <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link" mat-icon-button [matMenuTriggerFor]="menu" routerLink aria-label="Example icon-button with a menu">
-                      <i class="material-icons">account_circle</i>
-                    </a>
-                    <mat-menu #menu="matMenu">
-                      <a mat-menu-item class="dropdown-item" *ngIf="authService.LoggedIn()" (click)="authService.logoutUser()">
-                      <i class="material-icons">login</i>
-                      <span>Logout</span>
-                    </a>
-                    </mat-menu>
-                </li>
-            </ul>
-        </div>
     </div>
 </nav>

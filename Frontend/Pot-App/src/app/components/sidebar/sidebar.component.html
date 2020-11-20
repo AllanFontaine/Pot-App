@@ -62,5 +62,11 @@
           <p>About us</p>
         </a>
       </li>
+      <li *ngIf="authService.LoggedIn()" class="nav-item">
+        <a class=" nav-link" routerLink (click)="authService.logoutUser()">
+          <i class="material-icons">login</i>
+          <p>Logout</p>
+        </a>
+      </li>
     </ul>
 </div>

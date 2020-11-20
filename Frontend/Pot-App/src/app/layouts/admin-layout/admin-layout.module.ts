@@ -47,7 +47,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
-import {MatDialogModule} from "@angular/material/dialog";
+import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 
 @NgModule({
   imports: [
@@ -108,8 +108,7 @@ import {MatDialogModule} from "@angular/material/dialog";
     WikiService,
     MatDialogModule,
     DatePipe,
-    CartService
-
+    CartService,
   ],
 })
 export class AdminLayoutModule { }
