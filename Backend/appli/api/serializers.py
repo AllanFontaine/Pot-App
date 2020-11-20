@@ -56,7 +56,9 @@ class PlantesSerializer(serializers.ModelSerializer):
             'id',
             'nom',
             'nom_scientifique',
-            'besoin_hydrolique',
+            'azote_sol',
+            'potassium_sol',
+            'phosphore_sol',
             'date_semis_debut',
             'date_semis_fin',
             'densite_semi',
@@ -64,6 +66,7 @@ class PlantesSerializer(serializers.ModelSerializer):
             'saison_fin',
             'recolte_en_jours',
             'description',
+            'info_insolite',
             'url_wiki',
             'image',
         ]
