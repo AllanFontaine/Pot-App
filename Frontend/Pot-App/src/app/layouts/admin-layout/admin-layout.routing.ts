@@ -7,79 +7,37 @@ import { TypographyComponent } from '../../components/typography/typography.comp
 import { IconsComponent } from '../../components/icons/icons.component';
 import { MapsComponent } from '../../components/maps/maps.component';
 import { NotificationsComponent } from '../../components/notifications/notifications.component';
-import { UpgradeComponent } from '../../components/upgrade/upgrade.component';
-import {HomeViewComponent} from '../../components/home-view/home-view.component';
-import {LoginViewComponent} from '../../components/login-view/login-view.component';
-import {AuthGuard} from '../../service/auth-guard.service';
 import {HistoriqueParcelComponent} from '../../components/historique-parcel/historique-parcel.component';
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
-import { WikiViewComponent } from 'app/components/wiki-view/wiki-view.component';
+import {LoginViewComponent} from "../../components/login-view/login-view.component";
 import {SignUpComponent} from "../../components/sign-up/sign-up.component";
-import { AboutUsComponent } from 'app/components/about-us/about-us.component';
-import { ShopComponent } from '../../components/shop/shop.component';
-
+import {HomeViewComponent} from "../../components/home-view/home-view.component";
+import {AuthGuard} from "../../service/auth-guard.service";
+import {AboutUsComponent} from "../../components/about-us/about-us.component";
+import {ShopComponent} from "../../components/shop/shop.component";
+import {WikiViewComponent} from "../../components/wiki-view/wiki-view.component";
+import {GetLoggedInComponent} from "../../components/get-logged-in/get-logged-in.component";
+import {AuthGuardSidebar} from "../../service/auth-guard-sidebar.service";
 
 
 export const AdminLayoutRoutes: Routes = [
-    // {
-    //   path: '',
-    //   children: [ {
-    //     path: 'dashboard',
-    //     component: DashboardComponent
-    // }]}, {
-    // path: '',
-    // children: [ {
-    //   path: 'userprofile',
-    //   component: UserProfileComponent
-    // }]
-    // }, {
-    //   path: '',
-    //   children: [ {
-    //     path: 'icons',
-    //     component: IconsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'notifications',
-    //         component: NotificationsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'maps',
-    //         component: MapsComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'typography',
-    //         component: TypographyComponent
-    //     }]
-    // }, {
-    //     path: '',
-    //     children: [ {
-    //         path: 'upgrade',
-    //         component: UpgradeComponent
-    //     }]
-    // }
-    { path: '',      component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'dashboard/:user_id',      component: SingleParcelComponent, canActivate: [AuthGuard] },
-    { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'user-profile',   component: UserProfileComponent, canActivate: [AuthGuard] },
-    { path: 'table-list',     component: TableListComponent, canActivate: [AuthGuard] },
-    { path: 'typography',     component: TypographyComponent, canActivate: [AuthGuard] },
-    { path: 'icons',          component: IconsComponent, canActivate: [AuthGuard] },
-    { path: 'maps',           component: MapsComponent, canActivate: [AuthGuard] },
-    { path: 'notifications',  component: NotificationsComponent, canActivate: [AuthGuard] },
-    { path: 'upgrade',        component: UpgradeComponent },
-    { path: 'add-parcel',     component: AddParcelComponent, canActivate: [AuthGuard] },
-    { path: 'login',          component: LoginViewComponent },
-    { path: 'register',          component: SignUpComponent },
-    { path: 'home',           component: HomeViewComponent },
-    { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
+    { path: '',      component: DashboardComponent, canActivate: [AuthGuard]},
+    { path: 'dashboard/:user_id',      component: SingleParcelComponent, canActivate: [AuthGuardSidebar]},
+    { path: 'dashboard',      component: DashboardComponent, canActivate: [AuthGuardSidebar]},
+    { path: 'user-profile',   component: UserProfileComponent, canActivate: [AuthGuardSidebar]},
+    { path: 'table-list',     component: TableListComponent},
+    { path: 'typography',     component: TypographyComponent},
+    { path: 'icons',          component: IconsComponent},
+    { path: 'maps',           component: MapsComponent},
     { path: 'wiki',           component: WikiViewComponent},
-    { path: 'about-us',           component: AboutUsComponent},
     { path: 'shop',           component: ShopComponent},
+    { path: 'about-us',       component: AboutUsComponent},
+    { path: 'notifications',  component: NotificationsComponent},
+    { path: 'get-logged-in',  component: GetLoggedInComponent},
+    { path: 'add-parcel',     component: AddParcelComponent, canActivate: [AuthGuardSidebar] },
+    { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuardSidebar]},
+    { path: 'login',          component: LoginViewComponent },
+    { path: 'register',       component: SignUpComponent },
+    { path: 'home',           component: HomeViewComponent },
 ];

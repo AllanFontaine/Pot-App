@@ -1,1 +1,18 @@
-<p>{{nom}}</p>
+<li class="list-group-item border rounded border-success">
+    <div class="row">
+        <div class="col-md-3">
+            <img src ={{image}} alt={{nom}}>
+        </div>
+        <div class="col-md-4">
+            <p class="up">Nom : {{nom}}</p>
+            <p class="down">Nom scientifique : {{nom_scientifique}}</p>
+        </div>
+        <div class="col-md-3">
+           <p class="up">Saison : {{saison_debut}} - {{saison_fin}}</p>
+           <p class="down">Récolte en jours : {{recolte_en_jours}}</p>
+        </div>
+        <div class="col-md-2 btn-holder">
+            <button   (click)="show_plant()" class="btn btn-primary align-self-end">Voir plus</button>
+        </div>
+    </div>
+</li>

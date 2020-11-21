@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.garden.get_wiki());
     this.garden
       .get_my_active_parcels(localStorage.getItem('user_id'))
       .subscribe(

@@ -40,6 +40,7 @@ import { HomeViewComponent } from "./components/home-view/home-view.component";
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 
@@ -61,12 +62,12 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
     NgbCollapseModule,
-    MatDialogModule,
-    
+    MatStepperModule,
 
   ],
   declarations: [

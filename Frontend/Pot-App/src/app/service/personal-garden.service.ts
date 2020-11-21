@@ -12,7 +12,12 @@ export class PersonalGardenService {
 
 
   get_plants(): Observable<any> {
+    this.http.get('http://fr.wikipedia.org/w/api.php?action=opensearch&search=Tomate')
     return this.http.get(this.url_plant + '/plante/');
+  }
+
+  get_wiki(): Observable<any> {
+    return this.http.get('http://fr.wikipedia.org/w/api.php?action=opensearch&search=Tomate')
   }
 
   get_my_active_parcels(user_id): Observable<any> {

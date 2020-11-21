@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from '../../service/cart.service'
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog'
 import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 @Component({
   selector: 'app-shop',
