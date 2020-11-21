@@ -48,6 +48,7 @@ import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-c
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MatBadgeModule} from '@angular/material/badge';
 
 @NgModule({
   imports: [
@@ -73,7 +74,8 @@ import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
     MatCardModule,
     MatIconModule,
     MatListModule,
-    MatStepperModule
+    MatStepperModule,
+    MatBadgeModule
 
   ],
   declarations: [
