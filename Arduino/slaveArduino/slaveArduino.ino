@@ -3,6 +3,9 @@ YF‐ S201 Water Flow Sensor
 Water Flow Sensor output processed to read in litres/hour
 Adaptation Courtesy: hobbytronics.co.uk
 */
+
+#include <Wire.h>
+
 #define VALVEPIN1 2
 #define VALVEPIN2 3
 #define VALVEPIN3 4
@@ -11,7 +14,6 @@ Adaptation Courtesy: hobbytronics.co.uk
 #define VALVEPIN6 7
 #define NOT_AN_INTERRUPT -1
 
-#define NOT_AN_INTERRUPT -1
 volatile int flow_frequency = 1; // Measures flow sensor pulses
 // Calculated litres/hour
  float vol = 0.0,l_minute;
@@ -20,15 +22,16 @@ unsigned long currentTime;
 unsigned long cloopTime;
 int numValve;
 float amountWater;
+String amountWaterStr;
 
-void flow () // Interrupt function
-{
+void flow () { // Interrupt function 
    flow_frequency++;
 }
-void setup()
-{
+void setup() {
    pinMode(flowsensor, INPUT);
    digitalWrite(flowsensor, HIGH); // Optional Internal Pull-Up
+   Wire.begin(4);                // join i2c bus with address #4
+   Wire.onReceive(receiveEvent); // register event
    Serial.begin(9600);
    attachInterrupt(digitalPinToInterrupt(flowsensor), flow, RISING); // Setup Interrupt
 
@@ -38,24 +41,25 @@ void setup()
    currentTime = millis();
    cloopTime = currentTime;
 }
-void loop ()
-{
+void loop () {
    currentTime = millis();
    // Every second, calculate and print litres/hour
    receiveEvent();
-    
 }
-void receiveEvent()
-{
-  numValve = 1;
-  amountWater = 2.00;
-//  while(1 < Wire.available()) // loop through all but the last
-//  {
-//    numValve = Wire.read(); // receive byte as a character
-//    Serial.print(numValve);         // print the character
-//  }
-//    amountWater = Wire.read();    // receive byte as an integer
-//    Serial.println(amountWater);         // print the integer
+
+void receiveEvent() {
+//  numValve = 1;
+//  amountWater = 2.00;
+  while(1 < Wire.available()) { // loop through all but the last
+    amountWaterStr = Wire.read();    // receive byte as an integer
+    Serial.println(amountWaterStr);
+    //amountWater = amountWaterStr.toFloat();
+    //Serial.println(amountWater);
+
+ }
+    numValve = Wire.read(); // receive byte as a character
+    Serial.print(numValve);         // print the character
+    
     switch (numValve) {
     case 1:
     Serial.println("Debut de l'arrosage");

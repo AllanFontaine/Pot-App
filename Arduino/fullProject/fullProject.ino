@@ -10,7 +10,7 @@
 
 //Defining PINS
 const int FlowSensorPin 2;
-const int DhtPin 7;
+const int DhtPin = 7;
 const int SolenoidPin = 28;
 const int chipSelect = 10; // sd card
 
