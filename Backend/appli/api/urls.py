@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.urls import path, include
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
@@ -37,10 +37,13 @@ router.register(r'donnees-user', views.DonneesUserAPIView, basename="dUsers")
 router.register(r'profile', views.ProfileAPIView, basename= "dProfile")
 
 
+
+
 urlpatterns = [
     url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     url(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    url(r'^accounts/password-reset/', include('django_rest_resetpassword.urls', namespace='password_reset')),
 
     path('token', jwt_views.TokenObtainPairView.as_view(serializer_class=CustomJWTSerializer), name='token_obtain_pair'),
     path('token/refresh', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
