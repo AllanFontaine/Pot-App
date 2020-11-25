@@ -43,6 +43,15 @@ export class ShopComponent implements OnInit {
     description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
     price: 9.49,
     imgLink: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+  },
+  {
+    id: 4,
+    product: "terreau",
+    title: "Terreau haute qualité",
+    subTitle: "Pour donner toutes les chances aux plantes",
+    description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
+    price: 9.49,
+    imgLink: "https://material.angular.io/assets/img/examples/shiba2.jpg"
   }]
 
   ngOnInit(): void {

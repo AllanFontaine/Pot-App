@@ -5,10 +5,10 @@
   background-color: rgba(217, 248, 214, 0.1);
 }
 .example-card:hover .mycard_content {
-  visibility: initial;
+  display: block;
 }
 .mycard_content {
-  visibility: hidden;
+  display: none;
 }
 .price-content {
   text-align: center;
