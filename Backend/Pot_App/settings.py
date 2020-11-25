@@ -38,7 +38,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
+)
 # Application definition
 
 INSTALLED_APPS = [
