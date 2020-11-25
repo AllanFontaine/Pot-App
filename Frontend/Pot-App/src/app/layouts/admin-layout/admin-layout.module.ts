@@ -47,35 +47,36 @@ import { MatIconModule } from '@angular/material/icon';
 import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
-import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {MatDialogModule} from "@angular/material/dialog";
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatRadioModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatGridListModule,
-    SweetAlert2Module,
-    SweetAlert2Module.forRoot(),
-    MatDialogModule,
-    MatAutocompleteModule,
-    MatSortModule,
-    MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatStepperModule
-
-  ],
+    imports: [
+      CommonModule,
+      RouterModule.forChild(AdminLayoutRoutes),
+      FormsModule,
+      ReactiveFormsModule,
+      MatButtonModule,
+      MatRippleModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSelectModule,
+      MatTooltipModule,
+      MatRadioModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
+      MatGridListModule,
+      SweetAlert2Module,
+      SweetAlert2Module.forRoot(),
+      MatDialogModule,
+      MatAutocompleteModule,
+      MatSortModule,
+      MatCardModule,
+      MatIconModule,
+      MatListModule,
+      MatStepperModule,
+      CountdownModule,
+    ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
