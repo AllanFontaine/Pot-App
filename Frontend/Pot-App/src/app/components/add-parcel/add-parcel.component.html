@@ -1,39 +1,56 @@
-<div class="card-header">
+<div class="w-150">
   <h3 mat-dialog-title>Ajouter une plante à la parcelle {{ data.num }}</h3>
-</div>
-<div class="card-body">
-  <form class="form" (ngSubmit)="addParcelUser(f)" #f="ngForm">
-    <div class="form-group">
-      <mat-form-field appearance="standard">
-        <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
-        <input type="text" aria-label="Plante" matInput [formControl]="myControl" name="planteId"
-          [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
-          <div *ngFor="let option of filteredOptions| async; let i = index">
-            <mat-option [value]="option">
-              {{option}}
-            </mat-option>
-          </div>
-        </mat-autocomplete>
-      </mat-form-field>
+  <form class="form row" (ngSubmit)="addParcelUser(f)" #f="ngForm">
+    <div class="col">
+      <div class="form-group">
+        <mat-form-field appearance="standard">
+          <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
+          <input type="text" aria-label="Plante" matInput [formControl]="myControl" name="planteId"
+            [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
+            <div *ngFor="let option of filteredOptions| async; let i = index">
+              <mat-option [value]="option">
+                {{option}}
+              </mat-option>
+            </div>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <button type="button" class=" btn btn-outline-primary btn-sm btn-conseil" (click)="ConseilOuvrir()" mat-button>Besoin d'un conseil?</button>
+      <div class="form-group">
+        <mat-form-field appearance="standard">
+          <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
+          <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="standard">
+          <mat-label for="date_plantation">Date de plantaison</mat-label>
+          <input name="date_plantation" id="date_plantation" matInput [matDatepicker]="picker" ngModel />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
+      <button (click)="placeParcel(data.num)" type="submit" class="btn btn-primary float-right btn-conseil">
+        Ajoutez une parcelle
+      </button>
     </div>
-    <div class="form-group">
-      <mat-form-field appearance="standard">
-        <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
-        <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
-      </mat-form-field>
+    <div class="col my-auto" id="conseil">
+      <p>Nous apprécions votre confiance et BlAbLaBlA conseil BlAbLaBlA on prend ca en compte</p>
+      <label id="radio_conseil_label">Choississez celle que vous préférez:</label>
+      <mat-radio-group aria-labelledby="radio_conseil_label" class="radio_conseil_group">
+        <mat-radio-button class="radio_conseil_button" value="1">
+          option 1
+        </mat-radio-button>
+        <mat-radio-button class="radio_conseil_button" value="2">
+          option 2
+        </mat-radio-button>
+        <mat-radio-button class="radio_conseil_button" value="3">
+          option 3
+        </mat-radio-button>
+      </mat-radio-group>
+      <button class="align-items-end" type="button" (click)="cancelConseil()" mat-button><i class="material-icons">keyboard_arrow_left</i>Annuler le conseil</button>
     </div>
-    <div class="form-group">
-      <mat-form-field appearance="standard">
-        <mat-label for="date_plantation">Date de plantaison</mat-label>
-        <input name="date_plantation" id="date_plantation" matInput [matDatepicker]="picker" ngModel />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
-    <button (click)="placeParcel(data.num)" type="submit" class="btn btn-primary float-right">
-      Ajoutez une parcelle
-    </button>
   </form>
 </div>

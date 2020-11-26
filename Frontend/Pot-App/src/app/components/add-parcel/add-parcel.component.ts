@@ -99,4 +99,12 @@ export class AddParcelComponent implements OnInit {
   cancelClose() {
     this.dialogRef.close('CANCEL');
   }
+
+  ConseilOuvrir() {
+    $("#conseil").show("slow", "swing");
+  }
+
+  cancelConseil(){
+    $("#conseil").hide("slow", "swing");
+  }
 }

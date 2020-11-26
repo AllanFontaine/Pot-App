@@ -1,0 +1,19 @@
+#conseil {
+    display: none;
+    transition: display 2s ease-in-out;
+}
+
+.radio_conseil_group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.radio_conseil_button {
+    margin: 5px;
+}
+
+.btn-conseil{
+    -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
+	        animation: heartbeat 1.5s ease-in-out infinite both;
+}
