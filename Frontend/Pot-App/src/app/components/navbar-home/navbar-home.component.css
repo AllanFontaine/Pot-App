@@ -23,8 +23,6 @@ nav {
 
 .nav-link:hover, .nav-link:focus {
     text-decoration: none;
-    font-size:larger;
-    font-size: 150%;
 }
 
 .nav-link.disabled {
@@ -49,19 +47,31 @@ nav {
     border-color: #e9ecef #e9ecef #dee2e6;
 }
 
+.nav-item:hover{
+  border-color: #e9ecef #e9ecef #dee2e6;
+  transform: scale(1.1)
+}
+
+.nav-item:hover.scrolled{
+  border-color: #e9ecef #e9ecef #dee2e6;
+  transform: scale(1.1)
+}
+
 .bg-dark {
     background:transparent !important;
     transition:0.75s ease;
-    font-weight: bolder;
     font-family: Serif;
 }
 
 .bg-dark.scrolled {
     background:white !important;
     color: #0c5460;
-    font-weight: 500;
     font-family: Georgia, Serif;
 }
 .modal-backdrop {
     height: 100%;
+}
+
+.active{
+  background-color: #0b3251;
 }

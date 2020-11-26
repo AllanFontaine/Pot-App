@@ -17,11 +17,18 @@ export class AdminLayoutComponent implements OnInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  private currentURL;
 
-  constructor( public location: Location, private router: Router, public authService: AuthService) {}
+  constructor( public location: Location, private router: Router, public authService: AuthService) {
+    router.events.filter(event => event instanceof NavigationEnd)
+      .subscribe(event =>
+      {
+        this.currentURL = event;
+        console.log(this.currentURL);
+      });
+  }
 
   ngOnInit() {
-      console.log(this.authService.LoggedIn())
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
       if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {
