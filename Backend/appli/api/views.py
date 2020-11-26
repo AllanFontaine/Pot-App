@@ -82,7 +82,6 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Parcelle.objects.all()
-        print(queryset_list[1])
         query_status = self.request.GET.get("stat")
         query_user = self.request.GET.get("userid")
         query_numParcel = self.request.GET.get("numparcel")
@@ -90,8 +89,6 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
         query_dateOrder = self.request.GET.get('date')
         query_orderStatus = self.request.GET.get('orderstat')
         query_scientificName = self.request.GET.get('scientname')
-
-
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
@@ -100,8 +97,6 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
             queryset_list = queryset_list.filter(
                 Q(userId=query_user)
             ).distinct()
-
-
         if is_valid_queryparam(query_numParcel):
             if (query_numParcel == 'ASC'):
                 queryset_list = queryset_list.order_by('-numero_parcelle')

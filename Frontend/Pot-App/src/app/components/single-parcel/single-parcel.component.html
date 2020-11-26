@@ -1,7 +1,66 @@
-<div class="text-center pt-5">
-    <app-line-graph [parcel]="id_parcel"></app-line-graph>
-    <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
+<!--<div class="container-fluid text-center">
+  <div class="row text-center">
+    <div class="card card-block bg-light text-dark card-image float-sm-right" size="50%" id="plante">
+        <img class="card-img-top" src="{{plante.image}}" alt="Card image cap">
+        <div class="card-body">
+          {{plante.description}}
+        </div>
+    </div>
+    <div class="card card-block bg-light text-dark card-image float-sm-left graphique" size="50%">
+        <app-line-graph [parcel]="id_parcel"></app-line-graph>
+        <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
+    </div>
     <a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()">Supprimer la
-        parcelle</a><br>
+      parcelle</a><br>
     <a routerLink="/dashboard">Retour</a>
+  </div>
+</div>-->
+<!-- Table des matières + card plantes -->
+<div class="main-content">
+  <div class="container">
+    <div class="mx-auto text-center">
+      <h1 class="">Voici les détails de votre parcelle numéro {{parcel.numemro_parcel}}</h1>
+    </div>
+    <div class="row align-items-start">
+      <div class="card card-block col text-dark float-left">
+        <div class="card-body">
+          <h2>Table des matières: </h2>
+          <li><a (click)="onClick('about')">La plante</a></li>
+          <li><a (click)="onClick('projects')">La parcelle</a></li>
+          <li><a (click)="onClick('signup')" >Contact</a></li>
+          <li><a (click)="onClick('graphique')" >Vos graphiques de</a></li>
+        </div>
+      </div>
+      <div class="col-1"></div>
+      <div class="card card-block bg-light text-dark float-right col-4 col-md-4">
+        <img class="card-img-top" src="{{plante.image}}" alt="Card image cap">
+        <div class="card-title">Plante assignée: {{plante.nom}}</div>
+        <div class="card-body">
+          {{plante.description}}
+        </div>
+      </div>
+      Countdown:
+      <countdown [config]="{leftTime: 30-11-2030}"></countdown>
+    </div>
+    <div class="row align-items-end" id="graphique">
+      <div class="col">
+        <div class="card card-block bg-light col text-dark float-left">
+          <div class="card-body">
+            <app-line-graph [parcel]="id_parcel"></app-line-graph>
+            <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card card-block bg-light text-dark float-right">
+          <div class="card-body">
+            <app-line-graph [parcel]="id_parcel"></app-line-graph>
+            <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
