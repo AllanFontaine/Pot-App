@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
+from django.views.decorators.http import require_http_methods
 
 def is_valid_queryparam(param):
     return param != '' and param is not None

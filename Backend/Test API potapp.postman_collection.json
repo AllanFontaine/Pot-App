@@ -1,0 +1,1602 @@
+{
+	"info": {
+		"_postman_id": "5016c816-9784-4d7f-bc3d-9c2918692980",
+		"name": "Test API potapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "POST on api token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "653b296a-7791-4bd1-b776-d5e8eaf20cf8",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"auth_token\", jsonData.access)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"myuser\",\r\n  \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/token",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET user all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fefac2ea-68f7-4e69-b44a-e4c73660c884",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/users/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c635e1d8-e455-4932-ab5e-c558153cf8f8",
+								"exec": [
+									"tests[\"Status code is 201\"]=responseCode.code===201;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									"\r",
+									"var responseJson = pm.response.json();\r",
+									"pm.environment.set(\"USERID\", responseJson.id)\r",
+									"\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Data response is same as sent\", () => {\r",
+									"    pm.expect(responseJson.username).to.eql(\"Damienlefou6\");\r",
+									"    pm.expect(responseJson.email).to.eql(\"damiedn@gmail.com\");\r",
+									"    pm.expect(responseJson.first_name).to.eql(\"Damdam\");\r",
+									"    pm.expect(responseJson.last_name).to.eql(\"Dele\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data types are correct\", () => {\r",
+									"    pm.expect(responseJson).to.be.an(\"object\");\r",
+									"    pm.expect(responseJson.username).to.be.a('string');\r",
+									"    pm.expect(responseJson.email).to.be.a('string');\r",
+									"    pm.expect(responseJson.first_name).to.be.a('string');\r",
+									"    pm.expect(responseJson.last_name).to.be.a('string');\r",
+									"    pm.expect(responseJson.id).to.be.a('number');\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Token is unique\", () => {\r",
+									"    pm.expect(responseJson.token.access).not.eql(pm.environment.get(\"auth_token\"));\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n        \"email\": \"damiedn@gmail.com\",\r\n        \"last_name\": \"Dele\",\r\n        \"first_name\": \"Damdam\",\r\n        \"password\": \"123456\",\r\n        \"username\": \"Damienlefou6\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET user by id ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d88d7f9-2fb6-4d5d-afc9-75e8bea6d17e",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									"\r",
+									"var responseJson = pm.response.json();\r",
+									"\r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test(\"Data response is same as sent\", () => {\r",
+									"    pm.expect(responseJson.id).to.eql(pm.environment.get(\"USERID\"))\r",
+									"    pm.expect(responseJson.username).to.eql(\"Damienlefou6\");\r",
+									"    pm.expect(responseJson.email).to.eql(\"damiedn@gmail.com\");\r",
+									"    pm.expect(responseJson.first_name).to.eql(\"Damdam\");\r",
+									"    pm.expect(responseJson.last_name).to.eql(\"Dele\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data types are correct\", () => {\r",
+									"    pm.expect(responseJson).to.be.an(\"object\");\r",
+									"    pm.expect(responseJson.username).to.be.a('string');\r",
+									"    pm.expect(responseJson.email).to.be.a('string');\r",
+									"    pm.expect(responseJson.first_name).to.be.a('string');\r",
+									"    pm.expect(responseJson.last_name).to.be.a('string');\r",
+									"    pm.expect(responseJson.id).to.be.a('number');\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/users/{{USERID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"{{USERID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cec64ea7-e2c4-49bd-9693-5646deb7c060",
+								"exec": [
+									"tests[\"Status code is 201\"]=responseCode.code===201;\r",
+									"\r",
+									"var responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Data response is same as sent\", () => {\r",
+									"    pm.expect(responseJson.nombre_parcelle).to.eql(8);\r",
+									"    pm.expect(responseJson.localisation).to.eql(\"puteville\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Data types are correct\", () => {\r",
+									"    pm.expect(responseJson.nombre_parcelle).to.be.a('number');\r",
+									"    pm.expect(responseJson.localisation).to.be.a('string');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {{USERID}},\r\n  \"nombre_parcelle\": 8,\r\n  \"localisation\": \"puteville\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/profile/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9d9bbf0-dc5f-4f5f-a1e5-8d59db3f0694",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/profile/{{USERID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile",
+								"{{USERID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "75c4993d-4a8b-4dfc-8e71-0ce5d20e98a6",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {{USERID}},\r\n  \"nombre_parcelle\": 8,\r\n  \"localisation\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/profile/{{USERID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile",
+								"{{USERID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Donnees user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8842612a-e5b9-4ee9-a9be-a574a0e002d6",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-user/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST donnees-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2590b1f3-b184-488e-8926-fe8e68ba6ae1",
+								"exec": [
+									"tests[\"Status code is 201\"]=responseCode.code===201;\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"DONNEES-USER-ID\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"userId\": {{USERID}},\r\n\t\"date_reception_donnee\": \"2020-11-27T19:46:38.462Z\",\r\n\t\"temperature_exterieur\": \"5\",\r\n\t\"humidite_exterieur\": \"5\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-user/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT donnees-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "70218bc4-2c24-45a2-92d0-0bebbfa5c005",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"userId\": {{USERID}},\r\n\t\"date_reception_donnee\": \"2020-11-27T19:46:38.462Z\",\r\n\t\"temperature_exterieur\": \"25\",\r\n\t\"humidite_exterieur\": \"5\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-user/{{DONNEES-USER-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-user",
+								"{{DONNEES-USER-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE donnees-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a74dbd46-e296-41d2-a3c4-69f217409d2f",
+								"exec": [
+									"tests[\"Status code is 204\"]=responseCode.code===204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-user/{{DONNEES-USER-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-user",
+								"{{DONNEES-USER-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ece63c99-b336-4fcf-a7cc-16f18355aec0",
+								"exec": [
+									"tests[\"Status code is 204\"]=responseCode.code===204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/profile/{{USERID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profile",
+								"{{USERID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9569fda-cb6a-4444-bc84-4fa683036a68",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n        \"email\": \"dam@1am.be\",\r\n        \"last_name\": \"Deenne\",\r\n        \"first_name\": \"de44qsdqzsdn\",\r\n        \"password\": \"jules14\",\r\n        \"is_staff\": true,\r\n        \"username\": \"dam@1am.be\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/users/{{USERID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"{{USERID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "300f688a-ae25-4817-86e5-e9d04e814768",
+								"exec": [
+									"tests[\"Status code is 204\"]=responseCode.code===204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/users/{{USERID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"{{USERID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Parcel",
+			"item": [
+				{
+					"name": "GET parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c21014eb-e83d-4699-8846-f95fe64630b5",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/parcelle/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"parcelle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET parcelle-plante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9432a002-57ab-40b8-aef9-eeea12b9a2b4",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/parcelle-plantes/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"parcelle-plantes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e60e310f-2480-4ace-8840-5c01597a458b",
+								"exec": [
+									"tests[\"Status code is 201\"]=responseCode.code===201;\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"PARCELLE-ID\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"numero_parcelle\": 20,\r\n  \"date_plantation\": \"2020-11-27\",\r\n  \"taille_metre_carre\": 5,\r\n  \"estUtilise\": true,\r\n  \"planteId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/parcelle/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"parcelle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parcelle-plante by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28b597ba-748e-4261-9f93-0d24de438479",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/parcelle-plantes/{{PARCELLE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"parcelle-plantes",
+								"{{PARCELLE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Donnees-parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ee4ca24a-9aa5-4f40-8b90-296894bb49ff",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-parcelle/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-parcelle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST donnees-parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c58c68d-debb-40fe-a2c9-043a08b15894",
+								"exec": [
+									"tests[\"Status code is 201\"]=responseCode.code===201;\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"DONNEES-PARCELLE-ID\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"parcelleId\": {{PARCELLE-ID}},\r\n\t \"date_reception_donnee\": \"2020-11-27T19:47:48.887Z\",\r\n\t\"humidite_sol\": 0,\r\n\t\"quantite_eau_litre\": \"25\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-parcelle/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-parcelle",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT donnees-parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c2789473-46c5-4c56-ad1c-a598d188c765",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"parcelleId\": {{PARCELLE-ID}},\r\n\t \"date_reception_donnee\": \"2020-11-27T19:47:48.887Z\",\r\n\t\"humidite_sol\": 0,\r\n\t\"quantite_eau_litre\": \"455\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-parcelle/{{DONNEES-PARCELLE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-parcelle",
+								"{{DONNEES-PARCELLE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE donnees-parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "61913f3d-3e49-49da-8297-e7ebfabb101c",
+								"exec": [
+									"tests[\"Status code is 204\"]=responseCode.code===204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/donnees-parcelle/{{DONNEES-PARCELLE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donnees-parcelle",
+								"{{DONNEES-PARCELLE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b6ad3af9-3a1d-4cbb-9934-478986c56ee3",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"numero_parcelle\": 20,\r\n  \"date_plantation\": \"2020-11-27\",\r\n  \"taille_metre_carre\": 205,\r\n  \"estUtilise\": true,\r\n  \"planteId\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/parcelle/{{PARCELLE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"parcelle",
+								"{{PARCELLE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE parcelle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0796bc78-3ced-4eeb-8a4e-bbf0edddc94b",
+								"exec": [
+									"tests[\"Status code is 204\"]=responseCode.code===204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/parcelle/{{PARCELLE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"parcelle",
+								"{{PARCELLE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "plantes ",
+			"item": [
+				{
+					"name": "GET Plante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a6e3c31-3988-42cf-8434-d812612b631a",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/plante/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"plante",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get plante by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2aff28b8-5b72-4fdc-8beb-3c0a53e2dbf3",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;\r",
+									"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");\r",
+									" \r",
+									"tests[\"Has Content-Type\"] = contentTypeHeaderExists;\r",
+									" \r",
+									"if (contentTypeHeaderExists) {\r",
+									"    tests[\"Content-Type is application/json\"] = \r",
+									"      responseHeaders[\"Content-Type\"].has(\"application/json\");\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8000/api/plante/1/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"plante",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST plante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8959390e-2671-4ff5-a7df-104e09f37c27",
+								"exec": [
+									"tests[\"Status code is 201\"]=responseCode.code===201;\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"PLANTE-ID\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nom\": \"Toamte du sud\",\r\n  \"nom_scientifique\": \"tomate africaine\",\r\n  \"azote_sol\": 0,\r\n  \"potassium_sol\": 0,\r\n  \"phosphore_sol\": 0,\r\n  \"date_semis_debut\": \"2020-11-27\",\r\n  \"date_semis_fin\": \"2020-11-27\",\r\n  \"densite_semi\": 0,\r\n  \"recolte_en_jours\": 0,\r\n  \"description\": \"dddd\",\r\n  \"info_insolite\": \"sssss\",\r\n  \"url_wiki\": \"dddd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/plante/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"plante",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT plante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3f0d6d06-ec99-43b6-ac12-33b98b238b00",
+								"exec": [
+									"tests[\"Status code is 200\"]=responseCode.code===200;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nom\": \"Toamte du sud\",\r\n  \"nom_scientifique\": \"tomate africaine\",\r\n  \"azote_sol\": 0,\r\n  \"potassium_sol\": 25,\r\n  \"phosphore_sol\": 0,\r\n  \"date_semis_debut\": \"2020-11-27\",\r\n  \"date_semis_fin\": \"2020-11-27\",\r\n  \"densite_semi\": 0,\r\n  \"recolte_en_jours\": 0,\r\n  \"description\": \"dddd\",\r\n  \"info_insolite\": \"sssss\",\r\n  \"url_wiki\": \"dddd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/plante/{{PLANTE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"plante",
+								"{{PLANTE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE plante",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "724e5bb1-c70b-47f6-b388-4b3e44db0468",
+								"exec": [
+									"tests[\"Status code is 204\"]=responseCode.code===204;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8000/api/plante/{{PLANTE-ID}}/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"plante",
+								"{{PLANTE-ID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
