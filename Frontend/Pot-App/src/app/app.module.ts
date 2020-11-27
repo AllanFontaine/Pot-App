@@ -41,6 +41,8 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {MatStepperModule} from '@angular/material/stepper';
+import {TermsAndConditionsComponent} from './components/terms-and-conditions/terms-and-conditions.component';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 
@@ -76,6 +78,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     HomeViewComponent,
     LoginViewComponent,
     SignUpComponent,
+    TermsAndConditionsComponent,
   ],
   providers: [
     AuthGuard,
@@ -86,7 +89,7 @@ import {MatStepperModule} from '@angular/material/stepper';
       useClass: TokenInterceptorService,
       multi: true
     },
-    MatDialogModule
+    MatDialogModule,
   ],
   bootstrap: [AppComponent]
 })

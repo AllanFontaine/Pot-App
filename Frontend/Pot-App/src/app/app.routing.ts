@@ -8,6 +8,7 @@ import {LoginViewComponent} from "./components/login-view/login-view.component";
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {HomeViewComponent} from "./components/home-view/home-view.component";
 import {AuthGuard} from "./service/auth-guard.service";
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 const routes: Routes = [ {
     path: '',
     component: AdminLayoutComponent,
@@ -20,6 +21,7 @@ const routes: Routes = [ {
   { path: 'login',          component: LoginViewComponent },
   { path: 'register',          component: SignUpComponent },
   { path: 'home',           component: HomeViewComponent },
+  { path: 'terms',      component: TermsAndConditionsComponent },
 ];
 
 @NgModule({
