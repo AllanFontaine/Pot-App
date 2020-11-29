@@ -49,6 +49,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatBadgeModule} from '@angular/material/badge';
+import { CountdownModule } from 'ngx-countdown';
+
 
 @NgModule({
   imports: [
@@ -75,9 +77,11 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatIconModule,
     MatListModule,
     MatStepperModule,
-    MatBadgeModule
+    MatBadgeModule,
+    CountdownModule,
 
   ],
+
   declarations: [
     DashboardComponent,
     UserProfileComponent,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PersonalGardenService } from '../../service/personal-garden.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-single-parcel',
@@ -16,7 +17,8 @@ export class SingleParcelComponent implements OnInit {
   constructor(
     private garden: PersonalGardenService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private viewportScroller: ViewportScroller
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +86,10 @@ export class SingleParcelComponent implements OnInit {
         })
       }
     })
-
   }
+
+  public onClick(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
+  }
+
 }
