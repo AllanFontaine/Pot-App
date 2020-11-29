@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
             (res) => {
               this.amountParcels = res['nombre_parcelle'];
               this.my_parcels = Array(this.amountParcels).fill({ estUtilise: false });
+              console.log(this.my_parcels)
               this.orderParcels();
             },
             (err) => console.log(err)

@@ -15,7 +15,6 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { TableListComponent } from './components/table-list/table-list.component';
 import { TypographyComponent } from './components/typography/typography.component';
 import { IconsComponent } from './components/icons/icons.component';
-import { MapsComponent } from './components/maps/maps.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { UpgradeComponent } from './components/upgrade/upgrade.component';
 import {
@@ -39,8 +38,8 @@ import { HomeViewComponent } from "./components/home-view/home-view.component";
 
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
-import {SignUpComponent} from "./components/sign-up/sign-up.component";
-import {MatStepperModule} from '@angular/material/stepper';
+import { SignUpComponent } from "./components/sign-up/sign-up.component";
+import { MatStepperModule } from '@angular/material/stepper';
 
 
 
@@ -68,6 +67,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatIconModule,
     NgbCollapseModule,
     MatStepperModule,
+    MatDialogModule,
 
   ],
   declarations: [
@@ -81,7 +81,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     AuthGuard,
     AuthService,
     PersonalGardenService,
-   {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
