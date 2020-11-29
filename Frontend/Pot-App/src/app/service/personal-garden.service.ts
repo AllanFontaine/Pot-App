@@ -33,9 +33,9 @@ export class PersonalGardenService {
       this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id()
     );
   }
-  get_my_parcels_ordered(orderBy , orderWay ): Observable<any> {
+  get_my_parcels_ordered(orderBy, orderWay): Observable<any> {
     return this.http.get(
-      this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id() +"&"+orderBy +"=" +orderWay
+      this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id() + "&" + orderBy + "=" + orderWay
     );
   }
 
@@ -51,18 +51,19 @@ export class PersonalGardenService {
       data
     );
   }
-  erase_parcel(parcel_id): Observable<any>{
+  erase_parcel(parcel_id): Observable<any> {
     console.log(this.url_plant + '/parcelle/' + parcel_id + '/')
     return this.http.delete(this.url_plant + '/parcelle/' + parcel_id + '/');
   }
   get_user_id() {
     return localStorage.getItem('user_id');
   }
-  get_profile() {
+  get_profile(): Observable<any> {
     return this.http.get(
       this.url_plant + '/profile/' + this.get_user_id() + '/'
     );
   }
+
 
   modify_profile(data): Observable<any> {
     return this.http.put(
