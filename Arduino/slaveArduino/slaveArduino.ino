@@ -4,7 +4,7 @@ Water Flow Sensor output processed to read in litres/hour
 Adaptation Courtesy: hobbytronics.co.uk
 */
 
-#include <Wire.h>
+#include <WSWire.h>
 
 #define VALVEPIN1 2
 #define VALVEPIN2 3
@@ -22,7 +22,7 @@ unsigned long currentTime;
 unsigned long cloopTime;
 int numValve;
 float amountWater;
-String amountWaterStr;
+String amountWaterStr = "";
 
 void flow () { // Interrupt function 
    flow_frequency++;
@@ -38,27 +38,22 @@ void setup() {
  
    Serial.print("Water Flow Meter");
    Serial.print("Circuit Digest");
-   currentTime = millis();
-   cloopTime = currentTime;
 }
 void loop () {
-   currentTime = millis();
    // Every second, calculate and print litres/hour
    receiveEvent();
 }
 
 void receiveEvent() {
-//  numValve = 1;
-//  amountWater = 2.00;
-  while(1 < Wire.available()) { // loop through all but the last
-    amountWaterStr = Wire.read();    // receive byte as an integer
-    Serial.println(amountWaterStr);
-    //amountWater = amountWaterStr.toFloat();
-    //Serial.println(amountWater);
 
- }
+  while(1 < Wire.available()) { // loop through all but the last
+    char c = Wire.read();
+    amountWaterStr = amountWaterStr + c;    // receive byte as an integer
+  }
     numValve = Wire.read(); // receive byte as a character
-    Serial.print(numValve);         // print the character
+    amountWater = amountWaterStr.toFloat();
+    Serial.println(numValve);
+    delay(5000);
     
     switch (numValve) {
     case 1:
@@ -81,7 +76,7 @@ void receiveEvent() {
     default:
     Serial.print("No data number");
     break;
-}
+  }
 }
 
 void waterPlantAmout(){

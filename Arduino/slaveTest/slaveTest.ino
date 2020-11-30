@@ -12,6 +12,9 @@
 
 #include <Wire.h>
 
+String dataString = "";
+float amountLiter;
+
 void setup()
 {
   Wire.begin(4);                // join i2c bus with address #4
@@ -31,8 +34,11 @@ void receiveEvent(int howMany)
   while(1 < Wire.available()) // loop through all but the last
   {
     char c = Wire.read(); // receive byte as a character
-    Serial.print(c);         // print the character
+    dataString = dataString + c;
+   // Serial.print(c);         // print the character
   }
   int x = Wire.read();    // receive byte as an integer
   Serial.println(x);         // print the integer
+  amountLiter = dataString.toFloat();
+  Serial.println(amountLiter);
 }

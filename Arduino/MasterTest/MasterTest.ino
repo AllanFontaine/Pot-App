@@ -11,19 +11,27 @@
 
 
 #include <Wire.h>
+#include <stdlib.h>
 
-void setup() {
+float test = 3.15;
+char test1[8];
+
+void setup()
+{
   Wire.begin(); // join i2c bus (address optional for master)
 }
 
-byte numValve = 1; 
-//float x[1]= {2.45};
+byte x = 1;
 
-void loop() {
-  Wire.beginTransmission(20); // transmit to device #4
-  Wire.write("hello");              // sends one byte 
-  Wire.write(numValve);        // sends five bytes
+void loop()
+{
+  dtostrf(test, 8, 2, test1);
+  Wire.beginTransmission(4); // transmit to device #4
+  Wire.write(test1);        // sends five bytes
+  Wire.write(x);            // sends one byte  
   Wire.endTransmission();    // stop transmitting
- 
+
+
+ // x++;
   delay(500);
 }
