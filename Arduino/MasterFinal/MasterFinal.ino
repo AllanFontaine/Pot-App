@@ -9,12 +9,19 @@
 
 //Defining PINS
 const int dhtPin = 7;
-const int soilMoisturePin = A0;
+const int soilMoisturePin0 = A0;
+const int soilMoisturePin1 = A1;
+const int soilMoisturePin2 = A2;
+const int soilMoisturePin3 = A3;
+const int soilMoisturePin4 = A4;
+const int soilMoisturePin5 = A5;
+const int threshold = 55;
+
 
 DHT dht(dhtPin, DHTTYPE);
 RTC_DS1307 rtc;
 DateTime now;
-uint16_t soilMoisturePerCent;
+uint16_t soilMoisturePerCent[6];
 float soilMoisture;
 float hum;
 float temp;
@@ -29,6 +36,7 @@ int averageTemp;
 float liter;
 char strLiter[8];
 boolean wateringInProcess = false;
+
 
 
 void error(char *str) {
@@ -82,6 +90,18 @@ float computeLiterNeeded(float raining, float soilWater, float lambda) {
 //  wateringInProcess = true;
 //}
 
+int wateringPriority() {
+  int index;
+  uint16_t minValue = 101;  
+  for(int i = 0; i < 6; i++) {
+    if(soilMoisturePerCent[i] < minValue) {
+      index = i;
+      minValue = soilMoisturePerCent[i];
+    }
+  }
+  return index;
+}
+
 void setup() {
   Serial.begin(9600);
   dht.begin();
@@ -108,22 +128,28 @@ void setup() {
 
 void loop() {
   currentMillis = millis();
-  if (currentMillis - startMillis >= period) {
-    // Soil moisture in %
-    soilMoisturePerCent = analogRead(soilMoisturePin);
-    soilMoisturePerCent = map(soilMoisturePerCent, 0, 1023, 100, 0);
-    // Serial.print("Soil moisture= ");
-    // Serial.print(soilMoisturePerCent);
-    // Serial.println("%");
+  if(currentMillis - startMillis >= period) {   
     
-    // Soil moisture sensor 
-     for(int i = 0; i <= 100; i++){
-       soilMoisture = soilMoisture + analogRead(soilMoisturePin);
-       delay(1);
-     }
-     soilMoisture = soilMoisture/100.0;
-    // Serial.println(soilMoisture);
-  
+    // Soil moisture in %
+    
+    soilMoisturePerCent[0] = analogRead(soilMoisturePin0);
+    soilMoisturePerCent[0] = map(soilMoisturePerCent[0], 0, 1023, 100, 0);
+    
+    soilMoisturePerCent[1] = analogRead(soilMoisturePin1);
+    soilMoisturePerCent[1] = map(soilMoisturePerCent[1], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[2] = analogRead(soilMoisturePin2);
+    soilMoisturePerCent[2] = map(soilMoisturePerCent[2], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[3] = analogRead(soilMoisturePin3);
+    soilMoisturePerCent[3] = map(soilMoisturePerCent[3], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[4] = analogRead(soilMoisturePin4);
+    soilMoisturePerCent[4] = map(soilMoisturePerCent[4], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[5] = analogRead(soilMoisturePin5);
+    soilMoisturePerCent[5] = map(soilMoisturePerCent[5], 0, 1023, 100, 0);
+    
     //Temperature and air humidity sensor
     //Read data and store it to variables hum and temp  
      hum = dht.readHumidity();
@@ -139,11 +165,19 @@ void loop() {
     pushValueIntoArrayTemp(dht.readTemperature());
     averageTemp = computeAverageArrayTemp();
     lambdaValue = associateLambdaValue(averageTemp);
-    liter = computeLiterNeeded(0.14, determineSoilWater(soilMoisturePerCent), lambdaValue);
-    Serial.println(soilMoisturePerCent);
-    Serial.println(determineSoilWater(soilMoisturePerCent), 3);
+    liter = computeLiterNeeded(0.14, determineSoilWater(soilMoisturePerCent[wateringPriority()]), lambdaValue);
+    for (int i = 0; i < 6; i++) {
+      Serial.println(soilMoisturePerCent[i]);
+    }
+    Serial.print("priority index = ");
+    Serial.println(wateringPriority());
+    Serial.println(determineSoilWater(soilMoisturePerCent[wateringPriority()]), 3);
     Serial.println(liter);
-    //sendToSlave(1, liter);
+    if(soilMoisturePerCent[wateringPriority()] < threshold && wateringInProcess == false) {
+      //sendToSlave(wateringPriority() + 1, liter);
+      wateringInProcess = true;
+    }
+    
 
      
     //reset currentMillis
