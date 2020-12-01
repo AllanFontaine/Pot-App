@@ -58,6 +58,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatIconModule,
     NgbCollapseModule,
     MatStepperModule,
+    MatDialogModule,
 
   ],
   declarations: [
@@ -71,7 +72,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     AuthGuard,
     AuthService,
     PersonalGardenService,
-   {
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true

@@ -1,14 +1,14 @@
 .example-card {
   width: 450px;
-  margin-left: 50px;
   margin-top: 50px;
+  margin-left: 25px;
   background-color: rgba(217, 248, 214, 0.1);
 }
 .example-card:hover .mycard_content {
-  visibility: initial;
+  display: block;
 }
 .mycard_content {
-  visibility: hidden;
+  display: none;
 }
 .price-content {
   text-align: center;
@@ -18,13 +18,16 @@ img {
   width: 90%;
   margin-left: 5%;
 }
-img:hover {
-  cursor: pointer;
-}
+
 .button-css {
   text-align: center;
 }
 
 .titles {
   text-align: center;
+}
+@media (max-width: 800px) {
+  mat-card {
+    width: fit-content;
+  }
 }

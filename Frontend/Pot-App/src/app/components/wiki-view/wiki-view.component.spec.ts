@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WikiViewComponent } from './wiki-view.component';
+import { WikiService } from '../../service/wiki.service'
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('WikiViewComponent', () => {
   let component: WikiViewComponent;
@@ -8,9 +11,15 @@ describe('WikiViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WikiViewComponent ]
+      declarations: [WikiViewComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        WikiService,
+        HttpClient,
+        HttpHandler,
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

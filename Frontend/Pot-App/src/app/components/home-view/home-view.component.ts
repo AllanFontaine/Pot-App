@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import * as AOS from 'aos';
-import {LoginViewComponent} from "../login-view/login-view.component";
-import {MatDialog} from "@angular/material/dialog";
+import { LoginViewComponent } from "../login-view/login-view.component";
 
 @Component({
   selector: 'app-home-view',
@@ -13,7 +12,7 @@ export class HomeViewComponent implements OnInit {
   public isCollapsed = true;
   submitted = false;
 
-  constructor(private viewportScroller: ViewportScroller, public dialog: MatDialog) {
+  constructor(private viewportScroller: ViewportScroller) {
   }
 
   ngOnInit(): void {
@@ -24,13 +23,4 @@ export class HomeViewComponent implements OnInit {
     this.viewportScroller.scrollToAnchor(elementId);
   }
 
-  show(): void {
-    const dialogRef = this.dialog.open(LoginViewComponent, {
-      width: '500px',
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 }
