@@ -16,6 +16,13 @@ export class PersonalGardenService {
     return this.http.get(this.url_plant + '/plante/');
   }
 
+  get_plants_conseil(month, day, donnee): Observable<any> {
+    if(donnee == '')
+      return this.http.get(this.url_plant + '/plante/?month='+month+'&day='+day+'&comp='+donnee);
+    else
+      return this.http.get(this.url_plant + '/plante/?month='+month+'&day='+day);
+  }
+
   get_wiki(): Observable<any> {
     return this.http.get('http://fr.wikipedia.org/w/api.php?action=opensearch&search=Tomate')
   }
@@ -79,6 +86,9 @@ export class PersonalGardenService {
   }
   get_user_data(date): Observable<any> {
     return this.http.get(this.url_plant + '/donnees-user/?idParcelle=' + this.get_user_id() + '&date=' + date);
+  }
+  get_last_parcel(parcel, date){
+    return this.http.get(this.url_plant + '/parcelle-plantes/?numparcel='+parcel+'&userid='+this.get_user_id()+'&date='+date)
   }
 }
 
