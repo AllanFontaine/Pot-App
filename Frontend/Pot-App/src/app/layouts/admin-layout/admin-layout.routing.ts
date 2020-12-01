@@ -18,6 +18,7 @@ import { ShopComponent } from "../../components/shop/shop.component";
 import { WikiViewComponent } from "../../components/wiki-view/wiki-view.component";
 import { GetLoggedInComponent } from "../../components/get-logged-in/get-logged-in.component";
 import { AuthGuardSidebar } from "../../service/auth-guard-sidebar.service";
+import { BarWaterGraphComponent } from "../../components/bar-water-graph/bar-water-graph.component"
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -38,4 +39,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'login', component: LoginViewComponent },
     { path: 'register', component: SignUpComponent },
     { path: 'home', component: HomeViewComponent },
+    { path: 'graphtest', component: BarWaterGraphComponent }
 ];

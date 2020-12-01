@@ -77,6 +77,9 @@ export class PersonalGardenService {
   get_parcel_data(parcel, date): Observable<any> {
     return this.http.get(this.url_plant + '/donnees-parcelle/?idParcelle=' + parcel + '&date=' + date);
   }
+  get_user_data(date): Observable<any> {
+    return this.http.get(this.url_plant + '/donnees-user/?idParcelle=' + this.get_user_id() + '&date=' + date);
+  }
 }
 
 

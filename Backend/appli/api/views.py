@@ -39,7 +39,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         'username': reset_password_token.user.username,
         'email': reset_password_token.user.email,
         'reset_password_url': "{}?token={}".format(
-            instance.request.build_absolute_uri(reverse('password_reset:reset-password-confirm')),
+            instance.request.build_absolute_uri(reverse('reset-password:reset-password-confirm')),
             reset_password_token.key)
     }
 
@@ -219,7 +219,7 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
         if is_valid_queryparam(query_date):
             queryset_list = queryset_list.filter(
                 Q(date_reception_donnee__gte=query_date)
-            ).distinct().order_by('-date_reception_donnee')
+            ).distinct().order_by('date_reception_donnee')
         return queryset_list
 
 
