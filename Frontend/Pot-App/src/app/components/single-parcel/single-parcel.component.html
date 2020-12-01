@@ -1,66 +1,147 @@
-<!--<div class="container-fluid text-center">
-  <div class="row text-center">
-    <div class="card card-block bg-light text-dark card-image float-sm-right" size="50%" id="plante">
-        <img class="card-img-top" src="{{plante.image}}" alt="Card image cap">
-        <div class="card-body">
-          {{plante.description}}
-        </div>
-    </div>
-    <div class="card card-block bg-light text-dark card-image float-sm-left graphique" size="50%">
-        <app-line-graph [parcel]="id_parcel"></app-line-graph>
-        <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
-    </div>
-    <a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()">Supprimer la
-      parcelle</a><br>
-    <a routerLink="/dashboard">Retour</a>
-  </div>
-</div>-->
-<!-- Table des matières + card plantes -->
-<div class="main-content">
+<!--<div class="main-content">
   <div class="container">
     <div class="mx-auto text-center">
       <h1 class="">Voici les détails de votre parcelle numéro {{parcel.numero_parcel}}</h1>
     </div>
-    <div class="row align-items-start">
-      <div class="card card-block col text-dark float-left">
-        <div class="card-body">
-          <h2>Table des matières: </h2>
-          <li><a (click)="onClick('about')">La plante</a></li>
-          <li><a (click)="onClick('projects')">La parcelle</a></li>
-          <li><a (click)="onClick('signup')" >Contact</a></li>
-          <li><a (click)="onClick('graphique')" >Vos graphiques de</a></li>
-        </div>
-      </div>
-      <div class="col-1"></div>
-      <div class="card card-block bg-light text-dark float-right col-4 col-md-4">
-        <img class="card-img-top" src="{{plante.image}}" alt="Card image cap">
+    <div class="text-dark">
+      <img class="card-img-top" src="{{plante.image}}" alt="Card image cap" style="width:50%;height:50%">
         <div class="card-title">Plante assignée: {{plante.nom}}</div>
         <div class="card-body">
           {{plante.description}}
         </div>
-      </div>
-      Countdown:
-      <countdown [config]="{leftTime: 30-11-2030}"></countdown>
-    </div>
-    <div class="row align-items-end" id="graphique">
-      <div class="col">
-        <div class="card card-block bg-light col text-dark float-left">
-          <div class="card-body">
-            <app-line-graph [parcel]="id_parcel"></app-line-graph>
-            <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
+        <a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()">Supprimer la
+          parcelle</a><br>
+      <mat-card class="example-card bg-light" style="max-width: 50rem;">
+        <div class="row">
+          <div class="col">
+            <img mat-card-image class="card-img-left" src="{{plante.image}}" alt="image plante">
+          </div>
+          <div class="col">
+            <mat-card-header>
+              <mat-card-title>Parcelle numéro {{parcel["numero_parcelle"]}}</mat-card-title>
+              <mat-card-subtitle>date de plantation: {{parcel["date_plantation"] | date}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                {{plante["info_insolite"]}}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-stroked-button class="warn" (click)="delete_parcel()">Supprimer la parcelle</button>
+              <button mat-button>SHARE</button>
+            </mat-card-actions>
           </div>
         </div>
+      </mat-card>
+    </div>
+    Countdown:
+    <countdown [config]="{leftTime: 30-11-2030}"></countdown>
+</div>-->
+
+
+
+
+<mat-progress-spinner *ngIf="loading; else content"></mat-progress-spinner>
+<ng-template #content id="body-single">
+  <div class="card container graphique pb-3">
+    <div class="card-header">
+      <h2>{{plante['nom']}}</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="{{plante.image}}" alt="{{plante['nom']}}">
+        </div>
+        <div class="col-md-6">
+          <table class="table table-stripped">
+            <tbody>
+              <tr>
+                <td>Numéro de parcelle:</td>
+                <td><i>{{parcel["numero_parcelle"]}}</i></td>
+              </tr>
+              <tr>
+                <td>date de plantation:</td>
+                <td>{{parcel["date_plantation"] | date}}</td>
+              </tr>
+              <tr>
+                <td>Récolte en jours :</td>
+                <td>{{plante['recolte_en_jours']}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button mat-stroked-button color="warn" (click)="delete_parcel()">Supprimer la parcelle</button>
+        </div>
       </div>
-      <div class="col">
-        <div class="card card-block bg-light text-dark float-right">
-          <div class="card-body">
-            <app-line-graph [parcel]="id_parcel"></app-line-graph>
-            <app-bar-water-graph [parcel] = "id_parcel"></app-bar-water-graph>
-          </div>
+      <!--
+            <div class="row" *ngFor="let plantWiki of plantWikipedia" >
+                <mat-expansion-panel class="expansion" hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{plantWiki._title}}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p class="content">{{plantWiki.wiki}}</p>
+                  </mat-expansion-panel>
+                  
+            </div>
+            <div class="row">
+                <mat-expansion-panel class="expansion" hideToggle>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Détails techniques
+                    </mat-panel-title>
+                    </mat-expansion-panel-header >
+                    
+                    <table class="table table-stripped content" >
+                        <tr>
+                            <td>Consommation en phosphore</td>
+                            <td>{{plant.phosphore_sol}}</td>
+                        </tr>
+                        <tr>
+                            <td>Consommation en Azote</td>
+                            <td>{{plant.azote_sol}}</td>
+                        </tr>
+                        <tr>
+                            <td>Consommation en potassium</td>
+                            <td>{{plant.potassium_sol}}</td>
+                        </tr>
+                        <tr>
+                            <td>Nombre de plantes (/m²) :</td>
+                            <td>{{plant.densite_semi}}</td>
+                        </tr>
+                    </table>
+                  </mat-expansion-panel>
+                  
+            </div>
+            <div class="row">
+                <mat-expansion-panel class="expansion" hideToggle>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Info insolite
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p class="content">{{plant.info_insolite}}</p>
+                  </mat-expansion-panel>
+                  
+            </div>-->
+    </div>
+  </div>
+  <div class="graphique">
+    <div class="row align-items-end">
+      <div class="card card-block bg-light text-dark">
+        <div class="card-body">
+          <app-line-graph [parcel]="id_parcel"></app-line-graph>
+          <app-bar-water-graph [parcel]="id_parcel"></app-bar-water-graph>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-end">
+      <div class="card card-block bg-light text-dark">
+        <div class="card-body">
+          <app-line-graph [parcel]="id_parcel"></app-line-graph>
+          <app-bar-water-graph [parcel]="id_parcel"></app-bar-water-graph>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-
+</ng-template>

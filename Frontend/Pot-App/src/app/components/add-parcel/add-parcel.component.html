@@ -1,39 +1,77 @@
-<div class="card-header">
+<div class="w-150">
   <h3 mat-dialog-title>Ajouter une plante à la parcelle {{ data.num }}</h3>
-</div>
-<div class="card-body">
-  <form class="form" (ngSubmit)="addParcelUser(f)" #f="ngForm">
-    <div class="form-group">
-      <mat-form-field appearance="standard">
-        <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
-        <input type="text" aria-label="Plante" matInput [formControl]="myControl" name="planteId"
-          [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
-          <div *ngFor="let option of filteredOptions| async; let i = index">
-            <mat-option [value]="option">
-              {{option}}
-            </mat-option>
-          </div>
-        </mat-autocomplete>
-      </mat-form-field>
+  <form class="form row" (ngSubmit)="addParcelUser(f)" #f="ngForm">
+    <div class="col">
+      <div class="form-group">
+        <mat-form-field appearance="standard">
+          <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
+          <input type="text" aria-label="Plante" tabindex="-1" matInput [formControl]="myControl" id="conseilInput"
+            name="planteId" value="{{plantConseil}}" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
+            <div *ngFor="let option of filteredOptions| async; let i = index">
+              <mat-option [value]="option">
+                {{option}}
+              </mat-option>
+            </div>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div>
+        <button type="button" class="text-lowercase btn btn-outline-primary btn-sm" tabindex="-1" #tooltip="matTooltip"
+          matTooltip="Nous avons besoin d'une date de plantation" matTooltipPosition="above"
+          [matTooltipDisabled]="!diasbled_tooltip" matToolTipClass="mate" (click)="ConseilOuvrir()" mat-button
+          id="btn-conseil">
+          Besoin d'un conseil?
+        </button>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="standard">
+          <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
+          <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="standard">
+          <mat-label for="date_plantation">Date de plantaison</mat-label>
+          <input name="date_plantation" id="date_plantation" (ngModelChange)="changement_input_date($event)" matInput
+            [matDatepicker]="picker" [(ngModel)]="date_plantation" [ngModelOptions]="{standalone: true}" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
+      <button (click)="placeParcel(data.num)" type="submit" class="btn btn-primary float-right">
+        Ajoutez une parcelle
+      </button>
     </div>
-    <div class="form-group">
-      <mat-form-field appearance="standard">
-        <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
-        <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
-      </mat-form-field>
+    <div class="col my-auto" id="conseil">
+      <h2 class="text-center"  style="font-family: 'Bookman Old Style', serif;font-weight: lighter;">Merci pour votre confiance!</h2>
+      <label id="radio_conseil_label">Voici:</label>
+      <mat-radio-group aria-labelledby="radio_conseil_label" id="conseilOption" class="radio_conseil_group"
+        (ngModelChange)="changement_input($event)" [(ngModel)]="plantConseil" [ngModelOptions]="{standalone: true}">
+        <mat-radio-button name='conseilPlante' class="example-radio-button"
+          *ngFor="let plant of listPlantConseil.slice(0, 3)" [value]="plant.nom">
+          {{plant.nom}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <p class="text-muted" *ngIf="last_plant_nom != ''"><small>
+        Critères utilisés: la <b><i>saison</i></b> et la consommation de <b><i>{{composant_consomme}}</i></b> de
+        <b><i>{{last_plant_nom}}</i></b>, anciennement présente sur cette parcelle. Cette plante 
+        <span *ngIf="horl=='h'">n' </span>en consommait <i *ngIf="horl=='h'"><span *ngIf="horl=='h'">pas </span>
+        <span *ngIf="horl=='h'">beaucoup</span></i><i *ngIf="horl=='l'">beaucoup</i>.<br>
+        Nous vous conseillons fortement d'utiliser des engrais. 
+        Votre terre ne manquera 
+        alors jamais d'aucun composant.
+      </small></p>
+      <p class="text-muted" *ngIf="last_plant_nom == ''"><small>
+        Le critère utilisé est la <b><i>saison</i></b>.<br>N'ayant pas d'anciens plants,
+        nous nous baserons sur cette seule donnée.<br>
+        Nous vous conseillons fortement d'utiliser des engrais. 
+        Votre terre ne manquera 
+        alors jamais d'aucun composant.
+      </small></p>
+      <button class="align-items-end" type="button" (click)="cancelConseil()" mat-button><i
+          class="material-icons">keyboard_arrow_left</i>Annuler le conseil</button>
     </div>
-    <div class="form-group">
-      <mat-form-field appearance="standard">
-        <mat-label for="date_plantation">Date de plantaison</mat-label>
-        <input name="date_plantation" id="date_plantation" matInput [matDatepicker]="picker" ngModel />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
-    <button (click)="placeParcel(data.num)" type="submit" class="btn btn-primary float-right">
-      Ajoutez une parcelle
-    </button>
   </form>
 </div>
