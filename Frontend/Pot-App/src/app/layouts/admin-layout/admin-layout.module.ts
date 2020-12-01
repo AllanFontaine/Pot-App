@@ -48,7 +48,6 @@ import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-c
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from "@angular/material/dialog";
-import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
     imports: [
@@ -75,7 +74,6 @@ import { CountdownModule } from 'ngx-countdown';
       MatIconModule,
       MatListModule,
       MatStepperModule,
-      CountdownModule,
     ],
   declarations: [
     DashboardComponent,
