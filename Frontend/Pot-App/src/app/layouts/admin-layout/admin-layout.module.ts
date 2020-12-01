@@ -48,6 +48,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatIconModule,
     MatListModule,
     MatStepperModule,
+    MatProgressSpinnerModule
   ],
 
   declarations: [
