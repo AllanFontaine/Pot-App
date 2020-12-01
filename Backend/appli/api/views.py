@@ -1,3 +1,4 @@
+
 from django.db.models import Q
 from appli.models import Plantes
 from rest_framework import generics, mixins, permissions, viewsets
@@ -20,8 +21,6 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 
 
-
-
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     """
@@ -35,7 +34,6 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     :return:
     """
     # send an e-mail to the user
-    print("pute")
     context = {
         'current_user': reset_password_token.user,
         'username': reset_password_token.user.username,
@@ -61,6 +59,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     )
     msg.attach_alternative(email_html_message, "text/html")
     msg.send()
+
+
 
 class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
