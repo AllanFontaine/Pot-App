@@ -22,6 +22,10 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
         queryset_list = Plantes.objects.all()
         query_saison = self.request.GET.get("saison")
         query_name = self.request.GET.get("name")
+        query_count = self.request.GET.get("count")
+        query_offset = self.request.GET.get("offset")
+        query_limit = self.request.GET.get("limit")
+        print(query_limit)
         if is_valid_queryparam(query_name):
             queryset_list = queryset_list.filter(
                 Q(nom__icontains=query_name)
@@ -30,6 +34,11 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
             queryset_list = queryset_list.filter(
                 Q(date_semis_debut=query_saison)
             ).distinct()
+        if is_valid_queryparam(query_count):
+            queryset_list = Plantes.objects.count()
+            print(Plantes.objects.all().count())
+        if is_valid_queryparam(query_limit):
+            queryset_list = Plantes.objects.all().order_by()[int(query_offset):int(query_limit)]
         return queryset_list
 
 

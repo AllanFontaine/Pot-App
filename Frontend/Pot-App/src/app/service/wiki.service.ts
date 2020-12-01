@@ -20,7 +20,15 @@ export class WikiService{
         return this.http.get('http://localhost:8000/api/plante/' + id + '/');
     }
 
-    get_plant_wikipedia(nom: string):Observable<any> {
-        return this.http.get('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&origin=*&search=' + nom);
+    get_plant_by_name(nom: string):Observable<any> {
+        return this.http.get("http://localhost:8000/api/plante/?name=" + nom);
+    }
+
+    get_plant_count():Observable<any> {
+        return this.http.get("http://localhost:8000/api/plante/?count")
+    }
+
+    get_plant_offset_limit(offset: number, limit: number):Observable<any> {
+        return this.http.get("http://localhost:8000/api/plante/?limit=" + limit + "&offset=" + offset);
     }
 }

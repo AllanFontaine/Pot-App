@@ -4,6 +4,9 @@ import { WikiService } from 'app/service/wiki.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+declare const require : any;
+const wtf = require('wtf_wikipedia');
+
 @Component({
   selector: 'app-single-plant-detail',
   templateUrl: './single-plant-detail.component.html',
@@ -37,11 +40,15 @@ export class SinglePlantDetailComponent implements OnInit, OnDestroy {
           );
         }
         if (paramMap.has("nom_wiki")) {
-          
+         wtf
+         .fetch(paramMap.get('nom_wiki'), 'fr')
+         .then((result) => {
+           console.log(result.data.sections);
+           this.plantWikipedia = result.data.sections.slice(1, 4);
+           console.log(this.plantWikipedia);
+         })
         }
-      })
-   
-    
+      });
   }
 
   ngOnDestroy() : void {

@@ -10,6 +10,14 @@ import { NotificationsComponent } from '../../components/notifications/notificat
 import {HistoriqueParcelComponent} from '../../components/historique-parcel/historique-parcel.component';
 import {SingleParcelComponent} from '../../components/single-parcel/single-parcel.component';
 import {AddParcelComponent} from '../../components/add-parcel/add-parcel.component';
+import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
+import { WikiViewComponent } from 'app/components/wiki-view/wiki-view.component';
+import { AuthGuard } from 'app/service/auth-guard.service';
+import { HomeViewComponent } from 'app/components/home-view/home-view.component';
+import { SignUpComponent } from 'app/components/sign-up/sign-up.component';
+import { UpgradeComponent } from 'app/components/upgrade/upgrade.component';
+import { AboutUsComponent } from 'app/components/about-us/about-us.component';
+import { ShopComponent } from 'app/components/shop/shop.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -66,12 +74,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent, canActivate: [AuthGuard] },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'add-parcel',     component: AddParcelComponent, canActivate: [AuthGuard] },
-    { path: 'login',          component: LoginViewComponent },
-    { path: 'register',          component: SignUpComponent },
+    { path: 'login',          component: WikiViewComponent },
+    { path: 'register',       component: SignUpComponent },
     { path: 'home',           component: HomeViewComponent },
     { path: 'historique',     component: HistoriqueParcelComponent, canActivate: [AuthGuard] },
     { path: 'wiki',           component: WikiViewComponent},
-    { path: 'wiki/:plant_id', component: SinglePlantDetailComponent}
-    { path: 'about-us',           component: AboutUsComponent},
+    { path: 'wiki/:plant_id/:nom_wiki', component: SinglePlantDetailComponent},
+    { path: 'about-us',       component: AboutUsComponent},
     { path: 'shop',           component: ShopComponent},
 ];
