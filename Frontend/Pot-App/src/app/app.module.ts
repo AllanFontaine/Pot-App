@@ -41,6 +41,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -54,6 +55,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     HttpClientModule,
     ComponentsModule,
     RouterModule,
+    MatTooltipModule,
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
