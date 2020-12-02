@@ -1,17 +1,14 @@
 <div id="wiki_container" class="container">
-    <form class="navbar-form" (ngSubmit)="search_plant(f)" #f="ngForm">
-        <span class="bmd-form-group">
-          <div class="input-group no-border">
-            <input type="text" value="" class="form-control rounded blank" id="name" name="name" placeholder="Chercher une plante" ngModel>
-            <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
-              <i class="material-icons">search</i>
-              <div class="ripple-container"></div>
-            </button>
-          </div>
-        </span>
-      </form>
+    
       
         <div class="container">
+          <form class="navbar-form" [formGroup]="formGroup" (submit)="search_plant()">
+            <span class="bmd-form-group">
+              <div class="input-group no-border">
+                <input type="text" class="form-control rounded blank" id="name" name="name" placeholder="Chercher une plante" formControlName="name">
+              </div>
+            </span>
+          </form>
          
           <ul class="list-group">
   
@@ -31,7 +28,6 @@
           </ul>
           <mat-paginator [pageSize]="10"
           [length]="this.paginatorLength"
-          [pageSizeOptions]="[10]"
           (page)="onPageChange($event)">
         </mat-paginator> 
         </div>

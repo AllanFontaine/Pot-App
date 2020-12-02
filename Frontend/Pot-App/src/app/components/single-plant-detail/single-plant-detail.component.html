@@ -32,10 +32,10 @@
                 <mat-expansion-panel class="expansion" hideToggle>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        {{plantWiki._title}}
+                        {{plantWiki.data.title}}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <p class="content">{{plantWiki.wiki}}</p>
+                    <p class="content" [innerHTML]="plantWiki.data.wiki"></p>
                   </mat-expansion-panel>
                   
             </div>

@@ -5,3 +5,11 @@
 .blank {
     background-color: white;
 }
+
+form {
+    margin-bottom: 30px;
+}
+
+mat-paginator {
+    background-color: #eee;
+}
