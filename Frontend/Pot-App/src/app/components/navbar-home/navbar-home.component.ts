@@ -31,8 +31,6 @@ export class NavbarHomeComponent implements OnInit {
     });
   }
 
-
-  registerForm: FormGroup;
   submitted = false;
 
   ngOnInit() {
@@ -40,7 +38,7 @@ export class NavbarHomeComponent implements OnInit {
   // convenience getter for easy access to form fields
 
 
-  public onClick(elementId: string): void {
+  public onClick(elementId: string, route: string): void {
     /*console.log($(this));
     var target = document.getElementById(elementId);
     $("html, body").animate(

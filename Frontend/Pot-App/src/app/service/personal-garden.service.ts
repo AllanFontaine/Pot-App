@@ -16,6 +16,13 @@ export class PersonalGardenService {
     return this.http.get(this.url_plant + '/plante/');
   }
 
+  get_plants_conseil(month, day, donnee): Observable<any> {
+    if(donnee == '')
+      return this.http.get(this.url_plant + '/plante/?month='+month+'&day='+day+'&comp='+donnee);
+    else
+      return this.http.get(this.url_plant + '/plante/?month='+month+'&day='+day);
+  }
+
   get_wiki(): Observable<any> {
     return this.http.get('http://fr.wikipedia.org/w/api.php?action=opensearch&search=Tomate')
   }
@@ -33,9 +40,9 @@ export class PersonalGardenService {
       this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id()
     );
   }
-  get_my_parcels_ordered(orderBy , orderWay ): Observable<any> {
+  get_my_parcels_ordered(orderBy, orderWay): Observable<any> {
     return this.http.get(
-      this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id() +"&"+orderBy +"=" +orderWay
+      this.url_plant + '/parcelle-plantes/?userid=' + this.get_user_id() + "&" + orderBy + "=" + orderWay
     );
   }
 
@@ -51,18 +58,19 @@ export class PersonalGardenService {
       data
     );
   }
-  erase_parcel(parcel_id): Observable<any>{
+  erase_parcel(parcel_id): Observable<any> {
     console.log(this.url_plant + '/parcelle/' + parcel_id + '/')
     return this.http.delete(this.url_plant + '/parcelle/' + parcel_id + '/');
   }
   get_user_id() {
     return localStorage.getItem('user_id');
   }
-  get_profile() {
+  get_profile(): Observable<any> {
     return this.http.get(
       this.url_plant + '/profile/' + this.get_user_id() + '/'
     );
   }
+
 
   modify_profile(data): Observable<any> {
     return this.http.put(
@@ -75,6 +83,12 @@ export class PersonalGardenService {
 
   get_parcel_data(parcel, date): Observable<any> {
     return this.http.get(this.url_plant + '/donnees-parcelle/?idParcelle=' + parcel + '&date=' + date);
+  }
+  get_user_data(date): Observable<any> {
+    return this.http.get(this.url_plant + '/donnees-user/?idParcelle=' + this.get_user_id() + '&date=' + date);
+  }
+  get_last_parcel(parcel, date){
+    return this.http.get(this.url_plant + '/parcelle-plantes/?numparcel='+parcel+'&userid='+this.get_user_id()+'&date='+date)
   }
 }
 

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { WikiService } from 'app/service/wiki.service';
 
@@ -23,12 +22,19 @@ export class WikiSinglePlantComponent implements OnInit {
   constructor(public dialog: MatDialog,
               private router: Router) { }
 
+  constructor(
+    private wikiService: WikiService,
+    private router: Router) { }
+
 
   ngOnInit(): void {
   }
 
   show_plant() : void {
-    
-    this.router.navigate(['/wiki/' + this.id + '/' + this.url_wiki]);
+    this.wikiService.get_plant(this.id).subscribe(
+      result => console.log(result), 
+      error => console.log(error),
+    );
+    this.router.navigate(['/wiki/' + this.id]);
   }
 }

@@ -10347,3 +10347,21 @@ body {
     padding: 5rem 0;
 }
 
+.bg-dark {
+  background:transparent !important;
+  color: white;
+  transition:0.75s ease;
+  font-weight: 500;
+  font-family: Serif;
+}
+
+.bg-dark.scrolled {
+  background:white !important;
+  color: #0c5460;
+  font-weight: 500;
+  font-family: Georgia, Serif;
+}
+.modal-backdrop {
+  height: 100%;
+}
+

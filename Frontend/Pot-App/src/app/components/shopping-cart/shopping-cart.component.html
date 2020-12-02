@@ -36,8 +36,9 @@
         <tr>
             <td colspan="3" align="right">Subtotal : {{subTotal}}€</td>
             <td colspan="4" align="right">
-                <button (click) = "proceedCheckout()" class="btn btn-success">Payer =></button>
+                <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
                 <button (click) = "emptyCart()" class="btn btn-danger">Vider le panier</button>
+                <button (click) = "proceedCheckout()" class="btn btn-success">Payer =></button>
             </td>
         </tr>
     </table>
