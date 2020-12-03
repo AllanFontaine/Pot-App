@@ -31,7 +31,10 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
 import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {MatStepperModule} from '@angular/material/stepper';
+import {TermsAndConditionsComponent} from './components/terms-and-conditions/terms-and-conditions.component';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 
 @NgModule({
@@ -67,6 +70,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     HomeViewComponent,
     LoginViewComponent,
     SignUpComponent,
+    TermsAndConditionsComponent,
   ],
   providers: [
     AuthGuard,
@@ -77,7 +81,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
       useClass: TokenInterceptorService,
       multi: true
     },
-    MatDialogModule
+    MatDialogModule,
   ],
   bootstrap: [AppComponent]
 })
