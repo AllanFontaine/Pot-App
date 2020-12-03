@@ -6,6 +6,8 @@
 
 #define DHTTYPE DHT22 // temp/moisture sensor
 #define ECHO_TO_SERIAL   1
+#define I2C_ADDRESS_OTHER 0x2
+#define I2C_ADDRESS_ME 0x1
 
 //Defining PINS
 const int dhtPin = 7;
@@ -15,6 +17,7 @@ const int soilMoisturePin2 = A2;
 const int soilMoisturePin3 = A3;
 const int soilMoisturePin4 = A4;
 const int soilMoisturePin5 = A5;
+
 const int threshold = 55;
 
 
@@ -27,7 +30,7 @@ float hum;
 float temp;
 unsigned long startMillis;
 unsigned long currentMillis;
-const unsigned long period = 4000; // put 1080000 for 30min
+const unsigned long period = 5000; // put 1080000 for 30min
 float arrayTemp[48];
 int counter = 0;
 float lambdaArray[30] = { 1.81, 1.87, 1.92, 1.98, 2.04, 2.11, 2.17, 2.25, 2.32, 2.40, 2.49, 2.57, 2.66, 2.76, 2.86, 2.97, 3.08, 3.20, 3.32, 3.45, 3.59, 3.73, 3.88, 4.03, 4.20, 4.36, 4.54, 4.72, 4.92, 5.11 };
@@ -37,7 +40,92 @@ float liter;
 char strLiter[8];
 boolean wateringInProcess = false;
 
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  Wire.begin(I2C_ADDRESS_ME);
+  Wire.onReceive(readFromSlave);
+  startMillis = millis();
+  initializeArrayTemp();
 
+  // Cloack
+ // if(!rtc.begin()) {
+//    log.println("RTC failed");
+
+  //#if ECHO_TO_SERIAL
+   // Serial.println("RTC failed");
+  //#endif  //ECHO_TO_SERIAL
+ // }
+    
+
+  // Set the time and date on the real time clock if necessary
+  //if (! rtc.isrunning()) {
+    // following line sets the RTC to the date & time this sketch was compiled
+    //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  //}
+}
+
+void loop() {
+
+  //readFromSlave();
+  currentMillis = millis();
+  if(currentMillis - startMillis >= period) {   
+    
+    // Soil moisture in %
+    
+    soilMoisturePerCent[0] = analogRead(soilMoisturePin0);
+    soilMoisturePerCent[0] = map(soilMoisturePerCent[0], 0, 1023, 100, 0);
+    
+    soilMoisturePerCent[1] = analogRead(soilMoisturePin1);
+    soilMoisturePerCent[1] = map(soilMoisturePerCent[1], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[2] = analogRead(soilMoisturePin2);
+    soilMoisturePerCent[2] = map(soilMoisturePerCent[2], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[3] = analogRead(soilMoisturePin3);
+    soilMoisturePerCent[3] = map(soilMoisturePerCent[3], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[4] = analogRead(soilMoisturePin4);
+    soilMoisturePerCent[4] = map(soilMoisturePerCent[4], 0, 1023, 100, 0);
+
+    soilMoisturePerCent[5] = analogRead(soilMoisturePin5);
+    soilMoisturePerCent[5] = map(soilMoisturePerCent[5], 0, 1023, 100, 0);
+    
+    //Temperature and air humidity sensor
+    //Read data and store it to variables hum and temp  
+     hum = dht.readHumidity();
+     temp= dht.readTemperature();
+    //Print temp and humidity values to serial monitor
+     //Serial.print("Humidity: ");
+     //Serial.print(hum);
+     //Serial.print(" %, Temp: ");
+     //Serial.print(temp);
+     //Serial.println(" Celsius");
+
+    //Compute the watering
+    
+    if(soilMoisturePerCent[wateringPriority()] < threshold && wateringInProcess == false) {
+    pushValueIntoArrayTemp(dht.readTemperature());
+    averageTemp = computeAverageArrayTemp();
+    lambdaValue = associateLambdaValue(averageTemp);
+    liter = computeLiterNeeded(0.14, determineSoilWater(soilMoisturePerCent[wateringPriority()]), lambdaValue);
+   //   for (int i = 0; i < 6; i++) {
+   //     Serial.println(soilMoisturePerCent[i]);
+   //   }
+    //Serial.print("priority index = ");
+    //Serial.println(wateringPriority());
+   // Serial.println(determineSoilWater(soilMoisturePerCent[wateringPriority()]), 3);
+    //Serial.println(liter);
+      sendToSlave(wateringPriority() + 1, liter);
+    }
+    
+
+     
+    //reset currentMillis
+    startMillis = millis();
+    currentMillis = millis();
+  }
+}
 
 void error(char *str) {
   Serial.print("error: ");
@@ -79,16 +167,17 @@ float computeLiterNeeded(float raining, float soilWater, float lambda) {
   return liter;
 }
 
-//void sendToSlave(byte numPin, float liter) {
-//  char strLiter[8];
-//  dtostrf(liter, 8, 2, strLiter);
-//  Wire.beginTransmission(4);
-//  Wire.write(strLiter);
-//  Wire.write(numPin);
-//  Serial.println(numPin);
-//  Wire.endTransmission();
-//  wateringInProcess = true;
-//}
+void sendToSlave(byte numPin, float liter) {
+  char strLiter[8];
+  dtostrf(liter, 8, 2, strLiter);
+  Wire.beginTransmission(I2C_ADDRESS_OTHER);
+  Wire.write(strLiter);
+  Wire.write(numPin);
+  Wire.endTransmission();
+  Serial.println(numPin);
+  Serial.println(strLiter);
+  wateringInProcess = true;
+}
 
 int wateringPriority() {
   int index;
@@ -102,87 +191,17 @@ int wateringPriority() {
   return index;
 }
 
-void setup() {
-  Serial.begin(9600);
-  dht.begin();
-  Wire.begin();
-  startMillis = millis();
-  initializeArrayTemp();
-
-  // Cloack
- // if(!rtc.begin()) {
-//    log.println("RTC failed");
-
-  //#if ECHO_TO_SERIAL
-   // Serial.println("RTC failed");
-  //#endif  //ECHO_TO_SERIAL
- // }
-    
-
-  // Set the time and date on the real time clock if necessary
-  //if (! rtc.isrunning()) {
-    // following line sets the RTC to the date & time this sketch was compiled
-    //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-  //}
-}
-
-void loop() {
-  currentMillis = millis();
-  if(currentMillis - startMillis >= period) {   
-    
-    // Soil moisture in %
-    
-    soilMoisturePerCent[0] = analogRead(soilMoisturePin0);
-    soilMoisturePerCent[0] = map(soilMoisturePerCent[0], 0, 1023, 100, 0);
-    
-    soilMoisturePerCent[1] = analogRead(soilMoisturePin1);
-    soilMoisturePerCent[1] = map(soilMoisturePerCent[1], 0, 1023, 100, 0);
-
-    soilMoisturePerCent[2] = analogRead(soilMoisturePin2);
-    soilMoisturePerCent[2] = map(soilMoisturePerCent[2], 0, 1023, 100, 0);
-
-    soilMoisturePerCent[3] = analogRead(soilMoisturePin3);
-    soilMoisturePerCent[3] = map(soilMoisturePerCent[3], 0, 1023, 100, 0);
-
-    soilMoisturePerCent[4] = analogRead(soilMoisturePin4);
-    soilMoisturePerCent[4] = map(soilMoisturePerCent[4], 0, 1023, 100, 0);
-
-    soilMoisturePerCent[5] = analogRead(soilMoisturePin5);
-    soilMoisturePerCent[5] = map(soilMoisturePerCent[5], 0, 1023, 100, 0);
-    
-    //Temperature and air humidity sensor
-    //Read data and store it to variables hum and temp  
-     hum = dht.readHumidity();
-     temp= dht.readTemperature();
-    //Print temp and humidity values to serial monitor
-     //Serial.print("Humidity: ");
-     //Serial.print(hum);
-     //Serial.print(" %, Temp: ");
-     //Serial.print(temp);
-     //Serial.println(" Celsius");
-
-    //Compute the watering
-    pushValueIntoArrayTemp(dht.readTemperature());
-    averageTemp = computeAverageArrayTemp();
-    lambdaValue = associateLambdaValue(averageTemp);
-    liter = computeLiterNeeded(0.14, determineSoilWater(soilMoisturePerCent[wateringPriority()]), lambdaValue);
-    for (int i = 0; i < 6; i++) {
-      Serial.println(soilMoisturePerCent[i]);
+void readFromSlave(int howMany) {
+  byte hasBeenWatered;
+  while(Wire.available() > 0) {
+    hasBeenWatered = Wire.read();
+    Serial.println(hasBeenWatered);
+    if(hasBeenWatered == 9) {
+      wateringInProcess = false;
     }
-    Serial.print("priority index = ");
-    Serial.println(wateringPriority());
-    Serial.println(determineSoilWater(soilMoisturePerCent[wateringPriority()]), 3);
-    Serial.println(liter);
-    if(soilMoisturePerCent[wateringPriority()] < threshold && wateringInProcess == false) {
-      //sendToSlave(wateringPriority() + 1, liter);
-      wateringInProcess = true;
+    if(wateringInProcess == false) {
+    Serial.println("watering est à false");
     }
-    
-
-     
-    //reset currentMillis
-    startMillis = millis();
-    currentMillis = millis();
   }
 }
 
@@ -209,5 +228,6 @@ float determineSoilWater(uint16_t soilHumidity) {
       return 0.023;
   } else {
       return -1;
+
   }
 }

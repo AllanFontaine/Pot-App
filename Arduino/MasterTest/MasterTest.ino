@@ -26,7 +26,7 @@ byte x = 1;
 void loop()
 {
   dtostrf(test, 8, 2, test1);
-  Wire.beginTransmission(4); // transmit to device #4
+  Wire.beginTransmission(20); // transmit to device #4
   Wire.write(test1);        // sends five bytes
   Wire.write(x);            // sends one byte  
   Wire.endTransmission();    // stop transmitting

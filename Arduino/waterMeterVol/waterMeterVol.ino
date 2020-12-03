@@ -7,7 +7,7 @@ Adaptation Courtesy: hobbytronics.co.uk
 volatile int flow_frequency = 1; // Measures flow sensor pulses
 // Calculated litres/hour
  float vol = 0.0,l_minute;
- #define flowsensor 2 // Sensor Input
+ #define flowsensor 12 // Sensor Input
 unsigned long currentTime;
 unsigned long cloopTime;
 
