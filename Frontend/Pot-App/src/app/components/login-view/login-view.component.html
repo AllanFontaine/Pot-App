@@ -1,30 +1,35 @@
-<div class="card rounded-0">
-  <div class="card-header">
-    <h3 class="mb-0">Entrez vos identifiants</h3>
+<h3 class="mb-0">Entrez vos identifiants</h3>
+<form (ngSubmit)="LoginProcess(f)" #f="ngForm">
+
+  <p *ngIf = "incorectData" class= "text-danger">Verifier les données entrées et réessayer</p> 
+  <p *ngIf = "missingData" class= "text-danger">Vous devez completer tous les champs pour vous connecter</p> 
+
+  <i class="material-icons prefix">account_circle</i>
+
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput type="text" id="loginUsername" name="username" [errorStateMatcher]="matcher"
+        placeholder="Enter username" ngModel>
+        <mat-error *ngIf="formGroup.dirty && formGroup.get('username').value.length == 0">
+          Username est <strong>requis</strong>
+        </mat-error>
+    </mat-form-field>
   </div>
-  <div class="card-body">
-    <form (ngSubmit)="LoginProcess(f)" #f="ngForm">
-      <i class="material-icons prefix">account_circle</i>
-      <div class="form-group">
-        <mat-form-field>
-          <mat-label for="loginUsername">Username</mat-label>
-          <input matInput type="text" class="form-control" id="loginUsername" name="username"
-            placeholder="Enter username" ngModel required>
-        </mat-form-field>
-      </div>
-      <i class="material-icons prefix">vpn_key</i>
-      <div class="form-group">
-        <mat-form-field>
-          <mat-label for="loginPassword">Password</mat-label>
-          <input matInput type="password" class="form-control" id="loginPassword" name="password" placeholder="Password"
-            ngModel required>
-        </mat-form-field>
-      </div>
-      <div class="form-group form-check">
-        <a routerLink="/resetPassword">Mot de passe oublié</a>
-      </div>
-      <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
-      <button mat-raised-button type="submit" color="primary" class="float-right">Login</button>
-    </form>
+  <i class="material-icons prefix">vpn_key</i>
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label for="loginPassword">Password</mat-label>
+      <input matInput type="password" class="form-control" id="loginPassword" name="password" placeholder="Password"[errorStateMatcher]="matcher"
+        ngModel>
+        <mat-error *ngIf="true">
+         Mot de passe est <strong>requis</strong>
+        </mat-error>
+    </mat-form-field>
   </div>
-</div>
+  <div class="form-group form-check">
+    <a routerLink="/resetPassword">Mot de passe oublié</a>
+  </div>
+  <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
+  <button mat-raised-button type="submit" color="primary" class="float-right">Login</button>
+</form>

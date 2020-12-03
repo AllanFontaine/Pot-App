@@ -15,9 +15,14 @@ import { DatePipe } from '@angular/common';
 export class AddParcelComponent implements OnInit {
 
   chosenPlant = -1;
+  plantConseil: string;
   numparcel = 0;
+  last_plant_nom; request_conseil; composant_consomme; horl;
+  date_plantation: Date;
+  diasbled_tooltip: boolean = true;
   formGroup: FormGroup;
   listPlant = [];
+  listPlantConseil = [];
   listPlantName: string[] = [];
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
@@ -31,7 +36,7 @@ export class AddParcelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    console.log(!this.listPlantConseil)
     this.garden.get_plants().subscribe(
       (res) => {
         this.listPlant = res;
@@ -46,9 +51,7 @@ export class AddParcelComponent implements OnInit {
       },
       (err) => console.log(err)
     );
-
     this.initForm();
-
   }
 
   private _filter(value: string): string[] {
@@ -60,33 +63,37 @@ export class AddParcelComponent implements OnInit {
   initForm() {
     this.formGroup = new FormGroup({
       taille_metre_carre: new FormControl(null, [Validators.required]),
-      date_plantation: new FormControl('', [Validators.required]),
     });
   }
 
   placeParcel(num) {
     this.numparcel = num;
   }
+
   onSelectionChange(event) {
     for (let i = 0; i < this.listPlant.length; i++) {
-      if (this.listPlant[i].nom === event.option.value) {
+      if (this.listPlant[i].nom === event.option.value || this.listPlant[i].nom === document.getElementById("conseilInput")) {
         this.chosenPlant = this.listPlant[i].id;
         break;
       }
     }
-
   }
+
+  changement_input(event) {
+    let a = this.listPlant.find(element => element.nom === event)
+    this.chosenPlant = a.id
+  }
+
   addParcelUser(form: NgForm) {
     form.value['planteId'] = this.chosenPlant;
+    form.value['date_plantation'] = this.chosenPlant;
     form.value['numero_parcelle'] = this.numparcel;
     form.value['userId'] = parseInt(localStorage.getItem('user_id'));
     form.value['estUtilise'] = true;
-    form.value['date_plantation'].setDate(form.value['date_plantation'].getDate()  + 1 );
-    form.value['date_plantation'] = form.value['date_plantation'].toISOString();
-    form.value['date_plantation'] = form.value['date_plantation'].split('T')[0];
+    this.date_plantation.setDate(this.date_plantation.getDate() + 1)
+    form.value['date_plantation'] = this.date_plantation.toISOString().split('T')[0];
     this.garden.add_parcel(form.value).subscribe(
       (res) => {
-        console.log(res);
         this.dialogRef.close('SUCCESS');
       },
       (err) => {
@@ -98,5 +105,94 @@ export class AddParcelComponent implements OnInit {
 
   cancelClose() {
     this.dialogRef.close('CANCEL');
+  }
+
+  changement_input_date(event) {
+    if (event instanceof Date) {
+      this.diasbled_tooltip = false
+      this.date_plantation = event
+      var a, comp, last_plant;
+      var month = event.getMonth()
+      var day = event.getDay()
+      this.garden.get_last_parcel(this.data.num, event.toISOString().split('T')[0]).subscribe(
+        result => {
+          this.request_conseil = '';
+          this.last_plant_nom = '';
+          console.log(result[0])
+          console.log(!result[0])
+          if (!!result[0]) {
+            last_plant = result["0"].planteId;
+            if (last_plant.azote_sol < 180 && last_plant.potassium_sol < 180 && last_plant.phosphore_sol < 180) {
+              this.horl = "h"
+              this.last_plant_nom = last_plant.nom
+              a = last_plant.azote_sol > last_plant.potassium_sol ? "po " + last_plant.potassium_sol : "a " + last_plant.azote_sol;
+              comp = a > last_plant.phosphore_sol ? "ph " + last_plant.phosphore_sol : a;
+              this.request_conseil = this.horl + "T" + comp.split(" ")[0] + "T" + comp.split(" ")[1]
+              this.composant_consomme = this.get_composant(this.request_conseil.split("T")[1])
+            } else {
+              this.horl = "l"
+              this.last_plant_nom = last_plant.nom
+              a = last_plant.azote_sol < last_plant.potassium_sol ? "po " + last_plant.potassium_sol : "a " + last_plant.azote_sol;
+              comp = a < last_plant.phosphore_sol ? "ph " + last_plant.phosphore_sol : a;
+              this.request_conseil = this.horl + "T" + comp.split(" ")[0] + "T" + comp.split(" ")[1]
+              this.composant_consomme = this.get_composant(this.request_conseil.split("T")[1])
+            }
+          }
+          console.log(this.request_conseil)
+          this.garden.get_plants_conseil(month, day, this.request_conseil).subscribe(
+            res => {
+              this.listPlantConseil = res;
+              if (!this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom)) {
+                console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
+                this.shuffleArray(this.listPlantConseil).splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
+              } else{
+                this.shuffleArray(this.listPlantConseil)
+              }
+            }, err => {
+              console.log(err)
+            }
+          )
+        }, err => {
+          console.log(err)
+        }
+      )
+    } else {
+      this.diasbled_tooltip = true
+    }
+  }
+
+  ConseilOuvrir() {
+    if (!!this.date_plantation) {
+      $("#conseil").show("fast", "swing");
+    } else {
+      $("#btn-conseil").addClass("shake")
+      setTimeout(function () {
+        $("#btn-conseil").removeClass("shake")
+      }, 1000);
+    }
+  }
+
+  cancelConseil() {
+    $("#conseil").hide("fast", "swing");
+  }
+
+  get_composant(a) {
+    if (a == "a")
+      return "azote";
+    else if (a == "ph")
+      return "phosphore";
+    else if (a == "po")
+      return "potassium"
+  }
+
+  shuffleArray(array): [any] {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array
+    console.log('shuffling')
   }
 }

@@ -1,3 +1,4 @@
+
 from django.db.models import Q
 from appli.models import Plantes
 from rest_framework import generics, mixins, permissions, viewsets
@@ -7,9 +8,58 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
+from django.views.decorators.http import require_http_methods
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
+    
+from django.core.mail import EmailMultiAlternatives
+from django.dispatch import receiver
+from django.template.loader import render_to_string
+from django.urls import reverse
+
+from django_rest_passwordreset.signals import reset_password_token_created
+
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+    """
+    Handles password reset tokens
+    When a token is created, an e-mail needs to be sent to the user
+    :param sender: View Class that sent the signal
+    :param instance: View Instance that sent the signal
+    :param reset_password_token: Token Model Object
+    :param args:
+    :param kwargs:
+    :return:
+    """
+    # send an e-mail to the user
+    context = {
+        'current_user': reset_password_token.user,
+        'username': reset_password_token.user.username,
+        'email': reset_password_token.user.email,
+        'reset_password_url': "{}?token={}".format(
+            instance.request.build_absolute_uri(reverse('reset-password:reset-password-confirm')),
+            reset_password_token.key)
+    }
+
+    # render email text
+    email_html_message = render_to_string('email/user_reset_password.html', context)
+    email_plaintext_message = render_to_string('email/user_reset_password.txt', context)
+
+    msg = EmailMultiAlternatives(
+        # title:
+        "Password Reset for {title}".format(title="Some website title"),
+        # message:
+        email_plaintext_message,
+        # from:
+        "noreply@somehost.local",
+        # to:
+        [reset_password_token.user.email]
+    )
+    msg.attach_alternative(email_html_message, "text/html")
+    msg.send()
+
 
 
 class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
@@ -21,14 +71,52 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
     def get_queryset(self, *args, **kwargs):
         queryset_list = Plantes.objects.all()
         query_saison = self.request.GET.get("saison")
+        query_semis_day = self.request.GET.get("day")
+        query_semis_mois = self.request.GET.get("month")
+        query_comp = self.request.GET.get("comp")
         query_name = self.request.GET.get("name")
         if is_valid_queryparam(query_name):
             queryset_list = queryset_list.filter(
                 Q(nom__icontains=query_name)
             ).distinct()
+        if is_valid_queryparam(query_comp):
+            query_comp = query_comp.split("T")
+            if(query_comp[0] == "h"):
+                if(query_comp[1] == "a"):
+                    queryset_list = queryset_list.filter(
+                        azote_sol__gt=query_comp[2]
+                    ).order_by('-azote_sol')
+                if(query_comp[1] == "ph"):
+                    queryset_list = queryset_list.filter(
+                        Q(phosphore_sol__gt=query_comp[2])
+                    ).order_by('-phosphore_sol')    
+                if(query_comp[1] == "po"):
+                    queryset_list = queryset_list.filter(
+                        Q(potassium_sol__gt=query_comp[2])
+                    ).order_by('-potassium_sol')
+            if(query_comp[0] == "l"):
+                if(query_comp[1] == "a"):
+                    queryset_list = queryset_list.filter(
+                        Q(azote_sol__lt=query_comp[2])
+                    ).order_by('azote_sol')
+                if(query_comp[1] == "ph"):
+                    queryset_list = queryset_list.filter(
+                        Q(phosphore_sol__lt=query_comp[2])
+                    ).order_by('phosphore_sol')
+                if(query_comp[1] == "po"):
+                    queryset_list = queryset_list.filter(
+                        Q(potassium_sol__lt=query_comp[2])
+                    ).order_by('potassium_sol')
         if is_valid_queryparam(query_saison):
             queryset_list = queryset_list.filter(
                 Q(date_semis_debut=query_saison)
+            ).distinct()
+        if is_valid_queryparam(query_semis_mois) & is_valid_queryparam(query_semis_day):
+            queryset_list = queryset_list.filter(
+                Q(date_semis_debut__month__lte=query_semis_mois) &
+                Q(date_semis_debut__day__lte=query_semis_day) &
+                Q(date_semis_fin__month__gte=query_semis_mois) &
+                Q(date_semis_fin__day__gte=query_semis_day) 
             ).distinct()
         return queryset_list
 
@@ -82,16 +170,15 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Parcelle.objects.all()
-        print(queryset_list[1])
         query_status = self.request.GET.get("stat")
         query_user = self.request.GET.get("userid")
+        query_ordernumParcel = self.request.GET.get("order_numparcel")
         query_numParcel = self.request.GET.get("numparcel")
         query_namePlant = self.request.GET.get("nameplant")
-        query_dateOrder = self.request.GET.get('date')
+        query_date = self.request.GET.get("date")
+        query_dateOrder = self.request.GET.get('order_date')
         query_orderStatus = self.request.GET.get('orderstat')
         query_scientificName = self.request.GET.get('scientname')
-
-
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
@@ -100,12 +187,21 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
             queryset_list = queryset_list.filter(
                 Q(userId=query_user)
             ).distinct()
-
-
         if is_valid_queryparam(query_numParcel):
-            if (query_numParcel == 'ASC'):
+            queryset_list = queryset_list.filter(
+                Q(numero_parcelle=query_numParcel) &
+                Q(estUtilise=False) 
+            ).order_by('-date_plantation').distinct()
+        if is_valid_queryparam(query_numParcel) & is_valid_queryparam(query_date) :
+            queryset_list = queryset_list.filter(
+                Q(numero_parcelle=query_numParcel) &
+                Q(estUtilise=False) &
+                Q(date_plantation__lte=query_date)
+            ).order_by('-date_plantation').distinct()
+        if is_valid_queryparam(query_ordernumParcel):
+            if (query_ordernumParcel == 'ASC'):
                 queryset_list = queryset_list.order_by('-numero_parcelle')
-            if (query_numParcel =='DSC'):
+            if (query_ordernumParcel =='DSC'):
                 queryset_list = queryset_list.order_by('numero_parcelle')
 
         if is_valid_queryparam(query_namePlant):
@@ -174,7 +270,7 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
         if is_valid_queryparam(query_date):
             queryset_list = queryset_list.filter(
                 Q(date_reception_donnee__gte=query_date)
-            ).distinct().order_by('-date_reception_donnee')
+            ).distinct().order_by('date_reception_donnee')
         return queryset_list
 
 

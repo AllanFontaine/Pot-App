@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from "../../service/cart.service"
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 @Component({
   selector: 'app-shopping-cart',
@@ -8,53 +9,40 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 })
 export class ShoppingCartComponent implements OnInit {
 
- my_cart = [];
- mainObject;
- subTotal = 0;
-  constructor(private cartService: CartService) {}
+  my_cart = [];
+  mainObject;
+  subTotal = 0;
+  constructor(private cartService: CartService, public dialogRef: MatDialogRef<ShoppingCartComponent>) { }
 
   ngOnInit(): void {
     this.my_cart = this.cartService.getItems()
     this.subTotal = 0;
-    for(let i = 0; i < this.my_cart.length; i++) {
+    for (let i = 0; i < this.my_cart.length; i++) {
       this.subTotal += this.my_cart[i].price * this.my_cart[i].amount;
     }
-    }
+  }
 
-    proceedCheckout(){
+  proceedCheckout() {
+    this.dialogRef.close('SUCCESS');
+  }
 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-      
-      Toast.fire({
-        icon: 'success',
-        title: 'Merci de votre achat! <br> Vos parcelles ont été ajoutées..'
-      })
-    }
-
-    emptyCart(){
-      this.cartService.clearCart();
-      this.ngOnInit()
-    }
-    incrementItem(index){
-      this.cartService.incrementItem(index);
-      this.ngOnInit()
-    }
-    decrementItem(index){
-      this.cartService.decrementItem(index);
-      this.ngOnInit()
-    }
-    removeItem(index){
-      this.cartService.removeItem(index);
-      this.ngOnInit()
+  emptyCart() {
+    this.cartService.clearCart();
+    this.ngOnInit()
+  }
+  incrementItem(index) {
+    this.cartService.incrementItem(index);
+    this.ngOnInit()
+  }
+  decrementItem(index) {
+    this.cartService.decrementItem(index);
+    this.ngOnInit()
+  }
+  removeItem(index) {
+    this.cartService.removeItem(index);
+    this.ngOnInit()
+  }
+  cancelClose() {
+    this.dialogRef.close('CANCEL');
   }
 }

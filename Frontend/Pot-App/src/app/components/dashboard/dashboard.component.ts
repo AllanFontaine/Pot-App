@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
             (res) => {
               this.amountParcels = res['nombre_parcelle'];
               this.my_parcels = Array(this.amountParcels).fill({ estUtilise: false });
+              console.log(this.my_parcels)
               this.orderParcels();
             },
             (err) => console.log(err)
@@ -54,7 +55,7 @@ export class DashboardComponent implements OnInit {
       this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
     }
 
-    
+
   }
   onResize(event) {
     if (window.innerWidth <= 750 && window.innerWidth >= 450) {
