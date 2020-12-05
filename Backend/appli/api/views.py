@@ -172,13 +172,13 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
         queryset_list = Parcelle.objects.all()
         query_status = self.request.GET.get("stat")
         query_user = self.request.GET.get("userid")
-        query_ordernumParcel = self.request.GET.get("order_numparcel")
         query_numParcel = self.request.GET.get("numparcel")
-        query_namePlant = self.request.GET.get("nameplant")
         query_date = self.request.GET.get("date")
+        query_ordernumParcel = self.request.GET.get("order_numparcel")
+        query_namePlant = self.request.GET.get("order_nameplant")
         query_dateOrder = self.request.GET.get('order_date')
-        query_orderStatus = self.request.GET.get('orderstat')
-        query_scientificName = self.request.GET.get('scientname')
+        query_orderStatus = self.request.GET.get('order_stat')
+        query_scientificName = self.request.GET.get('order_scientname')
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)

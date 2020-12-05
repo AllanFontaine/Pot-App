@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   my_parcels = [];
   breakpoint: number;
   filtersLoaded: Promise<boolean>;
+  isLoaded: boolean = false;
 
   constructor(
     private garden: PersonalGardenService,
@@ -71,6 +72,7 @@ export class DashboardComponent implements OnInit {
         i
       ];
     }
+    this.isLoaded = true
   }
   openDialogForm(numparcel): void {
     let dialogRef = this.dialog.open(AddParcelComponent, {
