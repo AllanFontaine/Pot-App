@@ -14,6 +14,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
+from rest_framework.decorators import api_view
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
@@ -180,19 +181,13 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
 #Obtenir un detail des parcelle et des plantes : GET
 
 class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
-    """
-    Requete permettant de récupérer les parcelles mais aussi les plantes qu'elle contiennent
-
-
-
-    """
     http_method_names = ['get']
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
     permission_classes = []
     http_method_names = ['get', 'post', 'delete']
 
-    
+    @api_view(['GET'])
     def get_queryset(self, *args, **kwargs):
 <<<<<<< HEAD
         queryset_list = Parcelle.objects.filter(userId=self.request.user.id)
@@ -200,7 +195,20 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
         query_ordernumParcel = self.request.GET.get("order_numparcel")
 =======
         """
-     
+        Requete permettant de récupérer les parcelles mais aussi les plantes qu'elle contiennent
+        ---
+        parameters:
+            - name: name
+              description: Foobar long description goes here
+              required: true
+              type: string
+              paramType: form
+            - name: other_foo
+              paramType: query
+            - name: other_bar
+              paramType: query
+            - name: avatar
+              type: file
         """
         queryset_list = Parcelle.objects.all()
         query_status = self.request.GET.get("stat")
