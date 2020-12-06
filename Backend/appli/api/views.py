@@ -6,13 +6,10 @@ from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
+from .filters import ParcellePlantesFilter
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
 from django.views.decorators.http import require_http_methods
-
-def is_valid_queryparam(param):
-    return param != '' and param is not None
-    
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
@@ -61,6 +58,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     msg.send()
 
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
 
 class PlantesAPIView( viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
@@ -161,6 +160,7 @@ class UserRegisterView(generics.CreateAPIView):
 # Moins de détails dans les parcelles pour faciliter un post: POST
 
 class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailview
+
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
     permission_classes = []
@@ -179,23 +179,40 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
 
 #Obtenir un detail des parcelle et des plantes : GET
 
-
 class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    Requete permettant de récupérer les parcelles mais aussi les plantes qu'elle contiennent
+
+
+
+    """
+    http_method_names = ['get']
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
     permission_classes = []
     http_method_names = ['get', 'post', 'delete']
 
+    
     def get_queryset(self, *args, **kwargs):
+<<<<<<< HEAD
         queryset_list = Parcelle.objects.filter(userId=self.request.user.id)
         query_status = self.request.GET.get("stat")
         query_ordernumParcel = self.request.GET.get("order_numparcel")
+=======
+        """
+     
+        """
+        queryset_list = Parcelle.objects.all()
+        query_status = self.request.GET.get("stat")
+        query_user = self.request.GET.get("userid")
+>>>>>>> finition_celia
         query_numParcel = self.request.GET.get("numparcel")
-        query_namePlant = self.request.GET.get("nameplant")
         query_date = self.request.GET.get("date")
+        query_ordernumParcel = self.request.GET.get("order_numparcel")
+        query_namePlant = self.request.GET.get("order_nameplant")
         query_dateOrder = self.request.GET.get('order_date')
-        query_orderStatus = self.request.GET.get('orderstat')
-        query_scientificName = self.request.GET.get('scientname')
+        query_orderStatus = self.request.GET.get('order_stat')
+        query_scientificName = self.request.GET.get('order_scientname')
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)

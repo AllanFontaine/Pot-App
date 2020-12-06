@@ -6,7 +6,7 @@
         <mat-form-field appearance="standard">
           <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
           <input type="text" aria-label="Plante" tabindex="-1" matInput [formControl]="myControl" id="conseilInput"
-            name="planteId" value="{{plantConseil}}" [matAutocomplete]="auto">
+            name="planteId" value="{{plantConseil}}" [matAutocomplete]="auto" ngDefaultControl>
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
             <div *ngFor="let option of filteredOptions| async; let i = index">
               <mat-option [value]="option">

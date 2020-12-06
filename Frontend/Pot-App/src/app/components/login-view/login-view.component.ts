@@ -67,8 +67,11 @@ export class LoginViewComponent implements OnInit {
       (result) => {
         localStorage.setItem('token', result.access)
         this.dialogRef.close('SUCCESS');
-        this.router.navigate(['/dashboard'])
-        location.reload();
+        this.router.navigate(['/dashboard']).then(result => {
+          if (result) {
+            location.reload();
+          }
+        });
       },
       (error) => {
         console.log(error.status)

@@ -55,14 +55,16 @@ export class ShopComponent implements OnInit {
   }]
 
   ngOnInit(): void {
-    this.garden.get_profile().subscribe(
-      (res) => {
-        this.userProfile = res
-      },
-      (err) => {
-        console.log(err)
-      }
-    );
+    if (!!localStorage.getItem('token')) {
+      this.garden.get_profile().subscribe(
+        (res) => {
+          this.userProfile = res
+        },
+        (err) => {
+          console.log(err)
+        }
+      );
+    }
     this.ifBadge();
   }
 
@@ -139,7 +141,12 @@ export class ShopComponent implements OnInit {
       }
     }
     if (prod.product === "arroseur") {
-      if (this.userProfile.nombre_parcelle === 0) {
+      if (!localStorage.getItem('token')) {
+        Swal.fire({
+          title: 'Vous devez posséder un compte ou être connecté pour commander ce produit.',
+          icon: 'warning'
+        })
+      } else if (this.userProfile.nombre_parcelle === 0) {
         if (!this.alreadyInCart) {
           let newPrice;
           const { value: number } = await Swal.fire({

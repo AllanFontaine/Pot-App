@@ -4,7 +4,7 @@ import { ShoppingCartComponent } from './shopping-cart.component';
 import { PersonalGardenService } from '../../service/personal-garden.service'
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialogModule } from '@angular/material/dialog'
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 
 describe('ShoppingCartComponent', () => {
   let component: ShoppingCartComponent;
@@ -17,7 +17,11 @@ describe('ShoppingCartComponent', () => {
       providers: [
         PersonalGardenService,
         HttpClient,
-        HttpHandler
+        HttpHandler,
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        }
       ]
     })
       .compileComponents();
