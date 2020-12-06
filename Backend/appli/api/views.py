@@ -6,13 +6,10 @@ from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
+from .filters import ParcellePlantesFilter
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
 from django.views.decorators.http import require_http_methods
-
-def is_valid_queryparam(param):
-    return param != '' and param is not None
-    
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
@@ -61,6 +58,8 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     msg.send()
 
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
 
 class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
@@ -155,6 +154,7 @@ class UserRegisterView(generics.ListCreateAPIView):
 # Moins de détails dans les parcelles pour faciliter un post: POST
 
 class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailview
+
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
     permission_classes = []
@@ -162,13 +162,23 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
 
 #Obtenir un detail des parcelle et des plantes : GET
 
-
 class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    Requete permettant de récupérer les parcelles mais aussi les plantes qu'elle contiennent
+
+
+
+    """
+    http_method_names = ['get']
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
     permission_classes = []
 
+    
     def get_queryset(self, *args, **kwargs):
+        """
+     
+        """
         queryset_list = Parcelle.objects.all()
         query_status = self.request.GET.get("stat")
         query_user = self.request.GET.get("userid")
