@@ -13,10 +13,11 @@
         </button>
         <div class="collapse navbar-collapse show" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" routerLink (click)="onClick('about')">About</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink (click)="onClick('projects')">Projects</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink (click)="onClick('signup')" >Contact</a></li>
-                <li><a mat-raised-button color="accent" class="nav-link" href="/wiki">Go to the app <i class="material-icons">arrow_right_alt</i></a></li>
+                <li class="nav-item"><a class="nav-link" routerLink (click)="scrolling('about')">About</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink (click)="scrolling('projects')">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink (click)="scrolling('signup')" >Contact</a></li>
+                <li *ngIf="authService.LoggedIn()"><a mat-raised-button color="accent" class="nav-link" href="/dashboard">Go to the app <i class="material-icons">arrow_right_alt</i></a></li>
+                <li *ngIf="!authService.LoggedIn()"><a mat-raised-button color="accent" class="nav-link" href="/wiki">Go to the app <i class="material-icons">arrow_right_alt</i></a></li>
             </ul>
         </div>
     </div>

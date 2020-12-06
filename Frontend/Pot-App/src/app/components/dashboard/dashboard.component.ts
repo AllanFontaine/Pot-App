@@ -26,9 +26,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.garden.get_wiki());
     this.garden
-      .get_my_active_parcels(localStorage.getItem('user_id'))
+      .get_my_active_parcels()
       .subscribe(
         (res) => {
           this.parcel_db = res;
@@ -39,9 +38,10 @@ export class DashboardComponent implements OnInit {
           console.log(this.parcel_db);
           this.garden.get_profile().subscribe(
             (res) => {
-              this.amountParcels = res['nombre_parcelle'];
+              this.amountParcels = res[0]['nombre_parcelle'];
               this.my_parcels = Array(this.amountParcels).fill({ estUtilise: false });
               console.log(this.my_parcels)
+              console.log(res[0])
               this.orderParcels();
             },
             (err) => console.log(err)
@@ -104,7 +104,5 @@ export class DashboardComponent implements OnInit {
 
   navigToParcel(id): void {
     this.router.navigate(['/dashboard/' + id]);
-
-    console.log("I am here")
   }
 }

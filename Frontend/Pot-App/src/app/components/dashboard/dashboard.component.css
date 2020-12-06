@@ -39,3 +39,7 @@ img {
 .tile-plantes:hover .con-text {
   display: block;
 }
+
+.main-content{
+  margin: 0px;
+}

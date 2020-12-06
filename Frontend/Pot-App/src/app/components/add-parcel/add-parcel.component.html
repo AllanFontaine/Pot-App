@@ -46,7 +46,7 @@
     </div>
     <div class="col my-auto" id="conseil">
       <h2 class="text-center"  style="font-family: 'Bookman Old Style', serif;font-weight: lighter;">Merci pour votre confiance!</h2>
-      <label id="radio_conseil_label">Voici:</label>
+      <label id="radio_conseil_label">Voici ce que nous vous conseillons:</label>
       <mat-radio-group aria-labelledby="radio_conseil_label" id="conseilOption" class="radio_conseil_group"
         (ngModelChange)="changement_input($event)" [(ngModel)]="plantConseil" [ngModelOptions]="{standalone: true}">
         <mat-radio-button name='conseilPlante' class="example-radio-button"
@@ -54,7 +54,7 @@
           {{plant.nom}}
         </mat-radio-button>
       </mat-radio-group>
-      <p class="text-muted" *ngIf="last_plant_nom != ''"><small>
+      <p class="text-muted" *ngIf="last_plant_nom != ''&&request_conseil != ''"><small>
         Critères utilisés: la <b><i>saison</i></b> et la consommation de <b><i>{{composant_consomme}}</i></b> de
         <b><i>{{last_plant_nom}}</i></b>, anciennement présente sur cette parcelle. Cette plante 
         <span *ngIf="horl=='h'">n' </span>en consommait <i *ngIf="horl=='h'"><span *ngIf="horl=='h'">pas </span>
@@ -63,12 +63,16 @@
         Votre terre ne manquera 
         alors jamais d'aucun composant.
       </small></p>
-      <p class="text-muted" *ngIf="last_plant_nom == ''"><small>
+      <p class="text-muted" *ngIf="last_plant_nom == ''&&request_conseil == ''"><small>
         Le critère utilisé est la <b><i>saison</i></b>.<br>N'ayant pas d'anciens plants,
         nous nous baserons sur cette seule donnée.<br>
         Nous vous conseillons fortement d'utiliser des engrais. 
         Votre terre ne manquera 
         alors jamais d'aucun composant.
+      </small></p>
+      <p class="text-muted" *ngIf="last_plant_nom != ''&&request_conseil == ''"><small>
+        En prenant en compte votre ancien plant, nous n'avons pas pu trouver de plantes adéquates. Néanmoins, 
+        nous vous proposons ces légumes de saison et nous vons conseillons fortement de bien fertiliser votre terre.
       </small></p>
       <button class="align-items-end" type="button" (click)="cancelConseil()" mat-button><i
           class="material-icons">keyboard_arrow_left</i>Annuler le conseil</button>
