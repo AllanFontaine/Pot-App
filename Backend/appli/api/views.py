@@ -62,13 +62,15 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
 
 
-class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
+class PlantesAPIView( viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
     permission_classes = []
     model = Plantes
+    http_method_names = ['get', 'post', 'delete']
 
     def get_queryset(self, *args, **kwargs):
+        print(self.request.user)
         queryset_list = Plantes.objects.all()
         query_saison = self.request.GET.get("saison")
         query_semis_day = self.request.GET.get("day")
@@ -125,10 +127,11 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
     permission_classes = []
-    queryset = User.objects.all()
+    http_method_names = ['get', 'post', 'delete', 'put']
 
-    def perform_create(self, serializer):
-            serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = User.objects.filter(id=self.request.user.id)
+        return queryset_list
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -140,15 +143,18 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'user'  # (?P<pk>\d+) pk = id
     serializer_class = ProfileSerializer
     permission_classes = []
-    queryset = Profile.objects.all()
+    http_method_names = ['get', 'post', 'delete','put']
+    
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = Profile.objects.filter(user=self.request.user.id)
+        return queryset_list
 
 
-class UserRegisterView(generics.ListCreateAPIView):
+class UserRegisterView(generics.CreateAPIView):
     model = User
     serializer_class = RegisterSerializer
     queryset = User.objects.all()
     permission_classes = []
-
 
 #### Données du model parcelle ##########################################################################################
 
@@ -158,7 +164,18 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
     permission_classes = []
-    queryset = Parcelle.objects.all().order_by('-date_plantation')
+    http_method_names = ['get', 'post', 'delete', 'put']
+
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = Parcelle.objects.filter(userId=self.request.user.id).order_by('-date_plantation')
+        return queryset_list
+
+    def post(self, request, *args, **kwargs):
+        print(self.userId)
+        print(request.user)
+        return self.create(request, *args, **kwargs)
+
+
 
 #Obtenir un detail des parcelle et des plantes : GET
 
@@ -167,11 +184,11 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
     permission_classes = []
+    http_method_names = ['get', 'post', 'delete']
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = Parcelle.objects.all()
+        queryset_list = Parcelle.objects.filter(userId=self.request.user.id)
         query_status = self.request.GET.get("stat")
-        query_user = self.request.GET.get("userid")
         query_ordernumParcel = self.request.GET.get("order_numparcel")
         query_numParcel = self.request.GET.get("numparcel")
         query_namePlant = self.request.GET.get("nameplant")
@@ -183,10 +200,6 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
             ).distinct().order_by('date_plantation')
-        if is_valid_queryparam(query_user):
-            queryset_list = queryset_list.filter(
-                Q(userId=query_user)
-            ).distinct()
         if is_valid_queryparam(query_numParcel):
             queryset_list = queryset_list.filter(
                 Q(numero_parcelle=query_numParcel) &
@@ -238,6 +251,7 @@ class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesParcelleSerializer
     permission_classes = []
+    http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = DonneesParcelle.objects.all()
@@ -263,15 +277,13 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesUserSerializer
     permission_classes = []
+    http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = DonneesUser.objects.all()
+        queryset_list = DonneesUser.objects.filter(userId=self.request.user.id)
         query_date = self.request.GET.get("date")
         if is_valid_queryparam(query_date):
             queryset_list = queryset_list.filter(
                 Q(date_reception_donnee__gte=query_date)
             ).distinct().order_by('date_reception_donnee')
         return queryset_list
-
-
-

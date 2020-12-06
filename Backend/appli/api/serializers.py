@@ -109,7 +109,14 @@ class ParcelleSerializer(serializers.ModelSerializer):
             'planteId',
         ]
         read_only_fields = [
-            'id']
+            'id', 'userId']
+
+    def create(self,validated_data):
+        print(self.context['request'].user.id)
+        parcelle = Parcelle(**validated_data)
+        parcelle.userId = self.context['request'].user
+        parcelle.save()
+        return parcelle
 
 
 class ParcellePlanteSerializer(serializers.ModelSerializer):
@@ -127,7 +134,14 @@ class ParcellePlanteSerializer(serializers.ModelSerializer):
             'planteId',
         ]
         read_only_fields = [
-            'id']
+            'id', 'userId']
+
+    def create(self,validated_data):
+        print(self.context['request'].user)
+        parcelle = Parcelle(**validated_data)
+        parcelle.userId = self.context['request'].user
+        parcelle.save()
+        return duser
 
 
 
@@ -198,4 +212,11 @@ class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
     class Meta:
         model = DonneesUser
         fields = ['id', 'userId','date_reception_donnee','temperature_exterieur','humidite_exterieur']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'userId']
+
+    def create(self,validated_data):
+        print(self.context['request'].user)
+        duser = DonneesUser(**validated_data)
+        duser.userId = self.context['request'].user
+        duser.save()
+        return duser
