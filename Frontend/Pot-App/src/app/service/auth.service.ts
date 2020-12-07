@@ -22,6 +22,10 @@ export class AuthService {
     return this.http.post(this.url + 'register', user)
   }
 
+  postProfil(user): Observable<any> {
+    return this.http.post("http://127.0.0.1:8000/api/profile/", user)
+  }
+
   LoggedIn(): boolean {
     if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token')
