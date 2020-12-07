@@ -11,6 +11,7 @@ export class UserProfileComponent implements OnInit {
   my_user;
   my_profile;
   modifyTrue = true;
+  isLoading = true;
 
   constructor(private userService: AuthService) { }
 
@@ -18,12 +19,13 @@ export class UserProfileComponent implements OnInit {
     this.userService.get_User(localStorage.getItem('user_id')).subscribe(
       res => {
         this.my_user = res
-      },
-      err => console.log(err)
-    )
-    this.userService.get_Profile(localStorage.getItem('user_id')).subscribe(
-      res => {
-        this.my_profile = res
+        this.userService.get_Profile(localStorage.getItem('user_id')).subscribe(
+          res => {
+            this.my_profile = res
+            this.isLoading = false;
+          },
+          err => console.log(err)
+        )
       },
       err => console.log(err)
     )
