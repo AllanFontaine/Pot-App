@@ -19,11 +19,16 @@ app_name = "Pot_App"
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="PotApp API",
+      title="Pot'App API",
       default_version='v1',
-      description="PotApp API v1",
+      description= "La documentation Swagger de notre API Pot'App, ici vous pourrez trouver toutes les requètes disponible sur notre API REST et qui sont utilisées par notre site web: www.potapp.be \n \n" +
+                    "Cette API a été développée à l'aide de Django REST Framework \n \n" +
+                    "Certaines des requètes ci-dessous sont bloquées et ne peuvent que être appelées grace à un Bearer Token, pour avoir accès à celle-ci il faut être connecté à un compte existant. \n" +
+                    "Vous pourrez retrouver ci dessous la légende d'écriture de notre API: \n \n" +
+                    "*** = Requète nécessitant un Token pour accéder \n" +
+                    "+++ = Requète ouverte à tout utilisateur de l'api",
       terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
+      contact=openapi.Contact(email="potapp@gmail.com"),
       license=openapi.License(name="BSD License"),
    ),
    public=True,

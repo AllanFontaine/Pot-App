@@ -63,6 +63,16 @@ def is_valid_queryparam(param):
     return param != '' and param is not None
 
 class PlantesAPIView( viewsets.ModelViewSet):  # detailview
+    """
+    +++ Vue utilisée pour manipuler les plantes disponibles à nos utilisateurs et dans notre wiki
+    
+    ---
+    
+    Cette vue nous permet la manipulation des plantes au sein de notre base de données à travers différentes requètes: \n \n
+    -Une requete GET ouverte à tous \n
+    -Une requete POST seulement utilisée par les administrateurs pour ajouter des plantes et les rendre disponible à nos utilisateurs\n
+    -Une requete DELETE pour enlever une plante si elle n'est pas ou plus adaptée \n
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
     permission_classes = []
@@ -124,10 +134,17 @@ class PlantesAPIView( viewsets.ModelViewSet):  # detailview
 
 
 class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
+    """
+    *** Vue utilisée pour la manipulation des user Django
+
+    ---
+
+    Requète 
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
     permission_classes = []
-    http_method_names = ['get', 'post', 'delete', 'put']
+    http_method_names = ['get', 'delete', 'put']
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = User.objects.filter(id=self.request.user.id)
@@ -140,17 +157,25 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
         return {"request": self.request}
 
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    *** Vue utilisée pour manipuler les profils liés au comptes utilisateurs
+    ---
+    """
     lookup_field = 'user'  # (?P<pk>\d+) pk = id
     serializer_class = ProfileSerializer
     permission_classes = []
     http_method_names = ['get', 'post', 'delete','put']
     
     def get_queryset(self, *args, **kwargs):
-        queryset_list = Profile.objects.filter(user=self.request.user.id)
+        queryset_list = Profile.objects.filter(user=self.request.user)
         return queryset_list
 
 
 class UserRegisterView(generics.CreateAPIView):
+    """
+    +++ Vue utilisée pour ajouter un compte utilisateur
+    ---
+    """
     model = User
     serializer_class = RegisterSerializer
     queryset = User.objects.all()
@@ -161,6 +186,11 @@ class UserRegisterView(generics.CreateAPIView):
 # Moins de détails dans les parcelles pour faciliter un post: POST
 
 class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailview
+    """
+    *** Vue utilisée pour manipuler les parcelles de chacun des utilisateurs, les parcelles sont toujours liées avec un user
+
+    ---
+    """
 
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
@@ -181,39 +211,20 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
 #Obtenir un detail des parcelle et des plantes : GET
 
 class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    *** Vue pour récupérer les données de la parcelle et de la plante en une seule et même réponse JSON
+    ---
+
+    """
     http_method_names = ['get']
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
     permission_classes = []
-    http_method_names = ['get', 'post', 'delete']
+    http_method_names = ['get']
 
-    @api_view(['GET'])
     def get_queryset(self, *args, **kwargs):
-<<<<<<< HEAD
         queryset_list = Parcelle.objects.filter(userId=self.request.user.id)
         query_status = self.request.GET.get("stat")
-        query_ordernumParcel = self.request.GET.get("order_numparcel")
-=======
-        """
-        Requete permettant de récupérer les parcelles mais aussi les plantes qu'elle contiennent
-        ---
-        parameters:
-            - name: name
-              description: Foobar long description goes here
-              required: true
-              type: string
-              paramType: form
-            - name: other_foo
-              paramType: query
-            - name: other_bar
-              paramType: query
-            - name: avatar
-              type: file
-        """
-        queryset_list = Parcelle.objects.all()
-        query_status = self.request.GET.get("stat")
-        query_user = self.request.GET.get("userid")
->>>>>>> finition_celia
         query_numParcel = self.request.GET.get("numparcel")
         query_date = self.request.GET.get("date")
         query_ordernumParcel = self.request.GET.get("order_numparcel")
@@ -236,6 +247,7 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
                 Q(estUtilise=False) &
                 Q(date_plantation__lte=query_date)
             ).order_by('-date_plantation').distinct()
+
         if is_valid_queryparam(query_ordernumParcel):
             if (query_ordernumParcel == 'ASC'):
                 queryset_list = queryset_list.order_by('-numero_parcelle')
@@ -273,6 +285,13 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
 
 class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    *** Vue utilisée pour manipuler les données de Pot'App liées a une parcelle
+
+    ---
+
+
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesParcelleSerializer
     permission_classes = []
@@ -298,7 +317,12 @@ class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
 
 ### Données reprises de la sonde et attribuées par user ###########################################################
 
-class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
+class DonneesUserAPIView(viewsets.ModelViewSet):  # detailvie
+    """
+    *** Vue utilisée pour manipuler les données de Pot'App liées a un utilisateur
+
+    --- 
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesUserSerializer
     permission_classes = []
