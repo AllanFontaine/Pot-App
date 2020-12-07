@@ -15,6 +15,8 @@ from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
 from rest_framework.decorators import api_view
+from rest_framework import exceptions
+from rest_framework.permissions import BasePermission, IsAuthenticated
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
@@ -146,15 +148,17 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     http_method_names = ['get', 'put']
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = User.objects.filter(id=self.request.user.id)
-        return queryset_list
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        if User.objects.filter(user=self.request.user):
+            queryset_list = User.objects.filter(user=self.request.user)
+            return queryset_list
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })
 
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
@@ -175,8 +179,17 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     http_method_names = ['get', 'post','put']
     
     def get_queryset(self, *args, **kwargs):
-        queryset_list = Profile.objects.filter(user=self.request.user)
-        return queryset_list
+        if Profile.objects.filter(user=self.request.user):
+            queryset_list = Profile.objects.filter(user=self.request.user)
+            return queryset_list
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })
+
+    """def put(self, *args, *kwargs):
+        if Profile.objects.filter(user=self.request.user):
+            return self.update(request, *args, **kwargs)"""
 
 
 class UserRegisterView(generics.CreateAPIView):
@@ -211,16 +224,15 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
 
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     http_method_names = ['get', 'post', 'delete', 'put']
 
     def get_queryset(self, *args, **kwargs):
+        print(hash(self.request.user))
         queryset_list = Parcelle.objects.filter(userId=self.request.user.id).order_by('-date_plantation')
         return queryset_list
 
     def post(self, request, *args, **kwargs):
-        print(self.userId)
-        print(request.user)
         return self.create(request, *args, **kwargs)
 
 
@@ -235,10 +247,9 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
     -Une requete GET seulement disponible à l'aide d'un token elle permet de récupérer toutes les données de certaines parcelles mais aussi toutes les données de la plante 
     """
-    http_method_names = ['get']
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
     http_method_names = ['get']
 
     def get_queryset(self, *args, **kwargs):
@@ -347,16 +358,20 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailvie
     -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les entrées de données qui sont lié à l'utilisateur à qui appartient le token\n
     -Une requete POST servant à ajouter une entrée dans les données en fonction de un user bien spécifique\n
     """
-    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesUserSerializer
     permission_classes = []
     http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = DonneesUser.objects.filter(userId=self.request.user.id)
-        query_date = self.request.GET.get("date")
-        if is_valid_queryparam(query_date):
-            queryset_list = queryset_list.filter(
-                Q(date_reception_donnee__gte=query_date)
-            ).distinct().order_by('date_reception_donnee')
-        return queryset_list
+        if DonneesUser.objects.filter(userId=self.request.user.id).exists():
+            queryset_list = DonneesUser.objects.filter(userId=self.request.user.id)
+            query_date = self.request.GET.get("date")
+            if is_valid_queryparam(query_date):
+                queryset_list = queryset_list.filter(
+                    Q(date_reception_donnee__gte=query_date)
+                ).distinct().order_by('date_reception_donnee')
+            return queryset_list
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })
