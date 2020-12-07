@@ -68,7 +68,7 @@ class PlantesAPIView( viewsets.ModelViewSet):  # detailview
     
     ---
     
-    Cette vue nous permet la manipulation des plantes au sein de notre base de données à travers différentes requètes: \n \n
+    Cette vue nous permet de nous occuper la manipulation des plantes au sein de notre base de données à travers différentes requètes: \n \n
     -Une requete GET ouverte à tous \n
     -Une requete POST seulement utilisée par les administrateurs pour ajouter des plantes et les rendre disponible à nos utilisateurs\n
     -Une requete DELETE pour enlever une plante si elle n'est pas ou plus adaptée \n
@@ -139,12 +139,15 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
 
     ---
 
-    Requète 
+    Cette vue nous permet de nous occuper la manipulation des users au sein de notre base de données, le model des Users utilisés est celui préimplémenté par Django \n
+    Nous utilisons differentes requètes: \n \n
+    -Une requete GET seulement disponible à l'aide d'un token et qui permet de nous donner le user lié à celui-ci et seulement ce user\n
+    -Une requete PUT seulement disponible à l'aide d'un token et qui est utilisée au sein du site pour modfier les données utilisateurs\n
     """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
     permission_classes = []
-    http_method_names = ['get', 'delete', 'put']
+    http_method_names = ['get', 'put']
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = User.objects.filter(id=self.request.user.id)
@@ -160,11 +163,16 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     """
     *** Vue utilisée pour manipuler les profils liés au comptes utilisateurs
     ---
+    
+    Cette vue nous permet la manipulation des profils utilisateurs, chaque profil est lié avec un User avec une relation One-to-One: \n \n
+    -Une requete GET seulement disponible à l'aide d'un token et qui permet de nous donner le profil lié à notre user\n
+    -Une requete POST utilisée en même temps que la requète register pour lier un profil à un compte \n
+    -Une requete PUT seulement disponible à l'aide d'un token utilisée pour modifier les données de notre profil (Si la localisation est changé ou des parcelles sont ajoutées)
     """
     lookup_field = 'user'  # (?P<pk>\d+) pk = id
     serializer_class = ProfileSerializer
     permission_classes = []
-    http_method_names = ['get', 'post', 'delete','put']
+    http_method_names = ['get', 'post','put']
     
     def get_queryset(self, *args, **kwargs):
         queryset_list = Profile.objects.filter(user=self.request.user)
@@ -175,6 +183,9 @@ class UserRegisterView(generics.CreateAPIView):
     """
     +++ Vue utilisée pour ajouter un compte utilisateur
     ---
+
+    Cette vue nous permet d'ajouter un utilisateur en base de données et que dans la réponse de celle-ci nous récupérons un Token de connexion \n \n
+    -Une requete POST qui est envoyée avec toutes les données d'un nouveau compte utilisateur et qui en crée un nouveau en base de données, celle ci donne en réponse toutes les données utilisateur mais aussi un Token de connexion\n
     """
     model = User
     serializer_class = RegisterSerializer
@@ -190,6 +201,12 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
     *** Vue utilisée pour manipuler les parcelles de chacun des utilisateurs, les parcelles sont toujours liées avec un user
 
     ---
+    
+    Cette vue nous permet la manipulation des parcelles de chaque utilisateur: \n \n
+    -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les parcelles liées à l'utilisateur à qui appartient le token\n
+    -Une requete POST seulement disponible à l'aide d'un Token permet d'ajouter une parcelle liée à un utilisateur \n
+    -Une requete PUT seulement disponible à l'aide d'un Token et permet de modifier les données mais est seulement utilisée pour changer le statut d'une parcelle  \n
+    -Une requete DELETE seuelemnt disponible à l'aide d'un Token permet de supprimer définitivement une parcelle
     """
 
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
@@ -214,7 +231,9 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
     """
     *** Vue pour récupérer les données de la parcelle et de la plante en une seule et même réponse JSON
     ---
+    Cette vue permet la récupération de toutes les données d'une parcelle bien spécifique mais aussi les données de la plante que elle contient, ce qui facilite la vie à notre application et en général permet de faire moins de requètes db \n \n
 
+    -Une requete GET seulement disponible à l'aide d'un token elle permet de récupérer toutes les données de certaines parcelles mais aussi toutes les données de la plante 
     """
     http_method_names = ['get']
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
@@ -290,7 +309,9 @@ class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
 
     ---
 
-
+    Cette vue nous permet la manipulation des données qui sont liées à une parcelle grace à certaines requetes \n \n
+    -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les entrées de données qui sont lié à une seule et même parcelle\n
+    -Une requete POST servant à ajouter une entrée dans les données en fonction de une parcelle bien spécifique \n
     """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesParcelleSerializer
@@ -322,6 +343,9 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailvie
     *** Vue utilisée pour manipuler les données de Pot'App liées a un utilisateur
 
     --- 
+    Cette vue nous permet la manipulation des données qui sont liées à un user grace à certaines requetes: \n \n
+    -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les entrées de données qui sont lié à l'utilisateur à qui appartient le token\n
+    -Une requete POST servant à ajouter une entrée dans les données en fonction de un user bien spécifique\n
     """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesUserSerializer
