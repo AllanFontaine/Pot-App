@@ -67,18 +67,18 @@
 
                       <ng-template #modifyProfile2>
                       <div class="card-body">
-                        <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
                             <div class="row">
                                 <div class="mx-auto">
                                   <label>Nom d'utilisateur</label>
                                     <mat-form-field class="example-full-width">
-                                      <input matInput value={{my_user.username}} type="text">
+                                      <input matInput placeholder={{my_user.username}} name="username" type="text" ngModel>
                                     </mat-form-field>
                                 </div>
                                 <div class="mx-auto">
                                   <label>Adresse Mail</label>
                                     <mat-form-field class="example-full-width">
-                                      <input matInput value={{my_user.email}} type="email">
+                                      <input matInput placeholder={{my_user.email}} name="email" type="email" ngModel>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -86,13 +86,13 @@
                                 <div class="mx-auto">
                                   <label>Prénom</label>
                                   <mat-form-field class="example-full-width">
-                                    <input matInput value={{my_user.first_name}} type="text">
+                                    <input matInput placeholder={{my_user.first_name}} name="first_name" type="text" ngModel>
                                   </mat-form-field>
                                 </div>
                                 <div class="mx-auto">
                                   <label>Nom</label>
                                   <mat-form-field class="example-full-width">
-                                    <input matInput value={{my_user.last_name}} type="text">
+                                    <input matInput placeholder={{my_user.last_name}} name="last_name" type="text" ngModel>
                                   </mat-form-field>
                                 </div>
                             </div>
