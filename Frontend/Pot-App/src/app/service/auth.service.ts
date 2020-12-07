@@ -43,4 +43,8 @@ export class AuthService {
   get_Profile(user_id): Observable<any> {
     return this.http.get('http://127.0.0.1:8000/api/profile/' + user_id + '/')
   }
+
+  modify_User(user_id, data): Observable<any>{
+    return this.http.put('http://127.0.0.1:8000/api/users/'+ user_id +'/', data)
+  }
 }
