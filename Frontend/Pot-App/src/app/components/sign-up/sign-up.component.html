@@ -1,11 +1,13 @@
+<script>console.log(formArray.get)</script>
+
 <div class="row pt-5">
   <div class="col-md-6 mx-auto">
+    <form [formGroup]="formGroup" (ngSubmit)="registerUser()">
   <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-  <mat-vertical-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
+  <mat-vertical-stepper formArrayName="formArray" [linear]="isLinear" #stepper>
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
         <ng-template matStepLabel>Informations personnelles</ng-template>
         <mat-form-field>
           <mat-label>Prénom</mat-label>
@@ -17,59 +19,52 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Adresse</mat-label>
-          <input matInput placeholder="Ex: 16 Rue du Potager">
+          <input matInput placeholder="Ex: 16 Rue du Potager" formControlName="adresse">
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-button matStepperNext type="button">Next</button>
         </div>
-      </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
+    <mat-step formGroupName="1" [stepControl]="formArray.get([1])">
         <ng-template matStepLabel>Informations de compte</ng-template>
         <mat-form-field>
           <mat-label>E-mail</mat-label>
           <input matInput formControlName="mailCtrl" placeholder="Ex: Jhonny.Depp@monmail.com" type="email"
-                 required>
+             required>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Nom d'utilisateur</mat-label>
-          <input matInput formControlName="userCtrl" placeholder="Ex: JhonDepp69"
-                 required>
+          <input matInput formControlName="userCtrl" placeholder="Ex: JhonDepp69" 
+             required>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Mot de passe</mat-label>
           <input matInput formControlName="passCtrl" placeholder="Ex: ** ou encore **** mais nous recommandons ************" type="password"
-                 required>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Confirmation du mot de passe</mat-label>
-          <input matInput formControlName="confpassCtrl" type="password"
-                 required>
+            required>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Précédent</button>
-          <button mat-button matStepperNext>Suivant</button>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
         </div>
-      </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Confirmation</ng-template>
       <p>Vous avez maintenant fini.</p>
       <div>
         <button mat-button matStepperPrevious>Précédent</button>
-        <button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit()">
+        <button mat-button type="submit" >
           submit
-          </button>
+        </button>
         <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
     </mat-step>
   </mat-vertical-stepper>
+  </form>
 </div>
 </div>
 
 
-<div class="row pt-5">
+<!--<div class="row pt-5">
   <div class="col-md-6 mx-auto">
     <div class="card rounded-0">
       <div class="card-header">
@@ -102,4 +97,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
