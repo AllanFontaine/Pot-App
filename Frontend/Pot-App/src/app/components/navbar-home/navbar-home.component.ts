@@ -17,7 +17,7 @@ import { LoginViewComponent } from '../login-view/login-view.component'
 export class NavbarHomeComponent implements OnInit {
   public isCollapsed = true;
 
-  constructor(public viewportScroller: ViewportScroller, public formBuilder: FormBuilder, public dialog: MatDialog) {
+  constructor(public viewportScroller: ViewportScroller, public formBuilder: FormBuilder, public dialog: MatDialog, public authService: AuthService) {
   }
 
 
