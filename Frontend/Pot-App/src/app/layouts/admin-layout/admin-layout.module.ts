@@ -31,11 +31,12 @@ import { WikiViewComponent } from '../../components/wiki-view/wiki-view.componen
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-import {MatExpansionModule} from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatExpansionModule} from '@angular/material/expansion'
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
 import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
@@ -64,6 +65,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSelectModule,
     MatTooltipModule,
     MatRadioModule,
+    MatPaginatorModule,
+    MatExpansionModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,

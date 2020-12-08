@@ -7,6 +7,17 @@
               <div class="input-group no-border">
                 <input type="text" class="form-control rounded blank" id="name" name="name" placeholder="Chercher une plante" formControlName="name">
               </div>
+              <br>
+                <label class="mr-sm-2" for="CustomSelect">Trier par :</label>
+                <select class="browser-default custom-select mr-sm-2" id="CustomSelect" (change)="onChangeTri($event.target.value)">
+                  <option value="nom ASC">Nom (a-Z)</option>
+                  <option value="nom DSC">Nom (Z-a)</option>
+                  <option value="date_semis_debut ASC">Saison (Janvier-Decembre)</option>
+                  <option value="date_semis_debut DSC">Saison (Décembre-Janvier)</option>
+                  <option value="recolte_en_jours ASC">Récolte en jours (croissant)</option>
+                  <option value="recolte_en_jours DSC">Récolte en jours (décroissant)</option>
+                </select>
+              
             </span>
           </form>
          
@@ -27,8 +38,8 @@
             
           </ul>
           <mat-paginator [pageSize]="10"
-          [length]="this.paginatorLength"
-          (page)="onPageChange($event)">
+          [hidePageSize]="true"
+          (page)="onPageChange($event)" #paginator>
         </mat-paginator> 
         </div>
 </div>

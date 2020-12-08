@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { WikiService } from 'app/service/wiki.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -22,12 +22,13 @@ export class SinglePlantDetailComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void>;
 
 
-  constructor(private wikiService: WikiService, private activatedRoute: ActivatedRoute) { 
+  constructor(private wikiService: WikiService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.destroyed$ = new Subject();  
   }
 
   ngOnInit(): void {
     this.loading = true;
+    this.plantWikipedia = [];
     this.activatedRoute.paramMap.pipe(takeUntil(this.destroyed$))
       .subscribe((paramMap: ParamMap) => {
         if (paramMap.has("plant_id")) {
@@ -43,17 +44,20 @@ export class SinglePlantDetailComponent implements OnInit, OnDestroy {
          wtf
          .fetch(paramMap.get('nom_wiki'), 'fr')
          .then((result) => {
-           console.log(result.data.sections);
            this.plantWikipedia = result.data.sections.slice(1, 4);
            for(let i = 0; i < this.plantWikipedia.length; i++) {
              this.plantWikipedia[i].data.wiki = wtf(this.plantWikipedia[i].data.wiki).text();
-             console.log(this.plantWikipedia[i].data.wiki.indexOf('*'));
              this.plantWikipedia[i].data.wiki = this.plantWikipedia[i].data.wiki.replace(/\*/g, '<br><br>*');
            }
-           console.log(this.plantWikipedia);
+           this.loading = false;
          })
         }
       });
+  }
+
+  onReturn(): void {
+    console.log(1);
+    this.router.navigate(["/wiki"]);
   }
 
   ngOnDestroy() : void {

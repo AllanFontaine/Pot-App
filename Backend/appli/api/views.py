@@ -1,7 +1,7 @@
 
 from django.db.models import Q
 from appli.models import Plantes
-from rest_framework import generics, mixins, permissions, viewsets
+from rest_framework import generics, mixins, permissions, viewsets, status, viewsets
 from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
@@ -9,6 +9,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
 from django.views.decorators.http import require_http_methods
+from rest_framework.response import Response
 
 def is_valid_queryparam(param):
     return param != '' and param is not None
@@ -75,7 +76,8 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
         query_semis_mois = self.request.GET.get("month")
         query_comp = self.request.GET.get("comp")
         query_name = self.request.GET.get("name")
-        query_count = self.request.GET.get("count")
+        query_tri = self.request.GET.get("tri")
+        query_order = self.request.GET.get("order")
         query_offset = self.request.GET.get("offset")
         query_limit = self.request.GET.get("limit")
         print(query_limit)
@@ -122,12 +124,29 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
                 Q(date_semis_fin__month__gte=query_semis_mois) &
                 Q(date_semis_fin__day__gte=query_semis_day) 
             ).distinct()
-        if is_valid_queryparam(query_count):
-            queryset_list = Plantes.objects.count()
-            print(Plantes.objects.all().count())
-        if is_valid_queryparam(query_limit):
-            queryset_list = Plantes.objects.all().order_by()[int(query_offset):int(query_limit)]
-        return queryset_list
+        if is_valid_queryparam(query_limit) and is_valid_queryparam(query_offset) and is_valid_queryparam(query_order) and is_valid_queryparam(query_tri):
+            if (query_tri == "nom"):
+                if (query_order == 'ASC'):
+                    queryset_list = queryset_list.all().order_by('nom')
+                if (query_order =='DSC'):
+                    queryset_list = queryset_list.all().order_by('-nom')
+            if (query_tri == "recolte_en_jours"):
+                if (query_order == 'ASC'):
+                    queryset_list = queryset_list.order_by('recolte_en_jours')
+                if (query_order =='DSC'):
+                    queryset_list = queryset_list.order_by('-recolte_en_jours')
+
+            if (query_tri == 'date_semis_debut'):
+                if (query_order == 'ASC'):
+                    queryset_list = queryset_list.order_by('date_semis_debut')
+                if (query_order =='DSC'):
+                    queryset_list = queryset_list.order_by('-date_semis_debut')
+            queryset_list = queryset_list[int(query_offset):int(query_limit)]
+            print(queryset_list)
+            return queryset_list
+        else :
+            return queryset_list 
+        
 
 
 class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview

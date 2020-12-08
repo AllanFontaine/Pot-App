@@ -19,8 +19,6 @@ export class WikiSinglePlantComponent implements OnInit {
   @Input() saison_debut : string;
 
  
-  constructor(public dialog: MatDialog,
-              private router: Router) { }
 
   constructor(
     private wikiService: WikiService,
@@ -35,6 +33,6 @@ export class WikiSinglePlantComponent implements OnInit {
       result => console.log(result), 
       error => console.log(error),
     );
-    this.router.navigate(['/wiki/' + this.id]);
+    this.router.navigate(['/wiki/' + this.id +'/' + this.url_wiki ]);
   }
 }

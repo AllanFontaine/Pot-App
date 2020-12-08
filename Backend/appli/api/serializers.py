@@ -199,3 +199,5 @@ class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
         model = DonneesUser
         fields = ['id', 'userId','date_reception_donnee','temperature_exterieur','humidite_exterieur']
         read_only_fields = ['id']
+
+        

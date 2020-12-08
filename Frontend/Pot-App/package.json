@@ -61,7 +61,6 @@
     "rxjs-compat": "6.6.3",
     "sweetalert2": "^10.10.4",
     "web-animations-js": "2.3.2",
-    "zone.js": "^0.11.3"
     "wtf_wikipedia": "^8.5.1",
     "zone.js": "0.11.1"
   },
