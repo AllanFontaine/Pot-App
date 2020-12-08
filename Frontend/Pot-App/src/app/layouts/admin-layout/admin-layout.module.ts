@@ -72,10 +72,11 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatAutocompleteModule,
     MatSortModule,
     MatCardModule,
-   MatIconModule,
-   MatListModule,
-   MatStepperModule
-
+    MatIconModule,
+    MatListModule,
+    MatStepperModule,
+    MatProgressSpinnerModule,
+    MatBadgeModule
   ],
 
   declarations: [

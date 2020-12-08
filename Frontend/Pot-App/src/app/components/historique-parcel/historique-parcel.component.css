@@ -1,3 +1,7 @@
 th:hover {
   cursor: pointer;
 }
+
+.main-content{
+  margin: 0px;
+}

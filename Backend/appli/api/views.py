@@ -6,18 +6,18 @@ from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
 from rest_framework.generics import CreateAPIView, ListAPIView
+from .filters import ParcellePlantesFilter
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
 from django.views.decorators.http import require_http_methods
 from rest_framework.response import Response
-
-def is_valid_queryparam(param):
-    return param != '' and param is not None
-    
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
 from django.template.loader import render_to_string
 from django.urls import reverse
+from rest_framework.decorators import api_view
+from rest_framework import exceptions
+from rest_framework.permissions import BasePermission, IsAuthenticated
 
 from django_rest_passwordreset.signals import reset_password_token_created
 
@@ -62,14 +62,28 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     msg.send()
 
 
+def is_valid_queryparam(param):
+    return param != '' and param is not None
 
-class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
+class PlantesAPIView( viewsets.ModelViewSet):  # detailview
+    """
+    +++ Vue utilisée pour manipuler les plantes disponibles à nos utilisateurs et dans notre wiki
+    
+    ---
+    
+    Cette vue nous permet de nous occuper la manipulation des plantes au sein de notre base de données à travers différentes requètes: \n \n
+    -Une requete GET ouverte à tous \n
+    -Une requete POST seulement utilisée par les administrateurs pour ajouter des plantes et les rendre disponible à nos utilisateurs\n
+    -Une requete DELETE pour enlever une plante si elle n'est pas ou plus adaptée \n
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = PlantesSerializer
     permission_classes = []
     model = Plantes
+    http_method_names = ['get', 'post', 'delete']
 
     def get_queryset(self, *args, **kwargs):
+        print(self.request.user)
         queryset_list = Plantes.objects.all()
         query_saison = self.request.GET.get("saison")
         query_semis_day = self.request.GET.get("day")
@@ -150,71 +164,136 @@ class PlantesAPIView(ListAPIView, viewsets.ModelViewSet):  # detailview
 
 
 class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
+    """
+    *** Vue utilisée pour la manipulation des user Django
+
+    ---
+
+    Cette vue nous permet de nous occuper la manipulation des users au sein de notre base de données, le model des Users utilisés est celui préimplémenté par Django \n
+    Nous utilisons differentes requètes: \n \n
+    -Une requete GET seulement disponible à l'aide d'un token et qui permet de nous donner le user lié à celui-ci et seulement ce user\n
+    -Une requete PUT seulement disponible à l'aide d'un token et qui est utilisée au sein du site pour modfier les données utilisateurs\n
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = UserSerializer
-    permission_classes = []
-    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'put']
 
-    def perform_create(self, serializer):
-            serializer.save()  # Ceci servirait pour ce qui est dans read_only_fields
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+    def get_queryset(self, *args, **kwargs):
+        if User.objects.filter(user=self.request.user):
+            queryset_list = User.objects.filter(user=self.request.user)
+            return queryset_list
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })
 
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
 
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    *** Vue utilisée pour manipuler les profils liés au comptes utilisateurs
+    ---
+    
+    Cette vue nous permet la manipulation des profils utilisateurs, chaque profil est lié avec un User avec une relation One-to-One: \n \n
+    -Une requete GET seulement disponible à l'aide d'un token et qui permet de nous donner le profil lié à notre user\n
+    -Une requete POST utilisée en même temps que la requète register pour lier un profil à un compte \n
+    -Une requete PUT seulement disponible à l'aide d'un token utilisée pour modifier les données de notre profil (Si la localisation est changé ou des parcelles sont ajoutées)
+    """
     lookup_field = 'user'  # (?P<pk>\d+) pk = id
     serializer_class = ProfileSerializer
     permission_classes = []
-    queryset = Profile.objects.all()
+    http_method_names = ['get', 'post','put']
+    
+    def get_queryset(self, *args, **kwargs):
+        if Profile.objects.filter(user=self.request.user):
+            queryset_list = Profile.objects.filter(user=self.request.user)
+            return queryset_list
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })
+
+    """def put(self, *args, *kwargs):
+        if Profile.objects.filter(user=self.request.user):
+            return self.update(request, *args, **kwargs)"""
 
 
-class UserRegisterView(generics.ListCreateAPIView):
+class UserRegisterView(generics.CreateAPIView):
+    """
+    +++ Vue utilisée pour ajouter un compte utilisateur
+    ---
+
+    Cette vue nous permet d'ajouter un utilisateur en base de données et que dans la réponse de celle-ci nous récupérons un Token de connexion \n \n
+    -Une requete POST qui est envoyée avec toutes les données d'un nouveau compte utilisateur et qui en crée un nouveau en base de données, celle ci donne en réponse toutes les données utilisateur mais aussi un Token de connexion\n
+    """
     model = User
     serializer_class = RegisterSerializer
     queryset = User.objects.all()
     permission_classes = []
-
 
 #### Données du model parcelle ##########################################################################################
 
 # Moins de détails dans les parcelles pour faciliter un post: POST
 
 class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailview
+    """
+    *** Vue utilisée pour manipuler les parcelles de chacun des utilisateurs, les parcelles sont toujours liées avec un user
+
+    ---
+    
+    Cette vue nous permet la manipulation des parcelles de chaque utilisateur: \n \n
+    -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les parcelles liées à l'utilisateur à qui appartient le token\n
+    -Une requete POST seulement disponible à l'aide d'un Token permet d'ajouter une parcelle liée à un utilisateur \n
+    -Une requete PUT seulement disponible à l'aide d'un Token et permet de modifier les données mais est seulement utilisée pour changer le statut d'une parcelle  \n
+    -Une requete DELETE seuelemnt disponible à l'aide d'un Token permet de supprimer définitivement une parcelle
+    """
+
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
-    permission_classes = []
-    queryset = Parcelle.objects.all().order_by('-date_plantation')
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete', 'put']
+
+    def get_queryset(self, *args, **kwargs):
+        print(hash(self.request.user))
+        queryset_list = Parcelle.objects.filter(userId=self.request.user.id).order_by('-date_plantation')
+        return queryset_list
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
 
 #Obtenir un detail des parcelle et des plantes : GET
 
-
 class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    *** Vue pour récupérer les données de la parcelle et de la plante en une seule et même réponse JSON
+    ---
+    Cette vue permet la récupération de toutes les données d'une parcelle bien spécifique mais aussi les données de la plante que elle contient, ce qui facilite la vie à notre application et en général permet de faire moins de requètes db \n \n
+
+    -Une requete GET seulement disponible à l'aide d'un token elle permet de récupérer toutes les données de certaines parcelles mais aussi toutes les données de la plante 
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcellePlanteSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get']
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = Parcelle.objects.all()
+        queryset_list = Parcelle.objects.filter(userId=self.request.user.id)
         query_status = self.request.GET.get("stat")
-        query_user = self.request.GET.get("userid")
-        query_ordernumParcel = self.request.GET.get("order_numparcel")
         query_numParcel = self.request.GET.get("numparcel")
-        query_namePlant = self.request.GET.get("nameplant")
         query_date = self.request.GET.get("date")
+        query_ordernumParcel = self.request.GET.get("order_numparcel")
+        query_namePlant = self.request.GET.get("order_nameplant")
         query_dateOrder = self.request.GET.get('order_date')
-        query_orderStatus = self.request.GET.get('orderstat')
-        query_scientificName = self.request.GET.get('scientname')
+        query_orderStatus = self.request.GET.get('order_stat')
+        query_scientificName = self.request.GET.get('order_scientname')
         if is_valid_queryparam(query_status):
             queryset_list = queryset_list.filter(
                 Q(estUtilise=query_status)
             ).distinct().order_by('date_plantation')
-        if is_valid_queryparam(query_user):
-            queryset_list = queryset_list.filter(
-                Q(userId=query_user)
-            ).distinct()
         if is_valid_queryparam(query_numParcel):
             queryset_list = queryset_list.filter(
                 Q(numero_parcelle=query_numParcel) &
@@ -226,6 +305,7 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
                 Q(estUtilise=False) &
                 Q(date_plantation__lte=query_date)
             ).order_by('-date_plantation').distinct()
+
         if is_valid_queryparam(query_ordernumParcel):
             if (query_ordernumParcel == 'ASC'):
                 queryset_list = queryset_list.order_by('-numero_parcelle')
@@ -263,9 +343,19 @@ class ParcellePlantesAPIView(viewsets.ModelViewSet):  # detailview
 
 
 class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
+    """
+    *** Vue utilisée pour manipuler les données de Pot'App liées a une parcelle
+
+    ---
+
+    Cette vue nous permet la manipulation des données qui sont liées à une parcelle grace à certaines requetes \n \n
+    -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les entrées de données qui sont lié à une seule et même parcelle\n
+    -Une requete POST servant à ajouter une entrée dans les données en fonction de une parcelle bien spécifique \n
+    """
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = DonneesParcelleSerializer
     permission_classes = []
+    http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = DonneesParcelle.objects.all()
@@ -287,19 +377,29 @@ class DonneesParcelleAPIView(viewsets.ModelViewSet):  # detailview
 
 ### Données reprises de la sonde et attribuées par user ###########################################################
 
-class DonneesUserAPIView(viewsets.ModelViewSet):  # detailview
-    lookup_field = 'pk'  # (?P<pk>\d+) pk = id
+class DonneesUserAPIView(viewsets.ModelViewSet):  # detailvie
+    """
+    *** Vue utilisée pour manipuler les données de Pot'App liées a un utilisateur
+
+    --- 
+    Cette vue nous permet la manipulation des données qui sont liées à un user grace à certaines requetes: \n \n
+    -Une requete GET seulement disponible à l'aide d'un Token qui retourne toutes les entrées de données qui sont lié à l'utilisateur à qui appartient le token\n
+    -Une requete POST servant à ajouter une entrée dans les données en fonction de un user bien spécifique\n
+    """
     serializer_class = DonneesUserSerializer
     permission_classes = []
+    http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
-        queryset_list = DonneesUser.objects.all()
-        query_date = self.request.GET.get("date")
-        if is_valid_queryparam(query_date):
-            queryset_list = queryset_list.filter(
-                Q(date_reception_donnee__gte=query_date)
-            ).distinct().order_by('date_reception_donnee')
-        return queryset_list
-
-
-
+        if DonneesUser.objects.filter(userId=self.request.user.id).exists():
+            queryset_list = DonneesUser.objects.filter(userId=self.request.user.id)
+            query_date = self.request.GET.get("date")
+            if is_valid_queryparam(query_date):
+                queryset_list = queryset_list.filter(
+                    Q(date_reception_donnee__gte=query_date)
+                ).distinct().order_by('date_reception_donnee')
+            return queryset_list
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })

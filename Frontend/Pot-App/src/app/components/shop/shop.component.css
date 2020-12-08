@@ -1,7 +1,6 @@
 .example-card {
-  width: 450px;
+  width: 400px;
   margin-top: 50px;
-  margin-left: 25px;
   background-color: rgba(217, 248, 214, 0.1);
 }
 .example-card:hover .mycard_content {
@@ -25,6 +24,9 @@ img {
 
 .titles {
   text-align: center;
+}
+.cart-button{
+  margin-top: 10px;
 }
 @media (max-width: 800px) {
   mat-card {

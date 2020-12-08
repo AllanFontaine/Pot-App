@@ -8,7 +8,21 @@
               <span class="navbar-toggler-icon icon-bar"></span>
               <span class="navbar-toggler-icon icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">{{getTitle()}}</a>
+            <p class="navbar-brand pt-2">{{getTitle()}}</p>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item p-2" *ngIf="!authService.LoggedIn()">
+                    <a mat-button class="nav-link btn" routerLink (click)="openDialogForm()">
+                        Se connecter
+                    </a>
+                </li>
+                <li class="nav-item p-2 lowercase" *ngIf="!authService.LoggedIn()">
+                    <a mat-flat-button class="nav-link btn" routerLink="/sign-up">
+                        S'<span class="text-lowercase">enregistrer</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

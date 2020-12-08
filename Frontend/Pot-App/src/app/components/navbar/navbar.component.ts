@@ -3,6 +3,8 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import {AuthService} from '../../service/auth.service';
+import { LoginViewComponent } from '../login-view/login-view.component'
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-navbar',
@@ -21,6 +23,7 @@ export class NavbarComponent implements OnInit {
               private element: ElementRef,
               private router: Router,
               public authService: AuthService,
+              public dialog: MatDialog
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -37,6 +40,12 @@ export class NavbarComponent implements OnInit {
         $layer.remove();
         this.mobile_menu_visible = 0;
       }
+    });
+  }
+
+  openDialogForm(): void {
+    let dialogRef = this.dialog.open(LoginViewComponent, {
+      width: '450px',
     });
   }
 
