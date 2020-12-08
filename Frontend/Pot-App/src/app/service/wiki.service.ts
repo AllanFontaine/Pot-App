@@ -3,9 +3,9 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 @Injectable()
-export class WikiService{
+export class WikiService {
     plants: [];
-    selectedPlant; 
+    selectedPlant;
     selectedPlantWikipedia;
     offset = 0;
     limit = 10;
@@ -35,5 +35,6 @@ export class WikiService{
 
     get_plant_offset_limit(offset: number, limit: number, order: string, tri: string):Observable<any> {
         return this.http.get(this.urlApi + "plante/?limit=" + limit + "&offset=" + offset + "&order=" + order + "&tri=" + tri);
+
     }
 }

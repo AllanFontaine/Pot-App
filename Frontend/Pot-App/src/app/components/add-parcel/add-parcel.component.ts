@@ -56,7 +56,6 @@ export class AddParcelComponent implements OnInit {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.listPlantName.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 

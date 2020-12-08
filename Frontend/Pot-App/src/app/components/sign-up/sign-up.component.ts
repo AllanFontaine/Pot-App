@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit {
     )
   }
 */
-  registerUser(form: NgForm) {
+  registerUser() {
     let nomUser = this.formGroup.value['formArray'][1].userCtrl;
     let mail = this.formGroup.value['formArray'][1].mailCtrl;
     let pass = this.formGroup.value['formArray'][1].passCtrl;

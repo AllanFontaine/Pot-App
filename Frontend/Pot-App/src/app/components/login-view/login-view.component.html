@@ -9,8 +9,11 @@
       <mat-label>Username</mat-label>
       <input matInput type="text" id="loginUsername" name="username" [errorStateMatcher]="matcher"
         placeholder="Enter username" [(ngModel)]="username" required>
-      <mat-error>
+      <mat-error *ngIf = "missingData">
         Le pseudonyme est requis
+      </mat-error>
+      <mat-error *ngIf = "incorectData">
+        Vérifier votre pseudonyme
       </mat-error>
     </mat-form-field>
   </div>
@@ -18,8 +21,11 @@
     <mat-form-field>
       <input matInput type="password" id="loginPassword" name="password" placeholder="Password" [errorStateMatcher]="matcher"
       [(ngModel)]="password" required>
-      <mat-error >
-        {{formGroup.get('password').value}}
+      <mat-error *ngIf = "missingData">
+        Le mot de passe est requis
+      </mat-error>
+      <mat-error *ngIf = "incorectData">
+        Vérifier votre mot de passe
       </mat-error>
     </mat-form-field>
   </div>
