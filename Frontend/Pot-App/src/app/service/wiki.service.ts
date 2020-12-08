@@ -12,7 +12,7 @@ export class WikiService {
     filter = "";
     length;
     pageIndex = 0;
-    urlApi = 'http://51.68.225.45:81/api/'
+    urlApi = 'https://api.pot-app.be/api/'
     constructor(private http : HttpClient) {
 
     }

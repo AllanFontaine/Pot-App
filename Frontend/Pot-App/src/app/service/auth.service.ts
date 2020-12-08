@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
 
-  private url = 'http://51.68.225.45:81/api/';
+  private url = 'https://api.pot-app.be/api';
 
   helper = new JwtHelperService();
 
@@ -15,11 +15,11 @@ export class AuthService {
 
   login(data): Observable<any> {
     console.log(data);
-    return this.http.post(this.url + 'token', data)
+    return this.http.post(this.url + '/token', data)
   }
 
   registerUser(user): Observable<any> {
-    return this.http.post(this.url + 'register', user)
+    return this.http.post(this.url + '/register', user)
   }
 
   postProfil(user): Observable<any> {
@@ -45,10 +45,10 @@ export class AuthService {
   }
 
   get_User(user_id): Observable<any> {
-    return this.http.get(this.url + 'users/' + user_id + '/')
+    return this.http.get(this.url + '/users/' + user_id + '/')
   }
 
   get_Profile(user_id): Observable<any> {
-    return this.http.get(this.url + 'profile/' + user_id + '/')
+    return this.http.get(this.url + '/profile/' + user_id + '/')
   }
 }
