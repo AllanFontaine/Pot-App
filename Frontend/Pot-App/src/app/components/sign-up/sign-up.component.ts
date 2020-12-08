@@ -77,10 +77,6 @@ export class SignUpComponent implements OnInit {
           prof.user = res.id;
           console.log(prof);
           localStorage.setItem('token', res.token.access)
-          const decodedToken = this.helper.decodeToken(res.token.access);
-          console.log(decodedToken);
-          localStorage.setItem('user_id', decodedToken.user_id)
-          localStorage.setItem('exp', decodedToken.exp)
           this.authService.postProfil(prof).subscribe(res => {
             this.router.navigate(['/dashboard'])
             alert("Merci beaucoup pour votre inscription! Vous pouvez maintenant vous connecter et commencer votre chemin vers un potager optimisé et sain!")

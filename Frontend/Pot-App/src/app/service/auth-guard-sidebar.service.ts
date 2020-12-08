@@ -13,7 +13,6 @@ export class AuthGuardSidebar implements CanActivate {
     if (this.authService.LoggedIn()) {
       return true;
     } else {
-      this.router.navigate(['/get-logged-in'])
       return false;
     }
 

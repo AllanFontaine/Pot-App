@@ -12,7 +12,6 @@ import { AuthGuard } from "../../service/auth-guard.service";
 import { AboutUsComponent } from "../../components/about-us/about-us.component";
 import { ShopComponent } from "../../components/shop/shop.component";
 import { WikiViewComponent } from "../../components/wiki-view/wiki-view.component";
-import { GetLoggedInComponent } from "../../components/get-logged-in/get-logged-in.component";
 import { AuthGuardSidebar } from "../../service/auth-guard-sidebar.service";
 import { BarWaterGraphComponent } from "../../components/bar-water-graph/bar-water-graph.component"
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
@@ -20,19 +19,18 @@ import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/s
 
 
 export const AdminLayoutRoutes: Routes = [
-    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'dashboard/:user_id', component: SingleParcelComponent, canActivate: [AuthGuardSidebar] },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardSidebar] },
     { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardSidebar] },
     { path: 'wiki', component: WikiViewComponent },
     { path: 'shop', component: ShopComponent },
     { path: 'about-us', component: AboutUsComponent },
-    { path: 'get-logged-in', component: GetLoggedInComponent },
     { path: 'add-parcel', component: AddParcelComponent, canActivate: [AuthGuardSidebar] },
     { path: 'historique', component: HistoriqueParcelComponent, canActivate: [AuthGuardSidebar] },
     { path: 'login', component: LoginViewComponent },
     { path: 'register', component: SignUpComponent },
     { path: 'home', component: HomeViewComponent },
     { path: 'graphtest', component: BarWaterGraphComponent },
-    { path: 'wiki/:plant_id/:nom_wiki', component: SinglePlantDetailComponent},
+    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: 'wiki/:plant_id/:nom_wiki', component: SinglePlantDetailComponent },
 ];

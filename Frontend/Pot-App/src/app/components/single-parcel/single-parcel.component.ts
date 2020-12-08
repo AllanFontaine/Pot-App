@@ -80,10 +80,16 @@ export class SingleParcelComponent implements OnInit {
           denyButtonText: `Supprimer`,
         }).then((result) => {
           if (result.isDenied) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Parcelle supprimée et supprimée de l\'historique (A IMPLEMENTER QUE CA SUPPRIME VRAIMENT)',
-            });
+            console.log(this.id_parcel)
+            this.garden.erase_parcel(this.id_parcel).subscribe(
+              result => {
+                this.router.navigate(['/dashboard'])
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Parcelle supprimée définitivement',
+                });
+              }, err => console.log(err)
+            )
           }
         })
       }

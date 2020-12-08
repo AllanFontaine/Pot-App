@@ -18,7 +18,7 @@ export class AddParcelComponent implements OnInit {
   plantConseil: string;
   numparcel = 0;
   last_plant_nom; request_conseil; composant_consomme; horl;
-  date_plantation: Date;
+  date_plantation;
   diasbled_tooltip: boolean = true;
   formGroup: FormGroup;
   listPlant = [];
@@ -87,7 +87,6 @@ export class AddParcelComponent implements OnInit {
     form.value['planteId'] = this.chosenPlant;
     form.value['date_plantation'] = this.chosenPlant;
     form.value['numero_parcelle'] = this.numparcel;
-    form.value['userId'] = parseInt(localStorage.getItem('user_id'));
     form.value['estUtilise'] = true;
     this.date_plantation.setDate(this.date_plantation.getDate() + 1)
     form.value['date_plantation'] = this.date_plantation.toISOString().split('T')[0];
@@ -109,16 +108,15 @@ export class AddParcelComponent implements OnInit {
   changement_input_date(event) {
     if (event instanceof Date) {
       this.diasbled_tooltip = false
-      this.date_plantation = event
+      this.date_plantation = event.toISOString().split("T")[0]
       var a, comp, last_plant;
-      var month = event.getMonth()
-      var day = event.getDay()
+      var month = this.date_plantation.split("-")[1]
+      var day = parseInt(this.date_plantation.split("-")[2]) + 1
       this.garden.get_last_parcel(this.data.num, event.toISOString().split('T')[0]).subscribe(
         result => {
+          console.log(result)
           this.request_conseil = '';
           this.last_plant_nom = '';
-          console.log(result[0])
-          console.log(!result[0])
           if (!!result[0]) {
             last_plant = result["0"].planteId;
             if (last_plant.azote_sol < 180 && last_plant.potassium_sol < 180 && last_plant.phosphore_sol < 180) {
@@ -140,12 +138,32 @@ export class AddParcelComponent implements OnInit {
           console.log(this.request_conseil)
           this.garden.get_plants_conseil(month, day, this.request_conseil).subscribe(
             res => {
-              this.listPlantConseil = res;
-              if (!this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom)) {
-                console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
-                this.shuffleArray(this.listPlantConseil).splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
-              } else{
-                this.shuffleArray(this.listPlantConseil)
+              console.log(res)
+              if (res.length === 0) {
+                this.request_conseil = '';
+                this.garden.get_plants_conseil(month, day, this.request_conseil).subscribe(
+                  result3 => {
+                    console.log('am in')
+                    console.log(result3)
+                    this.listPlantConseil = result3
+                    if (this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom) != -1) {
+                      console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
+                      this.shuffleArray(this.listPlantConseil)
+                      this.listPlantConseil.splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
+                    }else{
+                      this.shuffleArray(this.listPlantConseil)
+                    }
+                  }
+                )
+              } else {
+                this.listPlantConseil = res;
+                if (this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom) != -1) {
+                  console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
+                  this.shuffleArray(this.listPlantConseil)
+                  this.listPlantConseil.splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
+                }else{
+                  this.shuffleArray(this.listPlantConseil)
+                }
               }
             }, err => {
               console.log(err)
@@ -184,14 +202,12 @@ export class AddParcelComponent implements OnInit {
       return "potassium"
   }
 
-  shuffleArray(array): [any] {
+  shuffleArray(array){
     for (var i = array.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var temp = array[i];
       array[i] = array[j];
       array[j] = temp;
     }
-    return array
-    console.log('shuffling')
   }
 }

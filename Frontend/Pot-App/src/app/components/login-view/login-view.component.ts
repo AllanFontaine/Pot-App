@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from '../../service/auth.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -23,9 +22,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginViewComponent implements OnInit {
 
-  helper = new JwtHelperService();
   formGroup: FormGroup;
-
+  password; username;
   matcher = new MyErrorStateMatcher();
 
   incorectData: boolean = false;
@@ -44,11 +42,10 @@ export class LoginViewComponent implements OnInit {
   initForm() {
     this.formGroup = new FormGroup(
       {
-        username: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
+        username: new FormControl(''),
+        password: new FormControl(''),
       }
     )
-    console.log(this.formGroup)
   }
 
 
@@ -56,19 +53,25 @@ export class LoginViewComponent implements OnInit {
     this.dialogRef.close('CANCEL');
   }
 
+  getErrorMessage() {
+    console.log(this.formGroup.value)
+    console.log(this.formGroup.value)
+    
+  }
+
   LoginProcess(form: NgForm) {
+    console.log(this.formGroup.get('password').value)
     this.missingData = false
     this.incorectData = false
-    console.log(form.value)
     this.authService.login(form.value).subscribe(
       (result) => {
         localStorage.setItem('token', result.access)
-        const decodedToken = this.helper.decodeToken(result.access);
-        console.log(decodedToken);
-        localStorage.setItem('user_id', decodedToken.user_id)
-        localStorage.setItem('exp', decodedToken.exp)
         this.dialogRef.close('SUCCESS');
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard']).then(result => {
+          if (result) {
+            location.reload();
+          }
+        });
       },
       (error) => {
         console.log(error.status)
