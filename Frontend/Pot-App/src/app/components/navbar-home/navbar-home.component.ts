@@ -17,8 +17,7 @@ import { LoginViewComponent } from '../login-view/login-view.component'
 export class NavbarHomeComponent implements OnInit {
   public isCollapsed = true;
 
-  constructor(private viewportScroller: ViewportScroller, private formBuilder: FormBuilder, public dialog: MatDialog,
-    private authService: AuthService) {
+  constructor(public viewportScroller: ViewportScroller, public formBuilder: FormBuilder, public dialog: MatDialog) {
   }
 
 
@@ -39,7 +38,17 @@ export class NavbarHomeComponent implements OnInit {
   // convenience getter for easy access to form fields
 
 
-  scrolling(elementId: string, route: string): void {
+  public scrolling(elementId: string): void {
+    /*console.log($(this));
+    var target = document.getElementById(elementId);
+    $("html, body").animate(
+      {
+        scrollTop: target.top - 70,
+      },
+      1000000,
+      "easeInOutExpo"
+    );
+    $(".navbar-collapse").collapse("hide");*/
     document.getElementById(elementId).scrollIntoView({ behavior: "smooth" })
   }
 
