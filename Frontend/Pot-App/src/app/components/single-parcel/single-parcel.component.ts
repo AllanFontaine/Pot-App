@@ -13,6 +13,7 @@ export class SingleParcelComponent implements OnInit {
   id_parcel: string;
   parcel: [];
   plante: [];
+  loading: boolean = true;
 
   constructor(
     private garden: PersonalGardenService,
@@ -30,6 +31,7 @@ export class SingleParcelComponent implements OnInit {
         this.parcel = result;
         this.plante = result.planteId;
         console.log(this.parcel);
+        this.loading = false;
       },
       (error) => console.log(error)
     );
