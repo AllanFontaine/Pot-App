@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
 
-  private url = 'http://51.68.225.45/api/';
+  private url = 'http://51.68.225.45:81/api/';
 
   helper = new JwtHelperService();
 

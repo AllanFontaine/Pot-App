@@ -5,8 +5,8 @@ import { data } from 'jquery';
 
 @Injectable()
 export class PersonalGardenService {
-  private url_plant = 'http://51.68.225.45/api';
-  private url_parcel: 'http://51.68.225.45/api/parcelle';
+  private url_plant = 'http://51.68.225.45:81/api';
+  private url_parcel: 'http://51.68.225.45:81/api/parcelle';
 
   constructor(private http: HttpClient) { }
 

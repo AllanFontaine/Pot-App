@@ -12,7 +12,7 @@ export class WikiService {
     filter = "";
     length;
     pageIndex = 0;
-    urlApi = 'http://51.68.225.45/api/'
+    urlApi = 'http://51.68.225.45:81/api/'
     constructor(private http : HttpClient) {
 
     }
