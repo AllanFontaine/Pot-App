@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
 
-  private url = 'http://127.0.0.1:8000/api/';
+  private url = 'http://51.68.225.45/api/';
 
   helper = new JwtHelperService();
 
@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   postProfil(user): Observable<any> {
-    return this.http.post("http://127.0.0.1:8000/api/profile/", user)
+    return this.http.post(this.url + "/profile/", user)
   }
 
   LoggedIn(): boolean {
