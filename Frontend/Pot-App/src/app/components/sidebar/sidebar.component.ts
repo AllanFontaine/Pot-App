@@ -26,7 +26,7 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   classes;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
