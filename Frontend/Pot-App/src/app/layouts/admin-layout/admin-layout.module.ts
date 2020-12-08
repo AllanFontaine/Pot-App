@@ -8,7 +8,7 @@ import { UserProfileComponent } from '../../components/user-profile/user-profile
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,8 +30,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import { MatExpansionModule} from '@angular/material/expansion'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion'
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
 import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
@@ -43,8 +43,9 @@ import { MatCardModule } from '@angular/material/card';
 import { CartService } from '../../service/cart.service';
 import { MatIconModule } from '@angular/material/icon';
 import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
-import {MatListModule} from '@angular/material/list';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatBadgeModule } from '@angular/material/badge'
 
 
 @NgModule({

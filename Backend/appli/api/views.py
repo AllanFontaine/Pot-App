@@ -207,8 +207,8 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     http_method_names = ['get', 'post','put']
     
     def get_queryset(self, *args, **kwargs):
-        if Profile.objects.filter(user=self.request.user):
-            queryset_list = Profile.objects.filter(user=self.request.user)
+        if Profile.objects.filter(user=self.request.user.id):
+            queryset_list = Profile.objects.filter(user=self.request.user.id)
             return queryset_list
         else:
             raise exceptions.ValidationError({

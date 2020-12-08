@@ -25,7 +25,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'wiki', component: WikiViewComponent },
     { path: 'shop', component: ShopComponent },
     { path: 'about-us', component: AboutUsComponent },
-    { path: 'get-logged-in', component: GetLoggedInComponent },
     { path: 'add-parcel', component: AddParcelComponent, canActivate: [AuthGuardSidebar] },
     { path: 'historique', component: HistoriqueParcelComponent, canActivate: [AuthGuardSidebar] },
     { path: 'login', component: LoginViewComponent },
@@ -33,5 +32,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'home', component: HomeViewComponent },
     { path: 'graphtest', component: BarWaterGraphComponent },
     { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'wiki/:plant_id/:nom_wiki', component: SinglePlantDetailComponent},
+    { path: 'wiki/:plant_id/:nom_wiki', component: SinglePlantDetailComponent },
 ];
