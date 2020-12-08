@@ -5,14 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
 import { UserProfileComponent } from '../../components/user-profile/user-profile.component';
-import { TableListComponent } from '../../components/table-list/table-list.component';
-import { TypographyComponent } from '../../components/typography/typography.component';
-import { IconsComponent } from '../../components/icons/icons.component';
-import { NotificationsComponent } from '../../components/notifications/notifications.component';
-import { UpgradeComponent } from '../../components/upgrade/upgrade.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
@@ -32,7 +28,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { MatExpansionModule} from '@angular/material/expansion'
 import { WikiSinglePlantComponent } from 'app/components/wiki-single-plant/wiki-single-plant.component';
 import { SinglePlantDetailComponent } from 'app/components/single-plant-detail/single-plant-detail.component';
 import { LineGraphComponent } from '../../components/line-graph/line-graph.component';
@@ -44,11 +43,8 @@ import { MatCardModule } from '@angular/material/card';
 import { CartService } from '../../service/cart.service';
 import { MatIconModule } from '@angular/material/icon';
 import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-cart.component';
-import { MatListModule } from '@angular/material/list';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 @NgModule({
@@ -64,6 +60,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatTooltipModule,
     MatRadioModule,
+    MatPaginatorModule,
+    MatExpansionModule,
+    MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatGridListModule,
@@ -73,22 +72,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatAutocompleteModule,
     MatSortModule,
     MatCardModule,
-    MatIconModule,
-    MatListModule,
-    MatStepperModule,
-    MatProgressSpinnerModule
+   MatIconModule,
+   MatListModule,
+   MatStepperModule
+
   ],
 
   declarations: [
     DashboardComponent,
     UserProfileComponent,
-    TableListComponent,
     WikiViewComponent,
     ResetPasswordComponent,
-    TypographyComponent,
-    IconsComponent,
-    NotificationsComponent,
-    UpgradeComponent,
     HistoriqueParcelComponent,
     SingleParcelComponent,
     AddParcelComponent,
