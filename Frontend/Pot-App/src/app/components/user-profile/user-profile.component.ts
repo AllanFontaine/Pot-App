@@ -12,11 +12,8 @@ export class UserProfileComponent implements OnInit {
   my_user;
   my_profile;
   modifyTrue = true;
-<<<<<<< HEAD
-=======
   isLoading = true;
 
->>>>>>> 34130a79a59e5186b359392ac2d1758df2b9f946
   constructor(private userService: AuthService) { }
 
   ngOnInit() {
