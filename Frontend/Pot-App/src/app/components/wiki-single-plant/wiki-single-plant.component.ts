@@ -9,20 +9,16 @@ import { WikiService } from 'app/service/wiki.service';
 })
 export class WikiSinglePlantComponent implements OnInit {
 
-  @Input() id: number;
-  @Input() nom: string;
-  @Input() nom_scientifique: string;
-  @Input() besoin_hydrolique: number;
-  @Input() date_semis_debut: Date;
-  @Input() date_semis_fin: Date;
-  @Input() densite_semi: number;
-  @Input() recolte_en_jours: number;
-  @Input() description: string;
-  @Input() url_wiki: string;
-  @Input() image: string;
-  @Input() saison_fin: string;
-  @Input() saison_debut: string;
+  @Input() id : number;
+  @Input() nom : string;
+  @Input() nom_scientifique : string;
+  @Input() recolte_en_jours : number;
+  @Input() url_wiki : string;
+  @Input() image : string;
+  @Input() saison_fin : string;
+  @Input() saison_debut : string;
 
+ 
 
   constructor(
     private wikiService: WikiService,
@@ -32,11 +28,11 @@ export class WikiSinglePlantComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  show_plant(): void {
+  show_plant() : void {
     this.wikiService.get_plant(this.id).subscribe(
-      result => console.log(result),
+      result => console.log(result), 
       error => console.log(error),
     );
-    this.router.navigate(['/wiki/' + this.id]);
+    this.router.navigate(['/wiki/' + this.id +'/' + this.url_wiki ]);
   }
 }

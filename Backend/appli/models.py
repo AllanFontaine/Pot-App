@@ -9,6 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nombre_parcelle = models.IntegerField(default = 0)
     localisation = models.CharField(max_length = 100, default = '')
+    code = models.CharField(max_length=500, default='code')
 
 class Plantes(models.Model):
     nom = models.CharField(max_length=100)
@@ -54,6 +55,7 @@ class DonneesParcelle(models.Model):
     date_reception_donnee = models.DateTimeField(default = timezone.now)
     humidite_sol = models.IntegerField()
     quantite_eau_litre = models.DecimalField(max_digits = 10, decimal_places = 2)
+    code = models.CharField(max_length=500, default='code')
 
 
     def get_api_url(self, request=None):
@@ -64,6 +66,7 @@ class DonneesUser(models.Model):
     date_reception_donnee = models.DateTimeField(default = timezone.now)
     temperature_exterieur = models.DecimalField(max_digits = 10, decimal_places = 2)
     humidite_exterieur = models.DecimalField(max_digits = 10, decimal_places = 2)
+    code = models.CharField(max_length=500, default='code')
 
     def __str__(self):
         return "données du user nommé "+ self.userId.username

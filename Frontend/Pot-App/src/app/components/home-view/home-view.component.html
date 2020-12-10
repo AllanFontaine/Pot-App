@@ -10,7 +10,7 @@
         <div class="mx-auto text-center">
             <h1 class="mx-auto my-0 text-uppercase">Pot'App</h1>
             <h2 class="text-white-50 mx-auto mt-2 mb-5">L'avenir du jardinage</h2>
-            <a class="btn btn-primary js-scroll-trigger" routerLink (click)="onClick('about')">Get Started</a>
+            <a class="btn btn-primary js-scroll-trigger" routerLink (click)="navi()">Get Started</a>
         </div>
     </div>
 </header>
@@ -99,10 +99,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-lg-8 mx-auto text-center">
-                <<i class="far fa-paper-plane fa-2x mb-2 text-white"></i>>
+                <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
                 <h2 class="text-white mb-5">Alors, n'attendez plus et rejoignez nous!</h2>
                 <form class="form-inline d-flex">
-                    <button class="btn btn-primary mx-auto" type="submit">Commencer!</button>
+                    <button class="btn btn-primary mx-auto" (click)="navi()">Commencer!</button>
                 </form>
             </div>
         </div>

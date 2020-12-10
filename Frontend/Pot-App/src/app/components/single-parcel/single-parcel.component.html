@@ -4,7 +4,7 @@
     </div>
     <div class="text-dark">
       <img class="card-img-top" src="{{plante.image}}" alt="Card image cap" style="width:50%;height:50%">
-        <div class="card-title">Plante assignée: {{plante.nom}}</div>
+        <div class="card-title">Plante assignée: </div>
         <div class="card-body">
           {{plante.description}}
         </div>
@@ -34,12 +34,11 @@
       </mat-card>
     </div>
     Countdown:
-</div>--> -->
+</div>-->
 
-
-
-
-<mat-progress-spinner *ngIf="loading; else content"></mat-progress-spinner>
+<div *ngIf="loading; else content">
+  <mat-progress-spinner></mat-progress-spinner>
+</div>
 <ng-template #content id="body-single">
   <div class="card container graphique pb-3">
     <div class="card-header">
@@ -48,7 +47,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-4">
-          <img src="{{plante.image}}" alt="{{plante['nom']}}">
+          <img src="{{plante['image']}}" alt="{{plante['nom']}}">
         </div>
         <div class="col-md-6">
           <table class="table table-stripped">
@@ -140,5 +139,3 @@
       </div>
     </div>
   </div>
-
-

@@ -7,28 +7,32 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
 
+  private url = 'https://api.pot-app.be/api';
+
   helper = new JwtHelperService();
-
-  private token;
-
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(data): Observable<any> {
     console.log(data);
-    return this.http.post('https://api.pot-app.be/api/token', data)
+    return this.http.post(this.url + '/token', data)
   }
 
   registerUser(user): Observable<any> {
-    return this.http.post('https://api.pot-app.be/api/register', user)
+    return this.http.post(this.url + '/register', user)
   }
 
   postProfil(user): Observable<any> {
-    return this.http.post("https://api.pot-app.be/api/profile/", user)
+    return this.http.post(this.url + "/profile/", user)
   }
 
   LoggedIn(): boolean {
-    return !!localStorage.getItem('token')
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token')
+      return !this.helper.isTokenExpired(token)
+    } else {
+      return false
+    }
   }
 
   getToken() {
@@ -37,21 +41,19 @@ export class AuthService {
 
   logoutUser() {
     localStorage.removeItem('token')
-    localStorage.removeItem('exp')
-    localStorage.removeItem('user_id')
     this.router.navigate(['/home'])
   }
 
   get_User(): Observable<any> {
-    return this.http.get('https://api.pot-app.be/api/users/')
+    return this.http.get(this.url + '/api/users/')
   }
 
   get_Profile(): Observable<any> {
-    return this.http.get('https://api.pot-app.be/api/profile/')
+    return this.http.get(this.url + '/api/profile/')
   }
 
   modify_User(user_id, data): Observable<any>{
     this.token = this.helper.decodeToken(user_id);
-    return this.http.put('https://api.pot-app.be/api/users/'+ this.token.id +'/', data);
+    return this.http.put(this.url + '/api/users/'+ this.token.id +'/', data);
   }
 }

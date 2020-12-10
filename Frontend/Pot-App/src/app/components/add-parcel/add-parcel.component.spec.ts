@@ -35,4 +35,5 @@ describe('AddParcelComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

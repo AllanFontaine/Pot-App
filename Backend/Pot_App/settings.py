@@ -12,16 +12,20 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import datetime
-"""import environ
+
+import environ
 
 env = environ.Env(
-    NAME=(str, "DB_NAME"),
-    USER=(str, "DB_USER"),
-    PASSWORD=(str, "DB_PASSWORD"),
-    HOST=(str, "DB_HOST"),
+    SECRET_KEY=(str, ""),
+    DEBUG=(bool,False),
+    DB_NAME= (str, ""),
+    DB_HOST= (str, "127.0.0.1"),
+    DB_PORT=(int, 3306),
+    DB_USER=(str, ""),
+    DB_PASSWORD=(str, '')
 )
 
-environ.Env.read_env()"""
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,12 +35,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '02f1)2jll&gry1$4vd=-1&f+khsm9er9hy$cpjpslchxa@4ztn'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['51.68.225.45']
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
@@ -55,7 +59,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'drf_yasg',
-    'django_rest_passwordreset'
+    'django_rest_passwordreset',
 
 
 ]
@@ -99,11 +103,11 @@ WSGI_APPLICATION = 'Pot_App.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'potappdb',
-        'HOST': 'localhost',
-        'PORT': '',
-        'USER': 'potapp',
-        'PASSWORD': 'password',
+        'NAME': env('DB_NAME'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
     }
 }
 
@@ -147,6 +151,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Img')
 

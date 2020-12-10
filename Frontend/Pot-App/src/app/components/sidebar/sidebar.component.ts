@@ -26,12 +26,17 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   classes;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.textMuted();
+    if (this.authService.LoggedIn()){
+      $('.dash').tooltip('disable')
+    }
+    $('[data-toggle="tooltip"]').tooltip()
   }
+
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;
