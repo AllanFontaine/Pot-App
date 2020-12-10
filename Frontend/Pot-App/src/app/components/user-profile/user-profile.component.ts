@@ -23,7 +23,7 @@ export class UserProfileComponent implements OnInit {
         this.my_user = res
         this.userService.get_Profile().subscribe(
           res => {
-            this.my_profile = res
+            this.my_profile = res[0]
             this.isLoading = false;
           },
           err => console.log(err)

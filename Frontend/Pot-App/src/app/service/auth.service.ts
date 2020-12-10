@@ -9,6 +9,8 @@ export class AuthService {
 
   private url = 'https://api.pot-app.be/api';
 
+  private token;
+
   helper = new JwtHelperService();
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -45,15 +47,15 @@ export class AuthService {
   }
 
   get_User(): Observable<any> {
-    return this.http.get(this.url + '/api/users/')
+    return this.http.get(this.url + '/users/')
   }
 
   get_Profile(): Observable<any> {
-    return this.http.get(this.url + '/api/profile/')
+    return this.http.get(this.url + '/profile/')
   }
 
-  modify_User(user_id, data): Observable<any>{
-    this.token = this.helper.decodeToken(user_id);
-    return this.http.put(this.url + '/api/users/'+ this.token.id +'/', data);
+  modify_User(user_token, data): Observable<any>{
+    this.token = this.helper.decodeToken(user_token);
+    return this.http.put(this.url + '/users/'+ this.token.user_id +'/', data);
   }
 }
