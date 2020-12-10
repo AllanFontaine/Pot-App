@@ -1,3 +1,34 @@
-.main-content{
-    margin: 0px;
+.main-content {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%;
+}
+
+.container-fluid {
+    display: inline;
+}
+
+h4 {
+    text-align: center;
+}
+
+.background .myimg{
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    margin: auto; 
+    min-width: 50%;
+    min-height: 50%;
+    opacity: 0.2;
+}
+
+.background{
+    position: fixed; 
+    top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
 }

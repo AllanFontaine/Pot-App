@@ -44,11 +44,16 @@ export class AuthService {
     this.router.navigate(['/home'])
   }
 
-  get_User(user_id): Observable<any> {
-    return this.http.get(this.url + '/users/' + user_id + '/')
+  get_User(): Observable<any> {
+    return this.http.get(this.url + '/api/users/')
   }
 
-  get_Profile(user_id): Observable<any> {
-    return this.http.get(this.url + '/profile/' + user_id + '/')
+  get_Profile(): Observable<any> {
+    return this.http.get(this.url + '/api/profile/')
+  }
+
+  modify_User(user_id, data): Observable<any>{
+    this.token = this.helper.decodeToken(user_id);
+    return this.http.put(this.url + '/api/users/'+ this.token.id +'/', data);
   }
 }
