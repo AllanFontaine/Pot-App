@@ -2,23 +2,29 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { Router } from "@angular/router";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
+
+  helper = new JwtHelperService();
+
+  private token;
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(data): Observable<any> {
     console.log(data);
-    return this.http.post('http://127.0.0.1:8000/api/token', data)
+    return this.http.post('https://api.pot-app.be/api/token', data)
   }
 
   registerUser(user): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/api/register', user)
+    return this.http.post('https://api.pot-app.be/api/register', user)
   }
 
   postProfil(user): Observable<any> {
-    return this.http.post("http://127.0.0.1:8000/api/profile/", user)
+    return this.http.post("https://api.pot-app.be/api/profile/", user)
   }
 
   LoggedIn(): boolean {
@@ -36,15 +42,16 @@ export class AuthService {
     this.router.navigate(['/home'])
   }
 
-  get_User(user_id): Observable<any> {
-    return this.http.get('http://127.0.0.1:8000/api/users/' + user_id + '/')
+  get_User(): Observable<any> {
+    return this.http.get('https://api.pot-app.be/api/users/')
   }
 
-  get_Profile(user_id): Observable<any> {
-    return this.http.get('http://127.0.0.1:8000/api/profile/' + user_id + '/')
+  get_Profile(): Observable<any> {
+    return this.http.get('https://api.pot-app.be/api/profile/')
   }
 
   modify_User(user_id, data): Observable<any>{
-    return this.http.put('http://127.0.0.1:8000/api/users/'+ user_id +'/', data)
+    this.token = this.helper.decodeToken(user_id);
+    return this.http.put('https://api.pot-app.be/api/users/'+ this.token.id +'/', data);
   }
 }

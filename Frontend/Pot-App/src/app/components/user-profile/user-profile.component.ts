@@ -18,10 +18,10 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.userService.get_User(localStorage.getItem('user_id')).subscribe(
+    this.userService.get_User().subscribe(
       res => {
         this.my_user = res
-        this.userService.get_Profile(localStorage.getItem('user_id')).subscribe(
+        this.userService.get_Profile().subscribe(
           res => {
             this.my_profile = res
             this.isLoading = false;
@@ -55,7 +55,7 @@ export class UserProfileComponent implements OnInit {
     form.value.first_name === "" ?  form.value.first_name=this.my_user.first_name : "";
     form.value.last_name === "" ?  form.value.last_name=this.my_user.last_name : "";
     console.log(form.value);
-    this.userService.modify_User(this.my_user.id,form.value).subscribe(
+    this.userService.modify_User(localStorage.getItem("token"),form.value).subscribe(
       res => {
         console.log(res);
         this.ngOnInit();
