@@ -5,8 +5,8 @@ import { data } from 'jquery';
 
 @Injectable()
 export class PersonalGardenService {
-  private url_plant = 'https://api.pot-app.be/api';
-  private url_parcel: 'https://api.pot-app.be/api/parcelle';
+  private url_plant = 'http://127.0.0.1:8000/api';
+  private url_parcel: 'http://127.0.0.1:8000/api/parcelle';
 
   constructor(private http: HttpClient) { }
 
@@ -17,10 +17,10 @@ export class PersonalGardenService {
   }
 
   get_plants_conseil(month, day, donnee): Observable<any> {
-    if(donnee == '')
-      return this.http.get(this.url_plant + '/plante/?month='+month+'&day='+day);
+    if (donnee == '')
+      return this.http.get(this.url_plant + '/plante/?month=' + month + '&day=' + day);
     else
-      return this.http.get(this.url_plant + '/plante/?month='+month+'&day='+day+'&comp='+donnee);
+      return this.http.get(this.url_plant + '/plante/?month=' + month + '&day=' + day + '&comp=' + donnee);
   }
 
   get_wiki(): Observable<any> {
@@ -40,7 +40,7 @@ export class PersonalGardenService {
   }
   get_my_parcels_ordered(orderBy, orderWay): Observable<any> {
     return this.http.get(
-      this.url_plant + '/parcelle-plantes/?'+ orderBy + "=" + orderWay
+      this.url_plant + '/parcelle-plantes/?' + orderBy + "=" + orderWay
     );
   }
 
@@ -70,7 +70,7 @@ export class PersonalGardenService {
 
   modify_profile(data): Observable<any> {
     return this.http.put(
-      this.url_plant + '/profile/' , data
+      this.url_plant + '/profile/', data
     )
   }
   add_parcel(parcel): Observable<any> {
@@ -83,8 +83,8 @@ export class PersonalGardenService {
   get_user_data(date): Observable<any> {
     return this.http.get(this.url_plant + '/donnees-user/?date=' + date);
   }
-  get_last_parcel(parcel, date){
-    return this.http.get(this.url_plant + '/parcelle-plantes/?numparcel='+parcel+'&date='+date)
+  get_last_parcel(parcel, date) {
+    return this.http.get(this.url_plant + '/parcelle-plantes/?numparcel=' + parcel + '&date=' + date)
   }
 }
 
