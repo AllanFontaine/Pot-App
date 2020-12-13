@@ -20,11 +20,13 @@ export class UserProfileComponent implements OnInit {
     this.initForm();
     this.userService.get_User().subscribe(
       res => {
-        this.my_user = res
+        this.my_user = res[0]
         this.userService.get_Profile().subscribe(
           res => {
             this.my_profile = res[0]
             this.isLoading = false;
+            console.log(this.my_profile)
+            console.log(this.my_user)
           },
           err => console.log(err)
         )
