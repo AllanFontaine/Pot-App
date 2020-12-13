@@ -180,8 +180,8 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     http_method_names = ['get', 'put']
 
     def get_queryset(self, *args, **kwargs):
-        if User.objects.filter(user=self.request.user):
-            queryset_list = User.objects.filter(user=self.request.user)
+        if User.objects.filter(id=self.request.user.id):
+            queryset_list = User.objects.filter(id=self.request.user.id)
             return queryset_list
         else:
             raise exceptions.ValidationError({
