@@ -9,25 +9,24 @@ Adaptation Courtesy: hobbytronics.co.uk
 #define I2C_ADDRESS_OTHER 0x1
 #define I2C_ADDRESS_ME 0x2
 
-#define VALVEPIN1 4
-#define VALVEPIN2 3
-#define VALVEPIN3 0
-#define VALVEPIN4 5
-#define VALVEPIN5 6
-#define VALVEPIN6 7
+#define VALVEPIN1 3  //4 ok
+#define VALVEPIN2 4
+#define VALVEPIN3 5
+#define VALVEPIN4 6
+#define VALVEPIN5 7
+#define VALVEPIN6 8
 
 #define NOT_AN_INTERRUPT -1
 
 
-volatile int flow_frequency= 1; // Measures flow sensor pulses
+volatile int flow_frequency; // Measures flow sensor pulses
 // Calculated litres/hour
 float vol = 0.0,l_minute;
-unsigned long currentTime;
-unsigned long cloopTime;
+unsigned char flowsensor = 2; // Sensor Input
 int numValve;
 float amountWater;
 String amountWaterStr = "";
-unsigned char flowsensor = 12; // Sensor Input
+
 
 
 void setup() {
@@ -35,17 +34,66 @@ void setup() {
    pinMode(VALVEPIN1, OUTPUT);
    pinMode(flowsensor, INPUT);
    digitalWrite(flowsensor, HIGH); // Optional Internal Pull-Up
-   Wire.begin(I2C_ADDRESS_ME);                // join i2c bus with address #4
+   Wire.begin(I2C_ADDRESS_ME);     // join i2c bus with address #4
    Wire.onReceive(receiveEvent); // register event
    attachInterrupt(digitalPinToInterrupt(flowsensor), flow, RISING); // Setup Interrupt
-   Serial.println("Water Flow Meter");
-   Serial.println("Circuit Digest");
 }
 
 void loop () {
-delay(1000);
-digitalWrite(VALVEPIN1, LOW);
+  if(amountWater != 0) {
+    switch (numValve) {
+    case 1:
+      Serial.println("Debut de l'arrosage");
+      digitalWrite(VALVEPIN1, HIGH);
+      waterPlantAmout();
+      Serial.println("fin de l'arrosage");
+      digitalWrite(VALVEPIN1, LOW);
+      sendToMaster(9);
+    break;
+    case 2:
+      Serial.println("Debut de l'arrosage");
+      digitalWrite(VALVEPIN2, HIGH);
+      waterPlantAmout();
+      Serial.println("fin de l'arrosage");
+      digitalWrite(VALVEPIN2, LOW);
+      sendToMaster(9);
+    break;
+    case 3:
+      Serial.println("Debut de l'arrosage");
+      digitalWrite(VALVEPIN3, HIGH);
+      waterPlantAmout();
+      Serial.println("fin de l'arrosage");
+      digitalWrite(VALVEPIN3, LOW);
+      sendToMaster(9);
+    break;
+    case 4:
+      Serial.println("Debut de l'arrosage");
+      digitalWrite(VALVEPIN4, HIGH);
+      waterPlantAmout();
+      Serial.println("fin de l'arrosage");
+      digitalWrite(VALVEPIN4, LOW);
+      sendToMaster(9);
+    break;
+    case 5:
+      Serial.println("Debut de l'arrosage");
+      digitalWrite(VALVEPIN5, HIGH);
+      waterPlantAmout();
+      Serial.println("fin de l'arrosage");
+      digitalWrite(VALVEPIN5, LOW);
+      sendToMaster(9);
+    break;
+    case 6:
+      Serial.println("Debut de l'arrosage");
+      digitalWrite(VALVEPIN6, HIGH);
+      waterPlantAmout();
+      Serial.println("fin de l'arrosage");
+      digitalWrite(VALVEPIN6, LOW);
+      sendToMaster(9);
+    break;
+    } 
+  }
 }
+
 
 void receiveEvent() {
   while(1 < Wire.available()) { // loop through all but the last
@@ -57,36 +105,12 @@ void receiveEvent() {
   numValve = Wire.read(); // receive byte as a character
   amountWater = amountWaterStr.toFloat();
   Serial.println(numValve);
-  Serial.println(amountWater);
-  delay(5000);
-  
-
-  switch (numValve) {
-  case 1:
-    Serial.println("Debut de l'arrosage");
-    digitalWrite(VALVEPIN1, HIGH);
-    waterPlantAmout();
-    vol = 0;
-    Serial.println("fin de l'arrosage");
-    digitalWrite(VALVEPIN1, LOW);
-    delay(1000);
-    //sendToMaster(9);
-  break;
-  case 2:
-  break;
-  case 3:
-  break;
-  case 4:
-  break;
-  case 6:
-    
-  break;
-  } //sendToMaster();
+  Serial.println(amountWater); 
 }
 
-void waterPlantAmout(){
+void waterPlantAmout(){      
+  flow_frequency = 0;
   while(vol < amountWater){
-    if(flow_frequency != 0){
     // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
     l_minute = (flow_frequency / 7.5); // (Pulse frequency x 60 min) / 7.5Q = flowrate in L/hour
     l_minute = l_minute/60;
@@ -94,19 +118,19 @@ void waterPlantAmout(){
     Serial.print("Vol:");
     Serial.print(vol);
     Serial.print(" L ");
-    flow_frequency = 1; // Reset Counter
+    flow_frequency = 0; // Reset Counter
     Serial.print(l_minute, DEC); // Print litres/hour
     Serial.println(" L/Sec ");
-    delay(1000);
-    }
   }
+  vol = 0;
+  amountWater = 0;
 }
 
 void sendToMaster(byte answer){
- Wire.beginTransmission(I2C_ADDRESS_OTHER);
+  Wire.beginTransmission(I2C_ADDRESS_OTHER);
   Wire.write(answer); 
   Serial.println(answer);
- Wire.endTransmission();
+  Wire.endTransmission();
 }
 
 void flow () { // Interrupt function 
