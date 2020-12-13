@@ -1,5 +1,5 @@
-<div class="align-content-center" *ngIf="!this.isLoaded; else Loaded">
-  <mat-spinner></mat-spinner>
+<div class="loading-indicator" *ngIf="!this.isLoaded; else Loaded">
+  <mat-spinner mode="indeterminate" ></mat-spinner>
 </div>
 <ng-template #Loaded>
   <div class="main-content " [ngStyle]="{backgroundImage:'url(../../../assets/img/soil.jpg)'}">
@@ -10,20 +10,14 @@
             <div class="card card-block d-flex bg-light text-dark card-image mx-auto">
               <div class="my-auto">
                 <div class="card-header">
-                  <h1>Cet onglet n'est pas encore disponible pour vous</h1>
+                  <h1>Vous n'avez pas encore d'arroseur automatique Pot'App</h1>
                 </div>
                 <div class="card-body">
-                  <p class="align-middle">Pour pouvoir profiter de cette fonctionnalité, il faut <a>se connecter</a> ou
-                    alors <a routerLink="/sign-up">créer un compte</a>
-                    personnelle</p>
-                  <p>Cela ne prendra que quelques secondes et les utilisateurs ont droit à un suivi plus personnel et
-                    blablabla
-                    allan u do this</p>
+                  <p class="align-middle">Pour pouvoir profiter de cette fonctionnalité, vous devez acheter un arroseur sur <span class = "navig-shop" (click) = "navigShop()">cette page</span> tout en étant connecté à votre compte</p>
+                  <p>Revenez donc une fois que vous avez acheté votre arroseur pour voir vos parcelles et les gérer à partir de cette page!</p>
                   <br>
                   <br>
-                  <p class="text-muted"><small>*L'achat de notre produit est nécessaire afin de pouvoir suivre
-                      l'évolution de
-                      votre potager A COMPLETER</small></p>
+                  <p class="text-muted"><small>*L'accès aux restes de fonctionnalités de notre site web restent inchangé</small></p>
                 </div>
               </div>
             </div>

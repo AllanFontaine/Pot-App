@@ -1,4 +1,5 @@
-<mat-progress-spinner *ngIf="loading; else content"></mat-progress-spinner>
+<div *ngIf="loading; else content">
+</div>
 <ng-template #content>
     <div class="container">
         <div *ngIf="plant && plantWikipedia" class="card container" >

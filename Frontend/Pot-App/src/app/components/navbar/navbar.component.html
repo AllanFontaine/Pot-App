@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav">
                 <li class="nav-item p-2" *ngIf="!authService.LoggedIn()">
-                    <a mat-button class="nav-link btn" routerLink (click)="openDialogForm()">
+                    <a mat-button class="nav-link btn" (click)="openDialogForm()">
                         Se connecter
                     </a>
                 </li>

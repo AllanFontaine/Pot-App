@@ -136,25 +136,6 @@
              "model": "appli.plantes", 
              "pk": 8,
              "fields": {
-                 "nom": "Mache", 
-                 "nom_scientifique": "Valerianella locusta",
-                 "date_semis_debut": "2020-01-01", 
-                 "date_semis_fin": "2020-12-31", 
-                 "densite_semi": 500,
-                 "recolte_en_jours": 80, 
-                 "description": "Valerianaceae", 
-                 "azote_sol" : 40,
-        "phosphore_sol" : 30,
-        "potassium_sol": 80,
-        "info_insolite": "La mache ou salade de blé est tout bonnement increvable! Très résistante elle apportera un plus indéniable à vos salades sans difficultés de culture",
-                 "url_wiki": "Valerianella_locusta", 
-                 "image": ""
-                 }
-              },
-           { 
-             "model": "appli.plantes", 
-             "pk": 8,
-             "fields": {
                  "nom": "Chou-fleur", 
                  "nom_scientifique": "Brassica oleracea",
                  "date_semis_debut": "2020-03-01", 
@@ -163,9 +144,9 @@
                  "recolte_en_jours": 100, 
                  "description": "Brassicaceae", 
                  "azote_sol" : 200,
-                  "phosphore_sol" : 80,
-                  "potassium_sol": 250,
-                  "info_insolite": "A lh'eure vous trouverez des variétés vertes, jaunes, oranges, mauves,...et oui le chou fleur est belle et bien une fleur tout comme le brocoli",
+                 "phosphore_sol" : 80,
+                 "potassium_sol": 250,
+                 "info_insolite": "A lh'eure vous trouverez des variétés vertes, jaunes, oranges, mauves,...et oui le chou fleur est belle et bien une fleur tout comme le brocoli",
                  "url_wiki": "Chou-fleur", 
                  "image": "Img/chou-fleur.png"
                  }
@@ -185,8 +166,8 @@
                  "azote_sol" : 50,
                   "phosphore_sol" : 100,
                  "potassium_sol": 150,
-               "info_insolite": "N'hésitez pas à consommé les jeunes feuilles en salade ainsi que les fleurs, vous pouvez meme panné et frire les feuilles",
-                 "image": ""
+                 "info_insolite": "N'hésitez pas à consommé les jeunes feuilles en salade ainsi que les fleurs, vous pouvez meme panné et frire les feuilles",
+                 "image": "Img/courgette.png"
                  }
               },
               { 
@@ -201,11 +182,11 @@
                     "recolte_en_jours": 100, 
                     "description": "Cucurbitaceae", 
                     "azote_sol" : 100,
-        "phosphore_sol" : 150,
-        "potassium_sol": 300,
-        "info_insolite": "Vinaigrer vos cornichons est un jeu d'enfant, un bocal, du vinaigre et...tout ce que vous voulez, des oignons, du piment, faites à votre gout et patientez !",
+                    "phosphore_sol" : 150,
+                    "potassium_sol": 300,
+                    "info_insolite": "Vinaigrer vos cornichons est un jeu d'enfant, un bocal, du vinaigre et...tout ce que vous voulez, des oignons, du piment, faites à votre gout et patientez !",
                     "url_wiki": "Cornichon", 
-                    "image": ""
+                    "image": "Img/cornichon.png"
                     }
                  },
                  { 
@@ -220,12 +201,31 @@
                        "recolte_en_jours": 210, 
                        "description": "Amaryllidaceae", 
                        "azote_sol" : 80,
-                      "phosphore_sol" : 100,
-                     "potassium_sol": 150,
-                     "info_insolite": "Vous pleurez en épluchant vos oignons, normale! ils sont bourrés d'une molécule appelée la Lacrymal. et oui, comme le gaz lacrymogene. Pour éviter cela rincer les un fois eplucher.",
+                       "phosphore_sol" : 100,
+                       "potassium_sol": 150,
+                       "info_insolite": "Vous pleurez en épluchant vos oignons, normale! ils sont bourrés d'une molécule appelée la Lacrymal. et oui, comme le gaz lacrymogene. Pour éviter cela rincer les un fois eplucher.",
                        "url_wiki": "Onion", 
                        "image": "Img/onion.png"
                        }
-                    }
+                    },
+                    { 
+                     "model": "appli.plantes", 
+                     "pk": 12,
+                     "fields": {
+                         "nom": "Mache", 
+                         "nom_scientifique": "Valerianella locusta",
+                         "date_semis_debut": "2020-01-01", 
+                         "date_semis_fin": "2020-12-31", 
+                         "densite_semi": 500,
+                         "recolte_en_jours": 80, 
+                         "description": "Valerianaceae", 
+                         "azote_sol" : 40,
+                         "phosphore_sol" : 30,
+                         "potassium_sol": 80,
+                         "info_insolite": "La mache ou salade de blé est tout bonnement increvable! Très résistante elle apportera un plus indéniable à vos salades sans difficultés de culture",
+                         "url_wiki": "Valerianella_locusta", 
+                         "image": "Img/mache.png"
+                         }
+                      }
                  
 ]

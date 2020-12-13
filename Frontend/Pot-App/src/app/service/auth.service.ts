@@ -58,4 +58,16 @@ export class AuthService {
     this.token = this.helper.decodeToken(user_token);
     return this.http.put(this.url + '/users/' + this.token.user_id + '/', data);
   }
+  get_profile(): Observable<any> {
+    return this.http.get(
+      this.url + '/profile/'
+    );
+  }
+
+  modify_profile(data): Observable<any> {
+    this.token = this.helper.decodeToken(this.getToken());
+    return this.http.put(
+      this.url + '/profile/' + this.token.user_id + '/', data
+    )
+  }
 }

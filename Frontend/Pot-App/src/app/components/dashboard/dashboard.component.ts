@@ -107,4 +107,7 @@ export class DashboardComponent implements OnInit {
   navigToParcel(id): void {
     this.router.navigate(['/dashboard/' + id]);
   }
+  navigShop(): void {
+    this.router.navigate(['/shop']);
+  }
 }

@@ -61,18 +61,7 @@ export class PersonalGardenService {
     return this.http.delete(this.url_plant + '/parcelle/' + parcel_id + '/');
   }
 
-  get_profile(): Observable<any> {
-    return this.http.get(
-      this.url_plant + '/profile/'
-    );
-  }
 
-
-  modify_profile(data): Observable<any> {
-    return this.http.put(
-      this.url_plant + '/profile/', data
-    )
-  }
   add_parcel(parcel): Observable<any> {
     return this.http.post(this.url_plant + '/parcelle/', parcel);
   }
@@ -86,6 +75,12 @@ export class PersonalGardenService {
   get_last_parcel(parcel, date) {
     return this.http.get(this.url_plant + '/parcelle-plantes/?numparcel=' + parcel + '&date=' + date)
   }
+  get_profile(): Observable<any> {
+    return this.http.get(
+      this.url_plant + '/profile/'
+    );
+  }
+
 }
 
 

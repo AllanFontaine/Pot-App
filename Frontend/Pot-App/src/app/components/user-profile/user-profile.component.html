@@ -1,8 +1,8 @@
     <div class="background">
       <img class= "myimg" src="../../assets/img/backgroundprofile2.jpg">
     </div>
-    <div *ngIf="isLoading;else content">
-      <mat-spinner></mat-spinner>
+    <div class="loading-indicator" *ngIf="isLoading; else content">
+      <mat-spinner mode="indeterminate" ></mat-spinner>
     </div>
     <ng-template #content>
     <div class="main-content">

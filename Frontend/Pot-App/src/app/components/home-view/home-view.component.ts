@@ -21,11 +21,19 @@ export class HomeViewComponent implements OnInit {
     AOS.init()
   }
 
-  navi(){
-    if(this.authService.LoggedIn()){
-    this.router.navigate(['/dashboard'])
+  navi() {
+    if (this.authService.LoggedIn()) {
+      this.router.navigate(['/dashboard']).then(result => {
+        if (result) {
+          location.reload();
+        }
+      })
     } else {
-      this.router.navigate(['/wiki'])
+      this.router.navigate(['/wiki']).then(result => {
+        if (result) {
+          location.reload();
+        }
+      })
     }
   }
 
