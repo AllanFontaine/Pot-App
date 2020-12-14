@@ -109,11 +109,9 @@ class ParcelleSerializer(serializers.ModelSerializer):
             'taille_metre_carre',
             'estUtilise',
             'planteId',
-            'code'
         ]
         read_only_fields = [
             'id', 'userId']
-        extra_kwargs = {'code': {'write_only': True}}
 
     def create(self, validated_data):
         if self.context['request'].user.id is not None:
@@ -204,7 +202,6 @@ class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
 
     def create(self, validated_data):
         if Profile.objects.filter(code=self.context['request'].data['code']).exists():
-            print(self.context['request'].user)
             duser = DonneesParcelle(**validated_data)
             duser.date_reception_donnee = timezone.now()
             duser.save()
@@ -225,10 +222,10 @@ class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
         extra_kwargs = {'code': {'write_only': True}}
 
     def create(self, validated_data):
-        print(Profile.objects.filter(code=self.context['request'].data['code']).filter(user=self.context['request'].data['userId']))
-        if Profile.objects.filter(code=self.context['request'].data['code']).filter(user=self.context['request'].data['userId']).exists():
+        print(Profile.objects.filter(code=self.context['request'].data['code']).filter(user_id=self.context['request'].data['userId']))
+        if Profile.objects.filter(code=self.context['request'].data['code']).exists():
             duser = DonneesUser(**validated_data)
-            duser.userId = self.context['request'].user
+            duser.userId = Profile.objects.filter(code=self.context['request'].data['code'])[0].user
             duser.date_reception_donnee = timezone.now()
             duser.save()
             return duser  

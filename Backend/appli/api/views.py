@@ -255,14 +255,15 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
     http_method_names = ['get', 'post', 'delete', 'put']
 
     def get_queryset(self, *args, **kwargs):
-        print(hash(self.request.user))
         query_code = self.request.GET.get("code")
         if self.request.user.id is not None:
             queryset_list = Parcelle.objects.filter(userId=self.request.user.id).order_by('-date_plantation')
         
         elif Profile.objects.filter(code=query_code).exists() & is_valid_queryparam(query_code):
+            user_id = Profile.objects.filter(code=query_code)[0].user.id
+            print(user_id)
             queryset_list = Parcelle.objects.filter(
-                Q(code=query_code) &
+                Q(userId=user_id) &
                 Q(estUtilise=True) 
             )
         else:
