@@ -45,7 +45,7 @@ export class SinglePlantDetailComponent implements OnInit, OnDestroy {
               this.plantWikipedia = result.data.sections.slice(1, 4);
               for (let i = 0; i < this.plantWikipedia.length; i++) {
                 this.plantWikipedia[i].data.wiki = wtf(this.plantWikipedia[i].data.wiki).text();
-                this.plantWikipedia[i].data.wiki = this.plantWikipedia[i].data.wiki.replace(/\*/g, '<br><br>*');
+                this.plantWikipedia[i].data.wiki = this.plantWikipedia[i].data.wiki.replace(/\*/g, '<br><br>*').trim();
 
               }
               this.loading = false;

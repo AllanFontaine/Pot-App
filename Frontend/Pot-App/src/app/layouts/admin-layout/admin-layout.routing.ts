@@ -23,6 +23,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardSidebar] },
     { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardSidebar] },
     { path: 'wiki', component: WikiViewComponent },
+   
     { path: 'shop', component: ShopComponent },
     { path: 'about-us', component: AboutUsComponent },
     { path: 'add-parcel', component: AddParcelComponent, canActivate: [AuthGuardSidebar] },

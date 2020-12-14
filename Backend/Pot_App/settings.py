@@ -16,13 +16,13 @@ import datetime
 import environ
 
 env = environ.Env(
-    SECRET_KEY=(str, ""),
+    SECRET_KEY=(str, "B"),
     DEBUG=(bool,False),
-    DB_NAME= (str, ""),
+    DB_NAME= (str, "potappdb"),
     DB_HOST= (str, "127.0.0.1"),
     DB_PORT=(int, 3306),
-    DB_USER=(str, ""),
-    DB_PASSWORD=(str, '')
+    DB_USER=(str, "potapp"),
+    DB_PASSWORD=(str, 'password')
 )
 
 environ.Env.read_env()
@@ -132,6 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
