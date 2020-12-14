@@ -94,11 +94,10 @@ class PlantesAPIView( viewsets.ModelViewSet):  # detailview
         query_order = self.request.GET.get("order")
         query_offset = self.request.GET.get("offset")
         query_limit = self.request.GET.get("limit")
-        print(query_limit)
         if is_valid_queryparam(query_name):
             queryset_list = queryset_list.filter(
                 Q(nom__icontains=query_name)
-            ).distinct()
+            ).distinct().order_by("nom")
         if is_valid_queryparam(query_comp):
             query_comp = query_comp.split("T")
             if(query_comp[0] == "h"):
@@ -138,25 +137,25 @@ class PlantesAPIView( viewsets.ModelViewSet):  # detailview
                 Q(date_semis_fin__month__gte=query_semis_mois) &
                 Q(date_semis_fin__day__gte=query_semis_day) 
             ).distinct()
-        if is_valid_queryparam(query_limit) and is_valid_queryparam(query_offset) and is_valid_queryparam(query_order) and is_valid_queryparam(query_tri):
-            if (query_tri == "nom"):
-                if (query_order == 'ASC'):
-                    queryset_list = queryset_list.all().order_by('nom')
-                if (query_order =='DSC'):
-                    queryset_list = queryset_list.all().order_by('-nom')
-            if (query_tri == "recolte_en_jours"):
-                if (query_order == 'ASC'):
-                    queryset_list = queryset_list.order_by('recolte_en_jours')
-                if (query_order =='DSC'):
-                    queryset_list = queryset_list.order_by('-recolte_en_jours')
-
-            if (query_tri == 'date_semis_debut'):
-                if (query_order == 'ASC'):
-                    queryset_list = queryset_list.order_by('date_semis_debut')
-                if (query_order =='DSC'):
-                    queryset_list = queryset_list.order_by('-date_semis_debut')
+        if is_valid_queryparam(query_offset) and is_valid_queryparam (query_limit):
+            if is_valid_queryparam(query_order) and is_valid_queryparam(query_tri):
+                if (query_tri == "nom"):
+                    if (query_order == 'ASC'):
+                        queryset_list = queryset_list.all().order_by('nom')
+                    if (query_order =='DSC'):
+                        queryset_list = queryset_list.all().order_by('-nom')
+                if (query_tri == "recolte_en_jours"):
+                    if (query_order == 'ASC'):
+                        queryset_list = queryset_list.order_by('recolte_en_jours')
+                    if (query_order =='DSC'):
+                        queryset_list = queryset_list.order_by('-recolte_en_jours')
+                if (query_tri == 'date_semis_debut'):
+                    if (query_order == 'ASC'):
+                        queryset_list = queryset_list.order_by('date_semis_debut')
+                    if (query_order =='DSC'):
+                        queryset_list = queryset_list.order_by('-date_semis_debut')
             queryset_list = queryset_list[int(query_offset):int(query_limit)]
-            print(queryset_list)
+            
             return queryset_list
         else :
             return queryset_list 

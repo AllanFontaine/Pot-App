@@ -9,7 +9,7 @@
               </div>
               <br>
                 <label class="mr-sm-2" for="CustomSelect">Trier par :</label>
-                <select class="browser-default custom-select mr-sm-2" id="CustomSelect" (change)="onChangeTri($event.target.value)">
+                <select class="browser-default custom-select mr-sm-2" id="CustomSelect" (change)="onChangeTri($event.target.value)" formControlName="tri">
                   <option value="nom ASC">Nom (a-Z)</option>
                   <option value="nom DSC">Nom (Z-a)</option>
                   <option value="date_semis_debut ASC">Saison (Janvier-Decembre)</option>

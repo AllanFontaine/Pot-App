@@ -5,3 +5,21 @@
 #content{
     margin: 5%;
 }
+
+@media screen and (orientation:landscape){
+    .graph {
+        display: block;
+    }
+    .message {
+        display: none;
+    }
+}
+
+@media screen and (orientation:portrait){
+    .message {
+        display: block;
+    }
+    .graph {
+        display: none;
+    }
+}
