@@ -69,7 +69,7 @@ class DonneesUser(models.Model):
     code = models.CharField(max_length=500, default='code')
 
     def __str__(self):
-        return "données du user nommé "+ self.userId.username
+        return "données du user nommé "+ self.userId
 
 
     def get_api_url(self, request=None):
