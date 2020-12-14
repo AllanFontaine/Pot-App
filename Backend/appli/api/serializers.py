@@ -9,6 +9,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 import django.contrib.auth.password_validation as validators
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import Http404
+from django.utils import timezone
 
 
 UserModel = get_user_model()
@@ -108,9 +109,11 @@ class ParcelleSerializer(serializers.ModelSerializer):
             'taille_metre_carre',
             'estUtilise',
             'planteId',
+            'code'
         ]
         read_only_fields = [
             'id', 'userId']
+        extra_kwargs = {'code': {'write_only': True}}
 
     def create(self, validated_data):
         if self.context['request'].user.id is not None:
@@ -196,13 +199,14 @@ class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
         model = DonneesParcelle
         fields = ['id', 'parcelleId', 'date_reception_donnee',
                   'humidite_sol', 'quantite_eau_litre', 'code']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'date_reception_donnee']
         extra_kwargs = {'code': {'write_only': True}}
 
     def create(self, validated_data):
         if Profile.objects.filter(code=self.context['request'].data['code']).exists():
             print(self.context['request'].user)
             duser = DonneesParcelle(**validated_data)
+            duser.date_reception_donnee = timezone.now()
             duser.save()
             return duser
         else:
@@ -217,13 +221,15 @@ class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm
         model = DonneesUser
         fields = ['id', 'userId', 'date_reception_donnee',
                   'temperature_exterieur', 'humidite_exterieur', 'code']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'date_reception_donnee']
         extra_kwargs = {'code': {'write_only': True}}
 
     def create(self, validated_data):
-        if Profile.objects.filter(code=self.context['request'].data['code']).filter(id=self.context['request'].data['userId']).exists():
+        print(Profile.objects.filter(code=self.context['request'].data['code']).filter(user=self.context['request'].data['userId']))
+        if Profile.objects.filter(code=self.context['request'].data['code']).filter(user=self.context['request'].data['userId']).exists():
             duser = DonneesUser(**validated_data)
             duser.userId = self.context['request'].user
+            duser.date_reception_donnee = timezone.now()
             duser.save()
             return duser  
         else:
