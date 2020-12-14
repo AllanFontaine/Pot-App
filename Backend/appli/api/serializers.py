@@ -109,9 +109,11 @@ class ParcelleSerializer(serializers.ModelSerializer):
             'taille_metre_carre',
             'estUtilise',
             'planteId',
+            'code'
         ]
         read_only_fields = [
             'id', 'userId']
+        extra_kwargs = {'code': {'write_only': True}}
 
     def create(self, validated_data):
         if self.context['request'].user.id is not None:

@@ -251,12 +251,24 @@ class ParcelleAPIView(viewsets.ModelViewSet, generics.UpdateAPIView):  # detailv
 
     lookup_field = 'pk'  # (?P<pk>\d+) pk = id
     serializer_class = ParcelleSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = []
     http_method_names = ['get', 'post', 'delete', 'put']
 
     def get_queryset(self, *args, **kwargs):
         print(hash(self.request.user))
-        queryset_list = Parcelle.objects.filter(userId=self.request.user.id).order_by('-date_plantation')
+        query_code = self.request.GET.get("code")
+        if self.request.user.id is not None:
+            queryset_list = Parcelle.objects.filter(userId=self.request.user.id).order_by('-date_plantation')
+        
+        elif Profile.objects.filter(code=query_code).exists() & is_valid_queryparam(query_code):
+            queryset_list = Parcelle.objects.filter(
+                Q(code=query_code) &
+                Q(estUtilise=True) 
+            )
+        else:
+            raise exceptions.ValidationError({
+                'detail': 'Authentication credentials were not provided for this method.'
+            })
         return queryset_list
 
     def post(self, request, *args, **kwargs):

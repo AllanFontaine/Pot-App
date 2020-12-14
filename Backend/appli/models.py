@@ -41,6 +41,7 @@ class Parcelle(models.Model):
     date_plantation = models.DateField(blank = False, default = timezone.now)
     taille_metre_carre = models.FloatField()
     estUtilise = models.BooleanField(default = True)
+    code = models.CharField(max_length=500, default='code')
     
 
     def __str__(self):
