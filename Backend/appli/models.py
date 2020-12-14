@@ -9,7 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nombre_parcelle = models.IntegerField(default = 0)
     localisation = models.CharField(max_length = 100, default = '')
-    code = models.CharField(max_length=500, default='code')
+    code = models.CharField(max_length=500, default='code', unique=True)
 
 class Plantes(models.Model):
     nom = models.CharField(max_length=100)
@@ -69,7 +69,7 @@ class DonneesUser(models.Model):
     code = models.CharField(max_length=500, default='code')
 
     def __str__(self):
-        return "données du user nommé "+ self.userId.username
+        return "données du user nommé "+ self.userId
 
 
     def get_api_url(self, request=None):

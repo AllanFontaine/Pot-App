@@ -7,18 +7,6 @@
   </a>
 </div>
 <div class="sidebar-wrapper">
-  <div *ngIf="isMobileMenu()">
-    <ul class="nav navbar-nav nav-mobile-menu">
-      <li>
-        <a class="nav-link" href="javascript:void(0)">
-          <i class="material-icons">person</i>
-          <p>
-            <span class="d-lg-none d-md-block">Account</span>
-          </p>
-        </a>
-      </li>
-    </ul>
-  </div>
   <ul class="nav">
     <li routerLinkActive="active" class="nav-item">
       <a class=" nav-link" routerLink="/wiki">
@@ -72,7 +60,7 @@
       </a>
     </li>
     <li *ngIf="authService.LoggedIn()" class="nav-item">
-      <a class=" nav-link" routerLink (click)="authService.logoutUser()">
+      <a class=" nav-link" (click)="logoutCheck()">
         <i class="material-icons">login</i>
         <p>Logout</p>
       </a>

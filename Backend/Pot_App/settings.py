@@ -60,8 +60,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_yasg',
     'django_rest_passwordreset',
-
-
 ]
 
 MIDDLEWARE = [
@@ -139,7 +137,7 @@ SIMPLE_JWT = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
