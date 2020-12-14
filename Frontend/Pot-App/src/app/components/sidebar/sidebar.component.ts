@@ -58,20 +58,20 @@ export class SidebarComponent implements OnInit {
   }
   logoutCheck() {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Ëtes-vous sur de vouloir vous déconnecter?',
+      text: "Vous allez nous manquer! :'(",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Oui je veux partir!'
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
+          'Bye bye!',
+          'Nous éspérons vous revoir bientot',
         )
+        this.authService.logoutUser();
       }
     })
   }

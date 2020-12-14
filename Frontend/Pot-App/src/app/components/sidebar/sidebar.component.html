@@ -60,7 +60,7 @@
       </a>
     </li>
     <li *ngIf="authService.LoggedIn()" class="nav-item">
-      <a class=" nav-link" routerLink (click)="logoutCheck()">
+      <a class=" nav-link" (click)="logoutCheck()">
         <i class="material-icons">login</i>
         <p>Logout</p>
       </a>
