@@ -26,6 +26,13 @@ export class AddParcelComponent implements OnInit {
   listPlantName: string[] = [];
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
+  userTips = [{ text: "Apporter de la matière organique ( compost, engrais organiques, fertilisants, lisier), pour plus d'info cliquez", url: "https://www.ecoconso.be/fr/content/quel-engrais-naturel-utiliser-au-jardin-et-au-potager" },
+  { text: "Pailler les cultures avec de la paille, du bois fraichement broyés (feuillus), un plastique de culture micro-perforé et recyclable ou bio dégradable, pour plus d'info cliquez", url: "https://www.un-jardin-bio.com/paillage-et-mulching/" },
+  { text: "Améliorer la texture du sol par des amendements (sable, terreau ou argile en fct de la situation), pour plus d'info cliquez ", url: "https://fr.wikihow.com/am%C3%A9liorer-la-qualit%C3%A9-du-sol" },
+  { text: "Procéder à un surfaçage avec du terreau ou du compost très décomposé 2/3 fois par an, pour plus d'info cliquez", url: "https://www.aujardin.info/fiches/surfacage.php" },
+  { text: "Travailler le sol de manière repsonsable, bêchage léger ou passage à la grelinette, pour plus d'info cliquez", url: "https://www.jardiner-autrement.fr/le-travail-du-sol/#:~:text=Travailler%20son%20sol%20est%20l,notamment%20les%20vers%20de%20terre." },
+  { text: "Faire une culture d'engrais verts entre les cultures ou durant la période de repos, pour plus d'info cliquez", url: "https://www.un-jardin-bio.com/les-engrais-verts/" },]
+  rand = Math.floor(Math.random() * this.userTips.length) + 1
 
   constructor(
     private garden: PersonalGardenService,
@@ -64,7 +71,6 @@ export class AddParcelComponent implements OnInit {
       taille_metre_carre: new FormControl(null, [Validators.required]),
     });
   }
-
   placeParcel(num) {
     this.numparcel = num;
   }
@@ -150,7 +156,7 @@ export class AddParcelComponent implements OnInit {
                       console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
                       this.shuffleArray(this.listPlantConseil)
                       this.listPlantConseil.splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
-                    }else{
+                    } else {
                       this.shuffleArray(this.listPlantConseil)
                     }
                   }
@@ -161,7 +167,7 @@ export class AddParcelComponent implements OnInit {
                   console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
                   this.shuffleArray(this.listPlantConseil)
                   this.listPlantConseil.splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
-                }else{
+                } else {
                   this.shuffleArray(this.listPlantConseil)
                 }
               }
@@ -202,7 +208,7 @@ export class AddParcelComponent implements OnInit {
       return "potassium"
   }
 
-  shuffleArray(array){
+  shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var temp = array[i];
