@@ -108,6 +108,8 @@ export class LineGraphComponent implements OnInit {
       },
 
       options: {
+        responsive : true,
+        maintainAspectRatio : true,
         title: {
           text: 'Mon graphique de mon jardin',
           display: true
@@ -123,7 +125,9 @@ export class LineGraphComponent implements OnInit {
         }
       }
     });
+    window.screen.orientation.lock("landscape-primary")
     this.onClickUpdate(1);
+  
   }
 
 }

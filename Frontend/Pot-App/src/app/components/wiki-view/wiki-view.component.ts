@@ -60,7 +60,7 @@ export class WikiViewComponent implements OnInit {
       this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order,this.tri ).subscribe(
         (result) => {
           console.log(result)
-          this.wikiService.length = 11;
+          this.wikiService.length = 12;
           
           this.setLength(this.wikiService.length);
           this.plants = result;
@@ -97,7 +97,7 @@ export class WikiViewComponent implements OnInit {
       this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order, this.tri).subscribe(
         (result) => {
           console.log(result)
-          this.wikiService.length = 11;
+          this.wikiService.length = 12;
           
           this.setLength(this.wikiService.length);
           this.plants = result;

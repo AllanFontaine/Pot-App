@@ -28,26 +28,26 @@ class PlantesSerializer(serializers.ModelSerializer):
     saison_fin = serializers.SerializerMethodField()
 
     def get_saison_debut(self, obj):
-        month = obj.date_semis_fin.month
+        month = obj.date_semis_debut.month
         if (month > 11 or month <= 3):
-           return "WINTER"
+           return "Hiver"
         elif (month == 4 or month == 5):
-           return "SPRING"
+           return "Printemps"
         elif (month >= 6 and month <= 9):
-           return "SUMMER"
+           return "Eté"
         else:
-            return "FALL"
+            return "Automne"
 
     def get_saison_fin(self, obj):
         month = obj.date_semis_fin.month
         if (month > 11 or month <= 3):
-           return "WINTER"
+           return "Hiver"
         elif (month == 4 or month == 5):
-           return "SPRING"
+           return "Printemps"
         elif (month >= 6 and month <= 9):
-           return "SUMMER"
+           return "Eté"
         else:
-            return "FALL"
+            return "Automne"
 
     class Meta:
         model = Plantes
