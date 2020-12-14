@@ -10,15 +10,15 @@ import { WikiService } from 'app/service/wiki.service';
 })
 export class WikiViewComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(Input) input : Input;
+  @ViewChild(Input) input: Input;
 
-  public plants : any[];
-  public paginatorLength : number;
-  formGroup : FormGroup;
+  public plants: any[];
+  public paginatorLength: number;
+  formGroup: FormGroup;
   tri = "nom";
   order = "ASC";
-  countPlant : number;
-  search_timeout : any;
+  countPlant: number;
+  search_timeout: any;
 
   constructor(private wikiService: WikiService) { }
 
@@ -49,7 +49,7 @@ export class WikiViewComponent implements OnInit {
         this.search_plant();
       }, 1000);
     });
-   
+
     this.search_plant()
   }
 
@@ -57,51 +57,51 @@ export class WikiViewComponent implements OnInit {
     if (this.formGroup.invalid) {
       this.wikiService.offset = 0;
       this.wikiService.limit = 10;
-      this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order,this.tri ).subscribe(
+      this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order, this.tri).subscribe(
         (result) => {
-          console.log(result)
+          console.log(result.length)
           this.wikiService.length = 11;
-          
+
           this.setLength(this.wikiService.length);
           this.plants = result;
-        }, 
+        },
         error => console.log(error),
-        
+
       )
       return false;
     }
-    
+
     this.wikiService.get_plant_by_name(this.formGroup.get("name").value, this.order, this.tri).subscribe(
       (result) => {
         this.wikiService.limit = result.length;
-        if (result.length < this.paginator.pageIndex*this.paginator.length && this.paginator.pageIndex != 0) {
+        if (result.length < this.paginator.pageIndex * this.paginator.length && this.paginator.pageIndex != 0) {
           this.wikiService.pageIndex = this.wikiService.pageIndex - 1;
           this.setPage(this.wikiService.pageIndex);
         }
         this.wikiService.length = result.length;
-        this.setLength(this.wikiService.length); 
+        this.setLength(this.wikiService.length);
         this.plants = result
-        
+
       },
       error => console.log(error),
-      
+
     )
   }
 
   onChangeTri(value) {
-    
+
     let stripped = value.split(" ", 2);
     this.tri = stripped[0];
     this.order = stripped[1];
-    if ( this.formGroup.value.name == "") {
+    if (this.formGroup.value.name == "") {
       this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order, this.tri).subscribe(
         (result) => {
           console.log(result)
           this.wikiService.length = 11;
-          
+
           this.setLength(this.wikiService.length);
           this.plants = result;
-        }, 
+        },
         error => console.log(error),
       )
     }
@@ -130,14 +130,14 @@ export class WikiViewComponent implements OnInit {
       },
       error => {
         console.log(error)
-      },);
-    }
+      });
+  }
 
   setPage(index: number) {
     this.paginator.pageIndex = index;
   }
 
-  setLength(length : number) {
+  setLength(length: number) {
     this.paginator.length = length;
   }
 }

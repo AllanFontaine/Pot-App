@@ -3,6 +3,7 @@
   width : 400px;
   margin-top: 50px;
   background-color: rgba(217, 248, 214, 0.1);
+  border: thin solid #eee;
 }
 .price-content {
   text-align: center;

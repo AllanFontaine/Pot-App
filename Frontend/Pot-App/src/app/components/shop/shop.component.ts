@@ -35,7 +35,7 @@ export class ShopComponent implements OnInit {
     product: "vanne",
     title: "Vanne de rechange",
     subTitle: "Au cas ou ça casse",
-    description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
+    description: "Une vanne 12v de la marque © U.S Solid, le bon nombre de vanne est envoyé avec votre arroseur. Vous devez en acheter seulement en cas de dysfonctionnement de celles-ci. Il suffit de la brancher et HOP on reccommence!",
     price: 14.99,
     imgLink1: "../../../assets/img/vanne1.jpg",
     imgLink2: "https://i.ebayimg.com/images/g/QP8AAOSwc15ef84v/s-l300.png",
