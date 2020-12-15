@@ -403,7 +403,7 @@ class DonneesUserAPIView(viewsets.ModelViewSet):  # detailvie
     http_method_names = ['get', 'post']
 
     def get_queryset(self, *args, **kwargs):
-        if DonneesUser.objects.filter(userId=self.request.user.id).exists():
+        if DonneesUser.objects.filter(userId=self.request.user.id).exists() | Profile.objects.filter(code=self.request.GET.get("code")).exists():
             queryset_list = DonneesUser.objects.filter(userId=self.request.user.id)
             query_date = self.request.GET.get("date")
             if is_valid_queryparam(query_date):

@@ -3,6 +3,13 @@
     transition: display 2s ease-in-out;
 }
 
+#btn-conseil:disabled,
+#btn-conseil[disabled]{
+  border: 1px solid #999999;
+  background-color: whitesmoke;
+  color: #666666;
+}
+
 .radio_conseil_group {
     display: flex;
     flex-direction: column;

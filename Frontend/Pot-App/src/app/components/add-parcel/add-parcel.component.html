@@ -4,6 +4,15 @@
     <div class="col">
       <div class="form-group">
         <mat-form-field appearance="standard">
+          <mat-label for="date_plantation">Date de plantaison</mat-label>
+          <input name="date_plantation" id="date_plantation" (ngModelChange)="changement_input_date($event)" matInput
+            [matDatepicker]="picker" [(ngModel)]="date_plantation" [ngModelOptions]="{standalone: true}"/>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="standard">
           <mat-label for="plante">Choissisez la plante que vous désirez</mat-label>
           <input type="text" aria-label="Plante" tabindex="-1" matInput [formControl]="myControl" id="conseilInput"
             name="planteId" value="{{plantConseil}}" [matAutocomplete]="auto" ngDefaultControl>
@@ -16,28 +25,18 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
-      <div>
-        <button type="button" class="text-lowercase btn btn-outline-primary btn-sm" tabindex="-1" #tooltip="matTooltip"
-          matTooltip="Nous avons besoin d'une date de plantation" matTooltipPosition="above"
-          [matTooltipDisabled]="!diasbled_tooltip" matToolTipClass="mate" (click)="ConseilOuvrir()" mat-button
-          id="btn-conseil">
+      <span matTooltip="Nous avons besoin d'une date de plantation" matTooltipPosition="above"  #tooltip="matTooltip"
+      [matTooltipDisabled]="!diasbled_tooltip" matToolTipClass="mate">
+        <button type="button" class="text-lowercase btn btn-outline-primary btn-sm" tabindex="-1"
+          (click)="ConseilOuvrir()" mat-button id="btn-conseil" [disabled]="diasbled_tooltip">
           Besoin d'un conseil?
         </button>
-      </div>
+      </span>
       <div class="form-group">
         <mat-form-field appearance="standard">
           <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
           <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
           <span matSuffix>m²</span>
-        </mat-form-field>
-      </div>
-      <div class="form-group">
-        <mat-form-field appearance="standard">
-          <mat-label for="date_plantation">Date de plantaison</mat-label>
-          <input name="date_plantation" id="date_plantation" (ngModelChange)="changement_input_date($event)" matInput
-            [matDatepicker]="picker" [(ngModel)]="date_plantation" [ngModelOptions]="{standalone: true}"  />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </div>
       <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
@@ -46,7 +45,8 @@
       </button>
     </div>
     <div class="col my-auto" id="conseil">
-      <h2 class="text-center"  style="font-family: 'Bookman Old Style', serif;font-weight: lighter;">Merci pour votre confiance!</h2>
+      <h2 class="text-center" style="font-family: 'Bookman Old Style', serif;font-weight: lighter;">Merci pour votre
+        confiance!</h2>
       <label id="radio_conseil_label">Voici ce que nous vous conseillons:</label>
       <mat-radio-group aria-labelledby="radio_conseil_label" id="conseilOption" class="radio_conseil_group"
         (ngModelChange)="changement_input($event)" [(ngModel)]="plantConseil" [ngModelOptions]="{standalone: true}">

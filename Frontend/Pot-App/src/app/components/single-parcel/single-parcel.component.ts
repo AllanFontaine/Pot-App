@@ -14,6 +14,9 @@ export class SingleParcelComponent implements OnInit {
   parcel: [];
   plante: [];
   loading: boolean = true;
+  url_plante :string;
+  countdownDate;
+  x; demo:any;
 
   constructor(
     private garden: PersonalGardenService,
@@ -23,15 +26,25 @@ export class SingleParcelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    var nom; var now;
     this.id_parcel = this.route.snapshot.params['user_id'];
-    console.log('PARAMETRE');
-    console.log(this.id_parcel);
     this.garden.get_one_parcel(this.id_parcel).subscribe(
       (result) => {
         this.parcel = result;
         this.plante = result.planteId;
-        console.log(this.parcel);
+        nom = this.plante['nom'].split(' ').join('_');
+        this.url_plante = "http://localhost:4200/wiki/"+this.plante['id']+'/'+nom;
         this.loading = false;
+        this.countdownDate = new Date(this.plante['date_semis_fin']).getTime();
+        this.x = setInterval(() => {
+          now = new Date().getTime();
+          var distance = this.countdownDate - now; 
+          var days = Math.floor(distance/(1000*60*60*24));
+          var hours = Math.floor((distance %(1000*60*60*24)) / (1000*60*60));
+          var minute = Math.floor((distance % (1000*60*60)) / (1000*60)); 
+          var seconds = Math.floor((distance % (1000*60)) / 1000);
+          this.demo = days + "d " + hours + "h " + minute + "m " + seconds + "s"
+        })
       },
       (error) => console.log(error)
     );
@@ -58,8 +71,6 @@ export class SingleParcelComponent implements OnInit {
         this.parcel['planteId'] = this.plante['id'];
         this.parcel['estUtilise'] = false;
         delete this.parcel['id'];
-        console.log('PARCELLE APRES');
-        console.log(this.parcel);
         this.garden.delete_parcel(this.id_parcel, this.parcel).subscribe(
           (result) => {
             console.log(result);
@@ -80,7 +91,6 @@ export class SingleParcelComponent implements OnInit {
           denyButtonText: `Supprimer`,
         }).then((result) => {
           if (result.isDenied) {
-            console.log(this.id_parcel)
             this.garden.erase_parcel(this.id_parcel).subscribe(
               result => {
                 this.router.navigate(['/dashboard'])

@@ -47,20 +47,8 @@
         <p>About us</p>
       </a>
     </li>
-    <li *ngIf="!authService.LoggedIn()" class="nav-item">
-      <a class="nav-link" routerLink="/login">
-        <i class="material-icons">login</i>
-        <p>S'enregistrer</p>
-      </a>
-    </li>
-    <li *ngIf="!authService.LoggedIn()" class="nav-item">
-      <a class=" nav-link" routerLink="/register">
-        <i class="material-icons">login</i>
-        <p>Se connecter</p>
-      </a>
-    </li>
     <li *ngIf="authService.LoggedIn()" class="nav-item">
-      <a class=" nav-link" (click)="logoutCheck()">
+      <a class="nav-link" routerLink (click)="logoutCheck()">
         <i class="material-icons">login</i>
         <p>Logout</p>
       </a>

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-parcel',
@@ -34,8 +35,9 @@ export class AddParcelComponent implements OnInit {
     private router: Router,
     private datePipe: DatePipe,
     public dialogRef: MatDialogRef<AddParcelComponent>,
+    private dateAdapter: DateAdapter<Date>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {this.dateAdapter.setLocale('fr'); }
 
   ngOnInit(): void {
     this.userTips = [{ text: "Apporter de la matière organique ( compost, engrais organiques, fertilisants, lisier), pour plus d'info cliquez", url: "https://www.ecoconso.be/fr/content/quel-engrais-naturel-utiliser-au-jardin-et-au-potager" },
