@@ -18,14 +18,14 @@
       <a class="dash nav-link" routerLink="/dashboard" data-toggle="tooltip"
         title="Veuillez vous connecter pour accéder à cette partie">
         <i class="material-icons">dashboard</i>
-        <p>dashboard</p>
+        <p>Mon potager</p>
       </a>
     </li>
     <li routerLinkActive="active" class="nav-item">
       <a class="dash nav-link" routerLink="/user-profile" data-toggle="tooltip"
         title="Veuillez vous connecter pour accéder à cette partie">
         <i class="material-icons">person</i>
-        <p>User Profile</p>
+        <p>Profil utilisateur</p>
       </a>
     </li>
     <li routerLinkActive="active" class="nav-item">
@@ -44,13 +44,25 @@
     <li routerLinkActive="active" class="nav-item">
       <a class=" nav-link" routerLink="/about-us">
         <i class="material-icons">group</i>
-        <p>About us</p>
+        <p>A propos</p>
       </a>
     </li>
     <li *ngIf="authService.LoggedIn()" class="nav-item">
       <a class="nav-link" routerLink (click)="logoutCheck()">
         <i class="material-icons">login</i>
-        <p>Logout</p>
+        <p>Se déconnecter</p>
+      </a>
+    </li>
+    <li *ngIf="!authService.LoggedIn()&&isMobileMenu()" class="nav-item">
+      <a class="nav-link" routerLink='/register'>
+        <i class="material-icons">login</i>
+        <p>S'enregistrer</p>
+      </a>
+    </li>
+    <li *ngIf="!authService.LoggedIn()&&isMobileMenu()" class="nav-item">
+      <a class="nav-link" (click)="openDialogForm()">
+        <i class="material-icons">login</i>
+        <p>Se connecter</p>
       </a>
     </li>
   </ul>

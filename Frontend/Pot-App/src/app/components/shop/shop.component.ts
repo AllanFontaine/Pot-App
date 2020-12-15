@@ -24,9 +24,9 @@ export class ShopComponent implements OnInit {
     id: 1,
     product: "arroseur",
     title: "Arroseur automatique Pot'App",
-    subTitle: "Notre produit phare",
+    subTitle: "Pour plus d'informations voir 'A propos'",
     description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
-    price: 19.99,
+    price: 99.99,
     imgLink1: "https://material.angular.io/assets/img/examples/shiba2.jpg",
     imgLink2: "https://material.angular.io/assets/img/examples/shiba2.jpg",
     imgLink3: "https://material.angular.io/assets/img/examples/shiba2.jpg"
@@ -56,7 +56,7 @@ export class ShopComponent implements OnInit {
     title: "Kit de protection supplémentaire",
     subTitle: "Pour les zones à grosses intempéries",
     description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
-    price: 9.49,
+    price: 5.29,
     imgLink1: "https://content.instructables.com/ORIG/FDK/506A/H0OIUBER/FDK506AH0OIUBER.jpg?auto=webp&frame=1&width=1024&height=1024&fit=bounds&md=14aa66d7fa2f11d4eef4272224869bac",
     imgLink2: "https://image.tubefr.com/upload/1/0e/10e6f54f980b0bf1d70944a41b281dec.jpg",
     imgLink3: "https://cf.shopee.ph/file/381ead9f5780449a5b7c25eec6c9419f"
@@ -66,7 +66,7 @@ export class ShopComponent implements OnInit {
     title: "Kit de graine débutant",
     subTitle: "Pour vos première plantaisons!",
     description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
-    price: 9.49,
+    price: 29.49,
     imgLink1: "https://cdn.shopify.com/s/files/1/0063/5972/products/10-Best-Beginner-Plants-Seed-Bundle_large.jpg?v=1475127353",
     imgLink2: "https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
   }, {

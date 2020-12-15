@@ -8,6 +8,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { DateAdapter } from '@angular/material/core';
 
+
+
 @Component({
   selector: 'app-add-parcel',
   templateUrl: './add-parcel.component.html',
@@ -27,8 +29,32 @@ export class AddParcelComponent implements OnInit {
   listPlantName: string[] = [];
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
-  userTips;
   rand;
+  public static userTips = [
+    { 
+      text: "Apporter de la matière organique ( compost, engrais organiques, fertilisants, lisier), pour plus d'info cliquez", 
+      url: "https://www.ecoconso.be/fr/content/quel-engrais-naturel-utiliser-au-jardin-et-au-potager" 
+    },
+    { 
+      text: "Pailler les cultures avec de la paille, du bois fraichement broyés (feuillus), un plastique de culture micro-perforé et recyclable ou bio dégradable, pour plus d'info cliquez", 
+      url: "https://www.un-jardin-bio.com/paillage-et-mulching/" 
+    },
+    { 
+      text: "Améliorer la texture du sol par des amendements (sable, terreau ou argile en fct de la situation), pour plus d'info cliquez ", 
+      url: "https://fr.wikihow.com/am%C3%A9liorer-la-qualit%C3%A9-du-sol" 
+    },
+    { 
+      text: "Procéder à un surfaçage avec du terreau ou du compost très décomposé 2/3 fois par an, pour plus d'info cliquez", 
+      url: "https://www.aujardin.info/fiches/surfacage.php" 
+    },
+    { 
+      text: "Travailler le sol de manière repsonsable, bêchage léger ou passage à la grelinette, pour plus d'info cliquez", 
+      url: "https://www.jardiner-autrement.fr/le-travail-du-sol/#:~:text=Travailler%20son%20sol%20est%20l,notamment%20les%20vers%20de%20terre." 
+    },
+    { 
+      text: "Faire une culture d'engrais verts entre les cultures ou durant la période de repos, pour plus d'info cliquez", 
+      url: "https://www.un-jardin-bio.com/les-engrais-verts/" 
+    },]
 
   constructor(
     private garden: PersonalGardenService,
@@ -40,13 +66,7 @@ export class AddParcelComponent implements OnInit {
   ) {this.dateAdapter.setLocale('fr'); }
 
   ngOnInit(): void {
-    this.userTips = [{ text: "Apporter de la matière organique ( compost, engrais organiques, fertilisants, lisier), pour plus d'info cliquez", url: "https://www.ecoconso.be/fr/content/quel-engrais-naturel-utiliser-au-jardin-et-au-potager" },
-    { text: "Pailler les cultures avec de la paille, du bois fraichement broyés (feuillus), un plastique de culture micro-perforé et recyclable ou bio dégradable, pour plus d'info cliquez", url: "https://www.un-jardin-bio.com/paillage-et-mulching/" },
-    { text: "Améliorer la texture du sol par des amendements (sable, terreau ou argile en fct de la situation), pour plus d'info cliquez ", url: "https://fr.wikihow.com/am%C3%A9liorer-la-qualit%C3%A9-du-sol" },
-    { text: "Procéder à un surfaçage avec du terreau ou du compost très décomposé 2/3 fois par an, pour plus d'info cliquez", url: "https://www.aujardin.info/fiches/surfacage.php" },
-    { text: "Travailler le sol de manière repsonsable, bêchage léger ou passage à la grelinette, pour plus d'info cliquez", url: "https://www.jardiner-autrement.fr/le-travail-du-sol/#:~:text=Travailler%20son%20sol%20est%20l,notamment%20les%20vers%20de%20terre." },
-    { text: "Faire une culture d'engrais verts entre les cultures ou durant la période de repos, pour plus d'info cliquez", url: "https://www.un-jardin-bio.com/les-engrais-verts/" },]
-    this.rand = Math.floor(Math.random() * this.userTips.length) + 1
+    this.rand = Math.floor(Math.random() * AddParcelComponent.userTips.length) + 1
     console.log(!this.listPlantConseil)
     this.garden.get_plants().subscribe(
       (res) => {
@@ -63,6 +83,10 @@ export class AddParcelComponent implements OnInit {
       (err) => console.log(err)
     );
     this.initForm();
+  }
+
+  get tips() {
+    return AddParcelComponent.userTips;
   }
 
   private _filter(value: string): string[] {

@@ -15,7 +15,8 @@
       "phosphore_sol" : 100,
       "potassium_sol": 200,
       "info_insolite": "Si les carottes sont orange, c'est à cause des Hollandais, ils ont selectionné la plante pour qu'elle arbore la couleur nationale des pays-bas ! A l'origine les carottes sont blanc/jaune        ",
-      "image": "Img/carrote.png"
+      "image": "Img/carrote.png",
+      "hauteur_arrosage": "blue"
       }
       },
       { 
@@ -34,7 +35,8 @@
       "phosphore_sol" : 80,
       "potassium_sol": 150,
       "info_insolite": "Si vous aimez les radis piquants, faites les souffrir de la soiffe ! En effet, plus un radis est arrosé, moins il sera piquant, cela dépend aussi de la variété, mais vous pouvez choisir le piquant de vos radis!        ",
-      "image": "Img/radis.png"
+      "image": "Img/radis.png",
+      "hauteur_arrosage": "blue"
       }
       },
       { 
@@ -53,7 +55,8 @@
       "phosphore_sol" : 150,
       "potassium_sol": 300,
       "info_insolite": "N'hésitez pas à mettre vos tomates en boites, contrairement à une idée reçue, celles-ci contiennent la même teneur en vitamine et en minéraux que le fraîches        ",
-      "image": "Img/tomate.png"
+      "image": "Img/tomate.png",
+      "hauteur_arrosage": "brown"
       }
       },
       { 
@@ -72,7 +75,8 @@
       "phosphore_sol" : 150,
       "potassium_sol": 300,
       "info_insolite": "Poivron piment c'est la même chose ! C'est juste une question de variété. La culture est la même",
-      "image": "Img/poivron.png"
+      "image": "Img/poivron.png",
+      "hauteur_arrosage": "brown"
       }
       },
       { 
@@ -91,7 +95,8 @@
       "phosphore_sol" : 150,
       "potassium_sol": 250,
       "info_insolite": "Les frites, monument nationale, sont apparues en Belgique lors d'un hiver rigoureux. alors que les Belges, friand de fretin frit ne pouvaient se sustenté du fait que les points d'eau étaient gelés, ils eurent l'idée de frires à la place,... des bouts de patates! La frite belge était née...            ",
-      "image": "Img/pomme_de_terre.png"
+      "image": "Img/pomme_de_terre.png",
+      "hauteur_arrosage": "brown"
       }
       },
       { 
@@ -110,7 +115,8 @@
       "potassium_sol": 250,
       "info_insolite": "Vous aimez les oignons décoratifs ? Laissez fleurir vos poirreaux, ils vous donneront une magnifique fleurs",
       "url_wiki": "Poireau", 
-      "image": "Img/poireau.png"
+      "image": "Img/poireau.png",
+      "hauteur_arrosage": "blue"
       }
       },
       { 
@@ -129,7 +135,8 @@
       "potassium_sol": 200,
       "info_insolite": "N'hésitez pas à laisser monter en graine une de vos laitues pour en récolter les semences et les utilisées l'année prochaines !        ",
       "url_wiki": "Laitue_cultivée", 
-      "image": "Img/laitue.png"
+      "image": "Img/laitue.png",
+      "hauteur_arrosage": "green"
       }
       },
       { 
@@ -148,7 +155,8 @@
       "potassium_sol": 250,
       "info_insolite": "A lh'eure vous trouverez des variétés vertes, jaunes, oranges, mauves,...et oui le chou fleur est belle et bien une fleur tout comme le brocoli",
       "url_wiki": "Chou-fleur", 
-      "image": "Img/chou-fleur.png"
+      "image": "Img/chou-fleur.png",
+      "hauteur_arrosage": "green"
       }
       },
       { 
@@ -167,7 +175,8 @@
       "phosphore_sol" : 100,
       "potassium_sol": 150,
       "info_insolite": "N'hésitez pas à consommé les jeunes feuilles en salade ainsi que les fleurs, vous pouvez meme panné et frire les feuilles",
-      "image": "Img/courgette.png"
+      "image": "Img/courgette.png",
+      "hauteur_arrosage": "blue"
       }
       },
       { 
@@ -186,14 +195,15 @@
       "potassium_sol": 300,
       "info_insolite": "Vinaigrer vos cornichons est un jeu d'enfant, un bocal, du vinaigre et...tout ce que vous voulez, des oignons, du piment, faites à votre gout et patientez !",
       "url_wiki": "Cornichon", 
-      "image": "Img/cornichon.png"
+      "image": "Img/cornichon.png",
+      "hauteur_arrosage": "brown"
       }
       },
       { 
       "model": "appli.plantes", 
       "pk": 11,
       "fields": {
-      "nom": "Ognon", 
+      "nom": "Oignon", 
       "nom_scientifique": "Allium cepa",
       "date_semis_debut": "2020-09-01", 
       "date_semis_fin": "2020-12-31", 
@@ -205,7 +215,8 @@
       "potassium_sol": 150,
       "info_insolite": "Vous pleurez en épluchant vos oignons, normale! ils sont bourrés d'une molécule appelée la Lacrymal. et oui, comme le gaz lacrymogene. Pour éviter cela rincer les un fois eplucher.",
       "url_wiki": "Onion", 
-      "image": "Img/onion.png"
+      "image": "Img/onion.png",
+      "hauteur_arrosage": "brown"
       }
       },
       { 
@@ -224,7 +235,8 @@
       "potassium_sol": 80,
       "info_insolite": "La mache ou salade de blé est tout bonnement increvable! Très résistante elle apportera un plus indéniable à vos salades sans difficultés de culture",
       "url_wiki": "Valerianella_locusta", 
-      "image": "Img/mache.png"
+      "image": "Img/mache.png",
+      "hauteur_arrosage": "blue"
       }
       }
                  
