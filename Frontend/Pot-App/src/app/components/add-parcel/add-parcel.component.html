@@ -28,13 +28,14 @@
         <mat-form-field appearance="standard">
           <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
           <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
+          <span matSuffix>m²</span>
         </mat-form-field>
       </div>
       <div class="form-group">
         <mat-form-field appearance="standard">
           <mat-label for="date_plantation">Date de plantaison</mat-label>
           <input name="date_plantation" id="date_plantation" (ngModelChange)="changement_input_date($event)" matInput
-            [matDatepicker]="picker" [(ngModel)]="date_plantation" [ngModelOptions]="{standalone: true}" />
+            [matDatepicker]="picker" [(ngModel)]="date_plantation" [ngModelOptions]="{standalone: true}"  />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

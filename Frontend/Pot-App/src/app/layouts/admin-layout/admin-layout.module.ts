@@ -7,7 +7,7 @@ import { DashboardComponent } from '../../components/dashboard/dashboard.compone
 import { UserProfileComponent } from '../../components/user-profile/user-profile.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -46,7 +46,7 @@ import { ShoppingCartComponent } from '../../components/shopping-cart/shopping-c
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatBadgeModule } from '@angular/material/badge'
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -77,7 +77,8 @@ import { MatBadgeModule } from '@angular/material/badge'
     MatListModule,
     MatStepperModule,
     MatProgressSpinnerModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatCheckboxModule
   ],
 
   declarations: [
@@ -107,6 +108,7 @@ import { MatBadgeModule } from '@angular/material/badge'
     MatDialogModule,
     DatePipe,
     CartService,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
 })
 export class AdminLayoutModule { }

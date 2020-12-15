@@ -1,8 +1,99 @@
 
+ body {
+    background-image: linear-gradient(#3F51B5, #1A237E);
+    background-repeat: no-repeat;
+    color: #000;
+    overflow-x: hidden
+}
 
+img{
+    transition: filter .5s ease-in-out;
+    -webkit-filter: grayscale(100%); /* Ch 23+, Saf 6.0+, BB 10.0+ */
+    filter: grayscale(100%); /* FF 35+ */
+}
+.cover h3 {
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-top: 40px;
+    color: #fff
+}
 
-/*La suite du css est à vérifier*/
+@media (max-width:767px) {
+    h2 {
+        margin-bottom: 25px;
+        padding-top: 25px;
+        font-size: 58px
+    }
+}
 
+.people {
+    padding: 50px 0;
+    cursor: pointer
+}
+
+.item {
+    margin-bottom: 30px
+}
+
+.item .cover {
+    text-align: center;
+
+    position: relative;
+    overflow: hidden
+}
+
+.item .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.15s ease-in;
+    opacity: 0;
+    padding-top: 1%;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15)
+}
+
+.item:hover .cover {
+    opacity: 1
+}
+.item:hover img {
+    -webkit-filter: grayscale(0%); /* Ch 23+, Saf 6.0+, BB 10.0+ */
+    filter: grayscale(0%); /* FF 35+ */
+}
+
+.name {
+    font-size: 25px;
+}
+.item .name {
+    font-weight: bold;
+    margin-bottom: 8px
+}
+
+.item .title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #bbd8fb;
+    letter-spacing: 2px;
+    font-size: 13px;
+    margin-bottom: 20px
+}
+
+.social {
+    font-size: 18px
+}
+
+.social a {
+    color: inherit;
+    margin: 0 10px;
+    display: inline-block;
+    opacity: 0.7
+}
+
+.social a:hover {
+    opacity: 1
+}
 .profil_about{
     background-color: white;
     width: 30%;
