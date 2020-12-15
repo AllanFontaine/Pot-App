@@ -1,41 +1,3 @@
-<!-- <div class="container">
-    <div class="mx-auto text-center">
-      <h1 class="">Voici les détails de votre parcelle numéro {{parcel.numero_parcel}}</h1>
-    </div>
-    <div class="text-dark">
-      <img class="card-img-top" src="{{plante.image}}" alt="Card image cap" style="width:50%;height:50%">
-        <div class="card-title">Plante assignée: </div>
-        <div class="card-body">
-          {{plante.description}}
-        </div>
-        <a mat-raised-button color="warn" style="cursor:pointer" class="nav-link" (click)="delete_parcel()">Supprimer la
-          parcelle</a><br>
-      <mat-card class="example-card bg-light" style="max-width: 50rem;">
-        <div class="row">
-          <div class="col">
-            <img mat-card-image class="card-img-left" src="{{plante.image}}" alt="image plante">
-          </div>
-          <div class="col">
-            <mat-card-header>
-              <mat-card-title>Parcelle numéro {{parcel["numero_parcelle"]}}</mat-card-title>
-              <mat-card-subtitle>date de plantation: {{parcel["date_plantation"] | date}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <p>
-                {{plante["info_insolite"]}}
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-stroked-button class="warn" (click)="delete_parcel()">Supprimer la parcelle</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
-          </div>
-        </div>
-      </mat-card>
-    </div>
-    Countdown:
-</div>-->
-
 <div *ngIf="loading; else content">
   <mat-progress-spinner></mat-progress-spinner>
 </div>
@@ -47,7 +9,11 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-4">
-          <img src="{{plante['image']}}" alt="{{plante['nom']}}">
+          <figure class="img1 embed news" style="size: 200%;">
+            <img src="{{plante['image']}}" alt="{{plante['nom']}}">
+            <figcaption class="align-items-end">Plus d'informations sur la plante <a class="lien_plante p-1"
+                color="primary" href="{{url_plante}}" style="width: 25%;">ici</a></figcaption>
+          </figure>
         </div>
         <div class="col-md-6">
           <table class="table table-stripped">
@@ -64,68 +30,25 @@
                 <td>Récolte en jours :</td>
                 <td>{{plante['recolte_en_jours']}}</td>
               </tr>
+              <tr>
+                <td>Combien de temps avant la récolte :</td>
+                <td>{{demo}}</td>
+              </tr>
+              <tr>
+                <td>Hauteur d'arrosage :</td>
+                <td>{{demo}}</td>
+              </tr>
             </tbody>
           </table>
-          <button mat-stroked-button color="warn" (click)="delete_parcel()">Supprimer la parcelle</button>
+          <button mat-stroked-button color="warn" (click)="delete_parcel()" id="bouton-supp">Supprimer la
+            parcelle</button>
         </div>
       </div>
-      <!--
-            <div class="row" *ngFor="let plantWiki of plantWikipedia" >
-                <mat-expansion-panel class="expansion" hideToggle>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        {{plantWiki._title}}
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <p class="content">{{plantWiki.wiki}}</p>
-                  </mat-expansion-panel>
-                  
-            </div>
-            <div class="row">
-                <mat-expansion-panel class="expansion" hideToggle>
-                    <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Détails techniques
-                    </mat-panel-title>
-                    </mat-expansion-panel-header >
-                    
-                    <table class="table table-stripped content" >
-                        <tr>
-                            <td>Consommation en phosphore</td>
-                            <td>{{plant.phosphore_sol}}</td>
-                        </tr>
-                        <tr>
-                            <td>Consommation en Azote</td>
-                            <td>{{plant.azote_sol}}</td>
-                        </tr>
-                        <tr>
-                            <td>Consommation en potassium</td>
-                            <td>{{plant.potassium_sol}}</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre de plantes (/m²) :</td>
-                            <td>{{plant.densite_semi}}</td>
-                        </tr>
-                    </table>
-                  </mat-expansion-panel>
-                  
-            </div>
-            <div class="row">
-                <mat-expansion-panel class="expansion" hideToggle>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        Info insolite
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <p class="content">{{plant.info_insolite}}</p>
-                  </mat-expansion-panel>
-                  
-            </div>-->
     </div>
   </div>
   <div>
     <p class="message">
-     Si vous êtes sur téléphone, mettez-le en mode paysage pour observer les graphiques
+      Si vous êtes sur téléphone, mettez-le en mode paysage pour observer les graphiques
     </p>
   </div>
   <div class="graphique graph">
@@ -144,3 +67,4 @@
       </div>
     </div>
   </div>
+</ng-template>
