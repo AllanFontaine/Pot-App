@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from "../../service/auth.service";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginViewComponent } from '../login-view/login-view.component'
 
 declare const $: any;
 declare interface RouteInfo {
@@ -27,7 +29,7 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   classes;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -74,5 +76,10 @@ export class SidebarComponent implements OnInit {
         this.authService.logoutUser();
       }
     })
+  }
+  openDialogForm(): void {
+    let dialogRef = this.dialog.open(LoginViewComponent, {
+      width: '450px',
+    });
   }
 }
