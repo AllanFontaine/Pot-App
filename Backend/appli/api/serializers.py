@@ -69,6 +69,7 @@ class PlantesSerializer(serializers.ModelSerializer):
             'info_insolite',
             'url_wiki',
             'image',
+            'hauteur_arrosage'
         ]
         read_only_fields = ['id']
 

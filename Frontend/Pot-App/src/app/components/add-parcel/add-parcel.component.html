@@ -34,7 +34,7 @@
       </span>
       <div class="form-group">
         <mat-form-field appearance="standard">
-          <label for="taille_metre_carre">Taille de la parcelle ajoutée</label>
+          <mat-label for="taille_metre_carre">Taille de la parcelle ajoutée</mat-label>
           <input matInput name="taille_metre_carre" id="taille_metre_carre" type="number" min="1" max="10" ngModel />
           <span matSuffix>m²</span>
         </mat-form-field>
@@ -61,14 +61,14 @@
         <span *ngIf="horl=='h'">n' </span>en consommait <i *ngIf="horl=='h'"><span *ngIf="horl=='h'">pas </span>
         <span *ngIf="horl=='h'">beaucoup</span></i><i *ngIf="horl=='l'">beaucoup</i>.<br><br>
         Nous vous conseillons fortement d'utiliser des engrais. 
-        <p class="text-muted"> {{this.userTips[this.rand].text}} <a href = {{this.userTips[this.rand].url}} target="_blank"> ici</a></p>.
+        <p class="text-muted"> {{tips[this.rand].text}} <a href = {{tips[this.rand].url}} target="_blank"> ici</a></p>.
       </small></p>
       <p class="text-muted" *ngIf="last_plant_nom == ''&&request_conseil == ''"><small>
         Le critère utilisé est la <b><i>saison</i></b>.<br>N'ayant pas d'anciens plants,
         nous nous baserons sur cette seule donnée.<br><br>
         <i class="material-icons">emoji_objects</i>La rotation de culture très pratique pour éviter
          l'épuisement de votre sol et que celui-ci reste riche. Pour avoir une texture idéale pensez cependant à : <br>
-       {{this.userTips[this.rand].text}} <a href = {{this.userTips[this.rand].url}} target="_blank"> ici</a>
+       {{tips[this.rand].text}} <a href = {{tips[this.rand].url}} target="_blank"> ici</a>
       </small></p>
       <p class="text-muted" *ngIf="last_plant_nom != ''&&request_conseil == ''"><small>
         En prenant en compte votre ancien plant, nous n'avons pas pu trouver de plantes adéquates. Néanmoins, 

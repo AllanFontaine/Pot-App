@@ -53,6 +53,18 @@
         <p>Logout</p>
       </a>
     </li>
+    <li *ngIf="!authService.LoggedIn()&&isMobileMenu()" class="nav-item">
+      <a class="nav-link" routerLink='/register'>
+        <i class="material-icons">login</i>
+        <p>S'enregistrer</p>
+      </a>
+    </li>
+    <li *ngIf="!authService.LoggedIn()&&isMobileMenu()" class="nav-item">
+      <a class="nav-link" routerLink='/register'>
+        <i class="material-icons">login</i>
+        <p>Se connecter</p>
+      </a>
+    </li>
   </ul>
 </div>
 
