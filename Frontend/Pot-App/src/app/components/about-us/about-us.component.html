@@ -21,11 +21,41 @@
             </div>
         </div>
         <div class="row">
+            <h2>En quoi ca consiste?</h2>
+            <p>
+                Bien que notre arroseur semble magique, ce dernier ne puise pas sa force dans la fontaine des fées mais plutôt dans celle du travail, du code et de l'éléctronique.
+                Cela semble magique à bien des égards mais rien n'en est! Alors comment cela fonctionne donc?<br>
+                Notre produit est un tout composé de plusieurs technologies qui intéragissent entres-elles pour vous fournir le service pour lequel le produit est créé : arroser automatiquement son potager.
+                Le site web fonctionne comme le centre névralgique de pot'app. C'est ici que l'on peut acheter l'arroseur ainsi que défnir notre nombre de parcelle et quelles sont les plantes qui les habitent.<br>
+                Cette application web est relié en réseau à la partie éléctronique qui va gérer la partie arrosage automatique à proprement parlé.<br>
+                Pour la partie éléctronique justement, cette dernière est composé de :  
+            </p> 
+            <ul>
+                <li>
+                    Deux arduino, un qui sert de "maître" qui prend les infos reçues via les différentes sondes pour ajuster la quantité d'eau à utiliser
+                    et qui donne les instructions d'ouverture et de fermeture des vannes au deuxième arduino : "l'esclave" qui lui va se charger d'ouvrir et fermer les vannes à proprement parlé.                 
+                </li>
+                <li>
+                    Plusieurs sondes dont le but est de pouvoir ajusté notre arrosage en fonction de conditions extérieures 
+                    (les sondes en questions sont : une sonde de température extérieure, une sonde d'humidité de l'air et une sonde d'humidité du sol).
+                </li>
+                <li>
+                    Un compteur d'eau qui va transmettre à l'arduino puis, via ce dernier, au site web, la quantité d'eau utilisé sur la/les parcelle(s).
+                </li>
+                <li>
+                    Les vannes qui permettront l'écoulement de l'eau et donc l'arrosage au moment ou ce dernier est demandé.
+                </li>
+                <li>
+                    Un tube d'acier perforé permettant de placer le tuyau d'arrosage en hauteur afin d'arroser la plante en fonction de ce qui est recommandé.
+                </li>
+            </ul>
+        </div>
+        <div class="row">
             <h2>L'équipe au complet!</h2>
         </div>
         <div class = "people" >
             <mat-grid-list [cols]="breakpoint" gutterSize="2px" (window:resize)="onResize($event)">
-                <mat-grid-tile (click) = "sendToGithub('Glennichouffe')" class = "item">
+                <mat-grid-tile (click) = "sendToGithub('AllanFontaine')" class = "item">
                     <img src="../../../assets/img/creator/Allan.jpg"/>
                         <div class="cover"> 
                             <h3 class="name">Allan Fontaine</h3>
@@ -34,23 +64,21 @@
                     
                 </mat-grid-tile>
                 <mat-grid-tile (click) = "sendToGithub('celiaHassaine')" class = "item">
-                    <img src="../../../assets/img/creator/Glenn.jpg"/>
+                    <img src="../../../assets/img/creator/Celia.jpg"/>
                     <div class="cover"> 
                         <h3 class="name">Celia Hassaine</h3>
                         <p class="title">Team Member</p>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile (click) = "sendToGithub('Glennichouffe')" class = "item">
+                <mat-grid-tile (click) = "sendToGithub('EmmanuelF-Ephec')" class = "item">
                     <img src="../../../assets/img/creator/Emma.jpg"/>
                     <div class="cover"> 
                         <h3 class="name">Emmanuel Foureau</h3>
                         <p class="title">Team Member</p>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile (click) = "sendToGithub('Glennichouffe')" class = "item" >
-                    <p>
-                        FLORENT NOT FOUND (maybe in the wood)
-                    </p>
+                <mat-grid-tile (click) = "sendToGithub('FlorentTheys')" class = "item" >
+                    <img src="../../../assets/img/creator/Florent.jpg"/>
                     <div class="cover"> 
                         <h3 class="name">Florent Theys</h3>
                         <p class="title">Product Owner</p>
@@ -63,7 +91,7 @@
                         <p class="title">Team Member</p>
                     </div>
                 </mat-grid-tile>
-                <mat-grid-tile (click) = "sendToGithub('Glennichouffe')" class = "item">
+                <mat-grid-tile (click) = "sendToGithub('Altiimax')" class = "item">
                     <img src="../../../assets/img/creator/Kev.jpg"/>
                     <div class="cover"> 
                         <h3 class="name">Kevin Vandenede</h3>
