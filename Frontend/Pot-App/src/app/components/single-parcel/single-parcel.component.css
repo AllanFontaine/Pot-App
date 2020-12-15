@@ -63,7 +63,7 @@ figcaption {
 .lien_plante{
     background-color: white;
     color: #67a7e2;
-    transition: 0.5s;
+    transition: 0.4s;
     border: 0.5px rgba(0,0,0,.12) solid;
     border-radius: 3px;
 }
@@ -71,7 +71,6 @@ figcaption {
 .lien_plante:hover{
     background-color: #67a7e2;
     color: white;
-    font-size: larger;
     opacity: 0.7;
 }
 

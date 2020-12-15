@@ -9,9 +9,10 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nombre_parcelle = models.IntegerField(default = 0)
     localisation = models.CharField(max_length = 100, default = '')
-    code = models.CharField(max_length=500, default='code', unique=True)
+    code = models.CharField(max_length=255, default='code', unique=True)
 
 class Plantes(models.Model):
+    hauteur_arrosage_choix = [('haut', "blue"), ('moyen', "green"), ('bas', "brown")]
     nom = models.CharField(max_length=100)
     nom_scientifique = models.CharField(max_length=100, default = "Pas de nom scientifique encodé")
     azote_sol = models.IntegerField(default = 0)
@@ -25,6 +26,7 @@ class Plantes(models.Model):
     info_insolite = models.TextField(blank=True, default = "")
     url_wiki = models.TextField(blank = False, default = '')
     image = models.ImageField('plantes', upload_to='./Img', blank=True)
+    hauteur_arrosage = models.CharField(max_length=100, choices=hauteur_arrosage_choix, default="bas")
 
     def __str__(self):
         return self.nom

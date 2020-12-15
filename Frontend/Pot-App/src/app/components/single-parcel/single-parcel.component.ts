@@ -17,6 +17,7 @@ export class SingleParcelComponent implements OnInit {
   url_plante :string;
   countdownDate;
   x; demo:any;
+  couleur = {'brown': 'brun', 'blue': 'bleu', 'green': 'vert'};
 
   constructor(
     private garden: PersonalGardenService,
