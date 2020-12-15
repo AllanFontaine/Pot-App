@@ -5,80 +5,29 @@
       <mat-spinner mode="indeterminate" ></mat-spinner>
     </div>
     <ng-template #content>
-    <div class="main-content">
-      <div class="container-fluid">
-          <div class="row">
-              <div class="col-md-8">
-                  <div class="card">
-                      <div class="card-header">
-                        <img class="card-img-top" src="../../assets/img/backgroundprofile.jpg" alt="Card image cap" style="border-radius: 50%;">
-                          <h4 class="card-title">Mon Profil</h4>
-                          <p class="card-category"></p>
-                      </div>
-                      <div class="card-body" *ngIf="this.modifyTrue;else modifyProfile2">
-                          <form>
-                              <div class="row">
-                                  <div class="mx-auto">
-                                    <label>Nom d'utilisateur</label>
-                                      <mat-form-field class="example-full-width">
-                                        <input matInput placeholder={{my_user.username}} disabled>
-                                      </mat-form-field>
-                                  </div>
-                                  <div class="mx-auto">
-                                    <label>Adresse Mail</label>
-                                      <mat-form-field class="example-full-width">
-                                        <input matInput placeholder={{my_user.email}} type="email" disabled>
-                                      </mat-form-field>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="mx-auto">
-                                    <label>Prénom</label>
-                                    <mat-form-field class="example-full-width">
-                                      <input matInput placeholder={{my_user.first_name}} type="text" disabled>
-                                    </mat-form-field>
-                                  </div>
-                                  <div class="mx-auto">
-                                    <label>Nom</label>
-                                    <mat-form-field class="example-full-width">
-                                      <input matInput placeholder={{my_user.last_name}} type="text" disabled>
-                                    </mat-form-field>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="mx-auto">
-                                    <label>Mes Parcelles</label>
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder={{getNombreParcelle()}} type="text" disabled>
-                                    </mat-form-field>
-                                  </div>
-                                  <div class="mx-auto">
-                                    <label>Localisation</label>
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder={{my_profile.localisation}} type="text" disabled>
-                                    </mat-form-field>
-                                  </div>
-                              </div>
-                              <button mat-raised-button (click)="modifyProfile()" class="btn btn-danger pull-right">Changer mes informations</button>
-                              <div class="clearfix"></div>
-                          </form>
-                      </div>
-
-
-                      <ng-template #modifyProfile2>
-                      <div class="card-body">
-                        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div class="container-fluid d-flex justify-content-center">
+      <div class="">
+        <div class="row main-content">
+            <div class="">
+                <div class="card">
+                    <div class="card-header">
+                      <img class="card-img-top" src="../../assets/img/backgroundprofile.jpg" alt="Card image cap" style="border-radius: 50%;">
+                        <h4 class="card-title">Mon Profil</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body" *ngIf="this.modifyTrue;else modifyProfile2">
+                        <form>
                             <div class="row">
                                 <div class="mx-auto">
                                   <label>Nom d'utilisateur</label>
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder={{my_user.username}} name="username" type="text" ngModel>
+                                      <input matInput placeholder={{my_user.username}} disabled>
                                     </mat-form-field>
                                 </div>
                                 <div class="mx-auto">
                                   <label>Adresse Mail</label>
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder={{my_user.email}} name="email" type="email" ngModel>
+                                      <input matInput placeholder={{my_user.email}} type="email" disabled>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -86,13 +35,13 @@
                                 <div class="mx-auto">
                                   <label>Prénom</label>
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder={{my_user.first_name}} name="first_name" type="text" ngModel>
+                                    <input matInput placeholder={{my_user.first_name}} type="text" disabled>
                                   </mat-form-field>
                                 </div>
                                 <div class="mx-auto">
                                   <label>Nom</label>
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder={{my_user.last_name}} name="last_name" type="text" ngModel>
+                                    <input matInput placeholder={{my_user.last_name}} type="text" disabled>
                                   </mat-form-field>
                                 </div>
                             </div>
@@ -110,13 +59,64 @@
                                   </mat-form-field>
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Mettre à jour le profil</button>
+                            <button mat-raised-button (click)="modifyProfile()" class="btn btn-danger pull-right">Changer mes informations</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
-                  </ng-template>
+
+
+                    <ng-template #modifyProfile2>
+                    <div class="card-body">
+                      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                          <div class="row">
+                              <div class="mx-auto">
+                                <label>Nom d'utilisateur</label>
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{my_user.username}} name="username" type="text" ngModel>
+                                  </mat-form-field>
+                              </div>
+                              <div class="mx-auto">
+                                <label>Adresse Mail</label>
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{my_user.email}} name="email" type="email" ngModel>
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="mx-auto">
+                                <label>Prénom</label>
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder={{my_user.first_name}} name="first_name" type="text" ngModel>
+                                </mat-form-field>
+                              </div>
+                              <div class="mx-auto">
+                                <label>Nom</label>
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder={{my_user.last_name}} name="last_name" type="text" ngModel>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="mx-auto">
+                                <label>Mes Parcelles</label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{getNombreParcelle()}} type="text" disabled>
+                                </mat-form-field>
+                              </div>
+                              <div class="mx-auto">
+                                <label>Localisation</label>
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder={{my_profile.localisation}} type="text" disabled>
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Mettre à jour le profil</button>
+                          <div class="clearfix"></div>
+                      </form>
                   </div>
-              </div>
+                </ng-template>
+                </div>
+            </div>
           </div>
       </div>
     </div>

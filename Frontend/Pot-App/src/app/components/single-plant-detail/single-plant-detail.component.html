@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="row" *ngFor="let plantWiki of plantWikipedia" >
-                    <mat-expansion-panel class="expansion" hideToggle>
+                    <mat-expansion-panel *ngIf="plantWiki.data.wiki" class="expansion" hideToggle>
                         <mat-expansion-panel-header>
                         <mat-panel-title>
                             {{plantWiki.data.title}}
@@ -83,8 +83,8 @@
                 </div>
             </div> 
         </div>
-        <div class="row">
-            <button class="btn btn-danger btn-block" (click)="onReturn()">Retour</button>
+        <div class="text-center">
+            <button class="btn btn-success  " (click)="onReturn()">Retour</button>
         </div>
     </div>
 </ng-template>

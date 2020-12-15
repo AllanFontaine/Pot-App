@@ -29,11 +29,12 @@ import { HomeViewComponent } from "./components/home-view/home-view.component";
 
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginViewComponent } from './components/login-view/login-view.component';
-import {SignUpComponent} from "./components/sign-up/sign-up.component";
-import {MatStepperModule} from '@angular/material/stepper';
-import {TermsAndConditionsComponent} from './components/terms-and-conditions/terms-and-conditions.component';
+import { SignUpComponent } from "./components/sign-up/sign-up.component";
+import { MatStepperModule } from '@angular/material/stepper';
+import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -62,6 +63,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     NgbCollapseModule,
     MatStepperModule,
     MatDialogModule,
+    MatCheckboxModule
 
   ],
   declarations: [

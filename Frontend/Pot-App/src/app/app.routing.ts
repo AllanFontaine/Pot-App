@@ -10,6 +10,7 @@ import {SignUpComponent} from "./components/sign-up/sign-up.component";
 import {HomeViewComponent} from "./components/home-view/home-view.component";
 import {AuthGuard} from "./service/auth-guard.service";
 import { TermsAndConditionsComponent } from './components/terms-and-conditions/terms-and-conditions.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [ {
     path: '',
@@ -24,6 +25,7 @@ const routes: Routes = [ {
   { path: 'register',          component: SignUpComponent },
   { path: 'home',           component: HomeViewComponent },
   { path: 'terms',      component: TermsAndConditionsComponent },
+  { path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

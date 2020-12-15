@@ -50,19 +50,19 @@ export class DashboardComponent implements OnInit {
         },
         (err) => console.log(err)
       );
-    if (window.innerWidth <= 750 && window.innerWidth >= 450) {
+    if (window.innerWidth <= 900 && window.innerWidth >= 450) {
       this.breakpoint = 2
     } else {
-      this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
+      this.breakpoint = (window.innerWidth <= 900) ? 1 : 4;
     }
 
 
   }
   onResize(event) {
-    if (window.innerWidth <= 750 && window.innerWidth >= 450) {
+    if (window.innerWidth <= 900 && window.innerWidth >= 450) {
       this.breakpoint = 2
     } else {
-      this.breakpoint = (window.innerWidth <= 750) ? 1 : 4;
+      this.breakpoint = (window.innerWidth <= 900) ? 1 : 4;
     }
   }
 

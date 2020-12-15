@@ -28,3 +28,8 @@ h2 {
     background-color: whitesmoke;
     
 }
+
+button {
+    width: 80%;
+    align-self: center;
+}

@@ -12,9 +12,6 @@
       <mat-error *ngIf = "missingData">
         Le pseudonyme est requis
       </mat-error>
-      <mat-error *ngIf = "incorectData">
-        Vérifier votre pseudonyme
-      </mat-error>
     </mat-form-field>
   </div>
   <div class="form-group">
@@ -24,15 +21,11 @@
       <mat-error *ngIf = "missingData">
         Le mot de passe est requis
       </mat-error>
-      <mat-error *ngIf = "incorectData">
-        Vérifier votre mot de passe
-      </mat-error>
     </mat-form-field>
   </div>
   <div class="form-group form-check">
     <a routerLink="/resetPassword">Mot de passe oublié</a>
   </div>
   <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
-  <button type="button" (click)="getErrorMessage()" mat-button>get value</button>
   <button mat-raised-button type="submit" color="primary" class="float-right">Login</button>
 </form>
