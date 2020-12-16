@@ -53,14 +53,7 @@ export class LoginViewComponent implements OnInit {
     this.dialogRef.close('CANCEL');
   }
 
-  getErrorMessage() {
-    console.log(this.formGroup.value)
-    console.log(this.formGroup.value)
-    
-  }
-
   LoginProcess(form: NgForm) {
-    console.log(this.formGroup.get('password').value)
     this.missingData = false
     this.incorectData = false
     this.authService.login(form.value).subscribe(

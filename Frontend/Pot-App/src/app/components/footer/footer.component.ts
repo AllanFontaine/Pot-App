@@ -14,7 +14,6 @@ export class FooterComponent implements OnInit {
   constructor(private router: Router, private adminLayoutComponent: AdminLayoutComponent) {; }
 
   ngOnInit() {
-    console.log(this.currentURL)
   }
   
   navigate() {

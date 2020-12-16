@@ -36,7 +36,6 @@ export class DashboardComponent implements OnInit {
             (a, b) =>
               parseFloat(a.numero_parcelle) - parseFloat(b.numero_parcelle)
           );
-          console.log(this.parcel_db);
           this.garden.get_profile().subscribe(
             (res) => {
               this.amountParcels = res[0]['nombre_parcelle'];
@@ -73,8 +72,6 @@ export class DashboardComponent implements OnInit {
     this.isLoaded = true
   }
   openDialogForm(numparcel): void {
-    console.log(numparcel)
-    console.log(this.my_parcels)
     let dialogRef = this.dialog.open(AddParcelComponent, {
       data: {
         num: numparcel + 1,

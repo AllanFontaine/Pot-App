@@ -25,11 +25,8 @@ export class BarWaterGraphComponent implements OnInit {
 
     this.garden.get_parcel_data(this.parcel, dataDate.toISOString()).subscribe(
       (res) => {
-        console.log((dataDate.setDate(dataDate.getDate() + 15)) + '')
-        console.log(dataDate)
         let dayOne = 0, dayTwo = 0, dayThree = 0, dayFour = 0, dayFive = 0, daySix = 0, daySeven = 0;
         for (let data of res) {
-          console.log(data)
           switch (this.datePipe.transform(data.date_reception_donnee, 'd')) {
 
             case (this.getDateDays(0) + ''):
@@ -55,7 +52,6 @@ export class BarWaterGraphComponent implements OnInit {
               break;
           }
         }
-        console.log(daySeven)
         this.water_amount_data.push(dayOne)
         this.water_amount_data.push(dayTwo)
         this.water_amount_data.push(dayThree)

@@ -15,28 +15,56 @@
                 color="primary" href="{{url_plante}}" style="width: 25%;">ici</a></figcaption>
           </figure>
         </div>
+        <div class="col-md-6">
+          <table class="table table-stripped">
+            <tbody>
+              <tr>
+                <td>Numéro de parcelle:</td>
+                <td><i>{{parcel["numero_parcelle"]}}</i></td>
+              </tr>
+              <tr>
+                <td>date de plantation:</td>
+                <td>{{parcel["date_plantation"] | date}}</td>
+              </tr>
+              <tr>
+                <td>Récolte en jours :</td>
+                <td>{{plante['recolte_en_jours']}}</td>
+              </tr>
+              <tr>
+                <td>Combien de temps avant la récolte :</td>
+                <td>{{demo}}</td>
+              </tr>
+              <tr>
+                <td>Hauteur d'arrosage :</td>
+                <td id="hauteur" [ngStyle]="{'color': plante['hauteur_arrosage']}">{{couleur[plante['hauteur_arrosage']]}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button mat-stroked-button color="warn" (click)="delete_parcel()" id="bouton-supp">Supprimer la
+            parcelle</button>
+        </div>
       </div>
     </div>
-    <div class='container message'>
-     <div class="card">
+  </div>
+  <div class='container message'>
+    <div class="card">
+      <div class="card-body">
+        Pour voir les graphiques, Mettre en mode paysage !
+      </div>
+    </div>
+  </div>
+  <div class="graphique graph">
+    <div class="row align-items-end">
+      <div class="card card-block bg-light text-dark">
         <div class="card-body">
-          Pour voir les graphiques, Mettre en mode paysage !
+          <app-line-graph [parcel]="id_parcel"></app-line-graph>
         </div>
       </div>
     </div>
-    <div class="graphique graph">
-      <div class="row align-items-end">
-        <div class="card card-block bg-light text-dark">
-          <div class="card-body">
-            <app-line-graph [parcel]="id_parcel"></app-line-graph>
-          </div>
-        </div>
-      </div>
-      <div class="row align-items-end graph">
-        <div class="card card-block bg-light text-dark">
-          <div class="card-body">
-            <app-bar-water-graph [parcel]="id_parcel"></app-bar-water-graph>
-          </div>
+    <div class="row align-items-end graph">
+      <div class="card card-block bg-light text-dark">
+        <div class="card-body">
+          <app-bar-water-graph [parcel]="id_parcel"></app-bar-water-graph>
         </div>
       </div>
     </div>

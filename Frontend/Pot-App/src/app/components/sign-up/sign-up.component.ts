@@ -38,7 +38,6 @@ export class SignUpComponent implements OnInit {
         })
       ])
     });
-    console.log()
   }
 
   checked() {
@@ -64,7 +63,6 @@ export class SignUpComponent implements OnInit {
     let nom = this.formGroup.value['formArray'][0].nameCtrl;
     let addres = this.formGroup.value['formArray'][0].adresse;
     let code = this.makePass(16);
-    console.log(pass + "       :      " + confirmPass)
     if (pass === confirmPass) {
 
       let prof = {
@@ -80,13 +78,10 @@ export class SignUpComponent implements OnInit {
         "first_name": prenom,
         "last_name": nom
       }
-      console.log(user);
       this.authService.registerUser(user)
         .subscribe(
           res => {
-            console.log(res);
             prof.user = res.id;
-            console.log(prof);
             localStorage.setItem('token', res.token.access)
             this.authService.postProfil(prof).subscribe(res => {
 
@@ -102,8 +97,6 @@ export class SignUpComponent implements OnInit {
             );
           },
           err => {
-
-            console.log(!!err.error[0])
             if (!!err.error.username) {
               Swal.fire({
                 icon: 'error',

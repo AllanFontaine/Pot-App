@@ -60,11 +60,8 @@ export class SidebarComponent implements OnInit {
 
   textMuted() {
     if (!this.authService.LoggedIn()) {
-      console.log("je change de couleur");
       this.classes = document.getElementsByClassName("dash");
-      console.log(this.classes);
       for (let i = 0; i < this.classes.length; i++) {
-        console.log(this.classes[i].className);
         this.classes[i].className += " text-muted text-gray";
       }
     }

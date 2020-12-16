@@ -5,7 +5,7 @@ from rest_framework import generics, mixins, permissions, viewsets, status, view
 from django.contrib.auth.models import User
 from appli.models import Plantes, Parcelle, DonneesParcelle, DonneesUser, Profile
 from django.contrib.auth import get_user_model
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, UpdateAPIView
 from .filters import ParcellePlantesFilter
 from .permissions import IsOwnerOrReadOnly
 from .serializers import PlantesSerializer, ParcelleSerializer, UserSerializer, RegisterSerializer, ParcellePlanteSerializer, DonneesParcelleSerializer, DonneesUserSerializer, ProfileSerializer
@@ -162,7 +162,7 @@ class PlantesAPIView( viewsets.ModelViewSet):  # detailview
         
 
 
-class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
+class UserAPIView(viewsets.ModelViewSet, ListAPIView, UpdateAPIView):  # detailview
     """
     *** Vue utilisée pour la manipulation des user Django
 
@@ -190,15 +190,6 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
 
-    def put(self, request, pk):
-        print(self.data)
-        if User.objects.filter(email=self.data.email):
-           raise exceptions.ValidationError({
-                'email': 'this email is already used.'
-            }) 
-        else:
-            return self.update(self, request, pk)
-
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     """
     *** Vue utilisée pour manipuler les profils liés au comptes utilisateurs
@@ -222,10 +213,6 @@ class ProfileAPIView(viewsets.ModelViewSet):  # detailview
             raise exceptions.ValidationError({
                 'detail': 'Authentication credentials were not provided for this method.'
             })
-
-    """def put(self, *args, *kwargs):
-        if Profile.objects.filter(user=self.request.user):
-            return self.update(request, *args, **kwargs)"""
 
 
 class UserRegisterView(generics.CreateAPIView):

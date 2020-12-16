@@ -31,8 +31,6 @@ def _handle_authenticated_error(exc, context, response):
     return response
 
 def _handle_generic_error(exc, context, response):
-    print(response)
-    print(exc)
     if response is None:
         return Response(exc, status=400)
     return response

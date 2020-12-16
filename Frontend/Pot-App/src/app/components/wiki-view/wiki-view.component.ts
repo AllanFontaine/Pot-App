@@ -23,15 +23,6 @@ export class WikiViewComponent implements OnInit {
   constructor(private wikiService: WikiService) { }
 
   ngOnInit(): void {
-    /*
-    this.wikiService.get_plant_offset_limit(0,10).subscribe(
-      result => this.plants = result,
-      error => console.log(error),
-      () => {
-        console.log(this.plants);
-      }
-    )
-   */
     this.initForm()
   }
 
@@ -59,7 +50,6 @@ export class WikiViewComponent implements OnInit {
       this.wikiService.limit = 10;
       this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order, this.tri).subscribe(
         (result) => {
-          console.log(result)
           this.wikiService.length = 12;
           
           this.setLength(this.wikiService.length);
@@ -96,7 +86,6 @@ export class WikiViewComponent implements OnInit {
     if (this.formGroup.value.name == "") {
       this.wikiService.get_plant_offset_limit(this.wikiService.offset, this.wikiService.limit, this.order, this.tri).subscribe(
         (result) => {
-          console.log(result)
           this.wikiService.length = 12;
           
           this.setLength(this.wikiService.length);
@@ -106,7 +95,6 @@ export class WikiViewComponent implements OnInit {
       )
     }
     else {
-      console.log(1)
       this.wikiService.get_plant_by_name(this.formGroup.value.name, this.order, this.tri).subscribe(
         (result) => {
           this.plants = result;

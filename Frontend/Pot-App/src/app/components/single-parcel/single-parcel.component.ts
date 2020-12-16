@@ -74,7 +74,6 @@ export class SingleParcelComponent implements OnInit {
         delete this.parcel['id'];
         this.garden.delete_parcel(this.id_parcel, this.parcel).subscribe(
           (result) => {
-            console.log(result);
             this.router.navigate(['/dashboard']);
             Swal.fire({
               icon: 'success',

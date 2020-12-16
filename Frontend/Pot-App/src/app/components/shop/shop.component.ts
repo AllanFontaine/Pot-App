@@ -27,9 +27,9 @@ export class ShopComponent implements OnInit {
     subTitle: "Pour plus d'informations voir 'A propos'",
     description: "The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan\. A small\, agile dog that copes very well with mountainous terrain\, the Shiba Inu was originally bred for hunting ",
     price: 99.99,
-    imgLink1: "https://material.angular.io/assets/img/examples/shiba2.jpg",
-    imgLink2: "https://material.angular.io/assets/img/examples/shiba2.jpg",
-    imgLink3: "https://material.angular.io/assets/img/examples/shiba2.jpg"
+    imgLink3: "../../../assets/img/potapp_shop.jpg",
+    imgLink2: "../../../assets/img/potapp_shop2.jpg",
+    imgLink1: "https://image.freepik.com/photos-gratuite/systeme-arrosage-eau-fonctionnant-dans-potager-vert-au-coucher-du-soleil_29505-482.jpg"
   }, {
     id: 2,
     product: "vanne",
@@ -108,7 +108,6 @@ export class ShopComponent implements OnInit {
         this.userProfile[0].nombre_parcelle = this.cartService.findProduct("arroseur").numberParcels
         this.auth.modify_profile(this.userProfile[0]).subscribe(
           (res) => {
-            console.log(res)
             this.cartService.clearCart();
           },
           (err) => {
@@ -159,11 +158,9 @@ export class ShopComponent implements OnInit {
 
   async addArticle(prod) {
     let cart = this.cartService.getItems()
-    console.log(cart)
     let position;
     this.alreadyInCart = false;
     for (let i = 0; i < cart.length; i++) {
-      console.log(cart[i])
       if (cart[i].product === "arroseur") {
         this.alreadyInCart = true;
 
@@ -177,7 +174,6 @@ export class ShopComponent implements OnInit {
           icon: 'warning'
         })
       } else if (this.userProfile[0].nombre_parcelle === 0) {
-        console.log("jes suis lm")
         if (!this.alreadyInCart) {
           let newPrice;
           const { value: number } = await Swal.fire({

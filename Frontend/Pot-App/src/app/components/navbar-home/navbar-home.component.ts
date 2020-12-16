@@ -27,7 +27,6 @@ export class NavbarHomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -35,20 +34,9 @@ export class NavbarHomeComponent implements OnInit {
 
   ngOnInit() {
   }
-  // convenience getter for easy access to form fields
 
 
   public scrolling(elementId: string): void {
-    /*console.log($(this));
-    var target = document.getElementById(elementId);
-    $("html, body").animate(
-      {
-        scrollTop: target.top - 70,
-      },
-      1000000,
-      "easeInOutExpo"
-    );
-    $(".navbar-collapse").collapse("hide");*/
     document.getElementById(elementId).scrollIntoView({ behavior: "smooth" })
   }
 

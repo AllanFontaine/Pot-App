@@ -40,7 +40,6 @@ export class LineGraphComponent implements OnInit {
     );
     this.garden.get_user_data(currentDate.toISOString()).subscribe(
       (res) => {
-        console.log(res)
         for (let i = 0; i < res.length; i++) {
           this.labels.push(this.datePipe.transform(res[i].date_reception_donnee, 'd/M/yy H:mm'));
           this.exterior_moisture_data.push(res[i].humidite_exterieur);

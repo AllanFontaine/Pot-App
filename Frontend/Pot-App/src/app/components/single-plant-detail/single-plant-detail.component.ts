@@ -55,7 +55,6 @@ export class SinglePlantDetailComponent implements OnInit, OnDestroy {
   }
 
   onReturn(): void {
-    console.log(1);
     this.router.navigate(["/wiki"]);
   }
 

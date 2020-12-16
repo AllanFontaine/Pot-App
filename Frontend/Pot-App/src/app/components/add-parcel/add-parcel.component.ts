@@ -149,7 +149,6 @@ export class AddParcelComponent implements OnInit {
       var day = parseInt(this.date_plantation.split("-")[2]) + 1
       this.garden.get_last_parcel(this.data.num, event.toISOString().split('T')[0]).subscribe(
         result => {
-          console.log(result)
           this.request_conseil = '';
           this.last_plant_nom = '';
           if (!!result[0]) {

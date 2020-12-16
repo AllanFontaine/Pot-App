@@ -26,8 +26,6 @@ export class UserProfileComponent implements OnInit {
           res => {
             this.my_profile = res[0]
             this.isLoading = false;
-            console.log(this.my_profile)
-            console.log(this.my_user)
           },
           err => console.log(err)
         )
@@ -57,15 +55,11 @@ export class UserProfileComponent implements OnInit {
     form.value.email === "" ?  form.value.email=this.my_user.email : "";
     form.value.first_name === "" ?  form.value.first_name=this.my_user.first_name : "";
     form.value.last_name === "" ?  form.value.last_name=this.my_user.last_name : "";
-    console.log(form.value);
     this.userService.modify_User(localStorage.getItem("token"),form.value).subscribe(
       res => {
-        console.log(res);
         this.ngOnInit();
       },
       err => {
-
-        console.log(err)
         if (!!err.error.username) {
           Swal.fire({
             icon: 'error',
