@@ -32,7 +32,6 @@ export class HistoriqueParcelComponent implements OnInit {
       if (result.isDenied) {
 
         this.garden.erase_parcel(id).subscribe(res => {
-          console.log("deleted")
         },
           err => console.log(err)
         );
@@ -41,7 +40,6 @@ export class HistoriqueParcelComponent implements OnInit {
       }
     })
 
-    console.log("erase")
   }
 
   sortData(sort: Sort) {
@@ -65,7 +63,6 @@ export class HistoriqueParcelComponent implements OnInit {
     this.garden.get_my_parcels_ordered(orderBy, orderDirection).subscribe(
       res => {
         this.my_parcel = res
-        console.log(this.my_parcel);
       },
       err => console.log(err)
     )
