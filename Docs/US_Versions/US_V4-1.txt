@@ -62,6 +62,4 @@ US: (en tant que, je veux, afin de = qui, quoi, pourquoi)
 
 9.1 En tant qu'utilisateur, je veux pouvoir avoir accès à un historique de ce que j'ai planté.
 9.2 En tant qu'administrateur, je veux pouvoir avoir des statistiques sur ce qui a le plus été planté et à quel période.
-
-
 Manque plus qu'à rajouter les tasks (une us développer par personne) + d'en faire les critères d'acceptation : à développer avec les autres!

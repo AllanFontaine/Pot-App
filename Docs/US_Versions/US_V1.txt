@@ -1,0 +1,78 @@
+--------------VISITEURS---------------------------------------------------------------------------------------------------------------------------
+
+. En tant que visiteur, je veux pouvoir être informé de ce que le produit proposé prend en charge.
+
+. En tant que visiteur, je veux pouvoir m'inscrire pour obtenir un compte client.
+
+------------------------------------------ Administrateur ----------------------------------------------------------------------------------------
+
+1. En tant qu'administrateur, je veux pouvoir ajouter des plantes et leur caractéristiques dans la base de données grâce à un formulaire.
+ 
+2. En tant qu'administrateur, je veux pouvoir supprimer des plantes dans la base de données grâce à un simple bouton.
+
+3. En tant qu'administrateur, je veux pouvoir modifier des plantes ou leurs caractéristiques au moyen d'un simple bouton qui débouchera vers une page 
+
+4. En tant qu'administrateur, je veux avoir les mêmes droits que les visiteurs et les utilisateurs.
+
+----------------------------------------------- Client ----------------------------------------------------------------------------------------------------
+
+1. En tant qu’utilisateur, je veux être capable d'arroser une parcelle.
+
+2. En tant qu'utilisateur, je veux être capable de gérer la hauteur d'arrosage.
+
+3. En tant qu'utilisateur, je veux que l'arrosage se fasse de manière automatique.  //à reformuler
+
+4. En tant qu'utilisateur, je veux que l'arrosage se fasse en fonction des caractéristiques de chaque plante.
+
+	4bis. création du site?
+
+5. En tant qu'utilisateur, je veux avoir accès à un espace personnel pour la gestion de mon potager.
+
+6. En tant qu'utilisateur, je veux être conseillé sur ce que je dois planté (en fonction de la saison, plantes déjà plantées ? etc.). // à développer
+
+7. En tant qu'utilisateur, je veux pouvoir assigner une plante à une parcelle. 
+
+8. En tant qu'utilisateur, je veux pouvoir modifier le contenu d'une parcelle. 
+
+9. En tant qu'utilisateur, je veux pouvoir supprimer le contenu d'une parcelle. 
+
+10. En tant qu'utilisateur, je veux savoir où les plantes sont placées dans le potager.
+
+11. En tant qu'utilisateur, je veux connaitre les besoins des plantes que j'ai plantées.
+
+12. En tant qu'utilisateur, je veux connaitre les caractéristiques des plantes que j'ai plantées.
+
+13. En tant qu'utilisateur, je veux avoir un historique de mes anciennes plantations. // -> détails: bouton "archiver"
+
+14. En tant qu'utilisateur, je veux avoir accès à la consommation d'eau déjà déversée. // à reformuler -> détails: donner l option par jour, semaine etc
+
+. En tant qu’utilisateur, je veux qu'un moteur gère l’ouverture des vannes d’irrigation.
+
+. En tant qu’utilisateur, je veux que le moteur prenne en compte les données envoyées par notre contrôleur.
+
+. En tant qu'utilisateur, je veux avoir les mêmes droits que les visiteurs.
+
+
+==> température
+
+4. En tant qu’utilisateur, je veux que mon potager soit muni d'une sonde de température afin de pouvoir prélever celle ci a n'importe quel moment.
+
+5. En tant qu'utilisateur, je veux que les données récoltés par les sondes soient transmise vers une base de données.
+
+6. En tant qu’utilisateur, je veux que les données prélevées des températures puissent avoir un impact direct sur la quantité d'eau que mes plantes reçoivent.
+
+
+==> vent 
+
+7. En tant qu’utilisateur, je veux que mon potager soit muni d'une sonde capable de prélever la vitesse du vent à n'importe quel moment.
+
+5. En tant qu'utilisateur, je veux que les données récoltés par la sonde soit transmise vers une base de données.
+
+8. En tant qu’utilisateur, je veux que les données récupérées sur le vent puissent avoir un impact direct sur la quantité d'eau que reçoivent mes plants.
+
+
+9. En tant qu’utilisateur, je veux que mon système puisse récolter les données de manière autonome pour ensuite pouvoir les traiter.
+
+10. En tant qu’utilisateur, je veux que mon système puisse communiquer la quantité d'eau nécessaire a l'arroseur pour que celui ci puisse arroser.
+
+11. 
