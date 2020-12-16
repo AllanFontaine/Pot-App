@@ -41,8 +41,6 @@ export class DashboardComponent implements OnInit {
             (res) => {
               this.amountParcels = res[0]['nombre_parcelle'];
               this.my_parcels = Array(this.amountParcels).fill({ estUtilise: false });
-              console.log(this.my_parcels)
-              console.log(res[0])
               this.orderParcels();
             },
             (err) => console.log(err)
@@ -75,6 +73,8 @@ export class DashboardComponent implements OnInit {
     this.isLoaded = true
   }
   openDialogForm(numparcel): void {
+    console.log(numparcel)
+    console.log(this.my_parcels)
     let dialogRef = this.dialog.open(AddParcelComponent, {
       data: {
         num: numparcel + 1,
@@ -86,6 +86,8 @@ export class DashboardComponent implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Parcelle bien ajoutée',
+          text: "Veillez bien à régler la hauteur de l'arrosage",
+          footer: 'Cette information se trouve dans les détails de la parcelle'
         }).then((result) => {
           if (result.isConfirmed) {
             this.ngOnInit();

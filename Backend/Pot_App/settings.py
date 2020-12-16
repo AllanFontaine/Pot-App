@@ -164,6 +164,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'EXCEPTION_HANDLER': 'appli.api.exceptionhandler.custom_exception_handler'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

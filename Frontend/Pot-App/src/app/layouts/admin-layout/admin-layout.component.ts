@@ -23,7 +23,6 @@ export class AdminLayoutComponent implements OnInit {
         router.events.filter(event => event instanceof NavigationEnd)
             .subscribe(event => {
                 this.currentURL = event;
-                console.log(this.currentURL);
             });
     }
 
@@ -136,6 +135,11 @@ export class AdminLayoutComponent implements OnInit {
             }
         });
     }
+
+    getUrl(){
+        return this.currentURL;
+    }
+
     ngAfterViewInit() {
         this.runOnRouteChange();
     }

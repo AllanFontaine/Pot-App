@@ -2,8 +2,13 @@
     <div class="container-fluid">
         <nav class="pull-left">
             <ul>
-                <li>
+                <li *ngIf="currentURL.url != '/home'">
                     <a routerLink="/about-us">
+                        A propos de nous
+                    </a>
+                </li>
+                <li *ngIf="currentURL.url == '/home'">
+                    <a href="/about-us">
                         A propos de nous
                     </a>
                 </li>

@@ -54,18 +54,7 @@ export class SignUpComponent implements OnInit {
     }
     return result;
   }
-  /*initForm() {
-    this.formGroup = new FormGroup(
-      {
-        username: new FormControl('', [Validators.required]),
-        password: new FormControl('', [Validators.required]),
-        email: new FormControl('', [Validators.required]),
-        first_name: new FormControl('', [Validators.required]),
-        last_name: new FormControl('', [Validators.required]),
-      }
-    )
-  }
-*/
+
   registerUser() {
     let nomUser = this.formGroup.value['formArray'][1].userCtrl;
     let mail = this.formGroup.value['formArray'][1].mailCtrl;
@@ -95,7 +84,7 @@ export class SignUpComponent implements OnInit {
       this.authService.registerUser(user)
         .subscribe(
           res => {
-            console.log(prof);
+            console.log(res);
             prof.user = res.id;
             console.log(prof);
             localStorage.setItem('token', res.token.access)
@@ -113,22 +102,34 @@ export class SignUpComponent implements OnInit {
             );
           },
           err => {
-            console.log(user)
+
+            console.log(!!err.error[0])
             if (!!err.error.username) {
-              alert(err.error.username)
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Un compte existe déjà avec ce nom d'utilisateur!",
+                footer: "Veuillez entrez une autre pseudonyme"
+              })
             } else if (!!err.error.password) {
-              alert(err.error.password)
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Votre mot de passe est trop faible!',
+                footer: "Veuillez changer de mot de passe"
+              })
+            } else if (!!err.error[0]){
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Un compte existe déjà avec cet email!',
+                footer: "Veuillez entrez une autre adresse email"
+              })
             }
           },
         );
     } else {
       Swal.fire('warning', 'Les mots de passes ne correspondent pas, vérifiez les et réesayez!')
     }
-    //  if(val.email && val.password && val.username) {
-
-    //  } else{
-    //    console.log("la valeur de val n'est pas conforme.");
-    //    console.log(val);
-    //  }
   }
 }

@@ -170,19 +170,14 @@ export class AddParcelComponent implements OnInit {
               this.composant_consomme = this.get_composant(this.request_conseil.split("T")[1])
             }
           }
-          console.log(this.request_conseil)
           this.garden.get_plants_conseil(month, day, this.request_conseil).subscribe(
             res => {
-              console.log(res)
               if (res.length === 0) {
                 this.request_conseil = '';
                 this.garden.get_plants_conseil(month, day, this.request_conseil).subscribe(
                   result3 => {
-                    console.log('am in')
-                    console.log(result3)
                     this.listPlantConseil = result3
                     if (this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom) != -1) {
-                      console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
                       this.shuffleArray(this.listPlantConseil)
                       this.listPlantConseil.splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
                     } else {
@@ -193,7 +188,6 @@ export class AddParcelComponent implements OnInit {
               } else {
                 this.listPlantConseil = res;
                 if (this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom) != -1) {
-                  console.log(this.listPlantConseil.find(element => element.nom == this.last_plant_nom).nom)
                   this.shuffleArray(this.listPlantConseil)
                   this.listPlantConseil.splice(this.listPlantConseil.findIndex(element => element.nom == this.last_plant_nom), 1)
                 } else {

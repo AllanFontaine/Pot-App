@@ -64,7 +64,7 @@ export class SingleParcelComponent implements OnInit {
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: `Supprimer de mes parcelles`,
-      denyButtonText: `Supprimer et supprimer de mon historique`,
+      denyButtonText: `Supprimer définitivement`,
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -85,7 +85,8 @@ export class SingleParcelComponent implements OnInit {
         );
       } else if (result.isDenied) {
         Swal.fire({
-          title: 'Toutes suppression ne sera pas réversible',
+          icon:'warning',
+          title: 'Toutes suppression définitive ne sera pas réversible et aura une influence sur le suivi de votre profil',
           showDenyButton: true,
           showCancelButton: true,
           showConfirmButton: false,

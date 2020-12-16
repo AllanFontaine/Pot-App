@@ -9,7 +9,7 @@
         <app-navbar></app-navbar>
         <router-outlet></router-outlet>
         <div *ngIf="isMaps('maps')">
-            <app-footer></app-footer>
+            <app-footer [currentURL]="currentURL"></app-footer>
         </div>
     </div>
 </div>
@@ -20,6 +20,6 @@
     <app-navbar-home></app-navbar-home>
     <router-outlet></router-outlet>
     <div *ngIf="isMaps('maps')">
-        <app-footer></app-footer>
+        <app-footer [currentURL]="currentURL"></app-footer>
     </div>
 </div>

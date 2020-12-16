@@ -10,6 +10,7 @@ import django.contrib.auth.password_validation as validators
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import Http404
 from django.utils import timezone
+from rest_framework.response import Response
 
 
 UserModel = get_user_model()
@@ -187,7 +188,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         if User.objects.filter(email=validated_data['email']).exists:
             raise exceptions.ValidationError({
-                'detail': 'Email already exist'
+                'email': 'this email is already used.'
             })
         else:
             user = User(**validated_data)
@@ -213,9 +214,10 @@ class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
             duser.save()
             return duser
         else:
-            raise exceptions.ValidationError({
+            raise Exception({
                 'detail': 'Authentication credentials were not provided for this method.'
             })
+        
 
 
 class DonneesUserSerializer(serializers.ModelSerializer):  # forms.ModelForm

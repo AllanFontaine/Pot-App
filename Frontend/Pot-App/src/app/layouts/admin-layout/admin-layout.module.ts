@@ -47,6 +47,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatBadgeModule } from '@angular/material/badge'
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AdminLayoutComponent } from './admin-layout.component';
 
 @NgModule({
   imports: [
@@ -108,6 +109,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDialogModule,
     DatePipe,
     CartService,
+    AdminLayoutComponent,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
 })
