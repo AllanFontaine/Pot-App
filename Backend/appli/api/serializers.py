@@ -185,11 +185,16 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User(**validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
+        if User.objects.filter(email=validated_data['email']).exists:
+            raise exceptions.ValidationError({
+                'detail': 'Email already exist'
+            })
+        else:
+            user = User(**validated_data)
+            user.set_password(validated_data['password'])
+            user.save()
 
-        return user
+            return user
 
 
 class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm
