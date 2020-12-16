@@ -130,7 +130,7 @@ export class ShopComponent implements OnInit {
 
         Toast.fire({
           icon: 'success',
-          title: 'Merci de votre achat! <br> Vos parcelles ont été ajoutées dans l\'onglet Dashboard..'
+          title: 'Merci de votre achat! <br> Vos parcelles ont été ajoutées dans l\'onglet "Mon potager".'
         })
 
       } else if (!this.alreadyInCart && res === "SUCCESS") {
@@ -148,7 +148,7 @@ export class ShopComponent implements OnInit {
 
         Toast.fire({
           icon: 'success',
-          title: 'Merci de votre achat! <br> Vos produits seront bientot expédiés'
+          title: 'Merci de votre achat! <br> Vos produits seront bientôt expédiés'
         })
         this.cartService.clearCart();
       }
@@ -181,7 +181,7 @@ export class ShopComponent implements OnInit {
         if (!this.alreadyInCart) {
           let newPrice;
           const { value: number } = await Swal.fire({
-            title: 'Combien de parcelles désirez vous? (15€ supp par parcelle)',
+            title: 'Combien de parcelles désirez-vous? (15€ supplémentaire par parcelle)',
             input: 'number',
             inputPlaceholder: 'Numéro',
             showCancelButton: true

@@ -486,7 +486,7 @@ mark,
 
 .img-fluid {
     max-width: 100%;
-    height: auto;
+    min-height: 100%;
 }
 
 .img-thumbnail {
