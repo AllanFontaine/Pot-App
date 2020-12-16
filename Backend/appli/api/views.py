@@ -193,6 +193,10 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     def put(self, request, pk):
         print(self.data)
         if User.objects.filter(email=self.data.email):
+           raise exceptions.ValidationError({
+                'email': 'this email is already used.'
+            }) 
+        else:
             return self.update(self, request, pk)
 
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
