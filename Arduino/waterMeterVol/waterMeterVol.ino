@@ -1,15 +1,19 @@
 /*
 YF‐ S201 Water Flow Sensor
 Water Flow Sensor output processed to read in litres/hour
-Adaptation Courtesy: hobbytronics.co.uk
+Adaptation Courtesy: www.hobbytronics.co.uk
 */
-#define NOT_AN_INTERRUPT -1
-volatile int flow_frequency = 1; // Measures flow sensor pulses
-// Calculated litres/hour
- float vol = 0.0,l_minute;
- #define flowsensor 2 // Sensor Input
-unsigned long currentTime;
-unsigned long cloopTime;
+#include <Wire.h>
+
+#define I2C_ADDRESS_OTHER 0x1
+#define I2C_ADDRESS_ME 0x2
+
+volatile int flow_frequency; // Measures flow sensor pulses
+unsigned char flowsensor = 2; // Sensor Input
+float vol = 0.0,l_minute;
+int numValve;
+float amountWater = 1.02;
+String amountWaterStr = "";
 
 void flow () // Interrupt function
 {
@@ -20,29 +24,41 @@ void setup()
    pinMode(flowsensor, INPUT);
    digitalWrite(flowsensor, HIGH); // Optional Internal Pull-Up
    Serial.begin(9600);
-   attachInterrupt(digitalPinToInterrupt(flowsensor), flow, RISING); // Setup Interrupt
-
- 
-   Serial.print("Water Flow Meter");
-   Serial.print("Circuit Digest");
-   currentTime = millis();
-   cloopTime = currentTime;
+   Wire.begin(I2C_ADDRESS_ME);                // join i2c bus with address #4
+   Wire.onReceive(receiveEvent); // register event
+   attachInterrupt(0, flow, RISING); // Setup Interrupt
 }
 void loop ()
 {
-   currentTime = millis();
-   // Every second, calculate and print litres/hour
-    if(flow_frequency != 0){
+}
+
+void waterPlantAmout() {
+     // Every second, calculate and print litres/hour
+   while(vol < amountWater)
+   {
       // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
       l_minute = (flow_frequency / 7.5); // (Pulse frequency x 60 min) / 7.5Q = flowrate in L/hour
       l_minute = l_minute/60;
       vol = vol +l_minute;
-      Serial.print("Vol:");
-      Serial.print(vol);
-      Serial.print(" L ");
-      flow_frequency = 0; // Reset Counter
+      flow_frequency = 0;
       Serial.print(l_minute, DEC); // Print litres/hour
-      Serial.println(" L/Sec ");
-      delay(1000);
+      Serial.println(" L/hour");
+      Serial.println(vol);
    }
+  
+}
+
+void receiveEvent() {
+  while(1 < Wire.available()) { // loop through all but the last
+    char c = Wire.read();
+    //Serial.print(c);
+    amountWaterStr = amountWaterStr + c;    // receive byte as an integer
+  }
+  
+  numValve = Wire.read(); // receive byte as a character
+  amountWater = amountWaterStr.toFloat();
+  Serial.println(numValve);
+  Serial.println(amountWater);
+  waterPlantAmout();
+  delay(5000);
 }
