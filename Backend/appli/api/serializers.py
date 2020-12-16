@@ -79,23 +79,22 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = [ 'id', 'email', 'last_name', 'first_name', 'username' ]
+        fields = ['id', 'email', 'last_name', 'first_name', 'username']
 
     def validate_password(self, password):
         return make_password(password)
 
     def update(self, instance, validated_data):
-        if bool(User.objects.filter(email=validated_data['email'])[0] != instance) & User.objects.filter(email=validated_data['email']).exists():
+        user_same_email = ''
+        print(User.objects.filter(email=validated_data['email']).exists())
+        if User.objects.filter(email=validated_data['email']).exists():
+            user_same_email = User.objects.filter(email=validated_data['email'])[0]
+        if bool(user_same_email != instance) & User.objects.filter(email=validated_data['email']).exists():
             raise exceptions.ValidationError({
                'email': 'this email is already used.'
             })
         else:
-            instance.email = validated_data.get('email', instance.email)
-            instance.username = validated_data.get('username', instance.username)
-            instance.first_name = validated_data.get('first_name', instance.first_name)
-            instance.last_name = validated_data.get('last_name', instance.last_name)
-            instance.save()
-            return instance
+            return super().update(instance, validated_data)
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -199,7 +198,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        if User.objects.filter(email=validated_data['email']).exists:
+        if User.objects.filter(email=validated_data['email']).exists():
             raise exceptions.ValidationError({
                 'email': 'this email is already used.'
             })
@@ -209,16 +208,6 @@ class RegisterSerializer(serializers.ModelSerializer):
             user.save()
 
             return user
-    
-    """def update(self, instance, validated_data):
-        print(request)
-        print('HI')
-        if User.objects.filter(email=self.data.email):
-           raise exceptions.ValidationError({
-                'email': 'this email is already used.'
-            }) 
-        else:
-        return self.update(request, *args, **kwargs)"""
 
 
 class DonneesParcelleSerializer(serializers.ModelSerializer):  # forms.ModelForm

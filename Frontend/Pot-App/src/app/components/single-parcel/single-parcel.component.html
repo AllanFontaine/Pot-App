@@ -27,15 +27,11 @@
                 <td>{{parcel["date_plantation"] | date}}</td>
               </tr>
               <tr>
-                <td>Récolte en jours :</td>
+                <td>Nombre de jours avant la récolte:</td>
                 <td>{{plante['recolte_en_jours']}}</td>
               </tr>
               <tr>
-                <td>Combien de temps avant la récolte :</td>
-                <td>{{demo}}</td>
-              </tr>
-              <tr>
-                <td>Hauteur d'arrosage :</td>
+                <td>Hauteur d'arrosage:</td>
                 <td id="hauteur" [ngStyle]="{'color': plante['hauteur_arrosage']}">{{couleur[plante['hauteur_arrosage']]}}</td>
               </tr>
             </tbody>
