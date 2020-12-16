@@ -14,10 +14,10 @@ export class SingleParcelComponent implements OnInit {
   parcel: [];
   plante: [];
   loading: boolean = true;
-  url_plante :string;
+  url_plante: string;
   countdownDate;
-  x; demo:any;
-  couleur = {'brown': 'brun', 'blue': 'bleu', 'green': 'vert'};
+  x; demo: any;
+  couleur = { 'brown': 'brun', 'blue': 'bleu', 'green': 'vert' };
 
   constructor(
     private garden: PersonalGardenService,
@@ -34,7 +34,7 @@ export class SingleParcelComponent implements OnInit {
         this.parcel = result;
         this.plante = result.planteId;
         nom = this.plante['nom'].split(' ').join('_');
-        this.url_plante = "http://localhost:4200/wiki/"+this.plante['id']+'/'+nom;
+        this.url_plante = "https://www.pot-app.be//wiki/" + this.plante['id'] + '/' + nom;
         this.loading = false;
         this.countdownDate = new Date(this.plante['date_semis_fin']).getTime();
       },
@@ -75,7 +75,7 @@ export class SingleParcelComponent implements OnInit {
         );
       } else if (result.isDenied) {
         Swal.fire({
-          icon:'warning',
+          icon: 'warning',
           title: 'Toutes suppression définitive ne sera pas réversible et aura une influence sur le suivi de votre profil',
           showDenyButton: true,
           showCancelButton: true,

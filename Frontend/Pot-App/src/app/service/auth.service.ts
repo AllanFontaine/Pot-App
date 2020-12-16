@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
 
-  private url = 'http://127.0.0.1:8000/api';
+  private url = 'https://api.pot-app.be/api';
 
   private token;
 

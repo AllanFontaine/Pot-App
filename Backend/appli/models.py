@@ -25,7 +25,8 @@ class Plantes(models.Model):
     description = models.TextField(blank=True)
     info_insolite = models.TextField(blank=True, default = "")
     url_wiki = models.TextField(blank = False, default = '')
-    image = models.ImageField('plantes', upload_to='./Img', blank=True)
+    image = models.TextField(blank = False, default = '')
+    image2 = models.ImageField('plantes', upload_to='./Img', blank=True)
     hauteur_arrosage = models.CharField(max_length=100, choices=hauteur_arrosage_choix, default="bas")
 
     def __str__(self):
