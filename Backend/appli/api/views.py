@@ -190,6 +190,11 @@ class UserAPIView(viewsets.ModelViewSet, ListAPIView):  # detailview
     def get_serializer_context(self, *args, **kwargs):
         return {"request": self.request}
 
+    def put(self, request, pk):
+        print(self.data)
+        if User.objects.filter(email=self.data.email):
+            return self.update(self, request, pk)
+
 class ProfileAPIView(viewsets.ModelViewSet):  # detailview
     """
     *** Vue utilisée pour manipuler les profils liés au comptes utilisateurs

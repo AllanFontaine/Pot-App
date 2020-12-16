@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, FormControl, Validators, FormGroup } from '@angular/forms';
-import { AuthService } from '../../service/auth.service'
+import { AuthService } from '../../service/auth.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-user-profile',
@@ -62,7 +63,25 @@ export class UserProfileComponent implements OnInit {
         console.log(res);
         this.ngOnInit();
       },
-      err => console.log(err)
+      err => {
+
+        console.log(err)
+        if (!!err.error.username) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Un compte existe déjà avec ce nom d'utilisateur!",
+            footer: "Veuillez entrez une autre pseudonyme"
+          })
+        } else if (!!err.error[0]){
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Un compte existe déjà avec cet email!',
+            footer: "Veuillez entrez une autre adresse email"
+          })
+        }
+      }
     );
     this.modifyTrue = true;
   }
