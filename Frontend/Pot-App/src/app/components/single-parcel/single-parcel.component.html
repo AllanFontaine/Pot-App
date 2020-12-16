@@ -2,47 +2,18 @@
   <mat-progress-spinner></mat-progress-spinner>
 </div>
 <ng-template #content id="body-single">
-    <div class="card container graphique pb-3">
-      <div class="card-header">
-        <h2>{{plante['nom']}}</h2>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-4">
-            <figure class="img1 embed news" style="size: 200%;">
-              <img src="{{plante['image']}}" alt="{{plante['nom']}}">
-              <figcaption class="align-items-end">Plus d'informations sur la plante <a class="lien_plante p-1"
-                  color="primary" href="{{url_plante}}" style="width: 25%;">ici</a></figcaption>
-            </figure>
-          </div>
-          <div class="col-md-6">
-            <table class="table table-stripped">
-              <tbody>
-                <tr>
-                  <td>Numéro de parcelle:</td>
-                  <td><i>{{parcel["numero_parcelle"]}}</i></td>
-                </tr>
-                <tr>
-                  <td>date de plantation:</td>
-                  <td>{{parcel["date_plantation"] | date}}</td>
-                </tr>
-                <tr>
-                  <td>Récolte en jours :</td>
-                  <td>{{plante['recolte_en_jours']}}</td>
-                </tr>
-                <tr>
-                  <td>Combien de temps avant la récolte :</td>
-                  <td>{{demo}}</td>
-                </tr>
-                <tr>
-                  <td>Hauteur d'arrosage :</td>
-                  <td id="hauteur" [ngStyle]="{'color': plante['hauteur_arrosage']}">{{couleur[plante['hauteur_arrosage']]}}</td>
-                </tr>
-              </tbody>
-            </table>
-            <button mat-stroked-button color="warn" (click)="delete_parcel()" id="bouton-supp">Supprimer la
-              parcelle</button>
-          </div>
+  <div class="card container pb-3">
+    <div class="card-header">
+      <h2>{{plante['nom']}}</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4">
+          <figure class="img1 embed news" style="size: 200%;">
+            <img src="{{plante['image']}}" alt="{{plante['nom']}}">
+            <figcaption class="align-items-end">Plus d'informations sur la plante <a class="lien_plante p-1"
+                color="primary" href="{{url_plante}}" style="width: 25%;">ici</a></figcaption>
+          </figure>
         </div>
       </div>
     </div>
