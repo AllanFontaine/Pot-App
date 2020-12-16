@@ -1,0 +1,45 @@
+<div id="wiki_container" class="container">
+    
+      
+        <div class="container">
+          <form class="navbar-form" [formGroup]="formGroup" (submit)="search_plant()">
+            <span class="bmd-form-group">
+              <div class="input-group no-border">
+                <input type="text" class="form-control rounded blank" id="name" name="name" placeholder="Chercher une plante" formControlName="name">
+              </div>
+              <br>
+                <label class="mr-sm-2" for="CustomSelect">Trier par :</label>
+                <select class="browser-default custom-select mr-sm-2" id="CustomSelect" (change)="onChangeTri($event.target.value)">
+                  <option value="nom ASC" default>Nom (a-Z)</option>
+                  <option value="nom DSC">Nom (Z-a)</option>
+                  <option value="date_semis_debut ASC">Saison (Janvier-Decembre)</option>
+                  <option value="date_semis_debut DSC">Saison (Décembre-Janvier)</option>
+                  <option value="recolte_en_jours ASC">Récolte en jours (croissant)</option>
+                  <option value="recolte_en_jours DSC">Récolte en jours (décroissant)</option>
+                </select>
+              
+            </span>
+          </form>
+         
+          <ul class="list-group">
+  
+              
+              <app-wiki-single-plant *ngFor="let plant of plants"
+              [nom] = "plant.nom"
+              [nom_scientifique] = "plant.nom_scientifique"
+              [recolte_en_jours] = "plant.recolte_en_jours"
+              [image] = "plant.image"
+              [url_wiki] = "plant.url_wiki"
+              [saison_debut] = "plant.saison_debut"
+              [saison_fin] = "plant.saison_fin"
+              [id]="plant.id">
+              </app-wiki-single-plant>      
+              
+            
+          </ul>
+          <mat-paginator [pageSize]="10"
+          [hidePageSize]="true"
+          (page)="onPageChange($event)" #paginator>
+        </mat-paginator> 
+        </div>
+</div>

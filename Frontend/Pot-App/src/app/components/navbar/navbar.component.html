@@ -1,0 +1,28 @@
+
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <p class="navbar-brand pt-2">{{getTitle()}}</p>
+        </div>
+        <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+        <div class="collapse navbar-collapse justify-content-end show" id="navigation">
+            <ul class="navbar-nav">
+                <li class="nav-item p-2" *ngIf="!authService.LoggedIn()">
+                    <a mat-button class="nav-link btn" (click)="openDialogForm()">
+                        S<span class="text-lowercase">e connecter</span>
+                    </a>
+                </li>
+                <li class="nav-item p-2 lowercase" *ngIf="!authService.LoggedIn()">
+                    <a mat-flat-button class="nav-link btn" routerLink="/register">
+                        S'<span class="text-lowercase">enregistrer</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

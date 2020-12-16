@@ -1,0 +1,104 @@
+<div class="bg"></div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <h2>
+                    La genèse d'un projet
+                </h2>
+                <p>
+                    Dans le cadre de notre projet d'intégration de 3ème année de bachelier à l'EPHEC, nous avons été amené à essayer de trouver une idée de projet. 
+                    Ce projet se devait d'être créé avec les méthodes de Devops ainsi qu'en utilisant les techniques et technologies vues en classe, 
+                    tout en respectant aussi un des besoins de nôtre société actuelle resprésenté par les Objectifs de Développement Durable mis en avant par l'UN.
+                </p>
+                <p>    
+                    C'est dans cet esprit qu'est né Pot'App.<br> Pot'App se veut être une aide efficace pour toute personne qui aurait envie de se lancer dans le monde 
+                    des potagers à domicile. Il offre un support intéressant pour se lancer tout en permettant de limiter les possibles erreurs de débutant. 
+                    Pot'App est muni d'un wikipedia regroupant diverses infos sur les plantes ainsi que l'optimisationde leur rotation. Outre tout cela, 
+                    Pot'App arrose automatiquement vôtre potager en fonction de ses besoins, permettant une économie d'eau et de temps.
+                    Alors n'hésitez plus, planté!
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <h2>En quoi ca consiste?</h2>
+            <p>
+                Bien que notre arroseur semble magique, ce dernier ne puise pas sa force dans la fontaine des fées mais plutôt dans celle du travail, du code et de l'éléctronique.
+                Cela semble magique à bien des égards mais rien n'en est! Alors comment cela fonctionne donc?<br>
+                Notre produit est un tout composé de plusieurs technologies qui intéragissent entres-elles pour vous fournir le service pour lequel le produit est créé : arroser automatiquement son potager.
+                Le site web fonctionne comme le centre névralgique de pot'app. C'est ici que l'on peut acheter l'arroseur ainsi que défnir notre nombre de parcelle et quelles sont les plantes qui les habitent.<br>
+                Cette application web est relié en réseau à la partie éléctronique qui va gérer la partie arrosage automatique à proprement parlé.<br>
+                Pour la partie éléctronique justement, cette dernière est composé de :  
+            </p> 
+            <ul>
+                <li>
+                    Deux arduino, un qui sert de "maître" qui prend les infos reçues via les différentes sondes pour ajuster la quantité d'eau à utiliser
+                    et qui donne les instructions d'ouverture et de fermeture des vannes au deuxième arduino : "l'esclave" qui lui va se charger d'ouvrir et fermer les vannes à proprement parlé.                 
+                </li>
+                <li>
+                    Plusieurs sondes dont le but est de pouvoir ajusté notre arrosage en fonction de conditions extérieures 
+                    (les sondes en questions sont : une sonde de température extérieure, une sonde d'humidité de l'air et une sonde d'humidité du sol).
+                </li>
+                <li>
+                    Un compteur d'eau qui va transmettre à l'arduino puis, via ce dernier, au site web, la quantité d'eau utilisé sur la/les parcelle(s).
+                </li>
+                <li>
+                    Les vannes qui permettront l'écoulement de l'eau et donc l'arrosage au moment ou ce dernier est demandé.
+                </li>
+                <li>
+                    Un tube d'acier perforé permettant de placer le tuyau d'arrosage en hauteur afin d'arroser la plante en fonction de ce qui est recommandé.
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <h2>L'équipe au complet!</h2>
+        </div>
+        <div class = "people" >
+            <mat-grid-list [cols]="breakpoint" gutterSize="2px" (window:resize)="onResize($event)">
+                <mat-grid-tile (click) = "sendToGithub('AllanFontaine')" class = "item">
+                    <img src="../../../assets/img/creator/Allan.jpg"/>
+                        <div class="cover"> 
+                            <h3 class="name">Allan Fontaine</h3>
+                            <p class="title">Scrum Master</p>
+                        </div>
+                    
+                </mat-grid-tile>
+                <mat-grid-tile (click) = "sendToGithub('celiaHassaine')" class = "item">
+                    <img src="../../../assets/img/creator/Celia.jpg"/>
+                    <div class="cover"> 
+                        <h3 class="name">Celia Hassaine</h3>
+                        <p class="title">Team Member</p>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile (click) = "sendToGithub('EmmanuelF-Ephec')" class = "item">
+                    <img src="../../../assets/img/creator/Emma.jpg"/>
+                    <div class="cover"> 
+                        <h3 class="name">Emmanuel Foureau</h3>
+                        <p class="title">Team Member</p>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile (click) = "sendToGithub('FlorentTheys')" class = "item" >
+                    <img src="../../../assets/img/creator/Florent.jpg"/>
+                    <div class="cover"> 
+                        <h3 class="name">Florent Theys</h3>
+                        <p class="title">Product Owner</p>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile (click) = "sendToGithub('Glennichouffe')" class = "item">
+                    <img src="../../../assets/img/creator/Glenn.jpg"/>
+                    <div class="cover"> 
+                        <h3 class="name">Glenn Crompton</h3>
+                        <p class="title">Team Member</p>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile (click) = "sendToGithub('Altiimax')" class = "item">
+                    <img src="../../../assets/img/creator/Kev.jpg"/>
+                    <div class="cover"> 
+                        <h3 class="name">Kevin Vandenede</h3>
+                        <p class="title">Team Member</p>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+    </div>
+</div>

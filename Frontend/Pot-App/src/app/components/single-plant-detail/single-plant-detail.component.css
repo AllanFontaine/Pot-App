@@ -1,0 +1,35 @@
+.container {
+    margin-top: 60px;
+    padding: 0;
+}
+
+h2 {
+    padding-top: 5px;
+
+}   
+
+.content {
+    margin-top: 5px;
+}
+
+.expansion {
+    min-width: 100%;
+    border-radius: 0;
+    margin-top: 5px;
+    box-shadow: 0;
+}
+
+.expansion mat-expansion-panel-header {
+    background-color: whitesmoke;
+}
+
+.card-header {
+    text-align: center;
+    background-color: whitesmoke;
+    
+}
+
+button {
+    width: 80%;
+    align-self: center;
+}

@@ -1,0 +1,27 @@
+<footer class="footer ">
+    <div class="container-fluid">
+        <nav class="pull-left">
+            <ul>
+                <li *ngIf="currentURL.url != '/home'">
+                    <a routerLink="/about-us">
+                        A propos de nous
+                    </a>
+                </li>
+                <li *ngIf="currentURL.url == '/home'">
+                    <a href="/about-us">
+                        A propos de nous
+                    </a>
+                </li>
+                <li>
+                    <a href = "/terms" target="_blank">
+                        Termes et conditions
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright pull-right">
+            &copy;
+            {{test | date: 'yyyy'}}, Pot'App "Pour un meilleur jardin"
+        </div>
+    </div>
+</footer>

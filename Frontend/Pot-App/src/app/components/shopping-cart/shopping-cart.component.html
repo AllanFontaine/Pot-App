@@ -1,0 +1,48 @@
+<h2 class="display-4">
+    <mat-icon>shopping_cart</mat-icon>My Shoping Cart
+</h2>
+<div  *ngIf="my_cart.length != 0; else noItems" class="row shop-listing">
+    <table class="table shop-table">
+        <thead>
+            <th class="b-0 l-5">Nom</th>
+            <th class="b-0">Prix</th>
+            <th class="b-0">Quantité</th>
+            <th class="b-0 text-center">Prix Total</th>
+        </thead>
+        <tbody *ngFor=" let item of my_cart; let i = index">
+            <ng-container *ngIf="item.prodId === 1; else otherItems">
+                <td>{{item.name}}</td>
+                <td>{{item.price | currency : "EUR": "symbol":"1.2-2" }}</td>
+                <td>
+                    <mat-icon align = "center" (click)="removeItem(i)">delete</mat-icon>
+                </td>
+                <td class="text-center">
+                    <h4>{{item.price}}€</h4>
+                </td>
+            </ng-container>
+            <ng-template #otherItems>
+                <td>{{item.name}}</td>
+                <td>{{item.price | number: '1.1-2'}}€</td>
+                <td>
+                    <button class="btn btn-success btn-sm" (click)="decrementItem(i)">-</button>
+                    {{item.amount}}
+                    <button class="btn btn-success btn-sm" (click)="incrementItem(i)">+</button>
+                </td>
+                <td class="text-center">
+                    <h4>{{item.price * item.amount | number: '1.1-2'}}€</h4>
+                </td>
+            </ng-template>
+        </tbody>
+        <tr>
+            <td colspan="3" align="right">Subtotal : {{subTotal | number : '1.1-2'}}€</td>
+            <td colspan="4" align="right">
+                <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
+                <button (click) = "emptyCart()" class="btn btn-danger">Vider le panier</button>
+                <button (click) = "proceedCheckout()" class="btn btn-success">Payer =></button>
+            </td>
+        </tr>
+    </table>
+</div>
+<ng-template #noItems>
+    <h1>VOTRE PANIER EST VIDE</h1>
+</ng-template>

@@ -1,0 +1,90 @@
+<div *ngIf="loading; else content">
+</div>
+<ng-template #content>
+    <div class="container">
+        <div *ngIf="plant && plantWikipedia" class="card container" >
+            <div class="card-header">
+                <h2>{{plant.nom}}</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src={{plant.image}} alt={{plant.nom}}>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-stripped">
+                            <tbody>
+                                <tr>
+                                    <td>Nom scientifique :</td>
+                                    <td><i>{{plant.nom_scientifique}}</i></td>
+                                </tr>
+                                <tr>
+                                    <td>Saison :</td>
+                                    <td>{{plant.saison_debut}} - {{plant.saison_fin}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Récolte en jours :</td>
+                                    <td>{{plant.recolte_en_jours}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let plantWiki of plantWikipedia" >
+                    <mat-expansion-panel *ngIf="plantWiki.data.wiki" class="expansion" hideToggle>
+                        <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{plantWiki.data.title}}
+                        </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p class="content" [innerHTML]="plantWiki.data.wiki"></p>
+                    </mat-expansion-panel>
+                    
+                </div>
+                <div class="row">
+                    <mat-expansion-panel class="expansion" hideToggle>
+                        <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Détails techniques
+                        </mat-panel-title>
+                        </mat-expansion-panel-header >
+                        
+                        <table class="table table-stripped content" >
+                            <tr>
+                                <td>Consommation en phosphore</td>
+                                <td>{{plant.phosphore_sol}}</td>
+                            </tr>
+                            <tr>
+                                <td>Consommation en Azote</td>
+                                <td>{{plant.azote_sol}}</td>
+                            </tr>
+                            <tr>
+                                <td>Consommation en potassium</td>
+                                <td>{{plant.potassium_sol}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nombre de plantes (/m²) :</td>
+                                <td>{{plant.densite_semi}}</td>
+                            </tr>
+                        </table>
+                    </mat-expansion-panel>
+                    
+                </div>
+                <div class="row">
+                    <mat-expansion-panel class="expansion" hideToggle>
+                        <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Info insolite
+                        </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p class="content">{{plant.info_insolite}}</p>
+                    </mat-expansion-panel>
+                    
+                </div>
+            </div> 
+        </div>
+        <div class="text-center">
+            <button class="btn btn-success  " (click)="onReturn()">Retour</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,25 @@
+<!-- Partie application côté personnel-->
+
+<div *ngIf="currentURL.url != '/home'">
+    <div class="sidebar" data-color="green" data-background-color="white" data-image="../../../assets/img/liberonspotapp3.jpg">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(../../../assets/img/liberonspotapp2.jpg)"></div>
+    </div>
+    <div class="main-panel">
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+        <div *ngIf="isMaps('maps')">
+            <app-footer [currentURL]="currentURL"></app-footer>
+        </div>
+    </div>
+</div>
+
+<!-- Partie home page présentation de l'entrprise -->
+
+<div *ngIf="currentURL.url == '/home'">
+    <app-navbar-home></app-navbar-home>
+    <router-outlet></router-outlet>
+    <div *ngIf="isMaps('maps')">
+        <app-footer [currentURL]="currentURL"></app-footer>
+    </div>
+</div>

@@ -11,13 +11,18 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import datetime
+
 import environ
 
 env = environ.Env(
-    NAME=(str, "boulangerie"),
-    USER=(str, "root"),
-    PASSWORD=(str, "password"),
-    HOST=(str, "localhost"),
+    SECRET_KEY=(str, "B"),
+    DEBUG=(bool,False),
+    DB_NAME= (str, "potappdb"),
+    DB_HOST= (str, "127.0.0.1"),
+    DB_PORT=(int, 3306),
+    DB_USER=(str, "potapp"),
+    DB_PASSWORD=(str, 'password')
 )
 
 environ.Env.read_env()
@@ -30,14 +35,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '02f1)2jll&gry1$4vd=-1&f+khsm9er9hy$cpjpslchxa@4ztn'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['51.68.225.45', '127.0.0.1', 'api.pot-app.be', 'www.pot-app.be']
 
-
+TEMPLATE_LOADERS = (
+    'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -49,7 +57,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appli',
     'rest_framework',
-    
+    'corsheaders',
+    'drf_yasg',
+    'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'Pot_App.urls'
@@ -91,7 +103,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': env('DB_NAME'),
         'HOST': env('DB_HOST'),
-        'PORT': '',
+        'PORT': env('DB_PORT'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),
     }
@@ -115,13 +127,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
@@ -134,3 +150,38 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Img')
+
+MEDIA_URL = '/Img/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+       'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'EXCEPTION_HANDLER': 'appli.api.exceptionhandler.custom_exception_handler'
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS' : {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'potappmail@gmail.com'
+EMAIL_HOST_PASSWORD ='Potapp1sc00l'

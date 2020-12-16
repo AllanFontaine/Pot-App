@@ -1,0 +1,31 @@
+<h3 class="mb-0">Entrez vos identifiants</h3>
+<form (ngSubmit)="LoginProcess(f)" #f="ngForm">
+
+  <p *ngIf = "incorectData" class= "text-danger">Verifier les données entrées et réessayer</p> 
+  <p *ngIf = "missingData" class= "text-danger">Vous devez completer tous les champs pour vous connecter</p> 
+
+  <div class="form-group">
+    <mat-form-field>
+      <mat-label>Nom d'utilisateur</mat-label>
+      <input matInput type="text" id="loginUsername" name="username" [errorStateMatcher]="matcher"
+        placeholder="Ex:Testeur38" [(ngModel)]="username" required>
+      <mat-error *ngIf = "missingData">
+        Le pseudonyme est requis
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field>
+      <input matInput type="password" id="loginPassword" name="password" placeholder="Mot de passe" [errorStateMatcher]="matcher"
+      [(ngModel)]="password" required>
+      <mat-error *ngIf = "missingData">
+        Le mot de passe est requis
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-group form-check">
+    <a routerLink="/resetPassword">Mot de passe oublié</a>
+  </div>
+  <button type="button" (click)="cancelClose()" mat-button>Fermer</button>
+  <button mat-raised-button type="submit" color="primary" class="float-right">Se connecter</button>
+</form>

@@ -1,0 +1,67 @@
+<!-- Ajoutez la class "stretched-link" au card pour les rendre cliquable, s'informer -->
+<!-- Ajoutez l'asynchrone pour que tout s'affiche du premier coup -->
+
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-success">
+            <h4 class="card-title ">Historique de vos plantations</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive" *ngIf="my_parcel.length != 0; else noParcels">
+              <table matSort (matSortChange)="getParcels($event)" class="table table-hover table-striped">
+                <thead class="text-primary">
+                  <th mat-sort-header="order_numparcel">
+                    Numéro parcelle
+                  </th>
+                  <th mat-sort-header="order_nameplant">
+                    Plante
+                  </th>
+                  <th mat-sort-header="order_scientname">Nom Scientifique</th>
+                  <th mat-sort-header="order_date">
+                    Date de plantation
+                  </th>
+                  <th mat-sort-header="order_stat">
+                    Est utilisé
+                  </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let parcel of my_parcel">
+                    <td>
+                      {{parcel.numero_parcelle}}
+                    </td>
+                    <td>
+                      {{parcel.planteId.nom}}
+                    </td>
+                    <td>
+                      <i>{{parcel.planteId.nom_scientifique}}</i>
+                    </td>
+                    <td>
+                      {{parcel.date_plantation | date:'d/M/yy'}}
+                    </td>
+                    <td class="text-primary">
+                      {{parcel.estUtilise? 'En cours de plantation' : 'Récoltée'}}
+                    </td>
+                    <td>
+                      <button (click)="deleteParcel(parcel.id)" mat-stroked-button color="warn">Supprimer de
+                        l'historique</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ng-template #noParcels>
+              <h3>Vous n'avez encore rien planté! Qu'attendez vous? </h3>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- liste de parcelle vide -->
+
+</div>

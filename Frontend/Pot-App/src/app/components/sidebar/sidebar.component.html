@@ -1,0 +1,72 @@
+<div class="logo">
+  <a routerLink="/home" class="simple-text">
+    <div class="logo-img">
+      <img src="/assets/img/favicon.png" />
+    </div>
+    Pot'App
+  </a>
+</div>
+<div class="sidebar-wrapper">
+  <ul class="nav">
+    <li routerLinkActive="active" class="nav-item">
+      <a class=" nav-link" routerLink="/wiki">
+        <i class="material-icons">chrome_reader_mode</i>
+        <p>Wiki</p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a class="dash nav-link" routerLink="/dashboard" data-toggle="tooltip"
+        title="Veuillez vous connecter pour accéder à cette partie">
+        <i class="material-icons">dashboard</i>
+        <p>Mon potager</p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a class="dash nav-link" routerLink="/user-profile" data-toggle="tooltip"
+        title="Veuillez vous connecter pour accéder à cette partie">
+        <i class="material-icons">person</i>
+        <p>Profil utilisateur</p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a class="dash nav-link" routerLink="/historique" data-toggle="tooltip"
+        title="Veuillez vous connecter pour accéder à cette partie">
+        <i class="material-icons">archive</i>
+        <p>Historique</p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a class=" nav-link" routerLink="/shop">
+        <i class="material-icons">shopping_cart</i>
+        <p>Magasin</p>
+      </a>
+    </li>
+    <li routerLinkActive="active" class="nav-item">
+      <a class=" nav-link" routerLink="/about-us">
+        <i class="material-icons">group</i>
+        <p>A propos</p>
+      </a>
+    </li>
+    <li *ngIf="authService.LoggedIn()" class="nav-item">
+      <a class="nav-link" routerLink (click)="logoutCheck()">
+        <i class="material-icons">login</i>
+        <p>Se déconnecter</p>
+      </a>
+    </li>
+    <li *ngIf="!authService.LoggedIn()&&isMobileMenu()" class="nav-item">
+      <a class="nav-link" routerLink='/register'>
+        <i class="material-icons">login</i>
+        <p>S'enregistrer</p>
+      </a>
+    </li>
+    <li *ngIf="!authService.LoggedIn()&&isMobileMenu()" class="nav-item">
+      <a class="nav-link" (click)="openDialogForm()">
+        <i class="material-icons">login</i>
+        <p>Se connecter</p>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
