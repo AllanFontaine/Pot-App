@@ -40,7 +40,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['51.68.225.45', '127.0.0.1']
+ALLOWED_HOSTS = ['51.68.225.45', '127.0.0.1', 'api.pot-app.be', 'www.pot-app.be']
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
