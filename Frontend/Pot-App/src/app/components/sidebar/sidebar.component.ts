@@ -28,6 +28,9 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
   classes;
+  private toggleButton: any;
+  private sidebarVisible: boolean;
+
 
   constructor(public authService: AuthService, public dialog: MatDialog) { }
 
@@ -38,6 +41,8 @@ export class SidebarComponent implements OnInit {
       $('.dash').tooltip('disable')
     }
     $('[data-toggle="tooltip"]').tooltip()
+    const body = document.getElementsByTagName('body')[0];
+    
   }
 
   isMobileMenu() {
@@ -45,6 +50,12 @@ export class SidebarComponent implements OnInit {
       return false;
     }
     return true;
+  };
+
+  sidebarClose() {
+    
+    const body = document.getElementsByTagName('body')[0];
+    body.classList.remove('nav-open');
   };
 
   textMuted() {
@@ -78,6 +89,7 @@ export class SidebarComponent implements OnInit {
     })
   }
   openDialogForm(): void {
+    this.sidebarClose();
     let dialogRef = this.dialog.open(LoginViewComponent, {
       width: '450px',
     });

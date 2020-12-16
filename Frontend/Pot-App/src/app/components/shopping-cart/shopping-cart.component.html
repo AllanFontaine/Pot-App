@@ -22,19 +22,19 @@
             </ng-container>
             <ng-template #otherItems>
                 <td>{{item.name}}</td>
-                <td>{{item.price}}€</td>
+                <td>{{item.price | number: '1.1-2'}}€</td>
                 <td>
                     <button class="btn btn-success btn-sm" (click)="decrementItem(i)">-</button>
                     {{item.amount}}
                     <button class="btn btn-success btn-sm" (click)="incrementItem(i)">+</button>
                 </td>
                 <td class="text-center">
-                    <h4>{{item.price * item.amount}}€</h4>
+                    <h4>{{item.price * item.amount | number: '1.1-2'}}€</h4>
                 </td>
             </ng-template>
         </tbody>
         <tr>
-            <td colspan="3" align="right">Subtotal : {{subTotal}}€</td>
+            <td colspan="3" align="right">Subtotal : {{subTotal | number : '1.1-2'}}€</td>
             <td colspan="4" align="right">
                 <button type="button" (click)="cancelClose()" mat-button>Cancel</button>
                 <button (click) = "emptyCart()" class="btn btn-danger">Vider le panier</button>
