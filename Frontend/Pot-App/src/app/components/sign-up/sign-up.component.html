@@ -19,7 +19,7 @@
             <input matInput placeholder="Ex: 16 Rue du Potager" formControlName="adresse">
           </mat-form-field>
           <div>
-            <button mat-button matStepperNext type="button">Next</button>
+            <button mat-button matStepperNext type="button">Suivant</button>
           </div>
         </mat-step>
         <mat-step formGroupName="1" [stepControl]="formArray.get([1])">
@@ -35,16 +35,16 @@
           <mat-form-field>
             <mat-label>Mot de passe</mat-label>
             <input matInput formControlName="passCtrl"
-              placeholder="Ex: username@gmail.com" type="password" required>
+              placeholder="Ex: ***** ou ********* mais nous recommandons ** " type="password" required>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Confirmez votre mot de passe</mat-label>
             <input matInput formControlName="confirmPassCtrl"
-              placeholder="Ex: username@gmail.com" type="password" required>
+              placeholder="Essayez en mettant la même chose qu'au dessus normalement ca marche" type="password" required>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious type="button">Back</button>
-            <button mat-button matStepperNext type="button">Next</button>
+            <button mat-button matStepperPrevious type="button">Précédent</button>
+            <button mat-button matStepperNext type="button">Suivant</button>
           </div>
         </mat-step>
         <mat-step>

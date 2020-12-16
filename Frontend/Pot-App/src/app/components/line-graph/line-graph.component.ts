@@ -31,7 +31,6 @@ export class LineGraphComponent implements OnInit {
     this.garden.get_parcel_data(this.parcel, currentDate.toISOString()).subscribe(
       (res) => {
         for (let i = 0; i < res.length; i++) {
-          this.labels.push(this.datePipe.transform(res[i].date_reception_donnee, 'd/M/yy H:mm'));
           this.soil_moisture_data.push(res[i].humidite_sol);
         }
         this.updateLineChart();
@@ -43,6 +42,7 @@ export class LineGraphComponent implements OnInit {
       (res) => {
         console.log(res)
         for (let i = 0; i < res.length; i++) {
+          this.labels.push(this.datePipe.transform(res[i].date_reception_donnee, 'd/M/yy H:mm'));
           this.exterior_moisture_data.push(res[i].humidite_exterieur);
           this.exterior_temp_data.push(res[i].temperature_exterieur);
         }
@@ -108,8 +108,8 @@ export class LineGraphComponent implements OnInit {
       },
 
       options: {
-        responsive : true,
-        maintainAspectRatio : true,
+        responsive: true,
+        maintainAspectRatio: true,
         title: {
           text: 'Mon graphique de mon jardin',
           display: true
@@ -127,7 +127,7 @@ export class LineGraphComponent implements OnInit {
     });
     window.screen.orientation.lock("landscape-primary")
     this.onClickUpdate(1);
-  
+
   }
 
 }
