@@ -34,7 +34,7 @@ export class SingleParcelComponent implements OnInit {
         this.parcel = result;
         this.plante = result.planteId;
         nom = this.plante['nom'].split(' ').join('_');
-        this.url_plante = "https://www.pot-app.be//wiki/" + this.plante['id'] + '/' + nom;
+        this.url_plante = "https://www.pot-app.be/wiki/" + this.plante['id'] + '/' + nom;
         this.loading = false;
         this.countdownDate = new Date(this.plante['date_semis_fin']).getTime();
       },
